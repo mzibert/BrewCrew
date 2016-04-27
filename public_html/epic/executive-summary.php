@@ -6,7 +6,7 @@
 	</head>
 	<body>
 		<main>
-			<p>Brew Crew (working name) is a web app technology company launched in 2016 with a vision to change the way craft beer lovers discover new brews. For breweries, we offer the ability to promote what's on tap. For beer lovers, our technology
+			<p>Brew Crew (working name) is a web app technology company launched in 2016 with a vision to change the way craft beer lovers discover new brews. For breweries, we offer the ability to promote what's on tap. For beer lovers, our technology lets you develop a flavor profile, get recomendations, rate, and review.
 
 
 
