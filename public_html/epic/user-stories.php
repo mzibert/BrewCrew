@@ -11,6 +11,7 @@
 		<main>
 			<p>As a user, I want to locate a brewery.</p>
 			<p>As a user, I want to rate beers.</p>
+			<p>As a user, I want to review beers.</p>
 			<p>As a user, I want to generate a taste profile.</p>
 			<p>As a user, I want to discover new beers based on my taste preferences.</p>
 			<p>As a user, I want to search for beers based on type, location, or rating.</p>
