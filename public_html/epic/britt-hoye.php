@@ -18,7 +18,7 @@
 			<ul>
 			<li>Because Britt is already so well versed in all of the local breweries and the normal inventory they offer, Britt would like to be notified when any of the local breweries change or update their on tap offerings. </li>
 			<li></li>
-		</ul>
+		</ul>Britt
 
 		</p>
 		
