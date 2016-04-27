@@ -15,7 +15,7 @@
 		<p><strong>Age:</strong> 68</p>
 		<p><strong>Profession:</strong> Retired actress and philanthropist, Sally Struthers is a 'beer aficionado'.</p>
 		<p><strong>Technology:</strong> Sally travels a great deal both for pleasure and to make personal appearances in support of her charities.She gets a new iPhone with every new release and utilizes various tablets as new products are introduced. </p>
-		<p><strong>Attitudes and Behaviors:</strong> Sally enjoys using both online and downloadable apps for entertainment purposes. Because she is very social, Sally likes to find interesting places to eat, drink and meet locals every place she visits. Sally often uses Yelp but sometimes finds Yelp unreliable in terms of finding unique places to enjoy. Being a long time advocate of craft beers Sally plans to explore her love of micro-brews during her stay in New Mexico. She wants to try the 'Award Winning' breweries but also wants to 'go off the beaten path' and try the lesser known brewery's. </p>
+		<p><strong>Attitudes and Behaviors:</strong> Sally enjoys using both online and downloadable apps for entertainment purposes. Because she is very social, Sally likes to find interesting places to eat, drink and meet locals every place she visits. Sally often uses Yelp but sometimes finds Yelp unreliable in terms of finding unique places to enjoy. Being a long time advocate of craft beers Sally plans to explore her love of micro-brews during her stay in New Mexico. She wants to try the 'Award Winning' breweries but also wants to 'go off the beaten path' and try the lesser known breweries. </p>
 
 		<strong>Goals:</strong>
 		<ul>
