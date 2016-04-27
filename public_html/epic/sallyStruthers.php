@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8"/>
 		<title>DB Design Persona and Use Case</title>
-		<link rel="stylesheet" type="text/css" href="css/style.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/style.css"/>
 	</head>
 	<body>
 		<header><h1><em>DB Design Persona and Use Case</em></h1>
