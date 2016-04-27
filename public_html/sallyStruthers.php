@@ -62,19 +62,6 @@
 					<li>#Id</li>
 				</ul>
 			</li>
-			<li>Wes will also often click on the 'Talk' button to add comments about the article</li>
-			<li>Wes will add his own links to all comments he leaves</li>
-			<li>Wes will have his links in his profile</li>
-			<li>Other users will develop a familiarity of Wes from his many edits and comments</li>
-			<li>Other uses will be able to access Wes's links from his profile and his comments</li>
-			<li>Wes will update articles will new data as new episodes come available</li>
-			<li>Wes will also update articles and add comments as he attends fandom events</li>
-			<li>A list of recent updates and comments will be in a viewable panel attacted to every article</li>
-			<li>Wes will see recent contributions from other users and will be able to respond</li>
-			<li>Wes will be able to access basic editing features native to the fandom website</li>
-			<li>Wes can expect the site to load quickly due to low resolution images</li>
-			<li>Wes will be able to access parts of the article via the Contents section</li>
-			<li>Wes can edit individual Content sections in each article</li>
 		</ul>
 
 
