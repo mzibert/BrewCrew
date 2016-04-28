@@ -20,23 +20,18 @@
 
 		<strong>Goals:</strong>
 		<ul>
-			<li>Josh would like to delete and add new brews.</li>
-			<li>Josh would also like to update location/hour information. </li>
-			<li></li>
-			<li></li>
-			<li>
+			<li>Josh would like to delete and add new brews and breweries.
 				<ul>
 					<li>
 						consumer rating of brewery and individual brews
 					</li>
 					<li>
-						beer stats such as IBU, ABV, type
+						beer stats such as IBU, ABV, color, ingredients, type
 					</li>
 					<li>
-						awards won by brewry
+						awards won by brewery
 					</li>
-					<li>
-
+					<li>update location/hour information
 					</li>
 				</ul>
 			</li>
