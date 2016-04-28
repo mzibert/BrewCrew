@@ -22,13 +22,25 @@
 		<ul>
 			<li></li>
 			<li>
-				Josh would like to view consumer rating of brewery and individual brews.
+				Administrator hides out of season beers.
 			</li>
-			<li>Josh would like to delete and add new brews with their details.
+			<li>Josh would like to interact as a 'User'.
 				<ul>
 
 					<li>
-						beer stats such as IBU, ABV, color, ingredients, type
+						Review beer
+					</li>
+					<li>
+						Tag beer
+					</li>
+					<li>
+						Add an optional review
+					</li>
+					<li>
+						Search for beers by style, color, geolocation and rating
+					</li>
+					<li>
+						Locate beers of a similar taste profile by using the beer compass
 					</li>
 				</ul>
 			</li>
