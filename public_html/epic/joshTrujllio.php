@@ -24,16 +24,11 @@
 			<li>
 				Josh would like to view consumer rating of brewery and individual brews.
 			</li>
-			<li>Josh would like to delete and add new brews and breweries with their details.
+			<li>Josh would like to delete and add new brews with their details.
 				<ul>
 
 					<li>
 						beer stats such as IBU, ABV, color, ingredients, type
-					</li>
-					<li>
-						awards won by brewery
-					</li>
-					<li>update location/hour information
 					</li>
 				</ul>
 			</li>

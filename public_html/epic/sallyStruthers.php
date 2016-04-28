@@ -23,6 +23,7 @@
 			<li>Sally wants to find beers that are 'less hoppy' and clear if they are Pilsners and Stouts that are less heavy than European Stouts such as Guiness. </li>
 			<li>Sally needs clear information on where to find these particular brews.</li>
 			<li>Sally is very social and knowledgeable about craft brews. She would love to interact both on and offline with like minded people. She also networks in this way.</li>
+			<li>Sally is a very 'visual' person and needs a friendly user interface.</li>
 			<li>Other than location, Sally would like to see information regarding both the brewery's and the individual brews. Such as:
 				<ul>
 					<li>
