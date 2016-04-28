@@ -10,7 +10,6 @@
 		</header>
 		<main>
 			<h2>Attributes and Entities</h2>
-			<img src="images/brewCrewConceptualDiagram.svg" alt="Attributes and Entities in Image Format">
 			<!--Full list of attributes and entities-->
 			<h4>User</h4>
 			<ul>
@@ -66,6 +65,7 @@
 				<li>beerId</li>
 				<li>tagLabel</li>
 			</ul>
+			<!--Need to add new beerTag and reviewTag entities and attribs-->
 
 			<h2>Relations</h2>
 			<!--Relations in all forms formatted into a table-->
@@ -77,7 +77,7 @@
 				</tr>
 				<tr>
 					<td>user-to-review</td>
-					<td>1-to-<i>n</i></td>
+					<td>m-to-<i>n</i></td>
 					<td>Users can create many reviews/ratings (for different beers).</td>
 				</tr>
 				<tr>
@@ -91,18 +91,18 @@
 					<td>Beers can have many reviews.</td>
 				</tr>
 				<tr>
-					<td>beer-to-tag</td>
-					<td>1-to-<i>n</i></td>
+					<td>beer-to-beerTag</td>
+					<td>m-to-<i>n</i></td>
 					<td>Beers can possess many tags</td>
 				</tr>
 				<tr>
-					<td>review-to-tag</td>
-					<td>1-to-<i>n</i></td>
+					<td>review-to-reviewTag</td>
+					<td>m-to-<i>n</i></td>
 					<td>Reviews can possess many tags.</td>
 				</tr>
 			</table>
 			<br>
-			<h2>ERD</h2>
+			<h2>ERD</h2><!--update with new image when image is complete-->
 			<img src="images/brew-crew-erd.svg" alt="ERD for Beer Compass Project">
 		</main>
 	</body>
