@@ -16,7 +16,7 @@
 			<p>As a user, I want to discover new beers based on my taste preferences.</p>
 			<p>As a user, I want to search for beers based on type, location, or rating.</p>
 			<p>As an administrator, I want to add seasonal or limited-time on-tap selections.</p>
-			<p>As an administrator, I want to update vital brewery information (e.g., location, hours, contact info, etc.).</p>
+			<p>As an administrator, I want to add flavor tags to beers from my brewery.</p>
 		</main>
 	</body>
 </html>

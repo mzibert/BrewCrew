@@ -9,13 +9,31 @@
 			<h1>System Goals</h1>
 		</header>
 		<main>
-			<--TURN INTO A LIST!!! Break down into more discrete elements-->
 			<p><strong>The system goals for this webapp are as follows:</strong></p>
-			<p>Using this site, the user will have the ability to generate a taste profile as they rate beers and further interact with the app.  All beers will use associated tags to locate beers on a flavor matrix; users' past choice of beers will allow their flavor profile to be plotted onto this matrix, and suggested beers can be generated based on this location. A rating is based on a 5-point scale, and may or may not have an associated text review.  Users can also locate nearby breweries.  They can also search the database of beers by location, type, and rating.  This allows for maximum discovery of new craft beers.</p>
-			<p>In short, by using this site, a user will be able to discover new beers, locate new breweries, and make recommendations about craft beers.</p>
+			<ul>
+				<li>Allow users to generate a taste profile by rating beers</li>
+				<li>Allow users to locate beers of a similar taste profile by using the beer compass (described below)</li>
+				<li>Allow users to rate beers on a five-point scale</li>
+				<li>Allow users to tag beers with associated flavor tags</li>
+				<li>Allow users to add an optional text review to their beer rating</li>
+				<li>Allow users to search for beers by style, color, geolocation and rating</li>
+				<li>Allow users to locate breweries</li>
+				<li>Allow administrators(brewmasters) to add seasonal selections or other limited time on-tap selections</li>
+				<li>Allow administrators to add beer flavor/style tags</li>
+			</ul>
 			<br>
-			<p>By using this site, an administrator will achieve the ability to maintain a current list of on-tap selections in an easily accessible location.  As the webapp will be a hub for craft beer information, maintaining a current list can help drive visitation in that it publicizes beers of limited availability. Users will be able to directly compare and contrast breweries in order to make the most informed choice. Administrators will also be able to update a breweries vital information.  As this includes details like location, hours, and contact information, having up-to-date data for a brewery is critical in ensuring patrons are never met with a closed door, or a similar unpleasant surprise.</p>
-			<p>In short, an administrator will be able to keep a brewery, and its associated beers from falling out of date.</p>
+			<p><strong>Definition of the Beer Compass:</strong></p>
+			<p>The beer compass is a matrix that utilizes two axes to categorize beer, and allows beers to be associated within general taste profiles based on coordinate location and associated beer attributes.</p>
+			<p>The x axis will be hoppy versus malty, using IBU as a qualitative scale.  The y axis will be color of beer, light to dark, mapped from 0 to 1 based on perceived color associated with style.</p>
+			<p>A flavor recommendation will take the following into consideration in this order:
+				<ol>
+					<li>Style</li>
+					<li>Color</li>
+					<li>IBU</li>
+					<li>5-pint Rating</li>
+					<li>Physical geolocation in relation to other beers the user has rated</li>
+				</ol>
+				Once a user has rated 6 beers, a flavor profile will be generated for their user account, and beers similar to those they have already rated highly will be recommended.</p>
 		</main>
 	</body>
 </html>
