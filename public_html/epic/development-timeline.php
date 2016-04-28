@@ -25,4 +25,8 @@
 	<li>Wire Frames<strong>Due Date: June 3rd</strong></li>
 	<li>CSS Grid in Html<strong>Due Date: June 3rd</strong></li>
 	<li>testing<strong>Due Date: June 3rd</strong></li>
+	<!--Finishing touches and branding-->
+	<ul>/Branding</ul>
+	<li>Branding <strong>Due Date: June, 14th</strong></li>
+	<li>Presentaion <strong> Due Date: June 15th</strong></li>
 </body>
