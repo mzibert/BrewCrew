@@ -9,6 +9,6 @@
 			<h1>Conceptual Model</h1>
 		</header>
 
-			<img src="brewCrewConceptualDiagram.svg">
+			<img src="images/brewCrewConceptualDiagram.svg">
 	</body>
 </html>
