@@ -18,20 +18,16 @@
 				<li>Allow users to add an optional text review to their beer rating</li>
 				<li>Allow users to search for beers by style, color, geolocation and rating</li>
 				<li>Allow users to locate breweries</li>
-				<li>Allow administrators(brewmasters) to add seasonal selections or other limited time on-tap selections</li>
-				<li>Allow administrators to add beer flavor/style tags</li>
+				<li>Allow administrators(brewmasters) to hide out of season selections or other limited time on-tap drafts</li>
 			</ul>
 			<br>
 			<p><strong>Definition of the Beer Compass:</strong></p>
-			<p>The beer compass is a matrix that utilizes two axes to categorize beer, and allows beers to be associated within general taste profiles based on coordinate location and associated beer attributes.</p>
+			<p>The beer compass is a matrix that utilizes two axes to categorize beer, and allows beers to be associated within general taste profiles based on coordinate location.</p>
 			<p>The x axis will be hoppy versus malty, using IBU as a qualitative scale.  The y axis will be color of beer, light to dark, mapped from 0 to 1 based on perceived color associated with style.</p>
 			<p>A flavor recommendation will take the following into consideration in this order:
 				<ol>
-					<li>Style</li>
 					<li>Color</li>
 					<li>IBU</li>
-					<li>5-pint Rating</li>
-					<li>Physical geolocation in relation to other beers the user has rated</li>
 				</ol>
 				Once a user has rated 6 beers, a flavor profile will be generated for their user account, and beers similar to those they have already rated highly will be recommended.</p>
 		</main>

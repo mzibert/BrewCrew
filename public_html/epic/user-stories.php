@@ -15,8 +15,7 @@
 			<p>As a user, I want to generate a taste profile.</p>
 			<p>As a user, I want to discover new beers based on my taste preferences.</p>
 			<p>As a user, I want to search for beers based on type, location, or rating.</p>
-			<p>As an administrator, I want to add seasonal or limited-time on-tap selections.</p>
-			<p>As an administrator, I want to add flavor tags to beers from my brewery.</p>
+			<p>As an administrator, I want to indicate availability of seasonal or limited-time on-tap selections.</p>
 		</main>
 	</body>
 </html>
