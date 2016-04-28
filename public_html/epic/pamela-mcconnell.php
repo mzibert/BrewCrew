@@ -19,6 +19,7 @@
 			<li>Because Pamela does not know a lot about craft beers she is looking for a tool to help her know what craft beer to order that closely resembles the things she likes best about the bottled beers she is used to. </li>
 			<li>Pamela would also like this tool to recommend a local brewery that carries the reccommended craft beer, so that she can suggest that local brewery for the next happy hour meeting.</li>
 			<li>Because Pamela is an avid social media person, and because she loves amazon she would like to be able to both read and write user reviews about the craft beers that she tries.</li>
+			<li>In addition to reviews, Pamela would absolutely love to be able to add user tags to the beers she tries and search additional beers that might have the same tags</li>
 		</ul>
 		</p><strong>Use Case:</strong>
 		
