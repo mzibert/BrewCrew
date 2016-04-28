@@ -7,12 +7,12 @@
 	<body>
 		<h1><em>BrewCrew DB Design Persona and Use Case</em></h1>
 		<h2>Persona</h2>
-		<p><strong>Name:</strong> Britt Hoye </p>
-		<p><strong>Age:</strong>27</p>
-		<p><strong>Profession</strong>Full time Physical Therapsit, Air Force Wife, Mom and Part Time Crossfit Coach.Britt is obsessed with all things fitness.  She wakes up at 4:00am so she can get her workout in before heading to work.  She has obtained several physical fitness certifications and insists on spending most of her spare time coaching Crossfit.  There is only one thing that interrupts Britt's fitness routine, and that is good local breweries with great craft beers.</p>
-		<p><strong>Technology</strong>Britt has a Dell laptop at home that she uses mainly for her online certification tests.  She really relies on her Samsung Galaxy S6 Edge to connect her to all things.  She is an avid Facebook user, and loves exploring new websites and apps that enhance her life and her passions.
+		<p><strong>Name:</strong> Pamela McConnell </p>
+		<p><strong>Age:</strong>40</p>
+		<p><strong>Profession</strong>Pamela is a full time Human Resource Manager at a local call center.  She spends approximately half of her day on the desktop computer that is provided by her job, and half of her day talking with the employees at the call center.</p>
+		<p><strong>Technology</strong>Pamela mainly uses her company supplied desktop while at work.  In her off time she loves to use her Samsung Galaxy S6 Edge to stay connected to all things social media.  She is an avid user of Facebook, Twitter, Instagram and Snap Chat.  She also really enjoys downloading, exploring and using new apps.  She has an ipad air at home that she uses mostly for shopping and streaming.  She is an Amazon Prime member and does almost all of her shopping on Amazon's site.  She uses Netflix, Hulu and Prime to stream all of her favorite shows, and eliminated her cable over a year ago.
 		</p>
-		<p><strong>Attitudes and Behaviors</strong>Britt is a self-proclaimed craft beer aficionado and local brewery critic.  She loves craft beers so much it is the one thing that she willingly gave up her six pack for.  She has also turned her love of all things local breweries into date night and family time outings.  When asked for her opinion on a local brewery Britt can quickly and easily spout off her likes and dislikes about the brewery itself and then a full detailed description of her favorite on tap beers.
+		<p><strong>Attitudes and Behaviors</strong>Pamela has recently been introduced to the local "craft beer" scene by a group of her HR co-workers.  They have been visiting some local breweries about once a month for Happy Hour.  Pamela is a beer drinker, but usually sticks to a few bottled beers, with Blue Moon being her favorite.  She is completely oblivious to the craft beer world and has discovered that it is a very difficult task to order Blue Moon at the local breweries.  Pamela is excited about the new local brewery happy hours, but is very intimidated by all of the unfamiliar beer options.
 		</p>
 		<p><strong>Goals:</strong>
 			<ul>
