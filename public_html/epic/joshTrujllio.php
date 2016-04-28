@@ -20,11 +20,13 @@
 
 		<strong>Goals:</strong>
 		<ul>
-			<li>Josh would like to delete and add new brews and breweries.
+			<li></li>
+			<li>
+				Josh would like to view consumer rating of brewery and individual brews.
+			</li>
+			<li>Josh would like to delete and add new brews and breweries with their details.
 				<ul>
-					<li>
-						consumer rating of brewery and individual brews
-					</li>
+
 					<li>
 						beer stats such as IBU, ABV, color, ingredients, type
 					</li>
