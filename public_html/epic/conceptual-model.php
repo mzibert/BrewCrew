@@ -8,8 +8,7 @@
 		<header>
 			<h1>Conceptual Model</h1>
 		</header>
-		<main>
-			<p>Conceptual Model goes here.</p>
-		</main>
+
+			<img src="brewCrewConceptualDiagram.svg">
 	</body>
 </html>

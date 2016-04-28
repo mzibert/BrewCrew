@@ -1,0 +1,363 @@
+<svg version="1.1" x="0" y="0" id="inkt81zd1" diagram-revision="3" width="1085" height="620" xmlns="http://www.w3.org/2000/svg" xmlns:xml="http://www.w3.org/XML/1998/namespace" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs/>
+  <g id="inkt81zd-ko1" transform="translate(5,5)">
+    <desc>root/abstractShapes/square?version=4&amp;author=Cinergix</desc>
+    <g id="image" transform="scale(11.944442749023438,6.777777671813965)">
+      <rect vector-effect="non-scaling-stroke" x="0" y="0" fill="#ffffff" stroke="#ffffff" width="90" height="90" style="stroke:#ffffff;stroke-dasharray:none;fill:#ffffff;stroke-width:2;" stroke-width="2" stroke-dasharray="none"/>
+    </g>
+  </g>
+  <g id="inkt81zd-ko2" transform="translate(400,84.85000000000002)">
+    <desc>root/database/table?version=1&amp;author=Cinergix</desc>
+    <g id="image">
+      <g id="graphics">
+        <rect x="1" y="1" width="254.18877963305852" height="218.07943497568388" rx="10" fill="#ffffff" stroke="#7f416a" stroke-width="0" stroke-opacity="0" stroke-linejoin="round" stroke-linecap="round"/>
+        <rect x="1" y="0" width="254.18877963305852" height="20" rx="9" fill="#7f416a" stroke="#7f416a" stroke-width="0" stroke-opacity="0" stroke-linejoin="round" stroke-linecap="round"/>
+        <rect x="1" y="10" width="254.18877963305852" height="14" fill="#7f416a" stroke="#7f416a" stroke-width="0" stroke-opacity="0" stroke-linejoin="round" stroke-linecap="round"/>
+        <rect x="1" y="210.07943497568388" width="254.18877963305852" height="4" fill="#7f416a" stroke="#7f416a" stroke-width="0" stroke-opacity="0" stroke-linejoin="round" stroke-linecap="round"/>
+        <rect x="1" y="210.07943497568388" width="254.18877963305852" height="10" rx="10" fill="#7f416a" stroke="#7f416a" stroke-width="0" stroke-opacity="0" stroke-linejoin="round" stroke-linecap="round"/>
+        <rect x="1" y="1" width="254.18877963305852" height="218.07943497568388" rx="10" fill="none" stroke="#7f416a" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+      </g>
+      <text x="0" y="0" width="56.5" height="19" transform="translate(8,3)">
+        <tspan x="0" y="14" style="font-family:Arial;font-size:13px;fill:#000000;font-weight:bold;">Review</tspan>
+      </text>
+      <text x="0" y="0" width="54.5" height="17.5" transform="translate(20,29)">
+        <tspan x="0" y="12.5" style="font-family:Arial;font-size:12px;fill:#000000;">reviewId</tspan>
+      </text>
+      <text x="0" y="0" width="44.5" height="17.5" transform="translate(20,46)">
+        <tspan x="0" y="12.5" style="font-family:Arial;font-size:12px;fill:#000000;">userId</tspan>
+      </text>
+      <text x="0" y="0" width="45" height="17.5" transform="translate(20,63)">
+        <tspan x="0" y="12.5" style="font-family:Arial;font-size:12px;fill:#000000;">beerId</tspan>
+      </text>
+      <text x="0" y="0" width="38" height="17.5" transform="translate(20,80)">
+        <tspan x="0" y="12.5" style="font-family:Arial;font-size:12px;fill:#000000;">tagId</tspan>
+      </text>
+      <text x="0" y="0" width="69.5" height="17.5" transform="translate(20,97)">
+        <tspan x="0" y="12.5" style="font-family:Arial;font-size:12px;fill:#000000;">reviewDate</tspan>
+      </text>
+      <text x="0" y="0" width="63.5" height="17.5" transform="translate(20,114)">
+        <tspan x="0" y="12.5" style="font-family:Arial;font-size:12px;fill:#000000;">reviewtext</tspan>
+      </text>
+      <text x="0" y="0" width="66" height="17.5" transform="translate(20,131)">
+        <tspan x="0" y="12.5" style="font-family:Arial;font-size:12px;fill:#000000;">pintRating</tspan>
+      </text>
+    </g>
+  </g>
+  <g id="inkt81zd-ko7" transform="translate(695,79.85000000000002)">
+    <desc>root/database/table?version=1&amp;author=Cinergix</desc>
+    <g id="image">
+      <g id="graphics">
+        <rect x="1" y="1" width="218.0236909609728" height="216.5" rx="10" fill="#ffffff" stroke="#7f416a" stroke-width="0" stroke-opacity="0" stroke-linejoin="round" stroke-linecap="round"/>
+        <rect x="1" y="0" width="218.0236909609728" height="20" rx="9" fill="#7f416a" stroke="#7f416a" stroke-width="0" stroke-opacity="0" stroke-linejoin="round" stroke-linecap="round"/>
+        <rect x="1" y="10" width="218.0236909609728" height="14" fill="#7f416a" stroke="#7f416a" stroke-width="0" stroke-opacity="0" stroke-linejoin="round" stroke-linecap="round"/>
+        <rect x="1" y="208.5" width="218.0236909609728" height="4" fill="#7f416a" stroke="#7f416a" stroke-width="0" stroke-opacity="0" stroke-linejoin="round" stroke-linecap="round"/>
+        <rect x="1" y="208.5" width="218.0236909609728" height="10" rx="10" fill="#7f416a" stroke="#7f416a" stroke-width="0" stroke-opacity="0" stroke-linejoin="round" stroke-linecap="round"/>
+        <rect x="1" y="1" width="218.0236909609728" height="216.5" rx="10" fill="none" stroke="#7f416a" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+      </g>
+      <text x="0" y="0" width="39.5" height="19" transform="translate(8,3)">
+        <tspan x="0" y="14" style="font-family:Arial;font-size:13px;fill:#000000;font-weight:bold;">Beer</tspan>
+      </text>
+      <text x="0" y="0" width="45" height="17.5" transform="translate(20,29)">
+        <tspan x="0" y="12.5" style="font-family:Arial;font-size:12px;fill:#000000;">beerId</tspan>
+      </text>
+      <text x="0" y="0" width="66.5" height="17.5" transform="translate(20,46)">
+        <tspan x="0" y="12.5" style="font-family:Arial;font-size:12px;fill:#000000;">beerName</tspan>
+      </text>
+      <text x="0" y="0" width="95" height="17.5" transform="translate(20,63)">
+        <tspan x="0" y="12.5" style="font-family:Arial;font-size:12px;fill:#000000;">beerDescription</tspan>
+      </text>
+      <text x="0" y="0" width="62" height="17.5" transform="translate(20,80)">
+        <tspan x="0" y="12.5" style="font-family:Arial;font-size:12px;fill:#000000;">beerStyle</tspan>
+      </text>
+      <text x="0" y="0" width="63.5" height="17.5" transform="translate(20,97)">
+        <tspan x="0" y="12.5" style="font-family:Arial;font-size:12px;fill:#000000;">beerColor</tspan>
+      </text>
+      <text x="0" y="0" width="56.5" height="17.5" transform="translate(20,114)">
+        <tspan x="0" y="12.5" style="font-family:Arial;font-size:12px;fill:#000000;">beerAbu</tspan>
+      </text>
+      <text x="0" y="0" width="74" height="17.5" transform="translate(20,131)">
+        <tspan x="0" y="12.5" style="font-family:Arial;font-size:12px;fill:#000000;">beerAwards</tspan>
+      </text>
+      <text x="0" y="0" width="38" height="17.5" transform="translate(20,148)">
+        <tspan x="0" y="12.5" style="font-family:Arial;font-size:12px;fill:#000000;">tagId</tspan>
+      </text>
+      <text x="0" y="0" width="88" height="17.5" transform="translate(20,165)">
+        <tspan x="0" y="12.5" style="font-family:Arial;font-size:12px;fill:#000000;">beerAvailabilty</tspan>
+      </text>
+      <text x="0" y="0" width="63.5" height="17.5" transform="translate(20,182)">
+        <tspan x="0" y="12.5" style="font-family:Arial;font-size:12px;fill:#000000;">breweryId</tspan>
+      </text>
+    </g>
+  </g>
+  <g id="inkt81zd-ko5" transform="translate(385,319.85)">
+    <desc>root/database/table?version=1&amp;author=Cinergix</desc>
+    <g id="image">
+      <g id="graphics">
+        <rect x="1" y="1" width="357" height="223.5" rx="10" fill="#ffffff" stroke="#7f416a" stroke-width="0" stroke-opacity="0" stroke-linejoin="round" stroke-linecap="round"/>
+        <rect x="1" y="0" width="357" height="20" rx="9" fill="#7f416a" stroke="#7f416a" stroke-width="0" stroke-opacity="0" stroke-linejoin="round" stroke-linecap="round"/>
+        <rect x="1" y="10" width="357" height="14" fill="#7f416a" stroke="#7f416a" stroke-width="0" stroke-opacity="0" stroke-linejoin="round" stroke-linecap="round"/>
+        <rect x="1" y="215.5" width="357" height="4" fill="#7f416a" stroke="#7f416a" stroke-width="0" stroke-opacity="0" stroke-linejoin="round" stroke-linecap="round"/>
+        <rect x="1" y="215.5" width="357" height="10" rx="10" fill="#7f416a" stroke="#7f416a" stroke-width="0" stroke-opacity="0" stroke-linejoin="round" stroke-linecap="round"/>
+        <rect x="1" y="1" width="357" height="223.5" rx="10" fill="none" stroke="#7f416a" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+      </g>
+      <text x="0" y="0" width="62.5" height="19" transform="translate(8,3)">
+        <tspan x="0" y="14" style="font-family:Arial;font-size:13px;fill:#000000;font-weight:bold;">Brewery</tspan>
+      </text>
+      <text x="0" y="0" width="63.5" height="17.5" transform="translate(20,29)">
+        <tspan x="0" y="12.5" style="font-family:Arial;font-size:12px;fill:#000000;">breweryId</tspan>
+      </text>
+      <text x="0" y="0" width="85" height="17.5" transform="translate(20,46)">
+        <tspan x="0" y="12.5" style="font-family:Arial;font-size:12px;fill:#000000;">breweryName</tspan>
+      </text>
+      <text x="0" y="0" width="77" height="17.5" transform="translate(20,63)">
+        <tspan x="0" y="12.5" style="font-family:Arial;font-size:12px;fill:#000000;">breweryURL</tspan>
+      </text>
+      <text x="0" y="0" width="98.5" height="17.5" transform="translate(20,80)">
+        <tspan x="0" y="12.5" style="font-family:Arial;font-size:12px;fill:#000000;">breweryLocation</tspan>
+      </text>
+      <text x="0" y="0" width="113.5" height="17.5" transform="translate(20,97)">
+        <tspan x="0" y="12.5" style="font-family:Arial;font-size:12px;fill:#000000;">breweryDescription</tspan>
+      </text>
+      <text x="0" y="0" width="85.5" height="17.5" transform="translate(20,114)">
+        <tspan x="0" y="12.5" style="font-family:Arial;font-size:12px;fill:#000000;">breweryHours</tspan>
+      </text>
+      <text x="0" y="0" width="88.5" height="17.5" transform="translate(20,131)">
+        <tspan x="0" y="12.5" style="font-family:Arial;font-size:12px;fill:#000000;">breweryPhone</tspan>
+      </text>
+      <text x="0" y="0" width="96" height="17.5" transform="translate(20,148)">
+        <tspan x="0" y="12.5" style="font-family:Arial;font-size:12px;fill:#000000;">breweryEstDate</tspan>
+      </text>
+    </g>
+  </g>
+  <g id="inkt81zd-ko3" transform="translate(140,89.85000000000002)">
+    <desc>root/database/table?version=1&amp;author=Cinergix</desc>
+    <g id="image">
+      <g id="graphics">
+        <rect x="1" y="1" width="218.1" height="276" rx="10" fill="#ffffff" stroke="#7f416a" stroke-width="0" stroke-opacity="0" stroke-linejoin="round" stroke-linecap="round"/>
+        <rect x="1" y="0" width="218.1" height="20" rx="9" fill="#7f416a" stroke="#7f416a" stroke-width="0" stroke-opacity="0" stroke-linejoin="round" stroke-linecap="round"/>
+        <rect x="1" y="10" width="218.1" height="14" fill="#7f416a" stroke="#7f416a" stroke-width="0" stroke-opacity="0" stroke-linejoin="round" stroke-linecap="round"/>
+        <rect x="1" y="268" width="218.1" height="4" fill="#7f416a" stroke="#7f416a" stroke-width="0" stroke-opacity="0" stroke-linejoin="round" stroke-linecap="round"/>
+        <rect x="1" y="268" width="218.1" height="10" rx="10" fill="#7f416a" stroke="#7f416a" stroke-width="0" stroke-opacity="0" stroke-linejoin="round" stroke-linecap="round"/>
+        <rect x="1" y="1" width="218.1" height="276" rx="10" fill="none" stroke="#7f416a" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+      </g>
+      <text x="0" y="0" width="39.5" height="19" transform="translate(8,3)">
+        <tspan x="0" y="14" style="font-family:Arial;font-size:13px;fill:#000000;font-weight:bold;">User</tspan>
+      </text>
+      <text x="0" y="0" width="44" height="17.5" transform="translate(20,29)">
+        <tspan x="0" y="12.5" style="font-family:Arial;font-size:12px;fill:#000000;">userid</tspan>
+      </text>
+      <text x="0" y="0" width="64.5" height="17.5" transform="translate(20,46)">
+        <tspan x="0" y="12.5" style="font-family:Arial;font-size:12px;fill:#000000;">username</tspan>
+      </text>
+      <text x="0" y="0" width="62" height="17.5" transform="translate(20,63)">
+        <tspan x="0" y="12.5" style="font-family:Arial;font-size:12px;fill:#000000;">firstName</tspan>
+      </text>
+      <text x="0" y="0" width="61.5" height="17.5" transform="translate(20,80)">
+        <tspan x="0" y="12.5" style="font-family:Arial;font-size:12px;fill:#000000;">lastName</tspan>
+      </text>
+      <text x="0" y="0" width="72.5" height="17.5" transform="translate(20,97)">
+        <tspan x="0" y="12.5" style="font-family:Arial;font-size:12px;fill:#000000;">dateOfBirth</tspan>
+      </text>
+      <text x="0" y="0" width="64.5" height="17.5" transform="translate(20,114)">
+        <tspan x="0" y="12.5" style="font-family:Arial;font-size:12px;fill:#000000;">userEmail</tspan>
+      </text>
+      <text x="0" y="0" width="55.5" height="17.5" transform="translate(20,131)">
+        <tspan x="0" y="12.5" style="font-family:Arial;font-size:12px;fill:#000000;">userSalt</tspan>
+      </text>
+      <text x="0" y="0" width="62.5" height="17.5" transform="translate(20,148)">
+        <tspan x="0" y="12.5" style="font-family:Arial;font-size:12px;fill:#000000;">userHash</tspan>
+      </text>
+      <text x="0" y="0" width="76" height="17.5" transform="translate(20,165)">
+        <tspan x="0" y="12.5" style="font-family:Arial;font-size:12px;fill:#000000;">accessLevel</tspan>
+      </text>
+      <text x="0" y="0" width="63.5" height="17.5" transform="translate(20,182)">
+        <tspan x="0" y="12.5" style="font-family:Arial;font-size:12px;fill:#000000;">breweryId</tspan>
+      </text>
+    </g>
+  </g>
+  <creately-doc id="inkt81zd1" updated-user="ARLENE GRAHAM" projectid="pinkt87su" format-version="1.0" owner-name="ARLENE GRAHAM" revision="4" sync="false">
+    <date-created>Thu Apr 28 2016 03:50:51 PM</date-created>
+    <resources/>
+    <libraries>
+      <lib-ID>
+        <id>basic</id>
+      </lib-ID>
+    </libraries>
+    <save-comments/>
+    <creator/>
+    <revision-user>agraham14@cnm.edu</revision-user>
+    <objects>
+      <object name="" id="inkt81zd-ko2" visible="true" model-type="CONTAINER" locked="false" zorder="1" type="NORMAL">
+        <container-id/>
+        <kobject-def-id>root/database/table?version=1&amp;author=Cinergix</kobject-def-id>
+        <dimension x="550" scale-x="0.992018507775638" scale-y="0.831115690995785" width="256.1887796330585" y="435" height="220.07943497568388" angle="0">
+          <default-bounds x="0" y="0" width="258.2417574718468" height="264.79026712991407"/>
+          <matrix ty="0" a="0.99200439453125" c="0" b="0" d="0.8311920166015625" tx="0"/>
+        </dimension>
+        <children/>
+        <libraries/>
+        <comments/>
+        <text position="COVER" text-rotation="NaN" wrapping="true">
+          <content>Review(~!nl!~)--(~!nl!~)reviewId(~!nl!~)userId(~!nl!~)beerId(~!nl!~)tagId(~!nl!~)reviewDate(~!nl!~)reviewtext(~!nl!~)pintRating(~!nl!~)(~!nl!~)--(~!nl!~)</content>
+          <text-formats>
+            <text-format display="block" block-indent="0" letter-spacing="0" under-line="false" color="0" align="left" order="0" left-margin="0" kerning="false" size="12" indent="0" end-index="33" begin-index="0" leading="0" right-margin="0" bold="false" font="Arial" bullet="false" italic="false">
+              <url/>
+              <target/>
+            </text-format>
+            <text-format display="block" block-indent="0" letter-spacing="0" under-line="false" color="0" align="left" order="1" left-margin="0" kerning="true" size="12" indent="0" end-index="38" begin-index="33" leading="0" right-margin="0" bold="false" font="Arial" bullet="false" italic="false">
+              <url/>
+              <target/>
+            </text-format>
+            <text-format display="block" block-indent="0" letter-spacing="0" under-line="false" color="0" align="left" order="2" left-margin="0" kerning="false" size="12" indent="0" end-index="76" begin-index="38" leading="0" right-margin="0" bold="false" font="Arial" bullet="false" italic="false">
+              <url/>
+              <target/>
+            </text-format>
+          </text-formats>
+        </text>
+        <group-id/>
+        <collapse expanded-x-pos="NaN" expanded-y-pos="NaN" collapsed="false" expanded-height="NaN" collapsed-y-pos="NaN" collapsed-width="NaN" collapsed-x-pos="NaN" expanded-width="NaN" collapsed-height="NaN"/>
+        <style line-color="8339818" alpha="1" fill="true" fill-gradient="GRADIENT_FILL_SOLID" line-thickness="2" line-style="LINESTYLE_NAME_SOLID" fill-color="8339818"/>
+        <data-items>
+          <data-item name="tabledata" value="Review(~!nl!~)--(~!nl!~)reviewId(~!nl!~)userId(~!nl!~)beerId(~!nl!~)tagId(~!nl!~)reviewDate(~!nl!~)reviewtext(~!nl!~)pintRating(~!nl!~)(~!nl!~)--(~!nl!~)" type=""/>
+          <data-item name="DiagramLinkURL" value="" type=""/>
+        </data-items>
+      </object>
+      <object name="" id="inkt81zd-ko7" visible="true" model-type="CONTAINER" locked="false" zorder="2" type="NORMAL">
+        <container-id/>
+        <kobject-def-id>root/database/table?version=1&amp;author=Cinergix</kobject-def-id>
+        <dimension x="845" scale-x="0.7416146974549133" scale-y="0.573189926547744" width="220" y="430" height="218.5" angle="0">
+          <default-bounds x="0" y="0" width="296.6359311009733" height="465.31679780436565"/>
+          <matrix ty="0" a="0.7416839599609375" c="0" b="0" d="0.4695587158203125" tx="0"/>
+        </dimension>
+        <children/>
+        <libraries/>
+        <comments/>
+        <text position="COVER" text-rotation="NaN" wrapping="true">
+          <content>Beer(~!nl!~)--(~!nl!~)beerId(~!nl!~)beerName(~!nl!~)beerDescription(~!nl!~)beerStyle(~!nl!~)beerColor(~!nl!~)beerAbu(~!nl!~)beerAwards(~!nl!~)tagId(~!nl!~)beerAvailabilty(~!nl!~)breweryId(~!nl!~)--(~!nl!~)</content>
+          <text-formats>
+            <text-format display="block" block-indent="0" letter-spacing="0" under-line="false" color="0" align="left" order="0" left-margin="0" kerning="false" size="12" indent="0" end-index="114" begin-index="0" leading="0" right-margin="0" bold="false" font="Arial" bullet="false" italic="false">
+              <url/>
+              <target/>
+            </text-format>
+          </text-formats>
+        </text>
+        <group-id/>
+        <collapse expanded-x-pos="NaN" expanded-y-pos="NaN" collapsed="false" expanded-height="NaN" collapsed-y-pos="NaN" collapsed-width="NaN" collapsed-x-pos="NaN" expanded-width="NaN" collapsed-height="NaN"/>
+        <style line-color="8339818" alpha="1" fill="true" fill-gradient="GRADIENT_FILL_SOLID" line-thickness="2" line-style="LINESTYLE_NAME_SOLID" fill-color="8339818"/>
+        <data-items>
+          <data-item name="tabledata" value="Beer(~!nl!~)--(~!nl!~)beerId(~!nl!~)beerName(~!nl!~)beerDescription(~!nl!~)beerStyle(~!nl!~)beerColor(~!nl!~)beerAbu(~!nl!~)beerAwards(~!nl!~)tagId(~!nl!~)beerAvailabilty(~!nl!~)breweryId(~!nl!~)--(~!nl!~)" type=""/>
+          <data-item name="DiagramLinkURL" value="" type=""/>
+        </data-items>
+      </object>
+      <object name="" id="inkt81zd-ko1" visible="true" model-type="NORMAL" locked="false" zorder="0" type="NORMAL">
+        <container-id/>
+        <kobject-def-id>root/abstractShapes/square?version=4&amp;author=Cinergix</kobject-def-id>
+        <dimension x="155" scale-x="1.0022222222222221" scale-y="1.002222206553475" width="1074.9998474121094" y="355.15" height="609.9999904632568" angle="0">
+          <default-bounds x="0" y="0" width="90" height="90"/>
+          <matrix ty="0" a="11.944442749023438" c="0" b="0" d="6.777777671813965" tx="0"/>
+        </dimension>
+        <children/>
+        <libraries/>
+        <comments/>
+        <text position="CENTRE" text-rotation="NaN" wrapping="true">
+          <content/>
+          <text-formats>
+            <text-format display="block" block-indent="0" letter-spacing="0" under-line="false" color="0" align="center" order="0" left-margin="0" kerning="false" size="14" indent="0" end-index="-1" begin-index="-1" leading="0" right-margin="0" bold="false" font="Lato" bullet="false" italic="false">
+              <url/>
+              <target/>
+            </text-format>
+          </text-formats>
+        </text>
+        <group-id/>
+        <collapse expanded-x-pos="NaN" expanded-y-pos="NaN" collapsed="false" expanded-height="NaN" collapsed-y-pos="NaN" collapsed-width="NaN" collapsed-x-pos="NaN" expanded-width="NaN" collapsed-height="NaN"/>
+        <style line-color="16777215" alpha="1" fill="true" fill-gradient="GRADIENT_FILL_SOLID" line-thickness="2" line-style="LINESTYLE_NAME_SOLID" fill-color="16777215"/>
+        <data-items>
+          <data-item name="notes" value="" type=""/>
+          <data-item name="isConnected" value="0" type=""/>
+          <data-item name="DiagramLinkURL" value="" type=""/>
+        </data-items>
+      </object>
+      <object name="" id="inkt81zd-ko3" visible="true" model-type="CONTAINER" locked="false" zorder="4" type="NORMAL">
+        <container-id/>
+        <kobject-def-id>root/database/table?version=1&amp;author=Cinergix</kobject-def-id>
+        <dimension x="290" scale-x="0.7630438550875368" scale-y="0.8230940044411547" width="220.1" y="440" height="278" angle="0">
+          <default-bounds x="0" y="0" width="288.4610530896306" height="524.5604818530335"/>
+          <matrix ty="0" a="0.7630157470703125" c="0" b="0" d="0.52996826171875" tx="0"/>
+        </dimension>
+        <children/>
+        <libraries/>
+        <comments/>
+        <text position="COVER" text-rotation="NaN" wrapping="true">
+          <content>User(~!nl!~)--(~!nl!~)userid(~!nl!~)username(~!nl!~)firstName(~!nl!~)lastName(~!nl!~)dateOfBirth(~!nl!~)userEmail(~!nl!~)userSalt(~!nl!~)userHash(~!nl!~)accessLevel(~!nl!~)breweryId(~!nl!~)--(~!nl!~)(~!nl!~)</content>
+          <text-formats>
+            <text-format display="block" block-indent="0" letter-spacing="0" under-line="false" color="0" align="left" order="0" left-margin="0" kerning="false" size="12" indent="0" end-index="109" begin-index="0" leading="0" right-margin="0" bold="false" font="Arial" bullet="false" italic="false">
+              <url/>
+              <target/>
+            </text-format>
+          </text-formats>
+        </text>
+        <group-id/>
+        <collapse expanded-x-pos="NaN" expanded-y-pos="NaN" collapsed="false" expanded-height="NaN" collapsed-y-pos="NaN" collapsed-width="NaN" collapsed-x-pos="NaN" expanded-width="NaN" collapsed-height="NaN"/>
+        <style line-color="8339818" alpha="1" fill="true" fill-gradient="GRADIENT_FILL_SOLID" line-thickness="2" line-style="LINESTYLE_NAME_SOLID" fill-color="8339818"/>
+        <data-items>
+          <data-item name="tabledata" value="User(~!nl!~)--(~!nl!~)userid(~!nl!~)username(~!nl!~)firstName(~!nl!~)lastName(~!nl!~)dateOfBirth(~!nl!~)userEmail(~!nl!~)userSalt(~!nl!~)userHash(~!nl!~)accessLevel(~!nl!~)breweryId(~!nl!~)--(~!nl!~)(~!nl!~)" type=""/>
+          <data-item name="DiagramLinkURL" value="" type=""/>
+        </data-items>
+      </object>
+      <object name="" id="inkt81zd-ko5" visible="true" model-type="CONTAINER" locked="false" zorder="3" type="NORMAL">
+        <container-id/>
+        <kobject-def-id>root/database/table?version=1&amp;author=Cinergix</kobject-def-id>
+        <dimension x="535" scale-x="1.2445831166579997" scale-y="0.6656826568265682" width="359" y="670" height="225.5" angle="0">
+          <default-bounds x="0" y="0" width="470.4038852856213" height="426.74935589115967"/>
+          <matrix ty="0" a="0.7631378173828125" c="0" b="0" d="0.528411865234375" tx="0"/>
+        </dimension>
+        <children/>
+        <libraries/>
+        <comments/>
+        <text position="COVER" text-rotation="NaN" wrapping="true">
+          <content>Brewery(~!nl!~)--(~!nl!~)breweryId(~!nl!~)breweryName(~!nl!~)breweryURL(~!nl!~)breweryLocation(~!nl!~)breweryDescription(~!nl!~)breweryHours(~!nl!~)breweryPhone(~!nl!~)breweryEstDate(~!nl!~)--(~!nl!~)</content>
+          <text-formats>
+            <text-format display="block" block-indent="0" letter-spacing="0" under-line="false" color="0" align="left" order="0" left-margin="0" kerning="false" size="12" indent="0" end-index="123" begin-index="0" leading="0" right-margin="0" bold="false" font="Arial" bullet="false" italic="false">
+              <url/>
+              <target/>
+            </text-format>
+          </text-formats>
+        </text>
+        <group-id/>
+        <collapse expanded-x-pos="NaN" expanded-y-pos="NaN" collapsed="false" expanded-height="NaN" collapsed-y-pos="NaN" collapsed-width="NaN" collapsed-x-pos="NaN" expanded-width="NaN" collapsed-height="NaN"/>
+        <style line-color="8339818" alpha="1" fill="true" fill-gradient="GRADIENT_FILL_SOLID" line-thickness="2" line-style="LINESTYLE_NAME_SOLID" fill-color="8339818"/>
+        <data-items>
+          <data-item name="tabledata" value="Brewery(~!nl!~)--(~!nl!~)breweryId(~!nl!~)breweryName(~!nl!~)breweryURL(~!nl!~)breweryLocation(~!nl!~)breweryDescription(~!nl!~)breweryHours(~!nl!~)breweryPhone(~!nl!~)breweryEstDate(~!nl!~)--(~!nl!~)" type=""/>
+          <data-item name="DiagramLinkURL" value="" type=""/>
+        </data-items>
+      </object>
+    </objects>
+    <date-updated>Thu Apr 28 2016 03:50:51 PM</date-updated>
+    <notes/>
+    <koDefIDList>
+      <def-ID>root/database/table?version=1&amp;author=Cinergix</def-ID>
+      <def-ID>root/abstractShapes/square?version=4&amp;author=Cinergix</def-ID>
+      <def-ID>root/abstractShapes?version=1&amp;author=Cinergix</def-ID>
+    </koDefIDList>
+    <docname>brewCrewConceptualDiagram</docname>
+    <diagramTypeId>database-design</diagramTypeId>
+    <description/>
+    <connectors/>
+    <creatorUid>PHP442FE-8DA9-BE3A-2F8F-E380D394364C</creatorUid>
+    <inSync>false</inSync>
+    <source-tool/>
+    <canvas-width>1500</canvas-width>
+    <canvas-height>1500</canvas-height>
+    <revisionUserId>PHP442FE-8DA9-BE3A-2F8F-E380D394364C</revisionUserId>
+    <tags>software,tech</tags>
+    <kodefs/>
+    <published>false</published>
+    <editHash/>
+    <embedHash>z3VZZYybgultYAPFa686PbcE=</embedHash>
+    <app-version/>
+    <save-type/>
+    <comments/>
+    <dtLastEdit>LAST_EDIT_CREATION</dtLastEdit>
+    <viewHash/>
+  </creately-doc>
+</svg>
