@@ -19,24 +19,24 @@
 
 		<strong>Goals:</strong>
 		<ul>
-			<li>Sally wants to enjoy her favorite kinds of beer without having to discover by trail and error which brewers offer the qualities of beer she enjoys.</li>
-			<li>Sally wants to find beers that are 'less hoppy' and clear if they are Pilsners and Stouts that are less heavy than European Stouts such as Guiness. </li>
+			<li>Sally would prefer to avoid discovering new beers by trial and error.</li>
+			<li>Sally wants to find beers that are more malty than hoppy. </li>
 			<li>Sally needs clear information on where to find these particular brews.</li>
-			<li>Sally is very social and knowledgeable about craft brews. She would love to interact both on and offline with like minded people. She also networks in this way.</li>
+			<li>Sally is very social and knowledgeable about craft brews. She would love to interact both on and offline with like-minded people. She also networks in this way.</li>
 			<li>Sally is a very 'visual' person and needs a friendly user interface.</li>
-			<li>Other than location, Sally would like to see information regarding both the brewery's and the individual brews. Such as:
+			<li>Other than location, Sally would like to see the following information regarding both the brewery's and the individual brews:
 				<ul>
 					<li>
-						consumer rating of brewery and individual brews
+						Consumer rating of both the brewery and individual brews
 					</li>
 					<li>
-						beer stats such as IBU, ABV, type
+						Beer descriptors such as style, IBU, and ABV
 					</li>
 					<li>
-						awards won by brewery
+						Awards won 
 					</li>
 					<li>
-						information on brewery history, brew master and crafters
+						Information on brewery history, their brew master(s), and crafters
 					</li>
 				</ul>
 			</li>
