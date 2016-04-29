@@ -16,4 +16,9 @@ CREATE TABLE review (
    reviewPintRating INT UNSIGNED NOT NULL,
    reviewDate TIMESTAMP,
    reviewText VARCHAR(2000),
-)
+   INDEX(reviewId),
+   INDEX(reviewUserId),
+   FOREIGN KEY (beerId) REFERENCES beer(beerId),
+   FOREIGN KEY (reviewUserId) REFERENCES review(reviewUserId),
+   PRIMARY KEY (reviewId)
+);
