@@ -34,7 +34,7 @@
 				<li>breweryLocation</li>
 				<li>breweryPhone</li>
 				<li>breweryName</li>
-				<li>breweryURL</li>
+				<li>breweryUrl</li>
 			</ul>
 			<h4>Beer</h4>
 			<ul>
