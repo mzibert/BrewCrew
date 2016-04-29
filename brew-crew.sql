@@ -1,10 +1,10 @@
-DROP TABLE IF EXISTS user
-DROP TABLE IF EXISTS brewery
-DROP TABLE IF EXISTS beer
-DROP TABLE IF EXISTS review
-DROP TABLE IF EXISTS beerTag
-DROP TABLE IF EXISTS review
-DROP TABLE IF EXISTS tag
+DROP TABLE IF EXISTS user;
+DROP TABLE IF EXISTS brewery;
+DROP TABLE IF EXISTS beer;
+DROP TABLE IF EXISTS review;
+DROP TABLE IF EXISTS beerTag;
+DROP TABLE IF EXISTS review;
+DROP TABLE IF EXISTS tag;
 
 CREATE TABLE brewery (
    breweryId INT UNSIGNED AUTO_INCREMENT,
@@ -44,5 +44,25 @@ CREATE TABLE  User  (
 	userHash  <type>,
 	userSalt  <type>,
 	UNIQUE(username),
-	UNIQUE(userEmail),
+	UNIQUE(userEmail)
+);
+
+CREATE TABLE tag (
+	tagId INT UNSIGNED AUTO_INCREMENT NOT NULL,
+	tagLabel VARCHAR(64) NOT NULL,
+	PRIMARY KEY (tagId)
+);
+
+CREATE TABLE beerTag (
+	beerTagBeerId INT UNSIGNED NOT NULL,
+	beerTagTagId INT UNSIGNED NOT NULL,
+	FOREIGN KEY(beerTagBeerId) REFERENCES beer(beerId),
+	FOREIGN KEY(beerTagTagId) REFERENCES tag(tagId)
+);
+
+CREATE TABLE reviewTag (
+	reviewTagReviewId INT UNSIGNED NOT NULL,
+	reviewTagTagId INT UNSIGNED NOT NULL,
+	FOREIGN KEY(reviewTagReviewID) REFERENCES review(reviewId),
+	FOREIGN KEY(reviewTagTagId) REFERENCES tag(tagId)
 );
