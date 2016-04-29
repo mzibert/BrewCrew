@@ -1,9 +1,9 @@
 CREATE TABLE Brewery (
 breweryid INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-breweryDescription varchar(1000),
-breweryEstDate varchar(150),
-breweryHours varchar(250),
-breweryPhone varchar(14),
-breweryName varchar(100) NOT NULL,
+breweryDescription VARCHAR(1000),
+breweryEstDate VARCHAR(150),
+breweryHours VARCHAR(250),
+breweryPhone VARCHAR(14),
+breweryName VARCHAR(100) NOT NULL,
 breweryUrl VARCHAR(100),
 )
