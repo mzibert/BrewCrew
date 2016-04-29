@@ -85,7 +85,7 @@
 				<tr>
 					<td>user-to-review</td>
 					<td><i>m</i>-to-<i>n</i></td>
-					<td>Users can create many reviews/ratings.</td>
+					<td>Many users can create many reviews/ratings.</td>
 				</tr>
 				<tr>
 					<td>brewery-to-beer</td>
@@ -100,12 +100,22 @@
 				<tr>
 					<td>beer-to-beerTag</td>
 					<td><i>m</i>-to-<i>n</i></td>
-					<td>Beers can possess many tags.</td>
+					<td>Many beers can possess many beer-tags.</td>
 				</tr>
 				<tr>
 					<td>review-to-reviewTag</td>
 					<td><i>m</i>-to-<i>n</i></td>
-					<td>Reviews can possess many tags.</td>
+					<td>Many reviews can possess many review-tags.</td>
+				</tr>
+				<tr>
+					<td>tag-to-beerTag</td>
+					<td><i>m</i>-to-<i>n</i></td>
+					<td>Many tags can possess many beer-tags.</td>
+				</tr>
+				<tr>
+					<td>tag-to-reviewTag</td>
+					<td><i>m</i>-to-<i>n</i></td>
+					<td>Many tags can possess many review-tags.</td>
 				</tr>
 			</table>
 			<br>
