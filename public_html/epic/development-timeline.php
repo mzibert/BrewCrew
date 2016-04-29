@@ -16,7 +16,7 @@
 	<!--All tasks needed to complete the controller-->
 	<h2>Controller</h2>
 	<Ul>Task</Ul>
-	<li>Incorporate external API's <strong> Due Date: May 20th, 2016</strong></li>
+	<li>Incorporate External APIs <strong> Due Date: May 20th, 2016</strong></li>
 	<li>Testing <strong> Due Date: May 20th, 2016</strong></li>
 	<!--All tasks needed to complete the View-->
 	<h2>View</h2>
@@ -24,9 +24,9 @@
 	<li>Site Map<strong> Due Date: June 3rd</strong></li>
 	<li>Wire Frames<strong> Due Date: June 3rd</strong></li>
 	<li>CSS Grid in Html<strong> Due Date: June 3rd</strong></li>
-	<li>testing<strong> Due Date: June 3rd</strong></li>
+	<li>%esting<strong> Due Date: June 3rd</strong></li>
 	<!--Finishing touches and branding-->
-	<ul>/Branding</ul>
+	<ul>Branding</ul>
 	<li>Branding <strong> Due Date: June, 14th</strong></li>
-	<li>Presentaion <strong> Due Date: June 15th</strong></li>
+	<li>Presentation <strong> Due Date: June 15th</strong></li>
 </body>

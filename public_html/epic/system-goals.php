@@ -23,7 +23,7 @@
 			<br>
 			<p><strong>Definition of the Beer Compass:</strong></p>
 			<p>The beer compass is a matrix that utilizes two axes to categorize beer, and allows beers to be associated within general taste profiles based on coordinate location.</p>
-			<p>The x axis will be hoppy versus malty, using IBU as a qualitative scale.  The y axis will be color of beer, light to dark, mapped from 0 to 1 based on perceived color associated with style.</p>
+			<p>The x axis will be hoppy versus malty, using IBU as a quantitative scale.  The y axis will be color of beer, light to dark, mapped from 0 to 1 based on perceived color associated with style.</p>
 			<p>A flavor recommendation will take the following into consideration in this order:
 				<ol>
 					<li>Color</li>

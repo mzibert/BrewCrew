@@ -73,7 +73,6 @@
 				<li>reviewId</li>
 				<li>tagId</li>
 			</ul>
-			<!--Need to add new beerTag and reviewTag entities and attribs-->
 
 			<h2>Relations</h2>
 			<!--Relations in all forms formatted into a table-->
@@ -110,7 +109,7 @@
 				</tr>
 			</table>
 			<br>
-			<h2>ERD</h2><!--update with new image when image is complete-->
+			<h2>ERD</h2>
 			<img src="images/brew-crew-erd.svg" alt="ERD for Beer Compass Project">
 		</main>
 	</body>
