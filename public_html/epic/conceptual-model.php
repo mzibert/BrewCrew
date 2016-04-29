@@ -39,7 +39,6 @@
 			<ul>
 				<li>beerId</li>
 				<li>breweryId</li>
-				<li>tagId</li>
 				<li>beerABV</li>
 				<li>beerAvailability</li>
 				<li>beerAwards</li>
@@ -54,7 +53,6 @@
 				<li>reviewId</li>
 				<li>beerId</li>
 				<li>userId</li>
-				<li>tagId</li>
 				<li>pintRating</li>
 				<li>reviewDate</li>
 				<li>reviewText</li>
@@ -64,6 +62,16 @@
 				<li>tagId</li>
 				<li>beerId</li>
 				<li>tagLabel</li>
+			</ul>
+			<h4>beerTag</h4>
+			<ul>
+				<li>beerId</li>
+				<li>tagId</li>
+			</ul>
+			<h4>reviewTag</h4>
+			<ul>
+				<li>reviewId</li>
+				<li>tagId</li>
 			</ul>
 			<!--Need to add new beerTag and reviewTag entities and attribs-->
 
@@ -77,8 +85,8 @@
 				</tr>
 				<tr>
 					<td>user-to-review</td>
-					<td>m-to-<i>n</i></td>
-					<td>Users can create many reviews/ratings (for different beers).</td>
+					<td><i>m</i>-to-<i>n</i></td>
+					<td>Users can create many reviews/ratings.</td>
 				</tr>
 				<tr>
 					<td>brewery-to-beer</td>
@@ -92,12 +100,12 @@
 				</tr>
 				<tr>
 					<td>beer-to-beerTag</td>
-					<td>m-to-<i>n</i></td>
-					<td>Beers can possess many tags</td>
+					<td><i>m</i>-to-<i>n</i></td>
+					<td>Beers can possess many tags.</td>
 				</tr>
 				<tr>
 					<td>review-to-reviewTag</td>
-					<td>m-to-<i>n</i></td>
+					<td><i>m</i>-to-<i>n</i></td>
 					<td>Reviews can possess many tags.</td>
 				</tr>
 			</table>
