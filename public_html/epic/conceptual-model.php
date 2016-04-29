@@ -40,12 +40,12 @@
 			<ul>
 				<li>beerId</li>
 				<li>beerBreweryId</li>
-				<li>beerABV</li>
+				<li>beerAbv</li>
 				<li>beerAvailability</li>
 				<li>beerAwards</li>
 				<li>beerColor</li>
 				<li>beerDescription</li>
-				<li>beerIBU</li>
+				<li>beerIbu</li>
 				<li>beerName</li>
 				<li>beerStyle</li>
 			</ul>
