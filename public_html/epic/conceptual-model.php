@@ -14,11 +14,12 @@
 			<h4>User</h4>
 			<ul>
 				<li>userId</li>
-				<li>breweryId</li>
-				<li>accessLevel</li>
-				<li>dateOfBirth</li>
-				<li>firstName</li>
-				<li>lastName</li>
+				<li>userBreweryId</li>
+				<li>userAccessLevel</li>
+				<li>userActivationToken</li>
+				<li>userDateOfBirth</li>
+				<li>userFirstName</li>
+				<li>userLastName</li>
 				<li>userEmail</li>
 				<li>username</li>
 				<li>userHash</li>
