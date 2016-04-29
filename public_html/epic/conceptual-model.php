@@ -38,7 +38,7 @@
 			</ul>
 			<h4>Beer</h4>
 			<ul>
-				<li>beerBeerId</li>
+				<li>beerId</li>
 				<li>beerBreweryId</li>
 				<li>beerABV</li>
 				<li>beerAvailability</li>
@@ -70,7 +70,7 @@
 			</ul>
 			<h4>reviewTag</h4>
 			<ul>
-				<li>reviewId</li>
+				<li>reviewTagReviewId</li>
 				<li>reviewTagTagId</li>
 			</ul>
 
