@@ -19,23 +19,23 @@ CREATE TABLE brewery (
 
 CREATE TABLE review (
    reviewId INT UNSIGNED AUTO_INCREMENT,
-   beerId INT UNSIGNED NOT NULL,
+   reviewbeerId INT UNSIGNED NOT NULL,
    reviewUserId INT UNSIGNED NOT NULL,
    reviewPintRating INT UNSIGNED NOT NULL,
    reviewDate TIMESTAMP,
    reviewText VARCHAR(2000),
    INDEX(reviewId),
    INDEX(reviewUserId),
-   FOREIGN KEY (beerId) REFERENCES beer(beerId),
+   FOREIGN KEY (reviewbeerId) REFERENCES beer(beerId),
    FOREIGN KEY (reviewUserId) REFERENCES review(reviewUserId),
    PRIMARY KEY (reviewId)
 );
 
 CREATE TABLE user (
 	userId  INT UNSIGNED AUTO_INCREMENT NOT NULL,
-	userBreweryId  INT UNSIGNED AUTO_INCREMENT NOT NULL,
-	userAccessLevel  INT UNSIGNED AUTO_INCREMENT NOT NULL,
-	userActivationToken  INT UNSIGNED AUTO_INCREMENT NOT NULL,
+	userBreweryId  INT UNSIGNED NOT NULL,
+	userAccessLevel  INT UNSIGNED NOT NULL,
+	userActivationToken  INT UNSIGNED NOT NULL,
 	userDateOfBirth  DATE NOT NULL,
 	userFirstName  VARCHAR(32) NOT NULL,
 	userLastName  VARCHAR(32) NOT NULL,
