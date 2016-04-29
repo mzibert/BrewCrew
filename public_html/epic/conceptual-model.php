@@ -38,8 +38,8 @@
 			</ul>
 			<h4>Beer</h4>
 			<ul>
-				<li>beerId</li>
-				<li>breweryId</li>
+				<li>beerBeerId</li>
+				<li>beerBreweryId</li>
 				<li>beerABV</li>
 				<li>beerAvailability</li>
 				<li>beerAwards</li>
@@ -52,27 +52,26 @@
 			<h4>Review</h4>
 			<ul>
 				<li>reviewId</li>
-				<li>beerId</li>
-				<li>userId</li>
-				<li>pintRating</li>
+				<li>reviewBeerId</li>
+				<li>reviewUserId</li>
+				<li>reviewPintRating</li>
 				<li>reviewDate</li>
 				<li>reviewText</li>
 			</ul>
 			<h4>Tag</h4>
 			<ul>
 				<li>tagId</li>
-				<li>beerId</li>
 				<li>tagLabel</li>
 			</ul>
-			<h4>beerTag</h4>
+			<h4>BeerTag</h4>
 			<ul>
-				<li>beerId</li>
-				<li>tagId</li>
+				<li>beerTagBeerId</li>
+				<li>beerTagTagId</li>
 			</ul>
 			<h4>reviewTag</h4>
 			<ul>
 				<li>reviewId</li>
-				<li>tagId</li>
+				<li>reviewTagTagId</li>
 			</ul>
 
 			<h2>Relations</h2>
