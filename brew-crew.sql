@@ -30,6 +30,7 @@ CREATE TABLE review (
    FOREIGN KEY (reviewUserId) REFERENCES review(reviewUserId),
    PRIMARY KEY (reviewId)
 );
+
 CREATE TABLE  User  (
 	userId  INT UNSIGNED AUTO_INCREMENT NOT NULL,
 	userBreweryId  INT UNSIGNED AUTO_INCREMENT NOT NULL,

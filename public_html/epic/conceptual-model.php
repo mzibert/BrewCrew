@@ -21,7 +21,7 @@
 				<li>userFirstName</li>
 				<li>userLastName</li>
 				<li>userEmail</li>
-				<li>username</li>
+				<li>userUsername</li>
 				<li>userHash</li>
 				<li>userSalt</li>
 			</ul>
