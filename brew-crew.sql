@@ -6,6 +6,22 @@ DROP TABLE IF EXISTS beerTag;
 DROP TABLE IF EXISTS reviewTag;
 DROP TABLE IF EXISTS tag;
 
+CREATE TABLE user (
+	userId  INT UNSIGNED AUTO_INCREMENT NOT NULL,
+	userBreweryId  INT UNSIGNED NOT NULL,
+	userAccessLevel  INT UNSIGNED NOT NULL,
+	userActivationToken  INT UNSIGNED NOT NULL,
+	userDateOfBirth  DATE NOT NULL,
+	userFirstName  VARCHAR(32) NOT NULL,
+	userLastName  VARCHAR(32) NOT NULL,
+	userEmail  VARCHAR(128) NOT NULL,
+	username  VARCHAR(32) NOT NULL,
+	userHash  <type>,
+	userSalt  <type>,
+	UNIQUE(username),
+	UNIQUE(userEmail)
+);
+
 CREATE TABLE brewery (
    breweryId INT UNSIGNED AUTO_INCREMENT,
    breweryDescription VARCHAR(1000),
