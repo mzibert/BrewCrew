@@ -16,10 +16,11 @@ CREATE TABLE user (
 	userLastName  VARCHAR(32) NOT NULL,
 	userEmail  VARCHAR(128) NOT NULL,
 	username  VARCHAR(32) NOT NULL,
-	userHash  <type>,
-	userSalt  <type>,
+	userHash  CHAR(64),
+	userSalt  CHAR(128),
 	UNIQUE(username),
-	UNIQUE(userEmail)
+	UNIQUE(userEmail),
+	PRIMARY KEY (userId)
 );
 
 CREATE TABLE brewery (
@@ -45,22 +46,6 @@ CREATE TABLE review (
    FOREIGN KEY (reviewbeerId) REFERENCES beer(beerId),
    FOREIGN KEY (reviewUserId) REFERENCES review(reviewUserId),
    PRIMARY KEY (reviewId)
-);
-
-CREATE TABLE user (
-	userId  INT UNSIGNED AUTO_INCREMENT NOT NULL,
-	userBreweryId  INT UNSIGNED NOT NULL,
-	userAccessLevel  INT UNSIGNED NOT NULL,
-	userActivationToken  INT UNSIGNED NOT NULL,
-	userDateOfBirth  DATE NOT NULL,
-	userFirstName  VARCHAR(32) NOT NULL,
-	userLastName  VARCHAR(32) NOT NULL,
-	userEmail  VARCHAR(128) NOT NULL,
-	username  VARCHAR(32) NOT NULL,
-	userHash  <type>,
-	userSalt  <type>,
-	UNIQUE(username),
-	UNIQUE(userEmail)
 );
 
 CREATE TABLE tag (
