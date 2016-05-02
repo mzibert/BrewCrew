@@ -45,3 +45,31 @@ class beer {
 	 **/
 	private $beerName;
 }
+/**
+ * constructor for class beer
+ **/
+/**
+ * accessors and mutators for class beer
+ **/
+/**
+ * accessor method for beer id
+ * @return int value of beer id
+ */
+	public function getbeerId(){
+		return($this->beerId);
+}
+/**
+ *mutator method for beer id
+ *
+ * @param int $newbeerId new value of beer id
+ * @throws \RangeException if $newbeerId is not positive
+ * @throws \TypeError if $newbeerId is not an integer
+ **/
+	public function setbeerId($newbeerId){
+	//verify the profile id is positive
+		if($newbeerId <= 0){
+			throw (new \RangeException("beer id is not positive"));
+		}
+	//convert and store the beer id
+	$this->beerId = $newbeerId;
+}
