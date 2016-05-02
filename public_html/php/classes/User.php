@@ -2,6 +2,7 @@
 
 namespace Edu\Cnm\Agraham14\BrewCrew;
 require_once("autoload.php");
+header("Location: ..", true, 301);
 
 class User implements \JsonSerializable {
 	use ValidateDate;
