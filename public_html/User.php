@@ -219,7 +219,7 @@ class User implements \JsonSerializable {
 
 		// store the userDateOfBirth date
 		try {
-			$newuserDateOfBirth = $this->validateDate($newUserDateOfBirth);
+			$newUserDateOfBirth = $this->validateDate($newUserDateOfBirth);
 		} catch(\InvalidArgumentException $invalidArgument) {
 			throw(new \InvalidArgumentException($invalidArgument->getMessage(), 0, $invalidArgument));
 		} catch(\RangeException $range) {
