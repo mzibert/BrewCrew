@@ -123,13 +123,13 @@ public function __construct (int $newUserId = null, int $newUserBreweryId, int $
 	 * @throws \TypeError if $newUserId is not an integer
 	 **/
 	public function setUserId(int $newUserId = null) {
-		// base case: if the user id is null, this a new tweet without a mySQL assigned id (yet)
+		// base case: if the user id is null, this a new user without a mySQL assigned id (yet)
 		if($newUserId === null) {
 			$this->userId = null;
 			return;
 		}
 
-		// verify the tweet id is positive
+		// verify the user id is positive
 		if($newUserId <= 0) {
 			throw(new \RangeException("user id must a positive number."));
 		}
