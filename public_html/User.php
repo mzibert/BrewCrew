@@ -171,6 +171,39 @@ class User implements \JsonSerializable {
 		// convert and store the user brewery id
 		$this->userBreweryId = $newUserBreweryId;
 	}
+	/**
+	 * accessor method for userDateOfBirth date
+	 *
+	 * @return \DateTime value of userDateOfBirth date
+	 **/
+	public function getUserDateOfBirth() {
+		return($this->userDateOfBirth);
+	}
+
+	/**
+	 * mutator method for userDateOfBirth date
+	 *
+	 * @param \DateTime|string|null $newUserDateOfBirth user DateOfBirth date as a DateTime object or string
+	 * @throws \InvalidArgumentException if $newUserDateOfBirth is not a valid object or string
+	 * @throws \RangeException if $newUserDateOfBirth is a date that does not exist
+	 **/
+	public function setUserDateOfBirth($newUserDateOfBirth = null) {
+		// base case: if the date is null, ask user to enter date of birth
+		if($newUserDateOfBirth === null) {
+			throw (new \RangeException("You must enter your date of birth"));
+		}
+			$this->userDateOfBirth =$newUserDateOfBirth;
+
+		// store the userDateOfBirth date
+		try {
+			$newuserDateOfBirth = $this->validateDate($newUserDateOfBirth);
+		} catch(\InvalidArgumentException $invalidArgument) {
+			throw(new \InvalidArgumentException($invalidArgument->getMessage(), 0, $invalidArgument));
+		} catch(\RangeException $range) {
+			throw(new \RangeException($range->getMessage(), 0, $range));
+		}
+		$this->userDateOfBirth = $newUserDateOfBirth;
+	}
 
 	/**
 	 * accessor method for userActivationToken
@@ -203,7 +236,7 @@ class User implements \JsonSerializable {
 	}
 	/**
 	 * accessor method for userFirstName
-	 * @return int|null value of userFirstName
+	 * @return string value of userFirstName
 	 **/
 	public function getUserFirstName() {
 		return($this->userFirstName);
@@ -234,7 +267,7 @@ class User implements \JsonSerializable {
 	}
 	/**
 	 * accessor method for userLastName
-	 * @return int|null value of userLastName
+	 * @return string value of userLastName
 	 **/
 	public function getUserLastName() {
 		return($this->userLastName);
@@ -262,5 +295,129 @@ class User implements \JsonSerializable {
 
 		// store the user's last name
 		$this->userLastName = $newUserLastName;
+	}
+	/**
+	 * accessor method for UserEmail
+	 * @return string value of UserEmail
+	 **/
+	public function getUserEmail() {
+		return($this->userEmail);
+	}
+	/**
+	 * mutator method for UserEmail
+	 *
+	 * @param string $newUserEmail new value of userEmail
+	 * @throws \InvalidArgumentException if $newUserEmaili s not a string or insecure
+	 * @throws \RangeException if $newUserEmail is > 128 characters
+	 * @throws \TypeError if $newUserEmail is not a string
+	 **/
+	public function setUserEmail(string $newUserEmail) {
+		// verify the User's email content is secure
+		$newUserEmail = trim($newUserEmail);
+		$newUserEmail = filter_var($newUserEmail, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($newUserEmail) === true) {
+			throw(new \InvalidArgumentException("User's email content is empty or insecure"));
+		}
+
+		// verify the email will fit in the database
+		if(strlen($newUserEmail) > 128) {
+			throw(new \RangeException("Email too large"));
+		}
+
+		// store the user's email
+		$this->UserEmail = $newUserEmail;
+	}
+	/**
+	 * accessor method for username
+	 * @return string value of username
+	 **/
+	public function getUsername() {
+		return($this->username);
+	}
+	/**
+	 * mutator method for username
+	 *
+	 * @param string $newUsername new value of username
+	 * @throws \InvalidArgumentException if $newUsername is not a string or insecure
+	 * @throws \RangeException if $newUsername is > 32 characters
+	 * @throws \TypeError if $newUsername is not a string
+	 **/
+	public function setUsername(string $newUsername) {
+		// verify the User's username is secure
+		$newUsername = trim($newUsername);
+		$newUsername = filter_var($newUsername, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($newUsername) === true) {
+			throw(new \InvalidArgumentException("Username is empty or insecure"));
+		}
+
+		// verify the username will fit in the database
+		if(strlen($newUsername) > 32) {
+			throw(new \RangeException("Username too large"));
+		}
+
+		// store the user's username
+		$this->username = $newUsername;
+	}
+	/**
+	 * accessor method for userHash
+	 * @return string value of userHash
+	 **/
+	public function getUserHash() {
+		return($this->userHash);
+	}
+	/**
+	 * mutator method for userHash
+	 *
+	 * @param string $newUserHash new value of userHash
+	 * @throws \InvalidArgumentException if $newUserHash is not a string or insecure
+	 * @throws \RangeException if $newUserHash is > 64 characters
+	 * @throws \TypeError if $newUserHash is not a string
+	 **/
+	public function setUserHash(string $newUserHash) {
+		// verify the User's password hash is secure
+		$newUserHash = trim($newUserHash);
+		$newUserHash = filter_var($newUserHash, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($newUserHash) === true) {
+			throw(new \InvalidArgumentException("User's password hash is empty or insecure"));
+		}
+
+		// verify the hash will fit in the database
+		if(strlen($newUserHash) > 64) {
+			throw(new \RangeException("Hash too large"));
+		}
+
+		// store the userHash
+		$this->userHash = $newUserHash;
+	}
+	/**
+	 * accessor method for userSalt
+	 * @return string value of userSalt
+	 **/
+	public function getUserSalt() {
+		return($this->userSalt);
+	}
+	/**
+	 * mutator method for userSalt
+	 *
+	 * @param string $newUserSalt new value of userSalt
+	 * @throws \InvalidArgumentException if $newUserSalt is not a string or insecure
+	 * @throws \RangeException if $newUserSalt is > 64 characters
+	 * @throws \TypeError if $newUserSalt is not a string
+	 **/
+	public function setUserSalt(string $newUserSalt) {
+		// verify the User's password salt is secure
+		$newUserSalt = trim($newUserSalt);
+		$newUserSalt = filter_var($newUserSalt, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($newUserSalt) === true) {
+			throw(new \InvalidArgumentException("User's password salt is empty or insecure"));
+		}
+
+		// verify the salt will fit in the database
+		if(strlen($newUserSalt) > 64) {
+			throw(new \RangeException("Salt too large"));
+		}
+
+		// store the userSalt
+		$this->userSalt = $newUserSalt;
 	}
 }
