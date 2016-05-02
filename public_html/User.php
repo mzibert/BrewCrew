@@ -61,60 +61,62 @@ class User implements \JsonSerializable {
 	 */
 	private $userSalt;
 
-/**
- * constructor for User      *
- * @param int|null $newUserId id of this User or null if a new User
- * @param int $newUserBreweryId int id of the Brewery
- * @param int $newUserAccessLevel
- * @param int $newUserActivationToken int with user token
- * @param \DateTime|string|null $newUserDateOfBirth date User was sent or null if set to current date and time
- * @param string $newUserFirstName string containing actual user first name
- * @param string $newUserLastName string containing actual user LAST NAME
- * @param string $newUserEmail string containing user email
- * @param string $newUsername string containing actual user name
- * @param string $newUserHash string containing actual user password hash
- * @param string $newUserSalt string containing actual user password salt
- * @throws \InvalidArgumentException if data types are not valid
- * @throws \RangeException if data values are out of bounds (e.g., strings too long,
- * negative integers)
- * @throws \TypeError if data types violate type hints
- * @throws \Exception if some other exception occurs
- **/
-public function __construct (int $newUserId = null, int $newUserBreweryId, int $newUserAccessLevel, int $newUserActivationToken, $newUserDateOfBirth = null, string $newUserFirstName, string $newUserLastName, string $newUserEmail, string $newUsername, string $newUserHash, string $newUserSalt) {
-	try {
-		$this->setUserId($newUserId);
-		$this->setUserBreweryId($newUserBreweryId);
-		$this->setUserAccessLevel($newUserAccessLevel);
-		$this->setUserActivationToken($newUserActivationToken);
-		$this->setUserDateOfBirth($newUserDateOfBirth);
-		$this->setUserFirstName($newUserFirstName);
-		$this->setUserLastName($newUserLastName);
-		$this->setUserEmail($newUserEmail);
-		$this->setUsername($newUsername);
-		$this->setUserHash($newUserHash);
-		$this->setUserSalt($newUserSalt);
-	} catch(\InvalidArgumentException $invalidArgument) {
-		// rethrow the exception to the caller
-		throw(new \InvalidArgumentException($invalidArgument->getMessage(), 0, $invalidArgument));
-	} catch(\RangeException $range) {
-		// rethrow the exception to the caller
-		throw(new \RangeException($range->getMessage(), 0, $range));
-	} catch(\TypeError $typeError) {
-		// rethrow the exception to the caller
-		throw(new \TypeError($typeError->getMessage(), 0, $typeError));
-	} catch(\Exception $exception) {
-		// rethrow the exception to the caller
-		throw(new \Exception($exception->getMessage(), 0, $exception));
+	/**
+	 * constructor for User      *
+	 * @param int|null $newUserId id of this User or null if a new User
+	 * @param int $newUserBreweryId int id of the Brewery
+	 * @param int $newUserAccessLevel
+	 * @param int $newUserActivationToken int with user token
+	 * @param \DateTime|string|null $newUserDateOfBirth date User was sent or null if set to current date and time
+	 * @param string $newUserFirstName string containing actual user first name
+	 * @param string $newUserLastName string containing actual user LAST NAME
+	 * @param string $newUserEmail string containing user email
+	 * @param string $newUsername string containing actual user name
+	 * @param string $newUserHash string containing actual user password hash
+	 * @param string $newUserSalt string containing actual user password salt
+	 * @throws \InvalidArgumentException if data types are not valid
+	 * @throws \RangeException if data values are out of bounds (e.g., strings too long,
+	 * negative integers)
+	 * @throws \TypeError if data types violate type hints
+	 * @throws \Exception if some other exception occurs
+	 **/
+	public function __construct (int $newUserId = null, int $newUserBreweryId, int $newUserAccessLevel, int $newUserActivationToken, $newUserDateOfBirth = null, string $newUserFirstName, string $newUserLastName, string $newUserEmail, string $newUsername, string $newUserHash, string $newUserSalt) {
+		try {
+			$this->setUserId($newUserId);
+			$this->setUserBreweryId($newUserBreweryId);
+			$this->setUserAccessLevel($newUserAccessLevel);
+			$this->setUserActivationToken($newUserActivationToken);
+			$this->setUserDateOfBirth($newUserDateOfBirth);
+			$this->setUserFirstName($newUserFirstName);
+			$this->setUserLastName($newUserLastName);
+			$this->setUserEmail($newUserEmail);
+			$this->setUsername($newUsername);
+			$this->setUserHash($newUserHash);
+			$this->setUserSalt($newUserSalt);
+		} catch(\InvalidArgumentException $invalidArgument) {
+			// rethrow the exception to the caller
+			throw(new \InvalidArgumentException($invalidArgument->getMessage(), 0, $invalidArgument));
+		} catch(\RangeException $range) {
+			// rethrow the exception to the caller
+			throw(new \RangeException($range->getMessage(), 0, $range));
+		} catch(\TypeError $typeError) {
+			// rethrow the exception to the caller
+			throw(new \TypeError($typeError->getMessage(), 0, $typeError));
+		} catch(\Exception $exception) {
+			// rethrow the exception to the caller
+			throw(new \Exception($exception->getMessage(), 0, $exception));
+		}
 	}
-}
+
 	/**
 	 * accessor method for user id
 	 *
 	 * @return int|null value of user id
 	 **/
-	public function getUserId() {
-		return($this->userId);
+	public function getUserId () {
+		return ($this->userId);
 	}
+
 	/**
 	 * mutator method for user id
 	 *
@@ -122,7 +124,7 @@ public function __construct (int $newUserId = null, int $newUserBreweryId, int $
 	 * @throws \RangeException if $newUserId is not positive
 	 * @throws \TypeError if $newUserId is not an integer
 	 **/
-	public function setUserId(int $newUserId = null) {
+	public function setUserId (int $newUserId = null) {
 		// base case: if the user id is null, this a new user without a mySQL assigned id (yet)
 		if($newUserId === null) {
 			$this->userId = null;
@@ -136,5 +138,129 @@ public function __construct (int $newUserId = null, int $newUserBreweryId, int $
 
 		// convert and store the user id
 		$this->userId = $newUserId;
+	}
+
+	/**
+	 * accessor method for User Brewery Id
+	 *
+	 * @return int|null value of user brewery id
+	 **/
+	public function getUserBreweryId () {
+		return ($this->userBreweryId);
+	}
+
+	/**
+	 * mutator method for user brewery id
+	 *
+	 * @param int|null $newUserBreweryId new value of user brewery id
+	 * @throws \RangeException if $newUserBreweryId is not positive
+	 * @throws \TypeError if $newUserBreweryId is not an integer
+	 **/
+	public function setUserBreweryId (int $newUserBreweryId = null) {
+		// base case: if the user brewery id is null, this a new user without a mySQL assigned id (yet)
+		if($newUserBreweryId === null) {
+			$this->userBreweryId = null;
+			return;
+		}
+
+		// verify the user brewery id is positive
+		if($newUserBreweryId <= 0) {
+			throw(new \RangeException("user brewery id must a positive number."));
+		}
+
+		// convert and store the user brewery id
+		$this->userBreweryId = $newUserBreweryId;
+	}
+
+	/**
+	 * accessor method for userActivationToken
+	* @return int|null value of userActivationToken
+	 **/
+	public function getUserActivationToken() {
+		return($this->userActivationToken);
+	}
+	/**
+	 * mutator method for userActivationToken id
+	 *
+	 * @param int|null $newUserActivationToken new value of userActivationToken
+	 * @throws \RangeException if $newUserActivationToken is not positive
+	 * @throws \TypeError if $newUserActivationToken is not an integer
+	 **/
+	public function setUserActivationToken(int $newUserActivationToken = null) {
+		// base case: if the userActivationToken id is null, this a new userActivationToken without a mySQL assigned id (yet)
+		if($newUserActivationToken === null) {
+			$this->userActivationTokenId = null;
+			return;
+		}
+
+		// verify the userActivationToken id is positive
+		if($newUserActivationToken <= 0) {
+			throw(new \RangeException("UserActivationToken must a positive number."));
+		}
+
+		// convert and store the userActivationToken
+		$this->userActivationToken = $newUserActivationToken;
+	}
+	/**
+	 * accessor method for userFirstName
+	 * @return int|null value of userFirstName
+	 **/
+	public function getUserFirstName() {
+		return($this->userFirstName);
+	}
+	/**
+	 * mutator method for UserFirstName
+	 *
+	 * @param string $newUserFirstName new value of UserFirstName
+	 * @throws \InvalidArgumentException if $newUserFirstNameis not a string or insecure
+	 * @throws \RangeException if $newUserFirstName is > 32 characters
+	 * @throws \TypeError if $newUserFirstName is not a string
+	 **/
+	public function setUserFirstName(string $newUserFirstName) {
+		// verify the User's First Name content is secure
+		$newUserFirstName = trim($newUserFirstName);
+		$newUserFirstName = filter_var($newUserFirstName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($newUserFirstName) === true) {
+			throw(new \InvalidArgumentException("User First Name content is empty or insecure"));
+		}
+
+		// verify the first name content will fit in the database
+		if(strlen($newUserFirstName) > 32) {
+			throw(new \RangeException("First name content too large"));
+		}
+
+		// store the user's first name
+		$this->userFirstName = $newUserFirstName;
+	}
+	/**
+	 * accessor method for userLastName
+	 * @return int|null value of userLastName
+	 **/
+	public function getUserLastName() {
+		return($this->userLastName);
+	}
+	/**
+	 * mutator method for UserLastName
+	 *
+	 * @param string $newUserLastName new value of UserLastName
+	 * @throws \InvalidArgumentException if $newUserLastNamei s not a string or insecure
+	 * @throws \RangeException if $newUserLastName is > 32 characters
+	 * @throws \TypeError if $newUserLastName is not a string
+	 **/
+	public function setUserLastName(string $newUserLastName) {
+		// verify the User's Last Name content is secure
+		$newUserLastName = trim($newUserLastName);
+		$newUserLastName = filter_var($newUserLastName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($newUserLastName) === true) {
+			throw(new \InvalidArgumentException("User Last Name content is empty or insecure"));
+		}
+
+		// verify the last name content will fit in the database
+		if(strlen($newUserLastName) > 32) {
+			throw(new \RangeException("Last name content too large"));
+		}
+
+		// store the user's last name
+		$this->userLastName = $newUserLastName;
 	}
 }
