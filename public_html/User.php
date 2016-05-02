@@ -157,7 +157,7 @@ class User implements \JsonSerializable {
 	 * @throws \TypeError if $newUserBreweryId is not an integer
 	 **/
 	public function setUserBreweryId (int $newUserBreweryId = null) {
-		// base case: if the user brewery id is null, this a new user without a mySQL assigned id (yet)
+
 		if($newUserBreweryId === null) {
 			$this->userBreweryId = null;
 			return;
@@ -188,7 +188,7 @@ class User implements \JsonSerializable {
 	 * @throws \TypeError if $userAccessLevel is not an integer
 	 **/
 	public function setUserAccessLevel (int $userAccessLevel = null) {
-		// base case: if the userAccessLevel is null, this a new user without a mySQL assigned id (yet)
+
 		if($userAccessLevel === null) {
 			$this->userAccessLevel = null;
 			return;
