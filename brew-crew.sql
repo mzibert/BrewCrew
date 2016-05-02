@@ -33,7 +33,20 @@ CREATE TABLE brewery (
    breweryUrl VARCHAR(100),
    PRIMARY KEY(breweryId)
 );
-
+CREATE TABLE beer (
+   beerId           INT UNSIGNED AUTO_INCREMENT NOT NULL,
+   breweryId        INT UNSIGNED                NOT NULL,
+   beerAbv          DECIMAL(6, 5),
+   beerAvailability VARCHAR(100),
+   beerAwards       VARCHAR(1000),
+   beerColor        DECIMAL(6, 5),
+   beerDescription  CHAR(2000),
+   beerIbu          INT(3),
+   beerName         CHAR(64),
+);
+   CREATE TABLE beerTag (
+   beerTagTagId INT UNSIGNED AUTO_INCREMENT NOT NULL,
+   beerTagBeerId INT
 CREATE TABLE review (
    reviewId INT UNSIGNED AUTO_INCREMENT,
    reviewbeerId INT UNSIGNED NOT NULL,
