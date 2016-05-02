@@ -1,6 +1,6 @@
 <?php
 
-namespace Edu\Cnm\Agraham14\Supernatural;
+namespace Edu\Cnm\Agraham14\BrewCrew;
 require_once("autoload.php");
 
 class User implements \JsonSerializable {
@@ -64,9 +64,9 @@ class User implements \JsonSerializable {
 /**
  * constructor for User      *
  * @param int|null $newUserId id of this User or null if a new User
- * @param int $newUserBreweryId id of the Brewery
- * @param int $newUserAccessLevel string containing actual user data
- * @param int $newUserActivationToken string containing actual user data
+ * @param int $newUserBreweryId int id of the Brewery
+ * @param int $newUserAccessLevel
+ * @param int $newUserActivationToken int with user token
  * @param \DateTime|string|null $newUserDateOfBirth date User was sent or null if set to current date and time
  * @param string $newUserFirstName string containing actual user first name
  * @param string $newUserLastName string containing actual user LAST NAME
@@ -116,10 +116,10 @@ public function __construct (int $newUserId = null, int $newUserBreweryId, int $
 		return($this->userId);
 	}
 	/**
-	 * mutator method for tweet id
+	 * mutator method for user id
 	 *
-	 * @param int|null $newTUserId new value of tweet id
-	 * @throws \RangeException if $newTUserId is not positive
+	 * @param int|null $newUserId new value of user id
+	 * @throws \RangeException if $newUserId is not positive
 	 * @throws \TypeError if $newUserId is not an integer
 	 **/
 	public function setUserId(int $newUserId = null) {
