@@ -172,6 +172,29 @@ class User implements \JsonSerializable {
 		$this->userBreweryId = $newUserBreweryId;
 	}
 	/**
+	 * accessor method for user AccessLevel
+	 *
+	 * @return int|null value of user Access Level
+	 **/
+	public function getUserAccessLevel () {
+		return ($this->userAccessLevel);
+	}
+
+	/**
+	 * mutator method for userAccessLevel
+	 *
+	 * @param int|null $userAccessLevel new value of user id
+	 * @throws \RangeException if $userAccessLevel is not positive
+	 * @throws \TypeError if $userAccessLevel is not an integer
+	 **/
+	public function setUserAccessLevel (int $userAccessLevel = null) {
+		// base case: if the userAccessLevel is null, this a new user without a mySQL assigned id (yet)
+		if($userAccessLevel === null) {
+			$this->userAccessLevel = null;
+			return;
+		}
+	}
+	/**
 	 * accessor method for userDateOfBirth date
 	 *
 	 * @return \DateTime value of userDateOfBirth date
