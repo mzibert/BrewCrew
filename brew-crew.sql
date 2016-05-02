@@ -36,7 +36,7 @@ CREATE TABLE brewery (
 );
 CREATE TABLE beer (
    beerId INT UNSIGNED AUTO_INCREMENT NOT NULL,
-   beerBreweryId INT UNSIGNED                NOT NULL,
+   beerBreweryId INT UNSIGNED NOT NULL,
    beerAbv DECIMAL(6, 5),
    beerAvailability VARCHAR(100),
    beerAwards VARCHAR(1000),
