@@ -11,7 +11,7 @@ class User implements \JsonSerializable {
 	 */
 	private $userId;
 	/**
-	 * id for this UserBreweryId; this is the foreign key
+	 * id for this userBreweryId; this is the foreign key
 	 * @var int $userBreweryId
 	 **/
 	private $userBreweryId;
@@ -21,55 +21,61 @@ class User implements \JsonSerializable {
 	 */
 	private $userAccessLevel;
 	/**
-	 * name of UserActivationToken
+	 * name of userActivationToken
 	 * @var int $userActivationToken
 	 */
 	private $userActivationToken;
 	/**
-	 * name of UserDateOfBirth
-	 * @var  $userDateOfBirth
+	 * name of userDateOfBirth
+	 * @var \DateTime $userDateOfBirth
 	 */
 	private $userDateOfBirth;
 	/**
-	 * name of UserFirstName
+	 * name of userFirstName
 	 * @var string $userFirstName
 	 */
 	private $userFirstName;
 	/**
-	 * name of UserLastName
+	 * name of userLastName
 	 * @var string $userLastName
 	 */
 	private $userLastName;
 	/**
-	 * name of UserEmail
+	 * name of userEmail
 	 * @var string $userEmail
 	 */
 	private $userEmail;
 	/**
-	 * name of Username
+	 * name of username
 	 * @var string $username
 	 */
 	private $username;
-
-}
+	/**
+	 * name of userHash
+	 * @var string $userHash
+	 */
+	private $userHash;
+	/**
+	 * name of userSalt
+	 * @var string $userSalt
+	 */
+	private $userSalt;
 
 /**
  * constructor for User      *
  * @param int|null $newUserId id of this User or null if a new User
- * @param int $newUserBreweryId id of the Profile that sent this User
- * @param string $newUserAccessLevel string containing actual user data
- * @param string $newUserActivationToken string containing actual user data
+ * @param int $newUserBreweryId id of the Brewery
+ * @param int $newUserAccessLevel string containing actual user data
+ * @param int $newUserActivationToken string containing actual user data
  * @param \DateTime|string|null $newUserDateOfBirth date User was sent or null if set to current date and time
  * @param string $newUserFirstName string containing actual user first name
  * @param string $newUserLastName string containing actual user LAST NAME
  * @param string $newUserEmail string containing user email
  * @param string $newUsername string containing actual user name
- * @param string $newUserHash char containing actual user password hash
- * @param string $newUserSalt char containing actual user password salt
- * @throws
-\InvalidArgumentException if data types are not valid
- * @throws
-\RangeException if data values are out of bounds (e.g., strings too long,
+ * @param string $newUserHash string containing actual user password hash
+ * @param string $newUserSalt string containing actual user password salt
+ * @throws \InvalidArgumentException if data types are not valid
+ * @throws \RangeException if data values are out of bounds (e.g., strings too long,
  * negative integers)
  * @throws \TypeError if data types violate type hints
  * @throws \Exception if some other exception occurs
@@ -99,5 +105,36 @@ public function __construct (int $newUserId = null, int $newUserBreweryId, int $
 	} catch(\Exception $exception) {
 		// rethrow the exception to the caller
 		throw(new \Exception($exception->getMessage(), 0, $exception));
+	}
+}
+	/**
+	 * accessor method for user id
+	 *
+	 * @return int|null value of user id
+	 **/
+	public function getUserId() {
+		return($this->userId);
+	}
+	/**
+	 * mutator method for tweet id
+	 *
+	 * @param int|null $newTUserId new value of tweet id
+	 * @throws \RangeException if $newTUserId is not positive
+	 * @throws \TypeError if $newUserId is not an integer
+	 **/
+	public function setUserId(int $newUserId = null) {
+		// base case: if the user id is null, this a new tweet without a mySQL assigned id (yet)
+		if($newUserId === null) {
+			$this->userId = null;
+			return;
+		}
+
+		// verify the tweet id is positive
+		if($newUserId <= 0) {
+			throw(new \RangeException("user id must a positive number."));
+		}
+
+		// convert and store the user id
+		$this->userId = $newUserId;
 	}
 }
