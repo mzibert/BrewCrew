@@ -42,8 +42,8 @@ CREATE TABLE beer (
    beerAwards VARCHAR(1000),
    beerColor DECIMAL(6, 5),
    beerDescription CHAR(2000),
-   beerIbu INT(3),
-   beerName CHAR(64),
+   beerIbu INT(3) UNSIGNED,
+   beerName CHAR(64) NOT NULL,
 	INDEX(beerBreweryId),
 	FOREIGN KEY (beerBreweryId) REFERENCES brewery(breweryId),
 	PRIMARY KEY(beerId)
