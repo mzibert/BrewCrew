@@ -210,11 +210,12 @@ class User implements \JsonSerializable {
 	 * @param \DateTime|string|null $newUserDateOfBirth user DateOfBirth date as a DateTime object or string
 	 * @throws \InvalidArgumentException if $newUserDateOfBirth is not a valid object or string
 	 * @throws \RangeException if $newUserDateOfBirth is a date that does not exist
+	 * @throws \OutOfRangeException if $newUserDateOfBirth is < 21
 	 **/
 	public function setUserDateOfBirth($newUserDateOfBirth = null) {
 		// base case: if the date is null, ask user to enter date of birth
 		if($newUserDateOfBirth === null) {
-			throw (new \RangeException("You must enter your date of birth"));
+			throw (new \OutOfBoundsException("You must enter your date of birth"));
 		}
 			if($newUserDateOfBirth < $newUserDateOfBirth.getdate()){
 			throw (new \RangeException("You are too young."));
