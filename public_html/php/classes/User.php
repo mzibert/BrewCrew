@@ -216,8 +216,9 @@ class User implements \JsonSerializable {
 		if($newUserDateOfBirth === null) {
 			throw (new \RangeException("You must enter your date of birth"));
 		}
-			$this->userDateOfBirth =$newUserDateOfBirth;
-
+			if($newUserDateOfBirth < $newUserDateOfBirth.getdate()){
+			throw (new \RangeException("You are too young."));
+			}
 		// store the userDateOfBirth date
 		try {
 			$newUserDateOfBirth = $this->validateDate($newUserDateOfBirth);
@@ -227,6 +228,7 @@ class User implements \JsonSerializable {
 			throw(new \RangeException($range->getMessage(), 0, $range));
 		}
 		$this->userDateOfBirth = $newUserDateOfBirth;
+
 	}
 
 	/**
