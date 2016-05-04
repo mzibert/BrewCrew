@@ -15,7 +15,7 @@ require_once(dirname(__DIR__) . "/php/classes/autoload.php");
  * @see User
  * @author Arlene Carol Graham <agraham14@cnm.edu>
  **/
-class UserTest extends BrewCrewTest {
+class UserTest extends brew-crew-test {
 	/**
 	 * date of birth of the User
 	 * @var Date $VALID_USERDATEOFBIRTH
