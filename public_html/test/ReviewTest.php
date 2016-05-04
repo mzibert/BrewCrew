@@ -26,33 +26,37 @@ class ReviewTest extends BrewCrewTest {
 	 * @var string $VALID_REVIEWCONTENT
 	 */
 	protected $VALID_REVIEWCONTENT = "Some review text! So PHP test has passed! FTW!";
+	
 	/**
 	 * updated content for review text
 	 * @var string $VALID_REVIEWCONTENT2
 	 */
 	protected $VALID_REVIEWCONTENT2 = "This has changed! PHP test still passes! FTW!";
+	
 	/**
 	 * timestamp for the review; this starts as null and is assigned later
 	 * @var \DateTime $VALID_REVIEWDATE
 	 */
 	protected $VALID_REVIEWDATE = null;
+	
 	/**
 	 * 5-pint rating associated with the review
 	 * @var int $VALID_REVIEWPINTRATING
 	 */
 	protected $VALID_REVIEWPINTRATING = 5;
-
+	
 	/**
 	 * Brewery associated with beer being reviewed
 	 * @var Brewery brewery
 	 */
 	protected $brewery = null;
+	
 	/**
 	 * Beer that is being reviewed; this is for foreign key relations
 	 * @var Beer beer
 	 */
-
 	protected $beer = null;
+	
 	/**
 	 * User that wrote the review; this is for foreign key relations
 	 * @var User user
@@ -81,6 +85,7 @@ class ReviewTest extends BrewCrewTest {
 		//Calculate the date
 		$this->VALID_REVIEWDATE = new \DateTime();
 	}
+	
 	/**
 	 * test that inserts a valid review and then verifies that the mySQL data matches; also good for getReviewByReviewId check
 	 */
@@ -101,6 +106,7 @@ class ReviewTest extends BrewCrewTest {
 		$this->assertEquals($pdoReview->getReviewPintRating(), $this->VALID_REVIEWPINTRATING);
 		$this->assertEquals($pdoReview->getReviewText(), $this->VALID_REVIEWCONTENT);
 	}
+	
 	/**
 	 * test that inserts a review that already exists
 	 *
@@ -111,7 +117,7 @@ class ReviewTest extends BrewCrewTest {
 		$review = new Review(BrewCrewTest::INVALID_KEY, $this->beer->getBeerId(), $this->user->getUserId(), $this->VALID_REVIEWDATE, $this->VALID_REVIEWPINTRATING, $this->VALID_REVIEWCONTENT);
 		$review->insert($this->getPDO());
 	}
-
+	
 	/**
 	 * Test that inserts a review, edits and then updates the review
 	 */
@@ -135,6 +141,7 @@ class ReviewTest extends BrewCrewTest {
 		$this->assertEquals($pdoReview->getReviewPintRating(), $this->VALID_REVIEWPINTRATING);
 		$this->assertEquals($pdoReview->getReviewText(), $this->VALID_REVIEWCONTENT2);
 	}
+	
 	/**
 	 * test that tries updating a review that already exists
 	 *
@@ -145,6 +152,7 @@ class ReviewTest extends BrewCrewTest {
 		$review = new Review(null, $this->beer->getBeerId(), $this->getUserId(), $this->VALID_REVIEWDATE, $this->VALID_REVIEWPINTRATING, $this->VALID_REVIEWCONTENT);
 		$review->update($this->getPDO());
 	}
+	
 	/**
 	 * test that creates a review and then deletes it
 	 */
@@ -176,6 +184,7 @@ class ReviewTest extends BrewCrewTest {
 		$review = new Review(null, $this->beer->getBeerId(), $this->getUserId(), $this->VALID_REVIEWDATE, $this->VALID_REVIEWPINTRATING, $this->VALID_REVIEWCONTENT);
 		$review->delete($this->getPDO());
 	}
+	
 	/**
 	 * test grabbing a review that doesn't exist from the database
 	 */
@@ -184,6 +193,7 @@ class ReviewTest extends BrewCrewTest {
 		$review = Review::getReviewByReviewId($this->getPDO(), BrewCrewTest::INVALID_KEY);
 		$this->assertNull($review);
 	}
+	
 	/**
 	 * test grabbing a review by pint rating
 	 */
@@ -244,9 +254,4 @@ class ReviewTest extends BrewCrewTest {
 		$this->assertEquals($pdoReview->getReviewPintRating(), $this->VALID_REVIEWPINTRATING);
 		$this->assertEquals($pdoReview->getReviewText(), $this->VALID_REVIEWCONTENT);
 	}
-
-
-
-
 }
-
