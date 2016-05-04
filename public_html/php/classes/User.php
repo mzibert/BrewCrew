@@ -138,7 +138,7 @@ class User implements \JsonSerializable {
 		}
 
 		// convert and store the user id
-		$this->userId = $newUserId;
+		$this->userId = intval($newUserId);
 	}
 
 	/**
@@ -170,7 +170,7 @@ class User implements \JsonSerializable {
 		}
 
 		// convert and store the user brewery id
-		$this->userBreweryId = $newUserBreweryId;
+		$this->userBreweryId = intval($newUserBreweryId);
 	}
 	/**
 	 * accessor method for user AccessLevel
@@ -222,7 +222,7 @@ class User implements \JsonSerializable {
 			throw (new \RangeException("You are too young."));
 			}
 		// store the userDateOfBirth date
-		$this->userDateOfBirth = $newUserDateOfBirth;
+		$this->userDateOfBirth = date($newUserDateOfBirth);
 
 	}
 
@@ -253,7 +253,7 @@ class User implements \JsonSerializable {
 		}
 
 		// convert and store the userActivationToken
-		$this->userActivationToken = $newUserActivationToken;
+		$this->userActivationToken = intval($newUserActivationToken);
 	}
 	/**
 	 * accessor method for userFirstName
