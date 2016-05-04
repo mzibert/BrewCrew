@@ -248,5 +248,59 @@ public function __construct($breweryId, $breweryDescription, $breweryEstDate, $b
 		//store the brewery name content
 		$this->breweryName = $newBreweryName;
 	}
+	/** Accessor method for brewery phone
+	 *
+	 * @return string brewery phone
+	 **/
+	public function getBreweryPhone() {
+		return ($this->BreweryPhone);
+	}
+
+/** Mutator method for brewery phone
+ *
+ * @param string $newBreweryPhone new value of phone number
+ * @throws \InvalidArgumentException if $newBreweryPhone is not a string or is insecure
+ * @throws \RangeException if string exceeds 20 characters
+ **/
+	public function setBreweryPhone($newBreweryPhone) {
+		//verify the brewery phone content is secure
+		$newBreweryPhone = trim($newBreweryPhone);
+		$newBreweryPhone = filter_var($newBreweryPhone, FILTER_SANITIZE_STRING);
+		if(empty($newBreweryPhone) === true) {
+			throw (new \InvalidArgumentException("brewery phone is empty or insecure"));
+		}
+		if(strlen($newBreweryPhone) > 20) {
+			throw (new \RangeException("brewery phone field is greater than 20 characters"));
+		}
+		//store the brewery phone content
+		$this->breweryPhone = $newBreweryPhone;
+	}
+	/** Accessor method for brewery URL
+	 *
+	 * @return string brewery website
+	 **/
+	public function getBreweryUrl() {
+		return ($this->BreweryUrl);
+	}
+
+/** Mutator method for brewery URL
+ *
+ * @param string $newBreweryUrl new value of brewery website
+ * @throws \InvalidArgumentException if $newBreweryUrl is not a string or is insecure
+ * @throws \RangeException if string exceeds 250 characters
+ **/
+	public function setBreweryUrl($newBreweryUrl) {
+		//verify the brewery URL content is secure
+		$newBreweryUrl = trim($newBreweryUrl);
+		$newBreweryUrl = filter_var($newBreweryUrl, FILTER_SANITIZE_STRING);
+		if(empty($newBreweryUrl) === true) {
+			throw (new \InvalidArgumentException("brewery URL is empty or insecure"));
+		}
+		if(strlen($newBreweryUrl) > 250) {
+			throw (new \RangeException("brewery URL field is greater than 250 characters"));
+		}
+		//store the brewery URL content
+		$this->breweryUrl = $newBreweryUrl;
+	}
 
 }
