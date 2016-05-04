@@ -100,7 +100,7 @@ public function __construct($breweryId, $breweryDescription, $breweryEstDate, $b
 			}
 		}
 	}
-/** Accessor method for Brewery Id
+/** Accessor method for breweryId
  *
  * @return int|null value of Brewery id
  **/
@@ -109,7 +109,7 @@ public function __construct($breweryId, $breweryDescription, $breweryEstDate, $b
 		return ($this->userId);
 	}
 
-/** Mutator method for Brewery Id
+/** Mutator method for breweryId
  *
  * @param int $newBreweryId new value of brewery Id
  * @throws \RangeException if $newBreweryId is not positive
@@ -129,4 +129,30 @@ public function __construct($breweryId, $breweryDescription, $breweryEstDate, $b
 		$this->breweryId = $newBreweryId;
 	}
 
+/** Acceesor method for breweryDescription
+ *
+ * @return string for brewery description
+ **/
+	public function getBreweryDescription() {
+		return ($this->breweryDescription);
+	}
+/** Mutator method for breweryDescription
+ * @param string $newBreweryDescription gives detailed description of brewery from API limited to 1000 characters
+ * @throws \InvalidArgumentException if $newBreweryDescription is not a string or is insecure
+ * @throws \RangeException if string exceeds 1000 characters
+ **/
+	public function setBreweryDescription($newBreweryDescription) {
+		//verify the brewery description content is secure
+		$newBreweryDescription = trim($newBreweryDescription);
+		$newBreweryDescription = filter_var($newBreweryDescription, FILTER_SANITIZE_STRING);
+		if(empty($newBreweryDescription) === true) {
+			throw (new \InvalidArgumentException("brewery description is empty or insecure"));
+		}
+		if(strlen($newBreweryDescription) > 1000) {
+			throw (new \RangeException("brewery description is greater than 1000 characters"));
+		}
+		//store the brewery description content
+		$this->breweryDescription = $newBreweryDescription;
+	}
+	
 }
