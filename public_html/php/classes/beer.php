@@ -134,7 +134,7 @@ class beer {
 	//verify the beer availabilty content is secure
 		$newbeerAvailability = trim($newbeerAvailability);
 		$newbeerAvailability = filter_var($newbeerAvailability, FILTER_SANITIZE_STRING);
-		if($newbeerAvailability strlen(>100)){
+		if(strlen($newbeerAvailability) >100){
 			throw (new \RangeException("string is greater than 100 characters"));
 		}
 		//verify the beer avaiability is a string
@@ -228,7 +228,9 @@ class beer {
 }
 /**
  * mutator method for beer stlye
- * @param string used to assign industry style label
+ * @param string $newbeerStyle is used to assign industry style label
  * @throws
  **/
-	public function setbeerStyle($newbeerStyle)
+	public function setbeerStyle($newbeerStyle){
+	}
+}
