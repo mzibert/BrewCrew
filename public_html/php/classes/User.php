@@ -222,13 +222,6 @@ class User implements \JsonSerializable {
 			throw (new \RangeException("You are too young."));
 			}
 		// store the userDateOfBirth date
-		try {
-			$newUserDateOfBirth = $this->validateDate($newUserDateOfBirth);
-		} catch(\InvalidArgumentException $invalidArgument) {
-			throw(new \InvalidArgumentException($invalidArgument->getMessage(), 0, $invalidArgument));
-		} catch(\RangeException $range) {
-			throw(new \RangeException($range->getMessage(), 0, $range));
-		}
 		$this->userDateOfBirth = $newUserDateOfBirth;
 
 	}
