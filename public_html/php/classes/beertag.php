@@ -17,8 +17,22 @@ private $beerTagTagId;
 
 /**
  * Constructor for class beerTag
- * 
+ * @param int $newBeerTagBeerId new value of beer tag beer Id
+ * @param int $newBeerTagTagId new value of the tag id assigned to this beer
  **/
+	public function __construct(int $newBeerTagBeerId, int $newBeerTagTagId) {
+		try {
+			$this->setBeerTagBeerId($newBeerTagBeerId);
+			$this->setBeerTagTagId($newBeerTagTagId);
+		}catch(\RangeException $range){
+			//rethrow the exception to the caller
+			throw (new \RangeException($range->getMessage(), 0, $range));
+		}catch(\TypeError $typeError){
+			//rethrow exception to the caller
+			throw(new \TypeError($typeError->getMessage(), 0, $typeError));
+		}catch(\ Exception $exception){
+			throw (new \Exception($exception->getMessage(), 0, $exception));
+		}
 }
 	/**
 	 * accessors and mutators for class beerTag
