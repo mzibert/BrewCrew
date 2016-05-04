@@ -46,6 +46,20 @@ class beer {
 	private $beerStyle;
 /**
  * constructor for class beer
+ * @param int $newbeerId new value of beer id
+ * @param int $newbeerBreweryId new value of brewery id
+ * @param float $newbeerAbv new value of beer abv
+ * @param string $newbeerAvailability tells us if beer is available year round or seasonally
+ * @param string $newbeerAwards tells us all of the awards that this beer has been awarded
+ * @param float $newbeerColor new value of beer color between 0 and 1
+ *@param string $newbeerDescription tells about the details of the beer should not exceed 2000 characters
+ * @param int $newbeerIbu states how many Ibu's are present in the beer
+ * @param string $newbeerName displays the name of the beer
+ *@param string $newbeerStyle is used to assign industry style label
+ * @throws \InvalidArgumentException if data types are not valid
+ * @throws \RangeException if data values are out of range (e.g., strings are too long, negative integers)
+ * @throws \TypeError if data types violate type hints
+ * @throws \Exception if some other exception occurs
  **/
 /**
  * accessors and mutators for class beer
@@ -213,7 +227,7 @@ class beer {
 }
 /**
  * mutator method for beer name
- * @param
+ * @param string $newbeerName displays the name of the beer
  * @throws
  **/
 	public function setbeerName($newbeerName){
