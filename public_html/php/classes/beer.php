@@ -44,6 +44,7 @@ class beer {
 	 * @var string
 	 **/
 	private $beerStyle;
+
 	/**
 	 * constructor for class beer
 	 * @param int $newbeerId new value of beer id
@@ -61,6 +62,32 @@ class beer {
 	 * @throws \TypeError if data types violate type hints
 	 * @throws \Exception if some other exception occurs
 	 **/
+	public function __construct(int $newbeerId, int $newbeerBreweryId, float $newbeerAbv, string $newbeerAvailability, string $newbeerAwards, float $newbeerColor, string $newbeerDescription, string $newbeerIbu, string $newbeerName, string $newbeerStyle) {
+		try{
+			$this->setbeerId($newbeerId);
+			$this->setbeerBreweryId($newbeerBreweryId);
+			$this->setbeerAbv($newbeerAbv);
+			$this->setbeerAvailability($newbeerAvailability);
+			$this->setbeerAwards($newbeerAwards);
+			$this->setbeerColor($newbeerColor);
+			$this->setbeerDescription($newbeerDescription);
+			$this->setbeerIbu($newbeerIbu);
+			$this->setbeerName($newbeerName);
+			$this->setbeerStyle($newbeerStyle);
+	}		catch(\InvalidArgumentException $invalidArgument){
+			//rethrow the exception to the caller
+				throw(new \InvalidArgumentException($invalidArgument->getMessage(),0,$invalidArgument));
+		}	catch(\RangeException $range){
+		//rethrow the exception to the caller
+				throw(new \RangeException($range->getMessage(), 0, $range));
+		}	catch(\TypeError $typeError){
+			//rethrow the exception to the caller
+				throw (new \TypeError($typeError->getMessage(), 0, $typeError));
+		}	catch(\Exception $exception){
+			//rethrow the exception to the caller
+				throw (new \Exception($exception->getMessage(), 0, $exception));
+		}
+	}
 	/**
 	 * accessors and mutators for class beer
 	 **/
@@ -160,7 +187,7 @@ class beer {
 		}
 		//convert and store the new beer availability
 		$this->beerAvailability = $newbeerAvailability;
-}
+	}
 
 	/**
 	 * accessor method for beer awards
@@ -169,6 +196,7 @@ class beer {
 	public function getbeerAwards() {
 		return ($this->beerAwards);
 	}
+
 	/**
 	 * mutator method for beer awards
 	 * @param string $newbeerAwards tells us all of the awards that this beer has been awarded
@@ -176,16 +204,17 @@ class beer {
 	 * @throws \RangeException if $newbeerAwards is greater that  1000 characters
 	 * @throws \TypeError if $newbeerAwards is not a string
 	 **/
-	public function setbeerAwards($newbeerAwards){
+	public function setbeerAwards($newbeerAwards) {
 		//verify the beer awards content is secure
-		$newbeerAwards=trim($newbeerAwards);
-		$newbeerAwards=filter_var($newbeerAwards,FILTER_SANITIZE_STRING);
-		if(strlen($newbeerAwards)>1000){
+		$newbeerAwards = trim($newbeerAwards);
+		$newbeerAwards = filter_var($newbeerAwards, FILTER_SANITIZE_STRING);
+		if(strlen($newbeerAwards) > 1000) {
 			throw (new \RangeException("beer awards description is greater than 1000 characters"));
 		}
 		//convert and store the new beer color
-		$this->beerAwards= $newbeerAwards;
+		$this->beerAwards = $newbeerAwards;
 	}
+
 	/**
 	 * accessor method for beer color
 	 * @return float value of beer color
@@ -224,9 +253,9 @@ class beer {
 	 **/
 	public function setbeerDescription($newbeerDescription) {
 		//verify the beer description content is secure
-		$newbeerDescription= trim($newbeerDescription);
-		$newbeerDescription= filter_var($newbeerDescription,FILTER_SANITIZE_STRING);
-		if(strlen($newbeerDescription) > 2000){
+		$newbeerDescription = trim($newbeerDescription);
+		$newbeerDescription = filter_var($newbeerDescription, FILTER_SANITIZE_STRING);
+		if(strlen($newbeerDescription) > 2000) {
 			throw (new \RangeException("beer description is greater than 2000 characters"));
 		}
 	}
@@ -244,11 +273,11 @@ class beer {
 	 * @param string $newbeerIbu states how many Ibu's are present in the beer
 	 * @throws \RangeException if the string exceeds 50 characters
 	 **/
-	public function setbeerIbu($newbeerIbu){
+	public function setbeerIbu($newbeerIbu) {
 		//verify the beer ibu content is secure
-		$newbeerIbu= trim($newbeerIbu);
-		$newbeerIbu=filter_var($newbeerIbu,FILTER_SANITIZE_STRING);
-		if(strlen($newbeerIbu)>50){
+		$newbeerIbu = trim($newbeerIbu);
+		$newbeerIbu = filter_var($newbeerIbu, FILTER_SANITIZE_STRING);
+		if(strlen($newbeerIbu) > 50) {
 			throw (new \RangeException("beer IBU contains more than 50 characters"));
 		}
 	}
@@ -266,11 +295,11 @@ class beer {
 	 * @param string $newbeerName displays the name of the beer
 	 * @throws \RangeException if string exceeds 64 characters
 	 **/
-	public function setbeerName($newbeerName){
+	public function setbeerName($newbeerName) {
 		//verify the beer name content is secure
-		$newbeerName=trim($newbeerName);
-		$newbeerName=filter_var($newbeerName,FILTER_SANITIZE_STRING);
-		if(strlen($newbeerName)>64){
+		$newbeerName = trim($newbeerName);
+		$newbeerName = filter_var($newbeerName, FILTER_SANITIZE_STRING);
+		if(strlen($newbeerName) > 64) {
 			throw (new \RangeException("beer name contains more than 64 characters"));
 		}
 	}
@@ -290,9 +319,9 @@ class beer {
 	 **/
 	public function setbeerStyle($newbeerStyle) {
 		//verify the beer style content is secure
-		$newbeerStyle=trim($newbeerStyle);
-		$newbeerStyle=filter_var($newbeerStyle,FILTER_SANITIZE_STRING);
-		if(strlen($newbeerStyle) > 32){
+		$newbeerStyle = trim($newbeerStyle);
+		$newbeerStyle = filter_var($newbeerStyle, FILTER_SANITIZE_STRING);
+		if(strlen($newbeerStyle) > 32) {
 			throw (new \RangeException("beer style is greater than 32 characters"));
 		}
 	}
