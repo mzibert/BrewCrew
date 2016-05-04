@@ -182,6 +182,10 @@ class beer {
 		//verify the beer availabilty content is secure
 		$newbeerAvailability = trim($newbeerAvailability);
 		$newbeerAvailability = filter_var($newbeerAvailability, FILTER_SANITIZE_STRING);
+		if(empty($newbeerAvailability) === true){
+			throw(new \InvalidArgumentException("Beer availability content is either empty or insecure"));
+		}
+		//verify the beer availability content will fit in the database
 		if(strlen($newbeerAvailability) > 100) {
 			throw (new \RangeException("string is greater than 100 characters"));
 		}
@@ -208,10 +212,14 @@ class beer {
 		//verify the beer awards content is secure
 		$newbeerAwards = trim($newbeerAwards);
 		$newbeerAwards = filter_var($newbeerAwards, FILTER_SANITIZE_STRING);
+		if(empty($newbeerAwards) === true){
+			throw (new \InvalidArgumentException("beer awards content is either empty or insecure"));
+		}
+		//verify the beer awards content will fit in the database
 		if(strlen($newbeerAwards) > 1000) {
 			throw (new \RangeException("beer awards description is greater than 1000 characters"));
 		}
-		//convert and store the new beer color
+		//convert and store the new beer awards
 		$this->beerAwards = $newbeerAwards;
 	}
 
@@ -255,9 +263,14 @@ class beer {
 		//verify the beer description content is secure
 		$newbeerDescription = trim($newbeerDescription);
 		$newbeerDescription = filter_var($newbeerDescription, FILTER_SANITIZE_STRING);
+		if(empty($newbeerDescription) === true){
+			throw (new \InvalidArgumentException("beer description is either empty or insecure"));
+		}
 		if(strlen($newbeerDescription) > 2000) {
 			throw (new \RangeException("beer description is greater than 2000 characters"));
 		}
+		//store the beer description content
+		$this->beerDescription = $newbeerDescription;
 	}
 
 	/**
@@ -271,15 +284,23 @@ class beer {
 	/**
 	 * mutator method for beerIbu
 	 * @param string $newbeerIbu states how many Ibu's are present in the beer
+	 * @throws \InvalidArgumentException if $newbeerIbu is not a string or is insecure
 	 * @throws \RangeException if the string exceeds 50 characters
+	 * @throws \TypeError if $newbeerIbu is not a string
 	 **/
 	public function setbeerIbu($newbeerIbu) {
 		//verify the beer ibu content is secure
 		$newbeerIbu = trim($newbeerIbu);
 		$newbeerIbu = filter_var($newbeerIbu, FILTER_SANITIZE_STRING);
+		if(empty($newbeerIbu) === true) {
+			throw (new \InvalidArgumentException("beer IBU content is either empty or insecure"));
+		}
+		//verify the tweet content will fit in the database
 		if(strlen($newbeerIbu) > 50) {
 			throw (new \RangeException("beer IBU contains more than 50 characters"));
 		}
+		//store the beer IBU content
+		$this->beerIbu = $newbeerIbu;
 	}
 
 	/**
@@ -293,15 +314,23 @@ class beer {
 	/**
 	 * mutator method for beer name
 	 * @param string $newbeerName displays the name of the beer
+	 * @throws \InvalidArgumentException if $newbeerName is not a string or is insecure
 	 * @throws \RangeException if string exceeds 64 characters
+	 * @throws \TypeError if $newbeerName is not a string
 	 **/
 	public function setbeerName($newbeerName) {
 		//verify the beer name content is secure
 		$newbeerName = trim($newbeerName);
 		$newbeerName = filter_var($newbeerName, FILTER_SANITIZE_STRING);
+		if (empty($newbeerName)=== true){
+			throw(new \InvalidArgumentException("beer name is either empty or insecure"));
+		}
+		//verify the beer name content will fit in the database
 		if(strlen($newbeerName) > 64) {
 			throw (new \RangeException("beer name contains more than 64 characters"));
 		}
+		//store the beer name
+		$this->beerName = $newbeerName;
 	}
 
 	/**
@@ -315,14 +344,21 @@ class beer {
 	/**
 	 * mutator method for beer stlye
 	 * @param string $newbeerStyle is used to assign industry style label
+	 * @throws \InvalidArgumentException if $newbeerStyle content is not a string or is insecure
 	 * @throws \RangeException if string exceeds 32 characters
 	 **/
 	public function setbeerStyle($newbeerStyle) {
 		//verify the beer style content is secure
 		$newbeerStyle = trim($newbeerStyle);
 		$newbeerStyle = filter_var($newbeerStyle, FILTER_SANITIZE_STRING);
+		if(empty($newbeerStyle) === true){
+			throw (new \InvalidArgumentException("beer style content is either empty or insecure"));
+		}
+		//verify the content of beer style can fit in the database
 		if(strlen($newbeerStyle) > 32) {
 			throw (new \RangeException("beer style is greater than 32 characters"));
 		}
+		//store the beer style content
+		$this->beerStyle = $newbeerStyle;
 	}
 }
