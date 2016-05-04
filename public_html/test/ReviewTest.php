@@ -1,8 +1,8 @@
 <?php
-namespace Edu\Cnm\BREWCREW\Test;
+namespace Edu\Cnm\BrewCrew\Test;
 
 //FIXME update this with the right namespace
-use Edu\Cnm\BREWCREW\{  }; //NEED TO LIST ALL THE CLASSES I NEED?
+use Edu\Cnm\BrewCrew\{Brewery, User, Beer};
 
 //grab the project test parameters
 require_once ("BrewCrewTest.php");
@@ -42,7 +42,6 @@ class ReviewTest extends BrewCrewTest {
 	 */
 	protected $VALID_REVIEWPINTRATING = 5;
 
-	//QUESTION Ask if this is correct for brewery.  Not a foreign key being referred to directly in review, but is required for beer, etc.
 	/**
 	 * Brewery associated with beer being reviewed
 	 * @var Brewery brewery
@@ -68,16 +67,15 @@ class ReviewTest extends BrewCrewTest {
 		parent::setUp();
 
 		//create and insert a brewery to own the reviewed beer
-		$this->brewery = new Brewery(null, null, null, null, "Test Brewery", null, null, null);
-		//QUESTION do I need to fill in all the fields? what about the unnecessary ones--can I just null like above--if you can null? do I have to get the data from the API--probably no. Applies to below as well.
+		$this->brewery = new Brewery(null, "description of Test Brewery", "2005", "24/7 8 days a week", "The middle of nowhere", "Test Brewery", "1238675309", "www.awesometestbrewery.com");
 		$this->brewery->insert($this->getPDO());
 
 		//create and insert a beer that is being reviewed
-		$this->beer = new Beer(null, null, null, null, null, null, null, null, "Teh Awesome Beer", null);
+		$this->beer = new Beer(null, null, 10.5, "available whenever we like it to be", "lots of awards we don't care to name", .5, "something something about the taste.", "50", "Teh Awesome Beer", "Lager");
 		$this->beer->insert($this->getPDO());
 
 		//create and insert a user that owns the review being tested
-		$this->user = new User(null, null, 0, null, '1980-01-01', "anon@test.com", "John", null, "Smith", null, "beerfan4lyfe");
+		$this->user = new User(null, null, 0, "token", '1980-01-01', "anon@test.com", "John", "d3f5cd178c01bff44f6be00eb0d5d0a0cb3d5275a641fa11e41739ae1ed7c717d9c0cbf08912836d63715c1e5116df38b505c72f762a737a88d964e435dc78a1", "Smith", "cfad559b8d496bac9af4dbfc0bf5ebdd", "beerfan4lyfe");
 		$this->user->insert($this->getPDO());
 
 		//Calculate the date
@@ -92,6 +90,7 @@ class ReviewTest extends BrewCrewTest {
 
 		//create a new review and insert it into mySQL
 		$review = new Review(null, $this->beer->getBeerId(), $this->user->getUserId(), $this->VALID_REVIEWDATE, $this->VALID_REVIEWPINTRATING, $this->VALID_REVIEWCONTENT);
+		$review->insert($this->getPDO());
 
 		//grab the data from mySQL and check the fields against our expectations
 		$pdoReview = Review::getReviewByReviewId($this->getPDO(), $review->getReviewId());
@@ -181,11 +180,71 @@ class ReviewTest extends BrewCrewTest {
 	 * test grabbing a review that doesn't exist from the database
 	 */
 	public function testGetInvalidReviewByReviewId() {
-		//grab a review id that exceeds maximum allowable limit
-		//QUESTION is this review id or user id?  is user id in example
+		//grab a review id that exceeds maximum allowable id limit
 		$review = Review::getReviewByReviewId($this->getPDO(), BrewCrewTest::INVALID_KEY);
 		$this->assertNull($review);
 	}
+	/**
+	 * test grabbing a review by pint rating
+	 */
+	public function testGetReviewByReviewPintRating() {
+		//count the number of rows and save this for later
+		$numRows = $this->getConnection()->getRowCount("review");
+
+		//create a new review and insert it into mySQL
+		$review = new Review(null, $this->beer->getBeerId(), $this->user->getUserId(), $this->VALID_REVIEWDATE, $this->VALID_REVIEWPINTRATING, $this->VALID_REVIEWCONTENT);
+		$review->insert($this->getPDO());
+
+		//grab the data from mySQL and check the fields against our expectations
+		$results = Review::getReviewByReviewPintRating($this->getPDO(), $review->getReviewId());
+		$this->assertEquals($numRows +1, $this->getConnection()->getRowCount("review"));
+		$this->assertCount(1, $results);
+		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\BrewCrew\\Review", $results);
+
+		//grab the result from the resulting array and validate it
+		$pdoReview = $results[0];
+		$this->assertEquals($pdoReview->getBeerId(), $this->beer->getBeerId());
+		$this->assertEquals($pdoReview->getUserId(), $this->user->getUserId());
+		$this->assertEquals($pdoReview->getReviewDate(), $this->VALID_REVIEWDATE);
+		$this->assertEquals($pdoReview->getReviewPintRating(), $this->VALID_REVIEWPINTRATING);
+		$this->assertEquals($pdoReview->getReviewText(), $this->VALID_REVIEWCONTENT);
+	}
+
+	/**
+	 * test grabbing a review by pint rating that doesn't exist
+	 */
+	public function testGetInvalidReviewByPintRating() {
+		//grab a review by looking for reviews with no applicable pint ratings
+		$review = Review::getReviewByReviewPintRating($this->getPDO(), 42);
+		$this->assertCount(0, $review);
+	}
+
+	/**
+	 * test grabbing all the reviews
+	 */
+	public function testGetAllValidReviews() {
+		//count the number of rows and save this for later
+		$numRows = $this->getConnection()->getRowCount("review");
+
+		//create a new review and insert it into mySQL
+		$review = new Review(null, $this->beer->getBeerId(), $this->user->getUserId(), $this->VALID_REVIEWDATE, $this->VALID_REVIEWPINTRATING, $this->VALID_REVIEWCONTENT);
+		$review->insert($this->getPDO());
+
+		//grab the data from mySQL and check the fields against our expectations
+		$results = Review::getReviewByReviewPintRating($this->getPDO(), $review->getReviewId());
+		$this->assertEquals($numRows +1, $this->getConnection()->getRowCount("review"));
+		$this->assertCount(1, $results);
+		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\BrewCrew\\", $results);
+
+		//grab the results from the array and validate it
+		$pdoReview = $results[0];
+		$this->assertEquals($pdoReview->getBeerId(), $this->beer->getBeerId());
+		$this->assertEquals($pdoReview->getUserId(), $this->user->getUserId());
+		$this->assertEquals($pdoReview->getReviewDate(), $this->VALID_REVIEWDATE);
+		$this->assertEquals($pdoReview->getReviewPintRating(), $this->VALID_REVIEWPINTRATING);
+		$this->assertEquals($pdoReview->getReviewText(), $this->VALID_REVIEWCONTENT);
+	}
+
 
 
 
