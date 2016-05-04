@@ -194,4 +194,59 @@ public function __construct($breweryId, $breweryDescription, $breweryEstDate, $b
 		//store the brewery hours content
 		$this->breweryHours = $newBreweryHours;
 	}
+	/** Accessor method for brewery location
+	 *
+	 * @return string brewery location
+	 **/
+	public function getBreweryLocation() {
+		return ($this->BreweryLocation);
+	}
+
+/** Mutator method for brewery location
+ *
+ * @param string $newBreweryLocation new value of address
+ * @throws \InvalidArgumentException if $newBreweryLocation is not a string or is insecure
+ * @throws \RangeException if string exceeds 250 characters
+ **/
+	public function setBreweryLocation($newBreweryLocation) {
+		//verify the brewery location content is secure
+		$newBreweryLocation = trim($newBreweryLocation);
+		$newBreweryLocation = filter_var($newBreweryLocation, FILTER_SANITIZE_STRING);
+		if(empty($newBreweryLocation) === true) {
+			throw (new \InvalidArgumentException("brewery location is empty or insecure"));
+		}
+		if(strlen($newBreweryLocation) > 250) {
+			throw (new \RangeException("brewery location field is greater than 250 characters"));
+		}
+		//store the brewery location content
+		$this->breweryLocation = $newBreweryLocation;
+	}
+	/** Accessor method for brewery name
+	 *
+	 * @return string name of brewery
+	 **/
+	public function getBreweryName() {
+		return ($this->BreweryName);
+	}
+
+/** Mutator method for brewery location
+ *
+ * @param string $newBreweryName new value of name
+ * @throws \InvalidArgumentException if $newBreweryName is not a string or is insecure
+ * @throws \RangeException if string exceeds 100 characters
+ **/
+	public function setBreweryName($newBreweryName) {
+		//verify the brewery name content is secure
+		$newBreweryName = trim($newBreweryName);
+		$newBreweryName = filter_var($newBreweryName, FILTER_SANITIZE_STRING);
+		if(empty($newBreweryName) === true) {
+			throw (new \InvalidArgumentException("brewery name is empty or insecure"));
+		}
+		if(strlen($newBreweryName) > 100) {
+			throw (new \RangeException("brewery name field is greater than 100 characters"));
+		}
+		//store the brewery name content
+		$this->breweryName = $newBreweryName;
+	}
+
 }
