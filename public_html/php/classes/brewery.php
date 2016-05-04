@@ -154,5 +154,44 @@ public function __construct($breweryId, $breweryDescription, $breweryEstDate, $b
 		//store the brewery description content
 		$this->breweryDescription = $newBreweryDescription;
 	}
+/** Accessor method for breweryEstDate
+ *
+ * @return NO FUCKING CLUE year brewery was established
+ **/
+	public function getBreweryEstDate() {
+		return($this->getBreweryEstDate);
+	}
+
+/** Mutator method for breweryEstDate
+ *
+ **/
+	NO FUCKING CLUE
 	
+/** Accessor method for brewery hours
+ *
+ * @return string brewery hours 
+ **/
+	public function getBreweryHours() {
+		return ($this->BreweryHours);
+	}
+	
+/** Mutator method for brewery hours
+ * 
+ * @param string $newBreweryHours new value of hours of operation
+ * @throws \InvalidArgumentException if $newBreweryHours is not a string or is insecure
+ * @throws \RangeException if string exceeds 250 characters
+ **/
+	public function setBreweryHours($newBreweryHours) {
+		//verify the brewery description content is secure
+		$newBreweryHours = trim($newBreweryHours);
+		$newBreweryHours = filter_var($newBreweryHours, FILTER_SANITIZE_STRING);
+		if(empty($newBreweryHours) === true) {
+			throw (new \InvalidArgumentException("brewery hours field is empty or insecure"));
+		}
+		if(strlen($newBreweryHours) > 250) {
+			throw (new \RangeException("brewery hours field is greater than 250 characters"));
+		}
+		//store the brewery hours content
+		$this->breweryHours = $newBreweryHours;
+	}
 }
