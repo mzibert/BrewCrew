@@ -25,14 +25,14 @@ class Brewery implements \JsonSerializable {
 	private $breweryDescription;
 
 	/**
-	 * date or year brewery was established
-	 * @var int $breweryEstDate
+	 * year brewery was established
+	 * @var |Year $breweryEstDate
 	 */
 	private $breweryEstDate;
 
 	/**
 	 * brewery hours
-	 * @var int $breweryHours
+	 * @var string $breweryHours
 	 */
 	private $breweryHours;
 
@@ -50,7 +50,7 @@ class Brewery implements \JsonSerializable {
 
 	/**
 	 * brewery phone number
-	 * @var int $breweryPhone
+	 * @var string $breweryPhone
 	 */
 	private $breweryPhone;
 
@@ -65,12 +65,12 @@ class Brewery implements \JsonSerializable {
 /** Constructor for this Brewery
  *
  * @param int|null $newBreweryId id of this brewery or null if a new brewery
- * @param string $breweryDescription string containing description of the brewery
- * @param int $breweryEstDate date brewery was established
- * @param int $breweryHours brewery's hours
+ * @param string $breweryDescription string of open text taken from the API used to describe the brewery
+ * @param |Year $breweryEstDate date brewery was established
+ * @param string $breweryHours an array of brewery's hours
  * @param string $breweryLocation string containing brewery location
  * @param string $breweryName string containing brewery name
- * @param int $breweryPhone phone number of the brewery
+ * @param string $breweryPhone phone number of the brewery
  * @param string $breweryUrl string containing website of the brewery
  * @throws \InvalidArgumentException if data types are not valid
  * @throws \RangeException if data values are out of bounds
@@ -100,16 +100,33 @@ public function __construct($breweryId, $breweryDescription, $breweryEstDate, $b
 			}
 		}
 	}
+/** Accessor method for Brewery Id
+ *
+ * @return int|null value of Brewery id
+ **/
+
+	public function getBreweryId () {
+		return ($this->userId);
+	}
+
+/** Mutator method for Brewery Id
+ *
+ * @param int $newBreweryId new value of brewery Id
+ * @throws \RangeException if $newBreweryId is not positive
+ * @throws \TypeError if $newBreweryId is not an integer
+ */
+	public function setBreweryId(int $newBreweryId = null) {
+		//base case: If breweryId is null, this is a new brewery without a mySQL assigned id yet
+		if($newBreweryId === null) {
+			$this->breweryId = null;
+			return
+		}
+		//verify the brewery id is positive
+		if($newBreweryId <=0) {
+			throw (new \RangeException("brewery id is not positive"));
+		}
+		//convert and store the brewery id
+		$this->breweryId = $newBreweryId;
+	}
 
 }
-
-
-
-
-
-
-
-
-
-
-
