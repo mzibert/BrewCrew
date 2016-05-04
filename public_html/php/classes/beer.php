@@ -1,4 +1,4 @@
-<?php>
+<?php
 namespace Edu\Cnm\mzibert\BrewCrew;
 
 require_once("autoload.php");
@@ -28,7 +28,7 @@ class beer {
 	 * @var float $beerColor
 	 **/
 	private $beerColor;
-	/** string of open text field taken from the API used to describe the beer
+	/** string of open text taken from the API used to describe the beer
 	 * @var string $beerDescription
 	 **/
 	private $beerDescription;
@@ -36,15 +36,14 @@ class beer {
 	 * @var int $beerIbu
 	 **/
 	private $beerIbu;
-	/** string of open text field for the name of the beer
+	/** string of open text for the name of the beer
 	 * @var string $beerName
 	 **/
 	private $beerName;
 	/** string used to capture the industry standard style label of the beer
-	 * @var string $beerStyle
+	 * @var string
 	 **/
-	private $beerName;
-}
+	private $beerStyle;
 /**
  * constructor for class beer
  **/
@@ -126,7 +125,7 @@ class beer {
 /**
  *mutator method for beer availablity
  *
- *@param string $newbeerAvailability string that tells us if beer is available year round or seasonally
+ *@param string $newbeerAvailability tells us if beer is available year round or seasonally
  *@throws \InvalidArgumentException if $newbeerAvailability is not a string or is insecure
  *@throws \RangeException if $newbeerAvailability is > 100 characters
  * @throws \TypeError if $newbeerAvailability is not a string
@@ -135,4 +134,101 @@ class beer {
 	//verify the beer availabilty content is secure
 		$newbeerAvailability = trim($newbeerAvailability);
 		$newbeerAvailability = filter_var($newbeerAvailability, FILTER_SANITIZE_STRING);
+		if($newbeerAvailability strlen(>100)){
+			throw (new \RangeException("string is greater than 100 characters"));
+		}
+		//verify the beer avaiability is a string
+		if($newbeerAvailability===string)
 }
+/**
+ * accessor method for beer awards
+ * @return string value of beer awards
+ **/
+	public function getbeerAwards(){
+		return($this->beerAwards);
+	}
+/**
+ * mutator method for beer awards
+ * @param string $newbeerAwards tells us all of the awards that this beer has been awarded
+ * @throws \InvalidArgumentException if $newbeerAwards is not a string or is insecure
+ * @throws \RangeException if $newbeerAwards is greater that  1000 characters
+ * @throws \TypeError if $newbeerAwards is not a string
+ **/
+/**
+ * accessor method for beer color
+ * @return float value of beer color
+ **/
+	public function getbeerColor(){
+		return($this->beerColor);
+	}
+	/**mutator method for beer color
+	 * @param float $newbeerColor new value of beer color between 0 and 1
+	 * @throws \RangeException if $newbeerColor is less than zero or greater than 1
+	 * @throws \TypeError if $newbeerColor is not a float
+	 **/
+	public function setbeerColor($newbeerColor){
+		//verify the beer abv is between 0 and 1
+		if($newbeerColor < 0 || $newbeerColor > 1){
+			throw (new \RangeException ("beer color is out of range"));
+		}
+		//convert and store the new beer color
+		$this->beerColor=$newbeerColor;
+	}
+/**
+ * accessor method for beer description
+ * @return string value of beer description
+ **/
+	public function getbeerDescription(){
+		return($this->beerDescription);
+	}
+/**
+ * mutator method for beer description
+ * @param string $newbeerDescription tells about the details of the beer should not exceed 2000 characters
+ * @throws \InvalidArgumentException if $newbeerDescription is not a string or is insecure
+ * @throws \RangeException if the string exceeds 2000 characters
+ **/
+	public function setbeerDescription($newbeerDescription){
+}
+/**
+ * accessor method for beer ibu
+ * @return int value for beer ibu
+ **/
+	public function getbeerIbu(){
+		return($this->beerIbu);
+}
+/**
+ * mutator method for beerIbu
+ * @param int $newbeerIbu states how many Ibu's are present in the beer
+ * @throws \InvalidArgumentException if $newbeerIbu is not an integer
+ **/
+	public function setbeerIbu($newbeerIbu){
+
+}
+/**
+ * accessor method for beer name
+ * @return string for for beer name not null
+ **/
+	public function getbeerName(){
+		return($this->beerName);
+}
+/**
+ * mutator method for beer name
+ * @param
+ * @throws
+ **/
+	public function setbeerName($newbeerName){
+
+}
+/**
+ * accessor method for beer style
+ * @return string to describe industry style label
+ **/
+	public function getbeerStyle(){
+		return($this->beerStyle);
+}
+/**
+ * mutator method for beer stlye
+ * @param string used to assign industry style label
+ * @throws
+ **/
+	public function setbeerStyle($newbeerStyle)
