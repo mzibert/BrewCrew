@@ -68,7 +68,7 @@ class User implements \JsonSerializable {
 	 * @param int $newUserBreweryId int id of the Brewery
 	 * @param int $newUserAccessLevel
 	 * @param int $newUserActivationToken int with user token
-	 * @param \DateTime|string|null $newUserDateOfBirth date User was sent or null if set to current date and time
+	 * @param \DateTime  $newUserDateOfBirth date User was sent or null if set to current date and time
 	 * @param string $newUserFirstName string containing actual user first name
 	 * @param string $newUserLastName string containing actual user LAST NAME
 	 * @param string $newUserEmail string containing user email
@@ -217,7 +217,8 @@ class User implements \JsonSerializable {
 		if($newUserDateOfBirth === null) {
 			throw (new \OutOfBoundsException("You must enter your date of birth"));
 		}
-			if($newUserDateOfBirth < $newUserDateOfBirth.getdate()){
+		$newUserDateOfBirth ->add(new \DateInterval('y21'));
+			if($newUserDateOfBirth > $newUserDateOfBirth.getdate()){
 			throw (new \RangeException("You are too young."));
 			}
 		// store the userDateOfBirth date
