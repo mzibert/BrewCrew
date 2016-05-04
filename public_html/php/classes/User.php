@@ -448,4 +448,11 @@ class User implements \JsonSerializable {
 		// store the userSalt
 		$this->userSalt = $newUserSalt;
 	}
+	/**
+	 * @return array
+	 */
+	public function jsonSerialize() {
+		$fields = get_object_vars($this);
+		return ($fields);
+	}
 }
