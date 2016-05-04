@@ -10,19 +10,19 @@ DROP TABLE IF EXISTS brewery;
 CREATE TABLE brewery (
 	breweryId INT UNSIGNED AUTO_INCREMENT NOT NULL,
 	breweryDescription VARCHAR(1000),
-	breweryEstDate VARCHAR(150),
+	breweryEstDate YEAR,
 	breweryHours VARCHAR(250),
 	breweryName VARCHAR(100) NOT NULL,
 	breweryLocation VARCHAR (250),
-	breweryPhone VARCHAR(14),
-	breweryUrl VARCHAR(100),
+	breweryPhone VARCHAR(20),
+	breweryUrl VARCHAR(250),
 	INDEX(breweryName),
 	PRIMARY KEY(breweryId)
 );
 
 CREATE TABLE user (
 	userId  INT UNSIGNED AUTO_INCREMENT NOT NULL,
-	userBreweryId  INT UNSIGNED NOT NULL,
+	userBreweryId  INT UNSIGNED,
 	userAccessLevel  TINYINT UNSIGNED NOT NULL, -- or could be char with a letter
 	userActivationToken  CHAR(32), -- because this is a hash it is char not int
 	userDateOfBirth  DATE NOT NULL,
@@ -42,17 +42,18 @@ CREATE TABLE user (
 CREATE TABLE beer (
    beerId INT UNSIGNED AUTO_INCREMENT NOT NULL,
    beerBreweryId INT UNSIGNED NOT NULL,
-   beerAbv DECIMAL(6, 5),
+   beerAbv DECIMAL(5, 2),
    beerAvailability VARCHAR(100),
    beerAwards VARCHAR(1000),
    beerColor DECIMAL(6, 5),
    beerDescription VARCHAR(2000),
-   beerIbu INT(3) UNSIGNED,
+   beerIbu VARCHAR(50) NOT NULL,
    beerName VARCHAR(64) NOT NULL,
 	beerStyle VARCHAR (32),
 	INDEX(beerBreweryId),
 	INDEX(beerIbu),
 	INDEX(beerColor),
+	INDEX(beerName),
 	INDEX(beerStyle),
 	FOREIGN KEY (beerBreweryId) REFERENCES brewery(breweryId),
 	PRIMARY KEY(beerId)
@@ -60,15 +61,15 @@ CREATE TABLE beer (
 
 CREATE TABLE review (
    reviewId INT UNSIGNED AUTO_INCREMENT NOT NULL,
-   reviewbeerId INT UNSIGNED NOT NULL,
+   reviewBeerId INT UNSIGNED NOT NULL,
    reviewUserId INT UNSIGNED NOT NULL,
-	reviewDate TIMESTAMP,
-   reviewPintRating TINYINT(1) UNSIGNED NOT NULL,
+	reviewDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+   reviewPintRating TINYINT UNSIGNED NOT NULL,
    reviewText VARCHAR(2000),
-	INDEX(reviewbeerId),
+	INDEX(reviewBeerId),
 	INDEX(reviewUserId),
 	INDEX(reviewPintRating),
-	FOREIGN KEY (reviewbeerId) REFERENCES beer(beerId),
+	FOREIGN KEY (reviewBeerId) REFERENCES beer(beerId),
 	FOREIGN KEY (reviewUserId) REFERENCES user(userId),
 	PRIMARY KEY (reviewId)
 );
@@ -76,7 +77,6 @@ CREATE TABLE review (
 CREATE TABLE tag (
 	tagId INT UNSIGNED AUTO_INCREMENT NOT NULL,
 	tagLabel VARCHAR(64) NOT NULL,
-	INDEX (tagLabel),
 	PRIMARY KEY (tagId)
 );
 
