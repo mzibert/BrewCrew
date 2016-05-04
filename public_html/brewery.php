@@ -6,7 +6,7 @@ require_once("autoload.php");
 /**
  * This class contains data and functionality for a brewery.
  *
- * @author Kate McGaughey
+ * @author Kate McGaughey therealmcgaughey@gmail.com
  */
 
 class Brewery implements \JsonSerializable {
