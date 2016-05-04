@@ -181,7 +181,7 @@ class beer {
 		$newbeerAwards=trim($newbeerAwards);
 		$newbeerAwards=filter_var($newbeerAwards,FILTER_SANITIZE_STRING);
 		if(strlen($newbeerAwards)>1000){
-			throw (new \RangeException("string is greater than 1000 characters"));
+			throw (new \RangeException("beer awards description is greater than 1000 characters"));
 		}
 		//convert and store the new beer color
 		$this->beerAwards= $newbeerAwards;
@@ -223,11 +223,17 @@ class beer {
 	 * @throws \RangeException if the string exceeds 2000 characters
 	 **/
 	public function setbeerDescription($newbeerDescription) {
+		//verify the beer description content is secure
+		$newbeerDescription= trim($newbeerDescription);
+		$newbeerDescription= filter_var($newbeerDescription,FILTER_SANITIZE_STRING);
+		if(strlen($newbeerDescription) > 2000){
+			throw (new \RangeException("beer description is greater than 2000 characters"));
+		}
 	}
 
 	/**
 	 * accessor method for beer ibu
-	 * @return int value for beer ibu
+	 * @return string value for beer ibu
 	 **/
 	public function getbeerIbu() {
 		return ($this->beerIbu);
@@ -235,11 +241,16 @@ class beer {
 
 	/**
 	 * mutator method for beerIbu
-	 * @param int $newbeerIbu states how many Ibu's are present in the beer
-	 * @throws \InvalidArgumentException if $newbeerIbu is not an integer
+	 * @param string $newbeerIbu states how many Ibu's are present in the beer
+	 * @throws \RangeException if the string exceeds 50 characters
 	 **/
-	public function setbeerIbu($newbeerIbu) {
-
+	public function setbeerIbu($newbeerIbu){
+		//verify the beer ibu content is secure
+		$newbeerIbu= trim($newbeerIbu);
+		$newbeerIbu=filter_var($newbeerIbu,FILTER_SANITIZE_STRING);
+		if(strlen($newbeerIbu)>50){
+			throw (new \RangeException("beer IBU contains more than 50 characters"));
+		}
 	}
 
 	/**
@@ -253,10 +264,15 @@ class beer {
 	/**
 	 * mutator method for beer name
 	 * @param string $newbeerName displays the name of the beer
-	 * @throws
+	 * @throws \RangeException if string exceeds 64 characters
 	 **/
-	public function setbeerName($newbeerName) {
-
+	public function setbeerName($newbeerName){
+		//verify the beer name content is secure
+		$newbeerName=trim($newbeerName);
+		$newbeerName=filter_var($newbeerName,FILTER_SANITIZE_STRING);
+		if(strlen($newbeerName)>64){
+			throw (new \RangeException("beer name contains more than 64 characters"));
+		}
 	}
 
 	/**
@@ -270,8 +286,14 @@ class beer {
 	/**
 	 * mutator method for beer stlye
 	 * @param string $newbeerStyle is used to assign industry style label
-	 * @throws
+	 * @throws \RangeException if string exceeds 32 characters
 	 **/
 	public function setbeerStyle($newbeerStyle) {
+		//verify the beer style content is secure
+		$newbeerStyle=trim($newbeerStyle);
+		$newbeerStyle=filter_var($newbeerStyle,FILTER_SANITIZE_STRING);
+		if(strlen($newbeerStyle) > 32){
+			throw (new \RangeException("beer style is greater than 32 characters"));
+		}
 	}
 }
