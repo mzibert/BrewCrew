@@ -110,6 +110,84 @@ class User implements \JsonSerializable {
 	}
 
 	/**
+	 * gets user by userBreweryId
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @param string $userBreweryId
+	 * @return \SplFixedArray SplFixedArray of users by user brewery id found
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError when variables are not the correct data type
+	 **/
+	public static function getUserByUserBreweryId(\PDO $pdo, string $userBreweryId) {
+		// sanitize the description before searching
+		$userBreweryId = trim($userBreweryId);
+		$userBreweryId = filter_var($userBreweryId, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($userBreweryId) === true) {
+			throw(new \PDOException("user brewery id is invalid"));
+		}
+		// create query template
+		$query = "SELECT userId, userBreweryId, userAccessLevel, userActivationToken, userDateOfBirth, userFirstName, userHash, userLastName, userSalt, userUsername,  FROM userBreweryId WHERE userBreweryId LIKE :userBreweryId";
+		$statement = $pdo->prepare($query);
+		//bind the userBreweryID to the place holder in the template
+		$userBreweryId = "%$userBreweryId%";
+		$parameters = array("userBreweryId" => $userBreweryId);
+		$statement->execute($parameters);
+		// build an array of users
+		$users = new \SplFixedArray($statement->rowCount());
+		$statement->setFetchMode(\PDO::FETCH_ASSOC);
+		while(($row = $statement->fetch()) !== false) {
+			try {
+				$user= new User($row["userId"], $row["userBreweryId"], $row["userAccessLevel"], $row["userActivationToken"], $row["userDateOfBirth"], $row["userEmail"], $row["userFirstName"], $row["userHash"], $row["userLastName"], $row["userSalt"], ;
+				$users[$users->key()] = $user;
+				$user->next();
+			}catch(\Exception $exception) {
+				// if the row couldn't be converted, rethrow it
+				throw(new \PDOException($exception->getMessage(), 0, $exception));
+			}
+		}
+		return($users);
+	}
+
+	/**
+	 * gets user by userAccessLevel
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @param string $userAccessLevel
+	 * @return \SplFixedArray SplFixedArray of users found
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError when variables are not the correct data type
+	 **/
+	public static function getUserAccessLevel(\PDO $pdo, string $userAccessLevel) {
+		// sanitize the description before searching
+		$userAccessLevel = trim($userAccessLevel);
+		$userAccessLevel = filter_var($userAccessLevel, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($uuserAccessLevel) === true) {
+			throw(new \PDOException("user access level is invalid"));
+		}
+		// create query template
+		$query = "SELECT userId, userBreweryId, userAccessLevel, userActivationToken, userDateOfBirth, userFirstName, userHash, userLastName, userSalt, userUsername,  FROM userBreweryId WHERE userBreweryId LIKE :userBreweryId";
+		$statement = $pdo->prepare($query);
+		//bind the user access level to the place holder in the template
+		$userAccessLevel = "%$userAccessLevel%";
+		$parameters = array("userAccessLevel" => $userAccessLevel);
+		$statement->execute($parameters);
+		// build an array of users
+		$users = new \SplFixedArray($statement->rowCount());
+		$statement->setFetchMode(\PDO::FETCH_ASSOC);
+		while(($row = $statement->fetch()) !== false) {
+			try {
+				$user= new User($row["userId"], $row["userBreweryId"], $row["userAccessLevel"], $row["userActivationToken"], $row["userDateOfBirth"], $row["userEmail"], $row["userFirstName"], $row["userHash"], $row["userLastName"], $row["userSalt"], ;
+				$users[$users->key()] = $user;
+				$user->next();
+			}catch(\Exception $exception) {
+				// if the row couldn't be converted, rethrow it
+				throw(new \PDOException($exception->getMessage(), 0, $exception));
+			}
+		}
+		return($users);
+	}
+
+	/**
 	 * accessor method for user id
 	 *
 	 * @return int|null value of user id
@@ -463,66 +541,5 @@ class User implements \JsonSerializable {
 	public function jsonSerialize () {
 		$fields = get_object_vars($this);
 		return ($fields);
-	}
-
-	/**
-	 * inserts the user into mySQL
-	 *
-	 * @param \PDO $pdo PDO conncetion oci_fetch_object
-	 * @throws \PDOException when mySQl related errors oci_new_cursor
-	 * @throws \TypeError if $pdo is not a PDO conncetion object
-	 **/
-	public function insert (\PDO $pdo) {
-		// enforce the user id is null (dont need to insert the user if its already in the system)
-		if($this->userId !== null) {
-			throw(new \PDOException("not a new user"));
-		}
-		// create query template
-		$query = "INSERT INTO user(userId, userBreweryId, userAccessLevel, userActivationToken, userDateOfBirth, userEmail, userFirstName, userHash, userLastName, userSalt, username) VALUES(:userId, :userBreweryId, :userAccessLevel, :userActivationToken, :userDateOfBirth, :userEmail, :userFirstName, :userHash, :userLastName, :userSalt, :username)";
-		$statement = $pdo->prepare($query);
-		//bind the member variables to the place holders in the template
-		$parameters = "userId" => $this->userId, "userBreweryId" => $this->userBreweryId, "userAccessLevel" => $this->userAccessLevel, "userActivationToken" =>userActivationToken,"userDateOfBirth"=>userDateOfBirth,"userEmail"=>userEmail, "userFirstName" => $this->userFirstName, "userHash" => $this->userHash, "userLastName" => $this->userLastName, "userSalt" => $this->userSalt, "username" => $this->username];
-        $statement->execute($parameters);
-        //update the null userId with what mySQL just gave us
-        $this->userId = intval($pdo->lastInsertId());
-    }
-	/**
-	 * deletes this user from mySQL
-	 *
-	 * @param \PDO $pdo PDO connection object
-	 * @throws \PDOException when mySQL related errors occur
-	 * @throws \TypeError if $pdo is not a PDO connection object
-	 **/
-publuc function delete (\PDO $pdo) {
-	// enforce the userId is not null (dont delete users that haevnt been inserted)
-	if($this->userId === null) {
-		throw(new \PDOException("unable to delete a user that does not exist"));
-	}
-	// create query template
-	$query = "DELETE FROM user WHERE userId =:userId";
-	$statement = $pdo->prepare($query);
-	// bind the member variables to the place homder in the template
-	$parameters = ["userId" => $this->userId];
-	$statement->execute($parameters);
-}
-
-	/**
-	 * updates the user in mySQL
-	 *
-	 * @param \PDO $pdo PDO connection object
-	 * @throws \PDOException when mySQL related errors occur
-	 * @throws \TypeError if $pdo is not a PDO connection object
-	 **/
-	public function update (\PDO $pdo) {
-		// enforce the userId is not null (dont update a user that hasn't been inserted)
-		if($this->userId === null) {
-			throw(new \PDOException("unable to update a user that does not exist"));
-		}
-		// create query template
-		$query = "UPDATE user SET userId = :userId, userBreweryId = :userBreweryId, userAccessLevel = :userAccessLevel, userActivationToken = :userActivationToken, userDateOfBirth = :userDateOfBirth, userEmail = :userEmail, userFirstName = :userFirstName, userHash = :userHash, userLastName = :userLastName, userSalt = :userSalt, username = :username WHERE userId = :userId";
-		$statement = $pdo->prepare($query);
-		// bind the member variables to the place holders in the template
-		$parameters = ["userId" => $this->userId, "userBreweryId" => $this->userBreweryId, "userAccessLevel" => $this->userAccessLevel, "userActivationToken" => $this->userActivationToken, "userDateOfBirth" => $this->userDateOfBirth, "userEmail" => $this->userEmail, "userFirstName" => $this->userFirstName, "userHash" => $this->userHash, "userLastName" => $this->userLastName, "userSalt" => $this->userSalt, "username" => $this->username];
-		$statement->execute($parameters);
 	}
 }
