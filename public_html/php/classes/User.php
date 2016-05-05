@@ -151,7 +151,7 @@ class User implements \JsonSerializable {
 	/**
 	 * gets user by userAccessLevel
 	 *
-	 * @param string $userAccessLevel
+	 * @param int $userAccessLevel
 	 * @return \SplFixedArray SplFixedArray of users found
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when variables are not the correct data type
@@ -164,7 +164,7 @@ class User implements \JsonSerializable {
 			throw(new \PDOException("user access level is invalid"));
 		}
 		// create query template
-		$query = "SELECT userId, userBreweryId, userAccessLevel, userActivationToken, userDateOfBirth, userFirstName, userHash, userLastName, userSalt, userUsername,  FROM userBreweryId WHERE userBreweryId LIKE :userBreweryId";
+		$query = "SELECT userId, userBreweryId, userAccessLevel, userActivationToken, userDateOfBirth, userFirstName, userHash, userLastName, userSalt, userUsername,  FROM userAccessLevel WHERE userAccessLevel LIKE :userAccessLevel";
 		$statement = $pdo->prepare($query);
 		//bind the user access level to the place holder in the template
 		$userAccessLevel = "%$userAccessLevel%";
@@ -202,7 +202,7 @@ class User implements \JsonSerializable {
 			throw(new \PDOException("user activation token is invalid"));
 		}
 		// create query template
-		$query = "SELECT userId, userBreweryId, userAccessLevel, userActivationToken, userDateOfBirth, userFirstName, userHash, userLastName, userSalt, userUsername,  FROM userBreweryId WHERE userBreweryId LIKE :userBreweryId";
+		$query = "SELECT userId, userBreweryId, userAccessLevel, userActivationToken, userDateOfBirth, userFirstName, userHash, userLastName, userSalt, userUsername,  FROM userActivationToken WHERE userActivationToken LIKE :userActivationToken";
 		$statement = $pdo->prepare($query);
 		//bind the user ActivationToken to the place holder in the template
 		$userActivationToken = "%$userActivationToken%";
@@ -227,7 +227,7 @@ class User implements \JsonSerializable {
 	/**
 	 * gets user by userDateOfBirth
 	 *
-	 * @param string $userDateOfBirth
+	 * @param date $userDateOfBirth
 	 * @return \SplFixedArray SplFixedArray of users found
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when variables are not the correct data type
@@ -245,6 +245,44 @@ class User implements \JsonSerializable {
 		//bind the user  date of birth to the place holder in the template
 		$userDateOfBirth = "%$userDateOfBirth%";
 		$parameters = array("userDateOfBirth" => $userDateOfBirth);
+		$statement->execute($parameters);
+		// build an array of users
+		$users = new \SplFixedArray($statement->rowCount());
+		$statement->setFetchMode(\PDO::FETCH_ASSOC);
+		while(($row = $statement->fetch()) !== false) {
+			try {
+				$user= new User($row["userId"], $row["userBreweryId"], $row["userAccessLevel"], $row["userActivationToken"], $row["userDateOfBirth"], $row["userEmail"], $row["userFirstName"], $row["userHash"], $row["userLastName"], $row["userSalt"], ;
+				$users[$users->key()] = $user;
+				$user->next();
+			}catch(\Exception $exception) {
+				// if the row couldn't be converted, rethrow it
+				throw(new \PDOException($exception->getMessage(), 0, $exception));
+			}
+		}
+		return($users);
+	}
+
+	/**
+	 * gets user by userEmail
+	 *
+	 * @param varchar $userEmail
+	 * @return \SplFixedArray SplFixedArray of users found
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError when variables are not the correct data type
+	 **/
+	public static function getUserByUserEmail(\PDO $pdo, string $userEmail) {
+		// sanitize the description before searching
+		$userEmail = trim($userEmail);
+		$userEmail = filter_var($userEmail, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($userEmail) === true) {
+			throw(new \PDOException("user email is invalid"));
+		}
+		// create query template
+		$query = "SELECT userId, userBreweryId, userAccessLevel, userActivationToken, userDateOfBirth, userFirstName, userHash, userLastName, userSalt, userUsername,  FROM userEmail WHERE userEmail LIKE :userEmail";
+		$statement = $pdo->prepare($query);
+		//bind the user access level to the place holder in the template
+		$userEmail = "%$userEmail%";
+		$parameters = array("userEmail" => $userEmail);
 		$statement->execute($parameters);
 		// build an array of users
 		$users = new \SplFixedArray($statement->rowCount());
