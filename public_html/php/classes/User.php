@@ -128,10 +128,12 @@ class User implements \JsonSerializable {
 		// create query template
 		$query = "SELECT userId, userBreweryId, userAccessLevel, userActivationToken, userDateOfBirth, userFirstName, userHash, userLastName, userSalt, userUsername,  FROM userBreweryId WHERE userBreweryId LIKE :userBreweryId";
 		$statement = $pdo->prepare($query);
+
 		//bind the userBreweryID to the place holder in the template
 		$userBreweryId = "%$userBreweryId%";
 		$parameters = array("userBreweryId" => $userBreweryId);
 		$statement->execute($parameters);
+
 		// build an array of users
 		$users = new \SplFixedArray($statement->rowCount());
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
