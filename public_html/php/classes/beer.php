@@ -362,4 +362,78 @@ class beer {
 		//store the beer style content
 		$this->beerStyle = $newBeerStyle;
 	}
+	/**
+	 * inserts this Beer Brewery Id into mySQL
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when my SQL related errors occur
+	 * @throws \TypeError if $pdo is not a PDO connection object
+	 **/
+	public function insert(\PDO $PDO){
+		//enforce the beerId is null (i.e., dont insert a beer that already exists)
+		if($this->beerId !==null){
+			throw (new \PDOException("not a new beer"));
+		}
+		//create query template
+		$query="INSERT INTO beer(beerBreweryId, beerAbv, beerAvailability, beerAwards, beerColor, beerDescription, beerIbu, beerName, beerStyle) VALUES (:beerBreweryID, :beerAbv, :beerAvailability, :beerAwards, :beerColor, :beerDescription, :beerIbu, :beerName, :beerStyle)";
+		$statement = $pdo->prepare($query);
+
+		//bind the memeber variables to the place holders in the template
+		$parameters = ["beerBreweryID" => $this->beerBreweryId, "beerAbv" => $this->beerAbv, "beerAvailability" => $this->beerAvailability, "beerAwards" => $this->beerAwards, "beerColor" => $this->beerColor, "beerDescription" => $this->beerDescription, "beerIbu" => $this->beerIbu, "beerName" => $this->beerName, "beerStyle" => $this->beerStyle];
+		$statement->execute(parameters);
+
+		//update the null beerId with what my SQL just gave us
+		$this->beerId = intval($pdo->lastInsertId());
+	}
+
+	/**
+	 * deletes this beer from mySQL
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when mySQL related errors occure
+	 * @throws \TypeError if $pdo is not a PDO connection object
+	 **/
+	public function delete(\PDO $pdo){
+		//enforce the beerID is not null (i.e., don't delete a beer that has not been inserted)
+		if($this->beerId === null){
+			throw (new \PDOException("unable to delete a beer that does not exist"));
+		}
+
+		//create a query template
+		$query = "DELETE FROM beer WHERE beerId = :beerId";
+		$statement = $pdo->prepare($query);
+
+		//bind the memeber variables to the place holder in the template
+		$parameters = ["beerId" => $this->beerId];
+		$statement->execute($parameters);
+	}
+
+	/**
+	 * updates this Beer in mySQL
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError if $pdo is not a PDO connection object
+	 **/
+	public function update(\PDO $pdo){
+		//enforce the beerID is not null (i.e., do not update a beer that has not been inserted)
+		if($this->beerId === null){
+			throw(new \PDOException("unable to update a beer that does not exist"));
+		}
+
+		//create query template
+		$query="UPDATE beer SET beerBreweryId = :beerBreweryID, beerAbv= :beerAbv, beerAvailability = :beerAvailability, beerAwards = :beerAwards, beerColor = :beerColor, beerDescription = :beerDescription, beerIbu = :beerIbu, beerName =:beerName, beerStyle = :beerStyle WHERE beerId = :beerId";
+		$statement = $pdo->prepare($query);
+		//bind the member variables to the place holders in the template
+		$parameters = ["beerBreweryId"=> $this->beerBreweryId, "beerAbv"=>$this->beerAbv, "beerAvailability"=>$this->beerAvailability, "beerAwards" =>$this->beerAwards, "beerColor"=>$this->beerColor, "beerDescription"=>$this->beerDescription, "beerIbu"=>$this->beerIbu, "beerName"=>$this->beerName, "beerStyle"=>$this->beerStyle];
+		$statement->execute($parameters);
+	}
+
+	/**
+	 * gets the Beer by content
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 *  
+	 * @param
+	 *
+	 **/
 }
