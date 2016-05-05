@@ -17,50 +17,50 @@ class User implements \JsonSerializable {
 	 **/
 	private $userBreweryId;
 	/**
-	 * name of media
+	 * user access level of 1 or 2
 	 * @var int $userAccessLevel
 	 */
 	private $userAccessLevel;
 	/**
-	 * name of userActivationToken
+	 * n userActivationToken
 	 * @var int $userActivationToken
 	 */
 	private $userActivationToken;
 	/**
-	 * name of userDateOfBirth
+	 * birth date of user
 	 * @var \DateTime $userDateOfBirth
 	 */
 	private $userDateOfBirth;
 	/**
-	 * name of userFirstName
+	 * first name of user
 	 * @var string $userFirstName
 	 */
 	private $userFirstName;
 	/**
-	 * name of userLastName
-	 * @var string $userLastName
-	 */
-	private $userLastName;
-	/**
-	 * name of userEmail
+	 * email of user
 	 * @var string $userEmail
 	 */
 	private $userEmail;
-	/**
-	 * name of username
-	 * @var string $username
-	 */
-	private $username;
 	/**
 	 * name of userHash
 	 * @var string $userHash
 	 */
 	private $userHash;
 	/**
+	 * last name of user
+	 * @var string $userLastName
+	 */
+	private $userLastName;
+	/**
 	 * name of userSalt
 	 * @var string $userSalt
 	 */
 	private $userSalt;
+	/**
+	 * username of user
+	 * @var string $userUsername
+	 */
+	private $userUsername;
 
 	/**
 	 * constructor for User      *
@@ -70,18 +70,18 @@ class User implements \JsonSerializable {
 	 * @param int $newUserActivationToken int with user token
 	 * @param \DateTime $newUserDateOfBirth date User was sent or null if set to current date and time
 	 * @param string $newUserFirstName string containing actual user first name
-	 * @param string $newUserLastName string containing actual user LAST NAME
 	 * @param string $newUserEmail string containing user email
-	 * @param string $newUsername string containing actual user name
 	 * @param string $newUserHash string containing actual user password hash
+	 * @param string $newUserLastName string containing actual user LAST NAME
 	 * @param string $newUserSalt string containing actual user password salt
+	 * @param string $newUserUsername string containing actual user name
 	 * @throws \InvalidArgumentException if data types are not valid
 	 * @throws \RangeException if data values are out of bounds (e.g., strings too long,
 	 * negative integers)
 	 * @throws \TypeError if data types violate type hints
 	 * @throws \Exception if some other exception occurs
 	 **/
-	public function __construct (int $newUserId = null, int $newUserBreweryId, int $newUserAccessLevel, int $newUserActivationToken, $newUserDateOfBirth = null, string $newUserFirstName, string $newUserLastName, string $newUserEmail, string $newUsername, string $newUserHash, string $newUserSalt) {
+	public function __construct (int $newUserId = null, int $newUserBreweryId, int $newUserAccessLevel, int $newUserActivationToken, $newUserDateOfBirth = null, string $newUserFirstName, string $newUserLastName, string $newUserEmail, string $newUserUsername, string $newUserHash, string $newUserSalt) {
 		try {
 			$this->setUserId($newUserId);
 			$this->setUserBreweryId($newUserBreweryId);
@@ -89,11 +89,11 @@ class User implements \JsonSerializable {
 			$this->setUserActivationToken($newUserActivationToken);
 			$this->setUserDateOfBirth($newUserDateOfBirth);
 			$this->setUserFirstName($newUserFirstName);
-			$this->setUserLastName($newUserLastName);
 			$this->setUserEmail($newUserEmail);
-			$this->setUsername($newUsername);
 			$this->setUserHash($newUserHash);
+			$this->setUserLastName($newUserLastName);
 			$this->setUserSalt($newUserSalt);
+			$this->setUserUsername($newUserUsername);
 		} catch(\InvalidArgumentException $invalidArgument) {
 			// rethrow the exception to the caller
 			throw(new \InvalidArgumentException($invalidArgument->getMessage(), 0, $invalidArgument));
@@ -137,7 +137,7 @@ class User implements \JsonSerializable {
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 		while(($row = $statement->fetch()) !== false) {
 			try {
-				$user= new User($row["userId"], $row["userBreweryId"], $row["userAccessLevel"], $row["userActivationToken"], $row["userDateOfBirth"], $row["userEmail"], $row["userFirstName"], $row["userHash"], $row["userLastName"], $row["userSalt"], ;
+				$user= new User($row["userId"], $row["userBreweryId"], $row["userAccessLevel"], $row["userActivationToken"], $row["userDateOfBirth"], $row["userEmail"], $row["userFirstName"], $row["userHash"], $row["userLastName"], $row["userSalt"],$row["userUsername"];
 				$users[$users->key()] = $user;
 				$user->next();
 			}catch(\Exception $exception) {
@@ -175,7 +175,7 @@ class User implements \JsonSerializable {
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 		while(($row = $statement->fetch()) !== false) {
 			try {
-				$user= new User($row["userId"], $row["userBreweryId"], $row["userAccessLevel"], $row["userActivationToken"], $row["userDateOfBirth"], $row["userEmail"], $row["userFirstName"], $row["userHash"], $row["userLastName"], $row["userSalt"], ;
+				$user= new User($row["userId"], $row["userBreweryId"], $row["userAccessLevel"], $row["userActivationToken"], $row["userDateOfBirth"], $row["userEmail"], $row["userFirstName"], $row["userHash"], $row["userLastName"], $row["userSalt"],$row["userUsername"];
 				$users[$users->key()] = $user;
 				$user->next();
 			}catch(\Exception $exception) {
@@ -213,7 +213,7 @@ class User implements \JsonSerializable {
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 		while(($row = $statement->fetch()) !== false) {
 			try {
-				$user= new User($row["userId"], $row["userBreweryId"], $row["userAccessLevel"], $row["userActivationToken"], $row["userDateOfBirth"], $row["userEmail"], $row["userFirstName"], $row["userHash"], $row["userLastName"], $row["userSalt"], ;
+				$user= new User($row["userId"], $row["userBreweryId"], $row["userAccessLevel"], $row["userActivationToken"], $row["userDateOfBirth"], $row["userEmail"], $row["userFirstName"], $row["userHash"], $row["userLastName"], $row["userSalt"],$row["userUsername"];
 				$users[$users->key()] = $user;
 				$user->next();
 			}catch(\Exception $exception) {
@@ -227,7 +227,7 @@ class User implements \JsonSerializable {
 	/**
 	 * gets user by userDateOfBirth
 	 *
-	 * @param date $userDateOfBirth
+	 * @param \DateTime $userDateOfBirth
 	 * @return \SplFixedArray SplFixedArray of users found
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when variables are not the correct data type
@@ -251,7 +251,7 @@ class User implements \JsonSerializable {
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 		while(($row = $statement->fetch()) !== false) {
 			try {
-				$user= new User($row["userId"], $row["userBreweryId"], $row["userAccessLevel"], $row["userActivationToken"], $row["userDateOfBirth"], $row["userEmail"], $row["userFirstName"], $row["userHash"], $row["userLastName"], $row["userSalt"], ;
+				$user= new User($row["userId"], $row["userBreweryId"], $row["userAccessLevel"], $row["userActivationToken"], $row["userDateOfBirth"], $row["userEmail"], $row["userFirstName"], $row["userHash"], $row["userLastName"], $row["userSalt"],$row["userUsername"];
 				$users[$users->key()] = $user;
 				$user->next();
 			}catch(\Exception $exception) {
@@ -289,7 +289,7 @@ class User implements \JsonSerializable {
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 		while(($row = $statement->fetch()) !== false) {
 			try {
-				$user= new User($row["userId"], $row["userBreweryId"], $row["userAccessLevel"], $row["userActivationToken"], $row["userDateOfBirth"], $row["userEmail"], $row["userFirstName"], $row["userHash"], $row["userLastName"], $row["userSalt"], ;
+				$user= new User($row["userId"], $row["userBreweryId"], $row["userAccessLevel"], $row["userActivationToken"], $row["userDateOfBirth"], $row["userEmail"], $row["userFirstName"], $row["userHash"], $row["userLastName"], $row["userSalt"],$row["userUsername"];
 				$users[$users->key()] = $user;
 				$user->next();
 			}catch(\Exception $exception) {
@@ -327,7 +327,7 @@ class User implements \JsonSerializable {
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 		while(($row = $statement->fetch()) !== false) {
 			try {
-				$user= new User($row["userId"], $row["userBreweryId"], $row["userAccessLevel"], $row["userActivationToken"], $row["userDateOfBirth"], $row["userEmail"], $row["userFirstName"], $row["userHash"], $row["userLastName"], $row["userSalt"], ;
+				$user= new User($row["userId"], $row["userBreweryId"], $row["userAccessLevel"], $row["userActivationToken"], $row["userDateOfBirth"], $row["userEmail"], $row["userFirstName"], $row["userHash"], $row["userLastName"], $row["userSalt"],$row["userUsername"];
 				$users[$users->key()] = $user;
 				$user->next();
 			}catch(\Exception $exception) {
@@ -365,7 +365,7 @@ class User implements \JsonSerializable {
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 		while(($row = $statement->fetch()) !== false) {
 			try {
-				$user= new User($row["userId"], $row["userBreweryId"], $row["userAccessLevel"], $row["userActivationToken"], $row["userDateOfBirth"], $row["userEmail"], $row["userFirstName"], $row["userHash"], $row["userLastName"], $row["userSalt"], ;
+				$user= new User($row["userId"], $row["userBreweryId"], $row["userAccessLevel"], $row["userActivationToken"], $row["userDateOfBirth"], $row["userEmail"], $row["userFirstName"], $row["userHash"], $row["userLastName"], $row["userSalt"],$row["userUsername"];
 				$users[$users->key()] = $user;
 				$user->next();
 			}catch(\Exception $exception) {
@@ -379,12 +379,12 @@ class User implements \JsonSerializable {
 	/**
 	 * gets user by userUsername
 	 *
-	 * @param string $userUserName
+	 * @param string $userUsername
 	 * @return \SplFixedArray SplFixedArray of users found
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when variables are not the correct data type
 	 **/
-	public static function getUserByUserUserUserName(\PDO $pdo, string $userUserName) {
+	public static function getUserByUserUsername(\PDO $pdo, string $userUserName) {
 		// sanitize the description before searching
 		$userUserName = trim($userUserName);
 		$userUserName = filter_var($userUserName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
@@ -403,7 +403,7 @@ class User implements \JsonSerializable {
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 		while(($row = $statement->fetch()) !== false) {
 			try {
-				$user= new User($row["userId"], $row["userBreweryId"], $row["userAccessLevel"], $row["userActivationToken"], $row["userDateOfBirth"], $row["userEmail"], $row["userFirstName"], $row["userHash"], $row["userLastName"], $row["userSalt"], ;
+				$user= new User($row["userId"], $row["userBreweryId"], $row["userAccessLevel"], $row["userActivationToken"], $row["userDateOfBirth"], $row["userEmail"], $row["userFirstName"], $row["userHash"], $row["userLastName"], $row["userSalt"],$row["userUsername"];
 				$users[$users->key()] = $user;
 				$user->next();
 			}catch(\Exception $exception) {
@@ -667,33 +667,33 @@ class User implements \JsonSerializable {
 	 * accessor method for username
 	 * @return string value of username
 	 **/
-	public function getUsername () {
-		return ($this->username);
+	public function getUserUsername () {
+		return ($this->userUsername);
 	}
 
 	/**
 	 * mutator method for username
 	 *
-	 * @param string $newUsername new value of username
+	 * @param string $newUserUsername new value of userUsername
 	 * @throws \InvalidArgumentException if $newUsername is not a string or insecure
 	 * @throws \RangeException if $newUsername is > 32 characters
 	 * @throws \TypeError if $newUsername is not a string
 	 **/
-	public function setUsername (string $newUsername) {
+	public function setUserUsername (string $newUserUsername) {
 		// verify the User's username is secure
-		$newUsername = trim($newUsername);
-		$newUsername = filter_var($newUsername, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-		if(empty($newUsername) === true) {
+		$newUserUsername = trim($newUserUsername);
+		$newUserUsername = filter_var($newUserUsername, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($newUserUsername) === true) {
 			throw(new \InvalidArgumentException("Username is empty or insecure"));
 		}
 
 		// verify the username will fit in the database
-		if(strlen($newUsername) > 32) {
+		if(strlen($newUserUsername) > 32) {
 			throw(new \RangeException("Username too large"));
 		}
 
 		// store the user's username
-		$this->username = $newUsername;
+		$this->userUsername = $newUserUsername;
 	}
 
 	/**
