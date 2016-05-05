@@ -56,10 +56,10 @@ class Review implements \JsonSerializable {
 	//CONSTRUCT goes here
 	//CONSTRUCT
 	//CONSTRUCT
-	//TODO CONSTRUCT
+	//TODO CONSTRUCTOR
 
 
-	
+	//BEGIN ACCESSORS AND MUTATORS FOR REVIEW
 	/**
 	 * accessor method for review id
 	 *
@@ -238,7 +238,189 @@ class Review implements \JsonSerializable {
 		$this->reviewText = $newReviewText;
 	}
 
-	//TODO done with accessors and mutators.  Still need constructor.  Need to start on PDOs (insert, delete, update, getFooByBar, etc)
+	//BEGIN PDOs FOR REVIEW
+	/**
+	 * inserts the review into the mySQL database
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when mySQL related error occurs
+	 * @throws \TypeError when $pdo is not a PDO connection object
+	 */
+	public function insert(\PDO $pdo) {
+		//enforce that the review id is null (aka don't insert a review that already exists)
+		if($this->reviewId !== null) {
+			throw(new \PDOException("Review is not new"));
+		}
+
+		//create a query template
+		$query = "INSERT INTO review(reviewBeerId, reviewUserId, reviewDate, reviewPintRating, reviewText) VALUES (:reviewBeerId, reviewUserId, reviewDate, reviewPintRating, reviewText)";
+		$statement = $pdo->prepare($query);
+
+		//bind the member variables to the place holders in the template
+		$formattedDate = $this->reviewDate->format("Y-m-d H:i:s");
+		$parameters = ["reviewBeerId" => $this->reviewBeerId, "reviewUserId" => $this->reviewUserId, "reviewDate" => $formattedDate, "reviewPintRating" => $this->reviewPintRating, "reviewText" => $this->reviewText];
+		$statement->execute($parameters);
+
+		//update the null reviewId with what mySQL just gave us
+		$this->reviewId = intval($pdo->lastInsertId());
+	}
+
+	/**
+	 * delete this review from mySQL
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when mySQL related error occurs
+	 * @throws \TypeError when $pdo is not a PDO connection object
+	 */
+	public function delete(\PDO $pdo) {
+	//enforce that that reviewId is not null (aka doesn't exist, so cannot delete)
+		if($this->reviewId === null) {
+			throw(new \PDOException("Cannot delete a review that doesn't exist"));
+		}
+
+		//create a query template
+		$query = "DELETE FROM review WHERE reviewId = :reviewId";
+		$statement = $pdo->prepare($query);
+
+		//bind the member variables to the place holders in the template
+		$parameters = ["reviewId" => $this->reviewId];
+		$statement->execute($parameters);
+	}
+
+	/**
+	 * updates the review in mySQL
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when mySQL related error occurs
+	 * @throws \TypeError when $pdo is not a PDO connection object
+	 */
+	public function update(\PDO $pdo) {
+		//enforce that the review id is not null (aka don't update a review that doesn't exist)
+		if($this->reviewId === null) {
+			throw(new \PDOException("Review is not new"));
+		}
+
+		//create a query template
+		$query = "UPDATE review SET reviewBeerId = :reviewBeerId, reviewUserId = :reviewUserId, reviewDate = :reviewDate, reviewPintRating = :reviewPintRating, reviewText = :reviewTextRating WHERE reviewId = :reviewId";
+		$statement = $pdo->prepare($query);
+
+		//bind the member variables to the place holders in the template
+		$formattedDate = $this->reviewDate->format("Y-m-d H:i:s");
+		$parameters = ["reviewBeerId" => $this->reviewBeerId, "reviewUserId" => $this->reviewUserId, "reviewDate" => $formattedDate, "reviewPintRating" => $this->reviewPintRating, "reviewText" => $this->reviewText];
+		$statement->execute($parameters);
+	}
+
+	/**
+	 * get the review by reviewId
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @param int $reviewId the reviewId to search for
+	 * @return Review|null either the review, or null if not found
+	 * @throws \PDOException when mySQL related errors are found
+	 * @throws \TypeError when variables are not the correct data type
+	 */
+	public static function getReviewByReviewId(\PDO $pdo, int $reviewId) {
+		//sanitize the reviewId before searching
+		if($reviewId <= 0) {
+			throw(new \PDOException ("Review id is not positive"));
+		}
+
+		//create query template
+		$query = "SELECT reviewId, reviewBeerId, reviewUserId, reviewDate, reviewPintRating, reviewText FROM review WHERE reviewId = :reviewId";
+		$statement = $pdo->prepare($query);
+
+		//bind the review id to the place holder in the template
+		$parameters = array("reviewId" => $reviewId);
+		$statement->execute($parameters);
+
+		//grab the review from mySQL
+		try{
+			$review = null;
+			$statement->setFetchMode(\PDO::FETCH_ASSOC);
+			$row = $statement->fetch();
+			if($row !== false) {
+				$review = new Review($row["reviewId"], $row["reviewBeerId"], $row["reviewUserId"], $row["reviewDate"], $row["reviewPintRating"], $row["reviewText"]);
+			}
+		} catch(\Exception $exception) {
+			//if the row couldn't be converted rethrow it
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
+		}
+		return($review);
+	}
+
+	/**
+	 * get review by pint rating
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @param int $reviewPintRating pint rating to search for
+	 * @return \SplFixedArray SplFixedArray of reviews that are found
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError when variables are not the correct data type
+	 */
+	public function getReviewByReviewPintRating(\PDO $pdo, int $reviewPintRating) {
+		//check that the pint rating is 1-5
+		if($reviewPintRating < 1 || $reviewPintRating > 5) {
+			throw(new \RangeException("Pint Rating must be between 1 and 5"));
+		}
+
+		//create query template
+		$query = "SELECT reviewId, reviewBeerId, reviewUserId, reviewDate, reviewPintRating, reviewText FROM review WHERE reviewPintRating LIKE :reviewPintRating";
+		$statement = $pdo->prepare($query);
+
+		//bind the review content to the place holder in the template
+		$reviewContent = "%reviewContent%";
+		$parameters = array("reviewContent" => $reviewContent);
+		$statement->execute($parameters);
+
+		//build an array of reviews
+		$reviews = new \SplFixedArray($statement->rowCount());
+		$statement->setFetchMode(\PDO::FETCH_ASSOC);
+		while(($row = $statement->fetch()) !== false) {
+			try {
+				$review = new Review($row["reviewId"], $row["reviewBeerId"], $row["reviewUserId"], $row["reviewDate"], $row["reviewPintRating"], $row["reviewText"]);
+				$reviews[$reviews->key()] = $review;
+				$reviews->next();
+			} catch(\Exception $exception) {
+				//if the row couldn't be converted, rethrow it
+				throw(new \PDOException($exception->getMessage(), 0, $exception));
+			}
+		}
+		return($reviews);
+	}
+
+	/**
+	 * get all the reviews
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @return \SplFixedArray SplFixedArray of reviews found
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError when the variables are not of the correct data type
+	 */
+	public static function getAllReviews(\PDO $pdo) {
+		//create query template
+		$query = "SELECT reviewId, reviewBeerId, reviewUserId, reviewDate, reviewPintRating, reviewText FROM review";
+		$statement = $pdo->prepare($query);
+		$statement->execute();
+
+		//build an array of reviews
+		$reviews = new \SplFixedArray($statement->rowCount());
+		$statement->setFetchMode(\PDO::FETCH_ASSOC);
+		while(($row = $statement->fetch()) !== false) {
+			try {
+				$review = new Review($row["reviewId"], $row["reviewBeerId"], $row["reviewUserId"], $row["reviewDate"], $row["reviewPintRating"], $row["reviewText"]);
+				$reviews[$reviews->key()] = $review;
+				$reviews->next();
+			} catch(\Exception $exception) {
+				//if the row couldn't be converted, rethrow it
+				throw(new \PDOException($exception->getMessage(), 0, $exception));
+			}
+		}
+		return($reviews);
+	}
+
+//jsonSerialize
+//TODO jsonSerialize
+
 
 }
 
