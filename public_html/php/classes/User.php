@@ -157,7 +157,7 @@ class User implements \JsonSerializable {
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when variables are not the correct data type
 	 **/
-	public static function getUserAccessLevel(\PDO $pdo, string $userAccessLevel) {
+	public static function getUserByAccessLevel(\PDO $pdo, string $userAccessLevel) {
 		// sanitize the description before searching
 		$userAccessLevel = trim($userAccessLevel);
 		$userAccessLevel = filter_var($userAccessLevel, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
@@ -196,19 +196,19 @@ class User implements \JsonSerializable {
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when variables are not the correct data type
 	 **/
-	public static function getUserActivationToken(\PDO $pdo, string $userActivationToken) {
+	public static function getUserByActivationToken(\PDO $pdo, string $userActivationToken) {
 		// sanitize the description before searching
 		$userActivationToken = trim($userActivationToken);
-		$userActivationToken = filter_var($userAccessLevel, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		$userActivationToken = filter_var($userActivationToken, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($userActivationToken) === true) {
 			throw(new \PDOException("user activation token is invalid"));
 		}
 		// create query template
 		$query = "SELECT userId, userBreweryId, userAccessLevel, userActivationToken, userDateOfBirth, userFirstName, userHash, userLastName, userSalt, userUsername,  FROM userBreweryId WHERE userBreweryId LIKE :userBreweryId";
 		$statement = $pdo->prepare($query);
-		//bind the user access level to the place holder in the template
-		$userAccessLevel = "%$userAccessLevel%";
-		$parameters = array("userAccessLevel" => $userAccessLevel);
+		//bind the user ActivationToken to the place holder in the template
+		$userActivationToken = "%$userActivationToken%";
+		$parameters = array("userActivationToken" => $userActivationToken);
 		$statement->execute($parameters);
 		// build an array of users
 		$users = new \SplFixedArray($statement->rowCount());
@@ -582,3 +582,4 @@ class User implements \JsonSerializable {
 		return ($fields);
 	}
 }
+
