@@ -68,7 +68,7 @@ class User implements \JsonSerializable {
 	 * @param int $newUserBreweryId int id of the Brewery
 	 * @param int $newUserAccessLevel
 	 * @param int $newUserActivationToken int with user token
-	 * @param \DateTime  $newUserDateOfBirth date User was sent or null if set to current date and time
+	 * @param \DateTime $newUserDateOfBirth date User was sent or null if set to current date and time
 	 * @param string $newUserFirstName string containing actual user first name
 	 * @param string $newUserLastName string containing actual user LAST NAME
 	 * @param string $newUserEmail string containing user email
@@ -172,6 +172,7 @@ class User implements \JsonSerializable {
 		// convert and store the user brewery id
 		$this->userBreweryId = intval($newUserBreweryId);
 	}
+
 	/**
 	 * accessor method for user AccessLevel
 	 *
@@ -195,13 +196,14 @@ class User implements \JsonSerializable {
 			return;
 		}
 	}
+
 	/**
 	 * accessor method for userDateOfBirth date
 	 *
 	 * @return \DateTime value of userDateOfBirth date
 	 **/
-	public function getUserDateOfBirth() {
-		return($this->userDateOfBirth);
+	public function getUserDateOfBirth () {
+		return ($this->userDateOfBirth);
 	}
 
 	/**
@@ -212,15 +214,15 @@ class User implements \JsonSerializable {
 	 * @throws \RangeException if $newUserDateOfBirth is a date that does not exist
 	 * @throws \OutOfRangeException if $newUserDateOfBirth is < 21
 	 **/
-	public function setUserDateOfBirth($newUserDateOfBirth = null) {
+	public function setUserDateOfBirth ($newUserDateOfBirth = null) {
 		// base case: if the date is null, ask user to enter date of birth
 		if($newUserDateOfBirth === null) {
 			throw (new \OutOfBoundsException("You must enter your date of birth"));
 		}
-		$newUserDateOfBirth ->add(new \DateInterval('y21'));
-			if($newUserDateOfBirth > $newUserDateOfBirth.getdate()){
+		$newUserDateOfBirth->add(new \DateInterval('y21'));
+		if($newUserDateOfBirth > $newUserDateOfBirth . getdate()) {
 			throw (new \RangeException("You are too young."));
-			}
+		}
 		// store the userDateOfBirth date
 		$this->userDateOfBirth = date($newUserDateOfBirth);
 
@@ -228,11 +230,12 @@ class User implements \JsonSerializable {
 
 	/**
 	 * accessor method for userActivationToken
-	* @return int|null value of userActivationToken
+	 * @return int|null value of userActivationToken
 	 **/
-	public function getUserActivationToken() {
-		return($this->userActivationToken);
+	public function getUserActivationToken () {
+		return ($this->userActivationToken);
 	}
+
 	/**
 	 * mutator method for userActivationToken id
 	 *
@@ -240,7 +243,7 @@ class User implements \JsonSerializable {
 	 * @throws \RangeException if $newUserActivationToken is not positive
 	 * @throws \TypeError if $newUserActivationToken is not an integer
 	 **/
-	public function setUserActivationToken(int $newUserActivationToken = null) {
+	public function setUserActivationToken (int $newUserActivationToken = null) {
 		// base case: if the userActivationToken id is null, this a new userActivationToken without a mySQL assigned id (yet)
 		if($newUserActivationToken === null) {
 			$this->userActivationTokenId = null;
@@ -255,13 +258,15 @@ class User implements \JsonSerializable {
 		// convert and store the userActivationToken
 		$this->userActivationToken = intval($newUserActivationToken);
 	}
+
 	/**
 	 * accessor method for userFirstName
 	 * @return string value of userFirstName
 	 **/
-	public function getUserFirstName() {
-		return($this->userFirstName);
+	public function getUserFirstName () {
+		return ($this->userFirstName);
 	}
+
 	/**
 	 * mutator method for UserFirstName
 	 *
@@ -270,7 +275,7 @@ class User implements \JsonSerializable {
 	 * @throws \RangeException if $newUserFirstName is > 32 characters
 	 * @throws \TypeError if $newUserFirstName is not a string
 	 **/
-	public function setUserFirstName(string $newUserFirstName) {
+	public function setUserFirstName (string $newUserFirstName) {
 		// verify the User's First Name content is secure
 		$newUserFirstName = trim($newUserFirstName);
 		$newUserFirstName = filter_var($newUserFirstName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
@@ -286,13 +291,15 @@ class User implements \JsonSerializable {
 		// store the user's first name
 		$this->userFirstName = $newUserFirstName;
 	}
+
 	/**
 	 * accessor method for userLastName
 	 * @return string value of userLastName
 	 **/
-	public function getUserLastName() {
-		return($this->userLastName);
+	public function getUserLastName () {
+		return ($this->userLastName);
 	}
+
 	/**
 	 * mutator method for UserLastName
 	 *
@@ -301,7 +308,7 @@ class User implements \JsonSerializable {
 	 * @throws \RangeException if $newUserLastName is > 32 characters
 	 * @throws \TypeError if $newUserLastName is not a string
 	 **/
-	public function setUserLastName(string $newUserLastName) {
+	public function setUserLastName (string $newUserLastName) {
 		// verify the User's Last Name content is secure
 		$newUserLastName = trim($newUserLastName);
 		$newUserLastName = filter_var($newUserLastName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
@@ -317,13 +324,15 @@ class User implements \JsonSerializable {
 		// store the user's last name
 		$this->userLastName = $newUserLastName;
 	}
+
 	/**
 	 * accessor method for UserEmail
 	 * @return string value of UserEmail
 	 **/
-	public function getUserEmail() {
-		return($this->userEmail);
+	public function getUserEmail () {
+		return ($this->userEmail);
 	}
+
 	/**
 	 * mutator method for UserEmail
 	 *
@@ -332,7 +341,7 @@ class User implements \JsonSerializable {
 	 * @throws \RangeException if $newUserEmail is > 128 characters
 	 * @throws \TypeError if $newUserEmail is not a string
 	 **/
-	public function setUserEmail(string $newUserEmail) {
+	public function setUserEmail (string $newUserEmail) {
 		// verify the User's email content is secure
 		$newUserEmail = trim($newUserEmail);
 		$newUserEmail = filter_var($newUserEmail, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
@@ -348,13 +357,15 @@ class User implements \JsonSerializable {
 		// store the user's email
 		$this->UserEmail = $newUserEmail;
 	}
+
 	/**
 	 * accessor method for username
 	 * @return string value of username
 	 **/
-	public function getUsername() {
-		return($this->username);
+	public function getUsername () {
+		return ($this->username);
 	}
+
 	/**
 	 * mutator method for username
 	 *
@@ -363,7 +374,7 @@ class User implements \JsonSerializable {
 	 * @throws \RangeException if $newUsername is > 32 characters
 	 * @throws \TypeError if $newUsername is not a string
 	 **/
-	public function setUsername(string $newUsername) {
+	public function setUsername (string $newUsername) {
 		// verify the User's username is secure
 		$newUsername = trim($newUsername);
 		$newUsername = filter_var($newUsername, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
@@ -379,13 +390,15 @@ class User implements \JsonSerializable {
 		// store the user's username
 		$this->username = $newUsername;
 	}
+
 	/**
 	 * accessor method for userHash
 	 * @return string value of userHash
 	 **/
-	public function getUserHash() {
-		return($this->userHash);
+	public function getUserHash () {
+		return ($this->userHash);
 	}
+
 	/**
 	 * mutator method for userHash
 	 *
@@ -394,7 +407,7 @@ class User implements \JsonSerializable {
 	 * @throws \RangeException if $newUserHash is > 64 characters
 	 * @throws \TypeError if $newUserHash is not a string
 	 **/
-	public function setUserHash(string $newUserHash) {
+	public function setUserHash (string $newUserHash) {
 		// verify the User's password hash is secure
 		$newUserHash = trim($newUserHash);
 		$newUserHash = filter_var($newUserHash, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
@@ -410,13 +423,15 @@ class User implements \JsonSerializable {
 		// store the userHash
 		$this->userHash = $newUserHash;
 	}
+
 	/**
 	 * accessor method for userSalt
 	 * @return string value of userSalt
 	 **/
-	public function getUserSalt() {
-		return($this->userSalt);
+	public function getUserSalt () {
+		return ($this->userSalt);
 	}
+
 	/**
 	 * mutator method for userSalt
 	 *
@@ -425,7 +440,7 @@ class User implements \JsonSerializable {
 	 * @throws \RangeException if $newUserSalt is > 64 characters
 	 * @throws \TypeError if $newUserSalt is not a string
 	 **/
-	public function setUserSalt(string $newUserSalt) {
+	public function setUserSalt (string $newUserSalt) {
 		// verify the User's password salt is secure
 		$newUserSalt = trim($newUserSalt);
 		$newUserSalt = filter_var($newUserSalt, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
@@ -441,11 +456,73 @@ class User implements \JsonSerializable {
 		// store the userSalt
 		$this->userSalt = $newUserSalt;
 	}
+
 	/**
 	 * @return array
 	 */
-	public function jsonSerialize() {
+	public function jsonSerialize () {
 		$fields = get_object_vars($this);
 		return ($fields);
+	}
+
+	/**
+	 * inserts the user into mySQL
+	 *
+	 * @param \PDO $pdo PDO conncetion oci_fetch_object
+	 * @throws \PDOException when mySQl related errors oci_new_cursor
+	 * @throws \TypeError if $pdo is not a PDO conncetion object
+	 **/
+	public function insert (\PDO $pdo) {
+		// enforce the user id is null (dont need to insert the user if its already in the system)
+		if($this->userId !== null) {
+			throw(new \PDOException("not a new user"));
+		}
+		// create query template
+		$query = "INSERT INTO user(userId, userBreweryId, userAccessLevel, userActivationToken, userDateOfBirth, userEmail, userFirstName, userHash, userLastName, userSalt, username) VALUES(:userId, :userBreweryId, :userAccessLevel, :userActivationToken, :userDateOfBirth, :userEmail, :userFirstName, :userHash, :userLastName, :userSalt, :username)";
+		$statement = $pdo->prepare($query);
+		//bind the member variables to the place holders in the template
+		$parameters = "userId" => $this->userId, "userBreweryId" => $this->userBreweryId, "userAccessLevel" => $this->userAccessLevel, "userActivationToken" =>userActivationToken,"userDateOfBirth"=>userDateOfBirth,"userEmail"=>userEmail, "userFirstName" => $this->userFirstName, "userHash" => $this->userHash, "userLastName" => $this->userLastName, "userSalt" => $this->userSalt, "username" => $this->username];
+        $statement->execute($parameters);
+        //update the null userId with what mySQL just gave us
+        $this->userId = intval($pdo->lastInsertId());
+    }
+	/**
+	 * deletes this user from mySQL
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError if $pdo is not a PDO connection object
+	 **/
+publuc function delete (\PDO $pdo) {
+	// enforce the userId is not null (dont delete users that haevnt been inserted)
+	if($this->userId === null) {
+		throw(new \PDOException("unable to delete a user that does not exist"));
+	}
+	// create query template
+	$query = "DELETE FROM user WHERE userId =:userId";
+	$statement = $pdo->prepare($query);
+	// bind the member variables to the place homder in the template
+	$parameters = ["userId" => $this->userId];
+	$statement->execute($parameters);
+}
+
+	/**
+	 * updates the user in mySQL
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError if $pdo is not a PDO connection object
+	 **/
+	public function update (\PDO $pdo) {
+		// enforce the userId is not null (dont update a user that hasn't been inserted)
+		if($this->userId === null) {
+			throw(new \PDOException("unable to update a user that does not exist"));
+		}
+		// create query template
+		$query = "UPDATE user SET userId = :userId, userBreweryId = :userBreweryId, userAccessLevel = :userAccessLevel, userActivationToken = :userActivationToken, userDateOfBirth = :userDateOfBirth, userEmail = :userEmail, userFirstName = :userFirstName, userHash = :userHash, userLastName = :userLastName, userSalt = :userSalt, username = :username WHERE userId = :userId";
+		$statement = $pdo->prepare($query);
+		// bind the member variables to the place holders in the template
+		$parameters = ["userId" => $this->userId, "userBreweryId" => $this->userBreweryId, "userAccessLevel" => $this->userAccessLevel, "userActivationToken" => $this->userActivationToken, "userDateOfBirth" => $this->userDateOfBirth, "userEmail" => $this->userEmail, "userFirstName" => $this->userFirstName, "userHash" => $this->userHash, "userLastName" => $this->userLastName, "userSalt" => $this->userSalt, "username" => $this->username];
+		$statement->execute($parameters);
 	}
 }
