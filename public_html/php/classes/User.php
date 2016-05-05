@@ -188,6 +188,45 @@ class User implements \JsonSerializable {
 	}
 
 	/**
+	 * gets user by userActivationToken
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @param string $userActivationToken user batting to search for
+	 * @return \SplFixedArray SplFixedArray of users found
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError when variables are not the correct data type
+	 **/
+	public static function getUserActivationToken(\PDO $pdo, string $userActivationToken) {
+		// sanitize the description before searching
+		$userActivationToken = trim($userActivationToken);
+		$userActivationToken = filter_var($userAccessLevel, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($userActivationToken) === true) {
+			throw(new \PDOException("user activation token is invalid"));
+		}
+		// create query template
+		$query = "SELECT userId, userBreweryId, userAccessLevel, userActivationToken, userDateOfBirth, userFirstName, userHash, userLastName, userSalt, userUsername,  FROM userBreweryId WHERE userBreweryId LIKE :userBreweryId";
+		$statement = $pdo->prepare($query);
+		//bind the user access level to the place holder in the template
+		$userAccessLevel = "%$userAccessLevel%";
+		$parameters = array("userAccessLevel" => $userAccessLevel);
+		$statement->execute($parameters);
+		// build an array of users
+		$users = new \SplFixedArray($statement->rowCount());
+		$statement->setFetchMode(\PDO::FETCH_ASSOC);
+		while(($row = $statement->fetch()) !== false) {
+			try {
+				$user= new User($row["userId"], $row["userBreweryId"], $row["userAccessLevel"], $row["userActivationToken"], $row["userDateOfBirth"], $row["userEmail"], $row["userFirstName"], $row["userHash"], $row["userLastName"], $row["userSalt"], ;
+				$users[$users->key()] = $user;
+				$user->next();
+			}catch(\Exception $exception) {
+				// if the row couldn't be converted, rethrow it
+				throw(new \PDOException($exception->getMessage(), 0, $exception));
+			}
+		}
+		return($users);
+	}
+
+	/**
 	 * accessor method for user id
 	 *
 	 * @return int|null value of user id
