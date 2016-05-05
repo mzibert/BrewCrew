@@ -3,7 +3,7 @@ namespace Edu\Cnm\mzibert\BrewCrew;
 
 require_once("autoload.php");
 
-class beer {
+class Beer {
 	/** Id for this beer is assigned by the system; this is the primary key.
 	 * @var int $beerId
 	 **/
@@ -432,7 +432,7 @@ class beer {
 	 * gets the Beer by content
 	 *
 	 * @param \PDO $pdo PDO connection object
-	 *  
+	 *
 	 * @param
 	 *
 	 **/
