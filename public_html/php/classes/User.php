@@ -111,8 +111,6 @@ class User implements \JsonSerializable {
 
 	/**
 	 * gets user by userBreweryId
-	 *
-	 * @param \PDO $pdo PDO connection object
 	 * @param string $userBreweryId
 	 * @return \SplFixedArray SplFixedArray of users by user brewery id found
 	 * @throws \PDOException when mySQL related errors occur
@@ -153,7 +151,6 @@ class User implements \JsonSerializable {
 	/**
 	 * gets user by userAccessLevel
 	 *
-	 * @param \PDO $pdo PDO connection object
 	 * @param string $userAccessLevel
 	 * @return \SplFixedArray SplFixedArray of users found
 	 * @throws \PDOException when mySQL related errors occur
@@ -192,7 +189,6 @@ class User implements \JsonSerializable {
 	/**
 	 * gets user by userActivationToken
 	 *
-	 * @param \PDO $pdo PDO connection object
 	 * @param string $userActivationToken user batting to search for
 	 * @return \SplFixedArray SplFixedArray of users found
 	 * @throws \PDOException when mySQL related errors occur
@@ -211,6 +207,44 @@ class User implements \JsonSerializable {
 		//bind the user ActivationToken to the place holder in the template
 		$userActivationToken = "%$userActivationToken%";
 		$parameters = array("userActivationToken" => $userActivationToken);
+		$statement->execute($parameters);
+		// build an array of users
+		$users = new \SplFixedArray($statement->rowCount());
+		$statement->setFetchMode(\PDO::FETCH_ASSOC);
+		while(($row = $statement->fetch()) !== false) {
+			try {
+				$user= new User($row["userId"], $row["userBreweryId"], $row["userAccessLevel"], $row["userActivationToken"], $row["userDateOfBirth"], $row["userEmail"], $row["userFirstName"], $row["userHash"], $row["userLastName"], $row["userSalt"], ;
+				$users[$users->key()] = $user;
+				$user->next();
+			}catch(\Exception $exception) {
+				// if the row couldn't be converted, rethrow it
+				throw(new \PDOException($exception->getMessage(), 0, $exception));
+			}
+		}
+		return($users);
+	}
+
+	/**
+	 * gets user by userDateOfBirth
+	 *
+	 * @param string $userDateOfBirth
+	 * @return \SplFixedArray SplFixedArray of users found
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError when variables are not the correct data type
+	 **/
+	public static function getUserByUserDateOfBirth(\PDO $pdo, string $userDateOfBirth) {
+		// sanitize the description before searching
+		$userDateOfBirth = trim($userDateOfBirth);
+		$userDateOfBirth = filter_var($userDateOfBirth, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($userDateOfBirth) === true) {
+			throw(new \PDOException("user date of birth is invalid"));
+		}
+		// create query template
+		$query = "SELECT userId, userBreweryId, userAccessLevel, userActivationToken, userDateOfBirth, userFirstName, userHash, userLastName, userSalt, userUsername,  FROM userBreweryId WHERE userBreweryId LIKE :userBreweryId";
+		$statement = $pdo->prepare($query);
+		//bind the user  date of birth to the place holder in the template
+		$userDateOfBirth = "%$userDateOfBirth%";
+		$parameters = array("userDateOfBirth" => $userDateOfBirth);
 		$statement->execute($parameters);
 		// build an array of users
 		$users = new \SplFixedArray($statement->rowCount());
