@@ -1,7 +1,6 @@
 <?php
 namespace Edu\Cnm\BrewCrew\Test;
 
-//FIXME update this with the right namespace
 use Edu\Cnm\BrewCrew\{Brewery, User, Beer};
 
 //grab the project test parameters
