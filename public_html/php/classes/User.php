@@ -770,7 +770,7 @@ class User implements \JsonSerializable {
 	 * @throws \TypeError when variables are not the correct data type
 	 **/
 	public static function getUserByUserId (\PDO $pdo, int $userId) {
-		// sanitixe the user id before searching
+		// sanitize the user id before searching
 		if($userId <= 0) {
 			throw(new \PDOException("user id is not positive"));
 		}
@@ -790,7 +790,7 @@ class User implements \JsonSerializable {
 				 $row["userUsername"]);
 			}
 		} catch(\Exception $exception) {
-			// if the row couldnt be converted, rethrow it
+			// if the row could not be converted, rethrow row
 			throw(new \PDOException($exception->getMessage(), 0, $exception));
 		}
 		return ($user);
