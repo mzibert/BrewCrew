@@ -7,7 +7,7 @@ use Edu\Cnm\BrewCrew\{Beer, Brewery};
 require_once("BrewCrewTest.php");
 
 //grab the class under scrutiny
-require_once(()."php/classes/autoload.php)");
+require_once(dirname(__DIR__)."php/classes/autoload.php)");
 
 /**
  * Full PHPUnit test for the Beer class
@@ -19,18 +19,42 @@ require_once(()."php/classes/autoload.php)");
  **/
 Class BeerTest extends BrewCrewTest{
 	/**
-	 * Ibu of the Beer
-	 * @var int $VAILID_BEERIBU
+	 * beer brewery of the Beer
+	 * @var int $VALID_BEERBREWERYID
 	 **/
-	protected $VAILID_BEERIBU = "PHPUnit test passing";
+	protected $VALID_BEERBREWERYID = "PHPUnit test passing";
 	/**
-	 * content of the update beer Ibu
-	 * @var int $VALID_BEERIBU2
+	 * content of the updated beer brewery id
+	 * @var int $VALID_BEERBREWERYID2
 	 **/
-	protected $VALID_BEERIBU2 = "PHPUnit test still passing";
+	protected $VALID_BEERBREWERYID2 = "PHPUnit test still passing";
 	/**
-	 *
-	 */
+	 *beer brewery that created the beer; this is for foreign key relations
+	 * @var BeerBreweryId beerBreweryId
+	 **/
+	protected $beerBreweryId = null;
+	/**
+	 * create dependent objects before running each test
+	 **/
+	public final function setUp(){
+		//run the default setUp() method first
+		parent::setup();
+
+		//create and insert a Brewery to own the test Beer
+		$this->beerBreweryId = new BeerBreweryId(null, "@phpunit", "test@phpunit.de", "+12125551212");
+		$this->beerBreweryId->insert($this->getPDO());
+
+		/**
+		 * test inserting a valid beer and verify that the actual mySQL data matches
+		 **/
+		public function testInsertValidBeer(){
+			//count the number of rows and save it for later
+			$numRows = $this->getConnection()->getRowCount("beer");
+
+			//create a new Beer and insert it into mySQL
+			$beer = new
+		}
+	}
 
 }
 
