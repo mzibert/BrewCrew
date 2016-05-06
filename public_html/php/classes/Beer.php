@@ -136,7 +136,7 @@ class Beer {
 			throw (new \RangeException("brewery id is not positive"));
 		}
 		//convert and store the new brewery id
-		$this->breweryId = $newBeerBreweryId; 
+		$this->breweryId = $newBeerBreweryId;
 	}
 
 	/**
@@ -371,7 +371,7 @@ class Beer {
 	 * @throws \PDOException when my SQL related errors occur
 	 * @throws \TypeError if $pdo is not a PDO connection object
 	 **/
-	public function insert(\PDO $PDO) {
+	public function insert(\PDO $pdo) {
 		//enforce the beerId is null (i.e., dont insert a beer that already exists)
 		if($this->beerId !== null) {
 			throw (new \PDOException("not a new beer"));
@@ -460,7 +460,7 @@ class Beer {
 		while(($row = $statement->fetch()) !== false) {
 			try {
 				$Beer = new Beer($row["beerId"], $row["beerbreweryId"], $row["beeribu"], $row["beerColor"], $row["beerName"], $row["beerStyle"]);
-				$beers[$beers->key()] = $beer;
+				$beers[$beers->key()] = $beers;
 				$beers->next();
 			} catch(\Exception $exception) {
 				//if the row couldnt be converted, rethrow it
