@@ -63,7 +63,7 @@ class Beer {
 	 * @throws \Exception if some other exception occurs
 	 **/
 	public function __construct(int $newBeerId, int $newBeerBreweryId, float $newBeerAbv, string $newBeerAvailability, string $newBeerAwards, float $newBeerColor, string $newBeerDescription, string $newBeerIbu, string $newBeerName, string $newBeerStyle) {
-		try{
+		try {
 			$this->setBeerId($newBeerId);
 			$this->setBeerBreweryId($newBeerBreweryId);
 			$this->setBeerAbv($newBeerAbv);
@@ -74,18 +74,18 @@ class Beer {
 			$this->setBeerIbu($newBeerIbu);
 			$this->setBeerName($newBeerName);
 			$this->setBeerStyle($newBeerStyle);
-	}		catch(\InvalidArgumentException $invalidArgument){
+		} catch(\InvalidArgumentException $invalidArgument) {
 			//rethrow the exception to the caller
-				throw(new \InvalidArgumentException($invalidArgument->getMessage(),0,$invalidArgument));
-		}	catch(\RangeException $range){
-		//rethrow the exception to the caller
-				throw(new \RangeException($range->getMessage(), 0, $range));
-		}	catch(\TypeError $typeError){
+			throw(new \InvalidArgumentException($invalidArgument->getMessage(), 0, $invalidArgument));
+		} catch(\RangeException $range) {
 			//rethrow the exception to the caller
-				throw (new \TypeError($typeError->getMessage(), 0, $typeError));
-		}	catch(\Exception $exception){
+			throw(new \RangeException($range->getMessage(), 0, $range));
+		} catch(\TypeError $typeError) {
 			//rethrow the exception to the caller
-				throw (new \Exception($exception->getMessage(), 0, $exception));
+			throw (new \TypeError($typeError->getMessage(), 0, $typeError));
+		} catch(\Exception $exception) {
+			//rethrow the exception to the caller
+			throw (new \Exception($exception->getMessage(), 0, $exception));
 		}
 	}
 	/**
@@ -182,7 +182,7 @@ class Beer {
 		//verify the beer availabilty content is secure
 		$newBeerAvailability = trim($newBeerAvailability);
 		$newBeerAvailability = filter_var($newBeerAvailability, FILTER_SANITIZE_STRING);
-		if(empty($newBeerAvailability) === true){
+		if(empty($newBeerAvailability) === true) {
 			throw(new \InvalidArgumentException("Beer availability content is either empty or insecure"));
 		}
 		//verify the beer availability content will fit in the database
@@ -212,7 +212,7 @@ class Beer {
 		//verify the beer awards content is secure
 		$newBeerAwards = trim($newBeerAwards);
 		$newBeerAwards = filter_var($newBeerAwards, FILTER_SANITIZE_STRING);
-		if(empty($newBeerAwards) === true){
+		if(empty($newBeerAwards) === true) {
 			throw (new \InvalidArgumentException("beer awards content is either empty or insecure"));
 		}
 		//verify the beer awards content will fit in the
@@ -264,7 +264,7 @@ class Beer {
 		//verify the beer description content is secure
 		$newBeerDescription = trim($newBeerDescription);
 		$newBeerDescription = filter_var($newBeerDescription, FILTER_SANITIZE_STRING);
-		if(empty($newBeerDescription) === true){
+		if(empty($newBeerDescription) === true) {
 			throw (new \InvalidArgumentException("beer description is either empty or insecure"));
 		}
 		if(strlen($newBeerDescription) > 2000) {
@@ -323,7 +323,7 @@ class Beer {
 		//verify the beer name content is secure
 		$newBeerName = trim($newBeerName);
 		$newBeerName = filter_var($newBeerName, FILTER_SANITIZE_STRING);
-		if (empty($newBeerName)=== true){
+		if(empty($newBeerName) === true) {
 			throw(new \InvalidArgumentException("beer name is either empty or insecure"));
 		}
 		//verify the beer name content will fit in the database
@@ -352,7 +352,7 @@ class Beer {
 		//verify the beer style content is secure
 		$newBeerStyle = trim($newBeerStyle);
 		$newBeerStyle = filter_var($newBeerStyle, FILTER_SANITIZE_STRING);
-		if(empty($newBeerStyle) === true){
+		if(empty($newBeerStyle) === true) {
 			throw (new \InvalidArgumentException("beer style content is either empty or insecure"));
 		}
 		//verify the content of beer style can fit in the database
@@ -362,6 +362,7 @@ class Beer {
 		//store the beer style content
 		$this->beerStyle = $newBeerStyle;
 	}
+
 	/**
 	 * inserts this Beer Brewery Id into mySQL
 	 *
@@ -369,13 +370,13 @@ class Beer {
 	 * @throws \PDOException when my SQL related errors occur
 	 * @throws \TypeError if $pdo is not a PDO connection object
 	 **/
-	public function insert(\PDO $PDO){
+	public function insert(\PDO $PDO) {
 		//enforce the beerId is null (i.e., dont insert a beer that already exists)
-		if($this->beerId !==null){
+		if($this->beerId !== null) {
 			throw (new \PDOException("not a new beer"));
 		}
 		//create query template
-		$query="INSERT INTO beer(beerBreweryId, beerAbv, beerAvailability, beerAwards, beerColor, beerDescription, beerIbu, beerName, beerStyle) VALUES (:beerBreweryID, :beerAbv, :beerAvailability, :beerAwards, :beerColor, :beerDescription, :beerIbu, :beerName, :beerStyle)";
+		$query = "INSERT INTO beer(beerBreweryId, beerAbv, beerAvailability, beerAwards, beerColor, beerDescription, beerIbu, beerName, beerStyle) VALUES (:beerBreweryID, :beerAbv, :beerAvailability, :beerAwards, :beerColor, :beerDescription, :beerIbu, :beerName, :beerStyle)";
 		$statement = $pdo->prepare($query);
 
 		//bind the memeber variables to the place holders in the template
@@ -392,9 +393,9 @@ class Beer {
 	 * @throws \PDOException when mySQL related errors occure
 	 * @throws \TypeError if $pdo is not a PDO connection object
 	 **/
-	public function delete(\PDO $pdo){
+	public function delete(\PDO $pdo) {
 		//enforce the beerID is not null (i.e., don't delete a beer that has not been inserted)
-		if($this->beerId === null){
+		if($this->beerId === null) {
 			throw (new \PDOException("unable to delete a beer that does not exist"));
 		}
 
@@ -414,17 +415,17 @@ class Beer {
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError if $pdo is not a PDO connection object
 	 **/
-	public function update(\PDO $pdo){
+	public function update(\PDO $pdo) {
 		//enforce the beerID is not null (i.e., do not update a beer that has not been inserted)
-		if($this->beerId === null){
+		if($this->beerId === null) {
 			throw(new \PDOException("unable to update a beer that does not exist"));
 		}
 
 		//create query template
-		$query="UPDATE beer SET beerBreweryId = :beerBreweryID, beerAbv= :beerAbv, beerAvailability = :beerAvailability, beerAwards = :beerAwards, beerColor = :beerColor, beerDescription = :beerDescription, beerIbu = :beerIbu, beerName =:beerName, beerStyle = :beerStyle WHERE beerId = :beerId";
+		$query = "UPDATE beer SET beerBreweryId = :beerBreweryID, beerAbv= :beerAbv, beerAvailability = :beerAvailability, beerAwards = :beerAwards, beerColor = :beerColor, beerDescription = :beerDescription, beerIbu = :beerIbu, beerName =:beerName, beerStyle = :beerStyle WHERE beerId = :beerId";
 		$statement = $pdo->prepare($query);
 		//bind the member variables to the place holders in the template
-		$parameters = ["beerBreweryId"=> $this->beerBreweryId, "beerAbv"=>$this->beerAbv, "beerAvailability"=>$this->beerAvailability, "beerAwards" =>$this->beerAwards, "beerColor"=>$this->beerColor, "beerDescription"=>$this->beerDescription, "beerIbu"=>$this->beerIbu, "beerName"=>$this->beerName, "beerStyle"=>$this->beerStyle];
+		$parameters = ["beerBreweryId" => $this->beerBreweryId, "beerAbv" => $this->beerAbv, "beerAvailability" => $this->beerAvailability, "beerAwards" => $this->beerAwards, "beerColor" => $this->beerColor, "beerDescription" => $this->beerDescription, "beerIbu" => $this->beerIbu, "beerName" => $this->beerName, "beerStyle" => $this->beerStyle];
 		$statement->execute($parameters);
 	}
 
@@ -432,8 +433,82 @@ class Beer {
 	 * gets the Beer by content
 	 *
 	 * @param \PDO $pdo PDO connection object
-	 *
-	 * @param
-	 *
+	 * @param string $beerIbu Ibu content to search for
+	 * @return \SplFixedArray SplFixedArray of Beers found
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError when variables are not the correct data type
 	 **/
+	public static function getBeerByBeerIbuContent(\PDO $pdo, string $beerIbu) {
+		//sanitize the description before searching
+		$beerIbu = trim($beerIbu);
+		$beerIbu = filter_var($beerIbu, FILTER_SANITIZE_STRING);
+		if(empty($beerIbu) === true) {
+			throw(new \PDOException("beer IBU content is invalid"));
+		}
+		//create query template
+		$query = "SELECT beerId, beerBreweryId, BeerIbu, beerColor, beerName, beerStyle FROM beer WHERE beerIbu LIKE :beerIbu:";
+		$statement = $pdo->prepare($query);
+
+		//bind the tweet content to the place holder in the template
+		$beerIbu = "%beerIbu%";
+		$parameters = array("beerIbu" => $beerIbu);
+		$statement->execute($parameters);
+
+		//build an array of beer Ibu's
+		$beers = new \SplFixedArray($statement->rowCount());
+		$statement->setFetchMode(\PDO::FETCH_ASSOC);
+		while(($row = $statement->fetch()) !== false) {
+			try {
+				$beer = new Beer($row["beerId"], $row["beerbreweryId"], $row["beeribu"], $row["beerColor"], $row["beerName"], $row["beerStyle"]);
+				$beers[$beers->key()] = $beer;
+				$beers->next();
+			} catch(\Exception $exception) {
+				//if the row couldnt be converted, rethrow it
+				throw (new \PDOException($exception->getMessage(), 0, $exception));
+			}
+		}
+		return ($beers);
+	}
+
+	/**
+	 * gets the beer by beerId
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @param int $beerId beer id to search for
+	 * @return Beer|null Beer found or null if not found
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError when variables are not the correct data type
+	 **/
+	public static function getBeerByBeerId(\PDO $pdo, int $beerId) {
+		//sanitize the beerId before searching
+		if($beerId <= 0) {
+			throw (new \PDOException("beer id is not positive"));
+		}
+
+		//create query template
+		$query = "SELECT beerId, beerBreweryID, beerIbu, beerColor, beerName, beerStyle FROM beer WHERE beerId = :beerId";
+		$statement = $pdo->prepare($query);
+
+		//bind the beer Id to the place holder in the template
+		$parameters = array("beerId" => $beerId);
+		$statement->execute($parameters);
+
+		//grab the beer from mySQL
+		try {
+			$beer = null;
+			$statement->setFetchMode(\PDO::FETCH_ASSOC);
+			$row = $statement->fetch();
+			if($row !== false) {
+				$beer = new Beer($row["beerId"], $row["beerBreweryID"], $row["beerIbu"], $row["beerColor"], $row["beerName"], $row["beerStyle"]);
+				$beers[$beers->key()] = $beer;
+				$beers->next();
+			}
+		catch
+			(\Exception $exception){
+				//if the row couldnt be converted, rethrow it
+				throw (new \PDOException($exception->getMessage(), 0, $exception));
+			}
+		}
+		return ($beers);
+	}
 }
