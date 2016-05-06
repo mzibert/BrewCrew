@@ -136,7 +136,7 @@ class Beer {
 			throw (new \RangeException("brewery id is not positive"));
 		}
 		//convert and store the new brewery id
-		$this->breweryId = $newBeerBreweryId;
+		$this->breweryId = $newBeerBreweryId; 
 	}
 
 	/**
@@ -380,9 +380,9 @@ class Beer {
 		$query = "INSERT INTO Beer(beerBreweryId, beerAbv, beerAvailability, beerAwards, beerColor, beerDescription, beerIbu, beerName, beerStyle) VALUES (:beerBreweryID, :beerAbv, :beerAvailability, :beerAwards, :beerColor, :beerDescription, :beerIbu, :beerName, :beerStyle)";
 		$statement = $pdo->prepare($query);
 
-		//bind the memeber variables to the place holders in the template
+		//bind the member variables to the place holders in the template
 		$parameters = ["beerBreweryID" => $this->beerBreweryId, "beerAbv" => $this->beerAbv, "beerAvailability" => $this->beerAvailability, "beerAwards" => $this->beerAwards, "beerColor" => $this->beerColor, "beerDescription" => $this->beerDescription, "beerIbu" => $this->beerIbu, "beerName" => $this->beerName, "beerStyle" => $this->beerStyle];
-		$statement->execute(parameters);
+		$statement->execute($parameters);
 
 		//update the null beerId with what my SQL just gave us
 		$this->beerId = intval($pdo->lastInsertId());
@@ -446,11 +446,11 @@ class Beer {
 			throw(new \PDOException("beer IBU content is invalid"));
 		}
 		//create query template
-		$query = "SELECT beerId, beerBreweryId, BeerIbu, beerColor, beerName, beerStyle FROM Beer WHERE beerIbu LIKE :beerIbu:";
+		$query = "SELECT beerId, beerBreweryId, BeerIbu, beerColor, beerName, beerStyle FROM Beer WHERE beerIbu LIKE :beerIbu";
 		$statement = $pdo->prepare($query);
 
 		//bind the tweet content to the place holder in the template
-		$beerIbu = "%beerIbu%";
+		$beerIbu = "%$beerIbu%";
 		$parameters = array("beerIbu" => $beerIbu);
 		$statement->execute($parameters);
 
