@@ -254,14 +254,17 @@ class Review implements \JsonSerializable {
 	 * @throws \TypeError if $newReviewText is not a string
 	 */
 	public function setReviewText(string $newReviewText) {
-		
+		//if user isn't leaving a text review, don't even bother
+		if($newReviewText === null) {
+			$this->newReviewText = null;
+			return;
+		}
 
 		//verify that the review text is valid and/or secure
 		$newReviewText = trim($newReviewText);
 		$newReviewText = filter_var($newReviewText, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-		//QUESTION since writing in the text box is optional as part of leaving a review, empty should not throw an exception.  What about insecure content?
-		//if(empty($newReviewText) === true){ <--That doesn't apply because text CAN be empty
-		//throw(new \InvalidArgumentException("Review is empty or is insecure"));}
+		if(empty($newReviewText) === true){
+		throw(new \InvalidArgumentException("Review is empty or is insecure"));}
 
 		//verify that the text of the review will fit in the database
 		if(strlen($newReviewText) > 2000) {
@@ -458,6 +461,5 @@ class Review implements \JsonSerializable {
 		$fields["reviewDate"] = intval($this->reviewDate->format("U")) * 1000;
 		return ($fields);
 	}
-
 
 }
