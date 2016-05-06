@@ -446,7 +446,7 @@ class Beer {
 			throw(new \PDOException("beer IBU content is invalid"));
 		}
 		//create query template
-		$query = "SELECT beerId, beerBreweryId, BeerIbu, beerColor, beerName, beerStyle FROM Beer WHERE beerIbu LIKE :beerIbu";
+		$query = "SELECT beerId, beerBreweryId, beerIbu, beerColor, beerName, beerStyle FROM beer WHERE beerIbu LIKE :beerIbu";
 		$statement = $pdo->prepare($query);
 
 		//bind the tweet content to the place holder in the template
@@ -459,8 +459,8 @@ class Beer {
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 		while(($row = $statement->fetch()) !== false) {
 			try {
-				$Beer = new Beer($row["beerId"], $row["beerbreweryId"], $row["beeribu"], $row["beerColor"], $row["beerName"], $row["beerStyle"]);
-				$beers[$beers->key()] = $beers;
+				$beer = new Beer($row["beerId"], $row["beerbreweryId"], $row["beeribu"], $row["beerColor"], $row["beerName"], $row["beerStyle"]);
+				$beers[$beers->key()] = $beer;
 				$beers->next();
 			} catch(\Exception $exception) {
 				//if the row couldnt be converted, rethrow it
@@ -499,7 +499,7 @@ class Beer {
 			$statement->setFetchMode(\PDO::FETCH_ASSOC);
 			$row = $statement->fetch();
 			if($row !== false) {
-				$Beer = new Beer($row["beerId"], $row["beerBreweryID"], $row["beerIbu"], $row["beerColor"], $row["beerName"], $row["beerStyle"]);
+				$beer = new Beer($row["beerId"], $row["beerBreweryID"], $row["beerIbu"], $row["beerColor"], $row["beerName"], $row["beerStyle"]);
 				$beers[$beers->key()] = $beer;
 				$beers->next();
 			}
