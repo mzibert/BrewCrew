@@ -17,7 +17,7 @@ require_once(()."php/classes/autoload.php)");
  * @see Beer
  * @author Merri Zibert <mzibert@cnm.edu>
  **/
-Class BeerTest extends extends BrewCrewTest{
+Class BeerTest extends BrewCrewTest{
 	/**
 	 * Ibu of the Beer
 	 * @var int $VAILID_BEERIBU
@@ -29,7 +29,7 @@ Class BeerTest extends extends BrewCrewTest{
 	 **/
 	protected $VALID_BEERIBU2 = "PHPUnit test still passing";
 	/**
-	 * 
+	 *
 	 */
 
 }
