@@ -470,7 +470,7 @@ class User implements \JsonSerializable {
 			throw(new \PDOException("user brewery id is invalid"));
 		}
 		// create query template
-		$query = "SELECT userId, userBreweryId, userAccessLevel, userActivationToken, userDateOfBirth, userFirstName, userHash, userLastName, userSalt, userUsername,  FROM userBreweryId WHERE userBreweryId LIKE :userBreweryId";
+		$query = "SELECT userId, userBreweryId, userAccessLevel, userActivationToken, userDateOfBirth, userFirstName, userHash, userLastName, userSalt, userUsername FROM user WHERE userBreweryId LIKE :userBreweryId";
 		$statement = $pdo->prepare($query);
 
 		//bind the userBreweryID to the place holder in the template
@@ -485,7 +485,7 @@ class User implements \JsonSerializable {
 			try {
 				$user = new User($row["userId"], $row["userBreweryId"], $row["userAccessLevel"], $row["userActivationToken"], $row["userDateOfBirth"], $row["userEmail"], $row["userFirstName"], $row["userHash"], $row["userLastName"], $row["userSalt"], $row["userUsername"]);
 				$users[$users->key()] = $user;
-				$user->next();
+				$users->next();
 			} catch(\Exception $exception) {
 				// if the row couldn't be converted, rethrow it
 				throw(new \PDOException($exception->getMessage(), 0, $exception));
@@ -510,7 +510,7 @@ class User implements \JsonSerializable {
 			throw(new \PDOException("user access level is invalid"));
 		}
 		// create query template
-		$query = "SELECT userId, userBreweryId, userAccessLevel, userActivationToken, userDateOfBirth, userFirstName, userHash, userLastName, userSalt, userUsername,  FROM userAccessLevel WHERE userAccessLevel LIKE :userAccessLevel";
+		$query = "SELECT userId, userBreweryId, userAccessLevel, userActivationToken, userDateOfBirth, userFirstName, userHash, userLastName, userSalt, userUsername FROM user WHERE userAccessLevel LIKE :userAccessLevel";
 		$statement = $pdo->prepare($query);
 		//bind the user access level to the place holder in the template
 		$userAccessLevel = "%$userAccessLevel%";
@@ -523,7 +523,7 @@ class User implements \JsonSerializable {
 			try {
 				$user = new User($row["userId"], $row["userBreweryId"], $row["userAccessLevel"], $row["userActivationToken"], $row["userDateOfBirth"], $row["userEmail"], $row["userFirstName"], $row["userHash"], $row["userLastName"], $row["userSalt"], $row["userUsername"]);
 				$users[$users->key()] = $user;
-				$user->next();
+				$users->next();
 			} catch(\Exception $exception) {
 				// if the row couldn't be converted, rethrow it
 				throw(new \PDOException($exception->getMessage(), 0, $exception));
@@ -548,7 +548,7 @@ class User implements \JsonSerializable {
 			throw(new \PDOException("user activation token is invalid"));
 		}
 		// create query template
-		$query = "SELECT userId, userBreweryId, userAccessLevel, userActivationToken, userDateOfBirth, userFirstName, userHash, userLastName, userSalt, userUsername,  FROM userActivationToken WHERE userActivationToken LIKE :userActivationToken";
+		$query = "SELECT userId, userBreweryId, userAccessLevel, userActivationToken, userDateOfBirth, userFirstName, userHash, userLastName, userSalt, userUsername  FROM user WHERE userActivationToken LIKE :userActivationToken";
 		$statement = $pdo->prepare($query);
 		//bind the user ActivationToken to the place holder in the template
 		$userActivationToken = "%$userActivationToken%";
@@ -561,7 +561,7 @@ class User implements \JsonSerializable {
 			try {
 				$user = new User($row["userId"], $row["userBreweryId"], $row["userAccessLevel"], $row["userActivationToken"], $row["userDateOfBirth"], $row["userEmail"], $row["userFirstName"], $row["userHash"], $row["userLastName"], $row["userSalt"], $row["userUsername"]);
 				$users[$users->key()] = $user;
-				$user->next();
+				$users->next();
 			} catch(\Exception $exception) {
 				// if the row couldn't be converted, rethrow it
 				throw(new \PDOException($exception->getMessage(), 0, $exception));
@@ -586,7 +586,7 @@ class User implements \JsonSerializable {
 			throw(new \PDOException("user date of birth is invalid"));
 		}
 		// create query template
-		$query = "SELECT userId, userBreweryId, userAccessLevel, userActivationToken, userDateOfBirth, userFirstName, userHash, userLastName, userSalt, userUsername,  FROM userBreweryId WHERE userBreweryId LIKE :userBreweryId";
+		$query = "SELECT userId, userBreweryId, userAccessLevel, userActivationToken, userDateOfBirth, userFirstName, userHash, userLastName, userSalt, userUsername FROM user WHERE userBreweryId LIKE :userBreweryId";
 		$statement = $pdo->prepare($query);
 		//bind the user  date of birth to the place holder in the template
 		$userDateOfBirth = "%$userDateOfBirth%";
@@ -599,7 +599,7 @@ class User implements \JsonSerializable {
 			try {
 				$user = new User($row["userId"], $row["userBreweryId"], $row["userAccessLevel"], $row["userActivationToken"], $row["userDateOfBirth"], $row["userEmail"], $row["userFirstName"], $row["userHash"], $row["userLastName"], $row["userSalt"], $row["userUsername"]);
 				$users[$users->key()] = $user;
-				$user->next();
+				$users->next();
 			} catch(\Exception $exception) {
 				// if the row couldn't be converted, rethrow it
 				throw(new \PDOException($exception->getMessage(), 0, $exception));
@@ -611,7 +611,7 @@ class User implements \JsonSerializable {
 	/**
 	 * gets user by userEmail
 	 *
-	 * @param varchar $userEmail
+	 * @param string $userEmail
 	 * @return \SplFixedArray SplFixedArray of users found
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when variables are not the correct data type
@@ -624,7 +624,7 @@ class User implements \JsonSerializable {
 			throw(new \PDOException("user email is invalid"));
 		}
 		// create query template
-		$query = "SELECT userId, userBreweryId, userAccessLevel, userActivationToken, userDateOfBirth, userFirstName, userHash, userLastName, userSalt, userUsername,  FROM userEmail WHERE userEmail LIKE :userEmail";
+		$query = "SELECT userId, userBreweryId, userAccessLevel, userActivationToken, userDateOfBirth, userFirstName, userHash, userLastName, userSalt, userUsername FROM user WHERE userEmail LIKE :userEmail";
 		$statement = $pdo->prepare($query);
 		//bind the user access level to the place holder in the template
 		$userEmail = "%$userEmail%";
@@ -637,7 +637,7 @@ class User implements \JsonSerializable {
 			try {
 				$user = new User($row["userId"], $row["userBreweryId"], $row["userAccessLevel"], $row["userActivationToken"], $row["userDateOfBirth"], $row["userEmail"], $row["userFirstName"], $row["userHash"], $row["userLastName"], $row["userSalt"], $row["userUsername"]);
 				$users[$users->key()] = $user;
-				$user->next();
+				$users->next();
 			} catch(\Exception $exception) {
 				// if the row couldn't be converted, rethrow it
 				throw(new \PDOException($exception->getMessage(), 0, $exception));
@@ -662,7 +662,7 @@ class User implements \JsonSerializable {
 			throw(new \PDOException("user first name is invalid"));
 		}
 		// create query template
-		$query = "SELECT userId, userBreweryId, userAccessLevel, userActivationToken, userDateOfBirth, userFirstName, userHash, userLastName, userSalt, userUsername,  FROM userFirstName WHERE userFirstName LIKE :userFirstName";
+		$query = "SELECT userId, userBreweryId, userAccessLevel, userActivationToken, userDateOfBirth, userFirstName, userHash, userLastName, userSalt, userUsername FROM user WHERE userFirstName LIKE :userFirstName";
 		$statement = $pdo->prepare($query);
 		//bind the user first name to the place holder in the template
 		$userFirstName = "%$userFirstName%";
@@ -675,7 +675,7 @@ class User implements \JsonSerializable {
 			try {
 				$user = new User($row["userId"], $row["userBreweryId"], $row["userAccessLevel"], $row["userActivationToken"], $row["userDateOfBirth"], $row["userEmail"], $row["userFirstName"], $row["userHash"], $row["userLastName"], $row["userSalt"], $row["userUsername"]);
 				$users[$users->key()] = $user;
-				$user->next();
+				$users->next();
 			} catch(\Exception $exception) {
 				// if the row couldn't be converted, rethrow it
 				throw(new \PDOException($exception->getMessage(), 0, $exception));
@@ -700,7 +700,7 @@ class User implements \JsonSerializable {
 			throw(new \PDOException("user last name is invalid"));
 		}
 		// create query template
-		$query = "SELECT userId, userBreweryId, userAccessLevel, userActivationToken, userDateOfBirth, userFirstName, userHash, userLastName, userSalt, userUsername,  FROM userLastName WHERE userLastName LIKE :userLastName";
+		$query = "SELECT userId, userBreweryId, userAccessLevel, userActivationToken, userDateOfBirth, userFirstName, userHash, userLastName, userSalt, userUsername FROM user WHERE userLastName LIKE :userLastName";
 		$statement = $pdo->prepare($query);
 		//bind the user last name to the place holder in the template
 		$userLastName = "%$userLastName%";
@@ -713,7 +713,7 @@ class User implements \JsonSerializable {
 			try {
 				$user = new User($row["userId"], $row["userBreweryId"], $row["userAccessLevel"], $row["userActivationToken"], $row["userDateOfBirth"], $row["userEmail"], $row["userFirstName"], $row["userHash"], $row["userLastName"], $row["userSalt"], $row["userUsername"]);
 				$users[$users->key()] = $user;
-				$user->next();
+				$users->next();
 			} catch(\Exception $exception) {
 				// if the row couldn't be converted, rethrow it
 				throw(new \PDOException($exception->getMessage(), 0, $exception));
@@ -730,19 +730,19 @@ class User implements \JsonSerializable {
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when variables are not the correct data type
 	 **/
-	public static function getUserByUserUsername (\PDO $pdo, string $userUserName) {
+	public static function getUserByUserUsername (\PDO $pdo, string $userUsername) {
 		// sanitize the description before searching
-		$userUserName = trim($userUserName);
-		$userUserName = filter_var($userUserName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-		if(empty($userUserName) === true) {
+		$userUsername = trim($userUsername);
+		$userUsername = filter_var($userUsername, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($userUsername) === true) {
 			throw(new \PDOException("user name is invalid"));
 		}
 		// create query template
-		$query = "SELECT userId, userBreweryId, userAccessLevel, userActivationToken, userDateOfBirth, userFirstName, userHash, userLastName, userSalt, userUsername,  FROM userUserName WHERE userUserNameLIKE :userUserName";
+		$query = "SELECT userId, userBreweryId, userAccessLevel, userActivationToken, userDateOfBirth, userFirstName, userHash, userLastName, userSalt, userUsername  FROM user WHERE userUsername LIKE :userUsername";
 		$statement = $pdo->prepare($query);
 		//bind the username to the place holder in the template
-		$userUserName = "%$userUserName%";
-		$parameters = array("userUserName" => $userUserName);
+		$userUsername = "%$userUsername%";
+		$parameters = array("userUsername" => $userUsername);
 		$statement->execute($parameters);
 		// build an array of users
 		$users = new \SplFixedArray($statement->rowCount());
@@ -751,7 +751,7 @@ class User implements \JsonSerializable {
 			try {
 				$user = new User($row["userId"], $row["userBreweryId"], $row["userAccessLevel"], $row["userActivationToken"], $row["userDateOfBirth"], $row["userEmail"], $row["userFirstName"], $row["userHash"], $row["userLastName"], $row["userSalt"], $row["userUsername"]);
 				$users[$users->key()] = $user;
-				$user->next();
+				$users->next();
 			} catch(\Exception $exception) {
 				// if the row couldn't be converted, rethrow it
 				throw(new \PDOException($exception->getMessage(), 0, $exception));
@@ -775,7 +775,7 @@ class User implements \JsonSerializable {
 			throw(new \PDOException("user id is not positive"));
 		}
 		// create query template
-		$query = "SELECT userId, userBreweryId, userAccessLevel, userActivationToken, userDateOfBirth, userFirstName, userHash, userLastName, userSalt, userUsername,   FROM user WHERE userId = :userId";
+		$query = "SELECT userId, userBreweryId, userAccessLevel, userActivationToken, userDateOfBirth, userFirstName, userHash, userLastName, userSalt, userUsername FROM user WHERE userId = :userId";
 		$statement = $pdo->prepare($query);
 		// bind the user id to the place holder in the template
 		$parameters = array("userId" => $userId);
@@ -787,7 +787,7 @@ class User implements \JsonSerializable {
 			$row = $statement->fetch();
 			if($row !== false) {
 				$user = new User($row["userId"], $row["userBreweryId"], $row["userAccessLevel"], $row["userActivationToken"], $row["userDateOfBirth"], $row["userEmail"], $row["userFirstName"], $row["userHash"], $row["userLastName"], $row["userSalt"],
-					$row["userUsername"]);
+				 $row["userUsername"]);
 			}
 		} catch(\Exception $exception) {
 			// if the row couldnt be converted, rethrow it
