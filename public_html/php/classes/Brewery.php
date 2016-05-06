@@ -106,7 +106,7 @@ public function __construct($breweryId, $breweryDescription, $breweryEstDate, $b
  **/
 
 	public function getBreweryId () {
-		return ($this->userId);
+		return ($this->breweryId);
 	}
 
 /** Mutator method for breweryId
@@ -302,5 +302,187 @@ public function __construct($breweryId, $breweryDescription, $breweryEstDate, $b
 		//store the brewery URL content
 		$this->breweryUrl = $newBreweryUrl;
 	}
+/**
+ * Inserts this brewery into mySQL
+ *
+ * @link //From here to the end, I used Skyler's work as a model: https://github.com/Skylarity/trufork/blob/master/public_html/php/classes/restaurant.php
+ * @param \PDO $pdo PDO connection object
+ * @throws \PDOException when mySQL-related errors occur
+ * @throws \TypeError if $pdo is not a PDO connection object
+ **/
+	public function insert(\PDO &$pdo) {
+		// Make sure this is a new brewery
+		if($this->breweryId !== null) {
+			throw(new \PDOException("Not a new brewery"));
+		}
+		// Crete query template
+		$query = "INSERT INTO brewery(breweryId, breweryDescription, breweryEstDate, breweryHours, breweryLocation, breweryName, breweryPhone, breweryUrl) VALUES(:breweryId, breweryDescription, breweryEstDate, breweryHours, breweryLocation, breweryName, breweryPhone, breweryUrl)";
+		$statement = $pdo->prepare($query);
 
+		// Bind the member variables to the place holders in the template
+		$parameters = array(("breweryId" => $this->getBreweryId(), "breweryDescription" => $this->getBreweryDescription(), "breweryEstDate" => $this->getBreweryEstDate(), "breweryHours" => $this->getBreweryHours(), "breweryLocation" => $this->getBreweryLocation(), "breweryName" => $this->getBreweryName(), "breweryPhone" => $this->getBreweryPhone(), "breweryUrl" => $this->getBreweryUrl()));
+		$statement->execute($parameters);
+
+		// Update the null brewery id with what mySQL generated
+		$this->setBreweryId(intval($pdo->lastInsertId()));
+	}
+/**
+ * Deletes this brewery from mySQL
+ *
+ * @param PDO $pdo PDO connection object
+ * @throws \PDOException when mySQL-related errors occur
+ * @throws \TypeError if $pdo is not a PDO connection object
+ **/
+	public function delete(PDO &$pdo) {
+		// Make sure this brewery exists
+		if($this->breweryId === null) {
+			throw (new \PDOException("Unable to delete a brewery that does not exist"));
+		}
+		// Create query template
+		$query = "UPDATE brewery SET breweryId = :breweryId";
+		$statement = $pdo->prepare($query);
+		
+		// Bind the member variables to the placeholders in the templates
+		$parameters = array(("breweryId" => $this->getBreweryId(), "breweryDescription" => $this->getBreweryDescription(), "breweryEstDate" => $this->getBreweryEstDate(), "breweryHours" => $this->getBreweryHours(), "breweryLocation" => $this->getBreweryLocation(), "breweryName" => $this->getBreweryName(), "breweryPhone" => $this->getBreweryPhone(), "breweryUrl" => $this->getBreweryUrl()));
+		$statement->execute($parameters);
+	}
+ /**
+ * Updates this brewery in mySQL
+ *
+ * @param \PDO $pdo PDO connection object
+ * @throws \PDOException when mySQL-related errors occur
+ * @throws \TypeError if $pdo is not a PDO connection object
+ * **/
+	public function update(\PDO $pdo) {
+		// Make sure this brewery exists
+		if($this->breweryId === null) {
+			throw(new \PDOException("Unable to update a brewery that does not exist"));
+		}
+		// Create query template
+		$query = "UPDATE brewery SET breweryDescription = :breweryDescription, breweryEstDate = :breweryEstDate, breweryHours = :breweryHours, breweryLocation = :breweryLocation, breweryName = :breweryName, breweryPhone = :breweryPhone, breweryUrl = :breweryUrl WHERE breweryId = :breweryId";
+		$statement = $pdo->prepare($query);
+
+		//Bind the member variables to the placeholders in the templates
+		//How to format EstDate as YYYY?
+		$parameters = array(("breweryId" => $this->getBreweryId(), "breweryDescription" => $this->getBreweryDescription(), "breweryEstDate" => $this->getBreweryEstDate(), "breweryHours" => $this->getBreweryHours(), "breweryLocation" => $this->getBreweryLocation(), "breweryName" => $this->getBreweryName(), "breweryPhone" => $this->getBreweryPhone(), "breweryUrl" => $this->getBreweryUrl()));
+		$statement->execute($parameters);
+	}
+ /**
+ * Gets the brewery by breweryId
+ *
+ * @param \PDO $pdo $pdo PDO connection object
+ * @param int $breweryId brewery id to search for
+ * @return Brewery|null either brewery or null if not found
+ * @throws \PDOException when mySQL-related errors occur
+ * @throws \TypeError when variables are not the correct data type
+ * **/
+	public static function getBreweryByBreweryId(\PDO $pdo, int $breweryId) {
+		// Sanitize the breweryId before searching
+		$breweryId = filter_var($breweryId, FILTER_SANITIZE_NUMBER_INT);
+		if($breweryId === false) {
+			throw(new \PDOException("Brewery ID is not an integer"));
+		}
+		if($breweryId <= 0) {
+			throw(new \PDOException('Brewery ID is not positive:'));
+		}
+		// Create query template
+		$query = "SELECT breweryId, breweryDescription, breweryEstDate, breweryHours, breweryLocation, breweryName, breweryPhone, breweryUrl FROM brewery WHERE breweryId = :breweryId";
+		$statement = $pdo->prepare($query);
+
+		//Bind the breweryId to the place holder in the template
+		$parameters = array("breweryId" => $breweryId);
+		$statement->execute($parameters);
+
+		//Grab the brewery from mySQL
+		try {
+			$brewery = null;
+			$statement->setFetchMode(\PDO::FETCH_ASSOC);
+			$row = $statement->fetch();
+			if($row !== false) {
+				$brewery = new Brewery($row["breweryId"], $row["breweryDescription"], $row["breweryEstDate"], $row["breweryHours"], $row["breweryLocation"], $row["breweryName"], $row["breweryPhone"], $row["breweryUrl"]);
+				}
+		} catch(\Exception $exception) {
+			// If the row couldn't be converted, rethrow it
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
+		}
+		return($brewery);
+	}
+/**
+ * Gets the brewery by name
+ *
+ *@param \PDO $pdo PDO connection object
+ *@param  $breweryName Name of brewery to search for
+ *@return \SplFixedArray of breweries found
+ *@throws \PDOException when mySQL-related errors occur
+ **/
+	public static function getBreweryByBreweryName(\PDO &$pdo, $breweryName) {
+		//sanitize the brewery before searching
+		$brewery = trim($brewery);
+		$brewery = filter_var($brewery, FILTER_SANITIZE_STRING);
+		if(empty($brewery) === true) {
+			throw(new \PDOException("Brewery name is invalid"));
+		}
+		//Create query template
+		$query = "SELECT brewery FROM brewery WHERE breweryName LIKE :breweryName";
+		$statement = $pdo->prepare($query);
+
+		// Bind name to the placeholder in the template
+		$parameters = array("userSearch" => $name);
+		$statement->execute($parameters);
+
+		// Grab the brewery from mySQL
+		try {
+			$brewery = null;
+			$statement = setFetchMode(PDO::FETCH_ASSOC);
+			$row = $statement->fetch();
+
+			if($row !== false) {
+				$brewery = new Brewery($row["breweryId"], $row["breweryDescription"], $row["breweryEstDate"], $row["breweryHours"], $row["breweryLocation"], $row["breweryName"], $row["breweryPhone"], $row["breweryUrl"]);
+			}
+		} catch(\Exception $exception) {
+			// If the row couldn't be converted, rethrow it
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
+		}
+		return ($brewery);
+	}
+ /**
+ * Gets all breweries
+ *
+ * @param PDO $pdo PDO connection object
+ * @returm SplFixedArray of breweries found
+ * @throws \PDOException when mySQL related errors occur
+ */
+	public static function getAllBreweries(PDO &$pdo) {
+		// Create query template
+		$query = "SELECT breweryId, breweryDescription, breweryEstDate, breweryHours, breweryLocation, breweryName, breweryPhone, breweryUrl FROM brewery";
+		$statement = $pdo->prepare($query);
+		$statement->execute();
+
+		// Build an array of breweries
+		$breweries = new \SplFixedArray($statement->rowCount());
+		$statement->setFetchMode(\PDO::FETCH_ASSOC);
+		while(($row = $statement->fetch()) !== false) {
+			try {
+				$brewery = new \SplFixedArray($statement->rowCount());
+				$brewery->setFetchMode(\PDO::FETCH_ASSOC);
+				$brewery->next();
+			} catch(\Exception $exception) {
+
+				// If the row couldn't be converted, rethrow it
+				throw(new \PDOException($exception->getMessage(), 0, $exception));
+			}
+		}
+		return ($breweries);
+	}
 }
+		/**
+		 * Specify data which should be serialized to JSON
+		 * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
+		 * @return mixed data which can be serialized by <b>json_encode</b>,
+		 * which is a value of any type other than a resource.
+		 * @since 5.4.0
+		 */
+		function jsonSerialize() {
+			// TODO: Implement jsonSerialize() method.
+		}
+	}
