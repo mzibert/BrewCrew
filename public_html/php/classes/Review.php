@@ -11,7 +11,6 @@ require_once("autoload.php");
  * @author Alicia Broadhurst <abroadhurst@cnm.edu>
  *
  */
-
 class Review implements \JsonSerializable {
 	use ValidateDate;
 
@@ -52,11 +51,43 @@ class Review implements \JsonSerializable {
 	 **/
 	private $reviewText;
 
+	/**
+	 * constructor for review
+	 *
+	 * @param int|null $newReviewId of this review or null if this is a new review
+	 * @param int $newReviewBeerId for the beer that is being reviewed
+	 * @param int $newReviewUserId for the user that created the review
+	 * @param \DateTime|null $newReviewDate the associated timestamp for a review, or null if being set to current date and time
+	 * @param int $newReviewPintRating the pint rating assigned to a review
+	 * @param string $newReviewText string that contains the text of the review
+	 * @throws \InvalidArgumentException if the data types are not valid
+	 * @throws \RangeException if the data values are out of bounds (e.g., strings are too long, integers are negative or out of range, etc)
+	 * @throws \TypeError if data types violate type hints
+	 * @throws \Exception if some other exception occurs
+	 */
+	public function __construct(int $newReviewId = null, int $newReviewBeerId, int $newReviewUserId, $newReviewDate = null, int $newReviewPintRating, string $newReviewText) {
+		try {
+			$this->setReviewId($newReviewId);
+			$this->setReviewBeerId($newReviewBeerId);
+			$this->setReviewUserId($newReviewUserId);
+			$this->setReviewDate($newReviewDate);
+			$this->setReviewPintRating($newReviewPintRating);
+			$this->setReviewText($newReviewText);
+		} catch(\InvalidArgumentException $invalidArgument) {
+			//rethrow the exception to the caller
+			throw(new \InvalidArgumentException($invalidArgument->getMessage(), 0, $invalidArgument));
+		} catch(\RangeException $range) {
+			//rethrow the exception to the caller
+			throw(new \RangeException($range->getMessage(), 0, $range));
+		} catch(\TypeError $typeError) {
+			//rethrow the exception to the caller
+			throw(new \TypeError($typeError->getMessage(), 0, $typeError));
+		} catch(\Exception $exception) {
+			//rethrow the exception to the caller
+			throw(new \Exception($exception->getMessage(), 0, $exception));
+		}
+	}
 
-	//CONSTRUCT goes here
-	//CONSTRUCT
-	//CONSTRUCT
-	//TODO CONSTRUCTOR
 
 
 	//BEGIN ACCESSORS AND MUTATORS FOR REVIEW
@@ -66,7 +97,7 @@ class Review implements \JsonSerializable {
 	 * @return int|null value of review id, will be null if this is a new review
 	 **/
 	public function getReviewId() {
-		return($this->reviewId);
+		return ($this->reviewId);
 	}
 
 	/**
@@ -94,53 +125,53 @@ class Review implements \JsonSerializable {
 
 
 	/**
-	 * accessor method for beer id
+	 * accessor method for review beer id
 	 *
-	 * @return int value of beer id, a foreign key
+	 * @return int value of review beer id, a foreign key
 	 */
-	public function getBeerId() {
-		return($this->beerId);
+	public function getReviewBeerId() {
+		return ($this->reviewBeerId);
 	}
 
 	/**
 	 * mutator method of beer id
-	 * @param int $newBeerId creates new value for beer id
-	 * @throws \RangeException if $newBeerId is not positive
-	 * @throws \TypeError is $newBeerId is not an integer
+	 * @param int $newReviewBeerId creates new value for beer id
+	 * @throws \RangeException if $newReviewBeerId is not positive
+	 * @throws \TypeError is $newReviewBeerId is not an integer
 	 */
-	public function setBeerId(int $newBeerId) {
-		//verify that the beer id is positive
-		if($newBeerId <= 0) {
+	public function setReviewBeerId(int $newReviewBeerId) {
+		//verify that the review beer id is positive
+		if($newReviewBeerId <= 0) {
 			throw(new \RangeException("Beer Id is not positive"));
 		}
-		//convert and store the beer id
-		$this->beerId = $newBeerId;
+		//convert and store the review beer id
+		$this->reviewBeerId = $newReviewBeerId;
 	}
 
 	/**
-	 * accessor method for user id
+	 * accessor method for review user id
 	 *
-	 * @return int value of user id, a foreign key
+	 * @return int value of review user id, a foreign key
 	 */
-	public function getUserId() {
-		return($this->userId);
+	public function getReviewUserId() {
+		return ($this->reviewUserId);
 	}
 
 	/**
-	 * mutator method for user id
-	 * @param int $newUserId creates a new value for user id
-	 * @throws \RangeException if $newUserId is not positive
-	 * @throws \TypeError if $newUserId is not an integer
+	 * mutator method for review user id
+	 * @param int $newReviewUserId creates a new value for user id
+	 * @throws \RangeException if $newReviewUserId is not positive
+	 * @throws \TypeError if $newReviewUserId is not an integer
 	 */
 
-	public function setUserId(int $newUserId) {
-		//verify that the user id is a positive integer
-		if($newUserId <= 0) {
+	public function setReviewUserId(int $newReviewUserId) {
+		//verify that the review user id is a positive integer
+		if($newReviewUserId <= 0) {
 			throw(new \RangeException("User id is not positive"));
 		}
 
-		//convert and store the user id
-		$this->userId = $newUserId;
+		//convert and store the review user id
+		$this->reviewUserId = $newReviewUserId;
 	}
 
 
@@ -149,20 +180,21 @@ class Review implements \JsonSerializable {
 	 *
 	 * @return \DateTime value for the review
 	 */
-	
+
 	public function getReviewDate() {
-		return($this->reviewDate);
+		return ($this->reviewDate);
 	}
+
 	/**
 	 * mutator method for review date
-	 * 
+	 *
 	 * @param \DateTime|string|null $newReviewDate the date of the review as a DateTime object, or null to load the current time
 	 * @throws \InvalidArgumentException if $newReviewDate is not a valid object
 	 * @throws \RangeException if $newReviewDate is a date that does not exist
 	 */
 	public function setReviewDate($newReviewDate = null) {
 		//base case-- if the date is null, use the current date and time
-		if($newReviewDate === null){
+		if($newReviewDate === null) {
 			$this->reviewDate = new \DateTime();
 			return;
 		}
@@ -171,7 +203,7 @@ class Review implements \JsonSerializable {
 		try {
 			$newReviewDate = $this->validateDate($newReviewDate);
 		} catch(\InvalidArgumentException $invalidArgument) {
-				throw(new \InvalidArgumentException($invalidArgument->getMessage(), 0, $invalidArgument));
+			throw(new \InvalidArgumentException($invalidArgument->getMessage(), 0, $invalidArgument));
 		} catch(\RangeException $range) {
 			throw(new \RangeException($range->getMessage(), 0, $range));
 		}
@@ -184,7 +216,7 @@ class Review implements \JsonSerializable {
 	 * @return int value of the pint rating
 	 */
 	public function getReviewPintRating() {
-		return($this->reviewDate);
+		return ($this->reviewDate);
 	}
 
 	/**
@@ -209,9 +241,9 @@ class Review implements \JsonSerializable {
 	 *
 	 * @return string value for review text
 	 */
-	 public function getReviewText() {
-		 return($this->reviewText);
-	 }
+	public function getReviewText() {
+		return ($this->reviewText);
+	}
 
 	/**
 	 * mutator method for review text
@@ -222,18 +254,20 @@ class Review implements \JsonSerializable {
 	 * @throws \TypeError if $newReviewText is not a string
 	 */
 	public function setReviewText(string $newReviewText) {
-	//verify that the review text is valid and/or secure
+		
+
+		//verify that the review text is valid and/or secure
 		$newReviewText = trim($newReviewText);
 		$newReviewText = filter_var($newReviewText, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		//QUESTION since writing in the text box is optional as part of leaving a review, empty should not throw an exception.  What about insecure content?
 		//if(empty($newReviewText) === true){ <--That doesn't apply because text CAN be empty
 		//throw(new \InvalidArgumentException("Review is empty or is insecure"));}
-	
+
 		//verify that the text of the review will fit in the database
 		if(strlen($newReviewText) > 2000) {
 			throw(new \RangeException("Text of review is too long. Limited to 2000 characters."));
 		}
-		
+
 		//store the text of the review
 		$this->reviewText = $newReviewText;
 	}
@@ -273,7 +307,7 @@ class Review implements \JsonSerializable {
 	 * @throws \TypeError when $pdo is not a PDO connection object
 	 */
 	public function delete(\PDO $pdo) {
-	//enforce that that reviewId is not null (aka doesn't exist, so cannot delete)
+		//enforce that that reviewId is not null (aka doesn't exist, so cannot delete)
 		if($this->reviewId === null) {
 			throw(new \PDOException("Cannot delete a review that doesn't exist"));
 		}
@@ -334,7 +368,7 @@ class Review implements \JsonSerializable {
 		$statement->execute($parameters);
 
 		//grab the review from mySQL
-		try{
+		try {
 			$review = null;
 			$statement->setFetchMode(\PDO::FETCH_ASSOC);
 			$row = $statement->fetch();
@@ -345,7 +379,7 @@ class Review implements \JsonSerializable {
 			//if the row couldn't be converted rethrow it
 			throw(new \PDOException($exception->getMessage(), 0, $exception));
 		}
-		return($review);
+		return ($review);
 	}
 
 	/**
@@ -385,7 +419,7 @@ class Review implements \JsonSerializable {
 				throw(new \PDOException($exception->getMessage(), 0, $exception));
 			}
 		}
-		return($reviews);
+		return ($reviews);
 	}
 
 	/**
@@ -415,11 +449,15 @@ class Review implements \JsonSerializable {
 				throw(new \PDOException($exception->getMessage(), 0, $exception));
 			}
 		}
-		return($reviews);
+		return ($reviews);
 	}
 
 //jsonSerialize
-//TODO jsonSerialize
+	public function jsonSerialize() {
+		$fields = get_object_vars($this);
+		$fields["reviewDate"] = intval($this->reviewDate->format("U")) * 1000;
+		return ($fields);
+	}
 
 
 }
