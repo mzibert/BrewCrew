@@ -797,7 +797,6 @@ class User implements \JsonSerializable {
 	}
 
 
-
 	/**
 	 * @return array
 	 */
