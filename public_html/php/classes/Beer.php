@@ -62,7 +62,7 @@ class Beer {
 	 * @throws \TypeError if data types violate type hints
 	 * @throws \Exception if some other exception occurs
 	 **/
-	public function __construct(int $newBeerId, int $newBeerBreweryId, float $newBeerAbv, string $newBeerAvailability, string $newBeerAwards, float $newBeerColor, string $newBeerDescription, string $newBeerIbu, string $newBeerName, string $newBeerStyle) {
+	public function __construct (int $newBeerId, int $newBeerBreweryId, float $newBeerAbv, string $newBeerAvailability, string $newBeerAwards, float $newBeerColor, string $newBeerDescription, string $newBeerIbu, string $newBeerName, string $newBeerStyle) {
 		try {
 			$this->setBeerId($newBeerId);
 			$this->setBeerBreweryId($newBeerBreweryId);
@@ -96,7 +96,7 @@ class Beer {
 	 * accessor method for beer id
 	 * @return int value of beer id
 	 **/
-	public function getBeerId() {
+	public function getBeerId () {
 		return ($this->beerId);
 	}
 
@@ -107,7 +107,7 @@ class Beer {
 	 * @throws \RangeException if $newbeerId is not positive
 	 * @throws \TypeError if $newBeerId is not an integer
 	 **/
-	public function setBeerId($newBeerId) {
+	public function setBeerId ($newBeerId) {
 		//verify the profile id is positive
 		if($newBeerId <= 0) {
 			throw (new \RangeException("beer id is not positive"));
@@ -119,7 +119,7 @@ class Beer {
 	/**accessor method for brewery id
 	 * @return int value of brewery id
 	 **/
-	public function getBeerBreweryId() {
+	public function getBeerBreweryId () {
 		return ($this->beerBreweryId);
 	}
 
@@ -130,7 +130,7 @@ class Beer {
 	 * @throws \RangeException if $newBeerBreweryId is not positive
 	 * @throws \TypeError if $newBeerBreweryId is not an integer
 	 **/
-	public function setBeerBreweryId($newBeerBreweryId) {
+	public function setBeerBreweryId ($newBeerBreweryId) {
 		//verify the brewery id is positive
 		if($newBeerBreweryId <= 0) {
 			throw (new \RangeException("brewery id is not positive"));
@@ -143,7 +143,7 @@ class Beer {
 	 * accessor method for beer abv
 	 * @return float value for beer abv
 	 **/
-	public function getBeerAbv() {
+	public function getBeerAbv () {
 		return ($this->beerAbv);
 	}
 
@@ -154,7 +154,7 @@ class Beer {
 	 * @throws \RangeException if $newbeerAbv is less than zero or greater than 100%
 	 * @throws \TypeError if $newbeerAbv is not a float
 	 **/
-	public function setBeerAbv($newBeerAbv) {
+	public function setBeerAbv ($newBeerAbv) {
 		//verify the beer abv is between 0% and 100%
 		if($newBeerAbv < 0 || $newBeerAbv > 100) {
 			throw (new \RangeException ("beer abv is out of range"));
@@ -167,7 +167,7 @@ class Beer {
 	 * accessor method for beer availability
 	 * @return string for beer availability
 	 **/
-	public function getBeerAvailability() {
+	public function getBeerAvailability () {
 		return ($this->beerAvailability);
 	}
 
@@ -179,7 +179,7 @@ class Beer {
 	 * @throws \RangeException if $newbeerAvailability is > 100 characters
 	 * @throws \TypeError if $newbeerAvailability is not a string
 	 **/
-	public function setBeerAvailability($newBeerAvailability) {
+	public function setBeerAvailability ($newBeerAvailability) {
 		//verify the beer availabilty content is secure
 		$newBeerAvailability = trim($newBeerAvailability);
 		$newBeerAvailability = filter_var($newBeerAvailability, FILTER_SANITIZE_STRING);
@@ -198,7 +198,7 @@ class Beer {
 	 * accessor method for beer awards
 	 * @return string value of beer awards
 	 **/
-	public function getBeerAwards() {
+	public function getBeerAwards () {
 		return ($this->beerAwards);
 	}
 
@@ -209,7 +209,7 @@ class Beer {
 	 * @throws \RangeException if $newbeerAwards is greater that  1000 characters
 	 * @throws \TypeError if $newbeerAwards is not a string
 	 **/
-	public function setBeerAwards($newBeerAwards) {
+	public function setBeerAwards ($newBeerAwards) {
 		//verify the beer awards content is secure
 		$newBeerAwards = trim($newBeerAwards);
 		$newBeerAwards = filter_var($newBeerAwards, FILTER_SANITIZE_STRING);
@@ -229,7 +229,7 @@ class Beer {
 	 * accessor method for beer color
 	 * @return float value of beer color
 	 **/
-	public function getBeerColor() {
+	public function getBeerColor () {
 		return ($this->beerColor);
 	}
 
@@ -238,7 +238,7 @@ class Beer {
 	 * @throws \RangeException if $newbeerColor is less than zero or greater than 1
 	 * @throws \TypeError if $newbeerColor is not a float
 	 **/
-	public function setBeerColor($newBeerColor) {
+	public function setBeerColor ($newBeerColor) {
 		//verify the beer abv is between 0 and 1
 		if($newBeerColor < 0 || $newBeerColor > 1) {
 			throw (new \RangeException ("beer color is out of range"));
@@ -251,7 +251,7 @@ class Beer {
 	 * accessor method for beer description
 	 * @return string value of beer description
 	 **/
-	public function getBeerDescription() {
+	public function getBeerDescription () {
 		return ($this->beerDescription);
 	}
 
@@ -261,7 +261,7 @@ class Beer {
 	 * @throws \InvalidArgumentException if $newbeerDescription is not a string or is insecure
 	 * @throws \RangeException if the string exceeds 2000 characters
 	 **/
-	public function setBeerDescription($newBeerDescription) {
+	public function setBeerDescription ($newBeerDescription) {
 		//verify the beer description content is secure
 		$newBeerDescription = trim($newBeerDescription);
 		$newBeerDescription = filter_var($newBeerDescription, FILTER_SANITIZE_STRING);
@@ -279,7 +279,7 @@ class Beer {
 	 * accessor method for beer ibu
 	 * @return string value for beer ibu
 	 **/
-	public function getBeerIbu() {
+	public function getBeerIbu () {
 		return ($this->beerIbu);
 	}
 
@@ -290,7 +290,7 @@ class Beer {
 	 * @throws \RangeException if the string exceeds 50 characters
 	 * @throws \TypeError if $newbeerIbu is not a string
 	 **/
-	public function setBeerIbu($newBeerIbu) {
+	public function setBeerIbu ($newBeerIbu) {
 		//verify the beer ibu content is secure
 		$newBeerIbu = trim($newBeerIbu);
 		$newBeerIbu = filter_var($newBeerIbu, FILTER_SANITIZE_STRING);
@@ -309,7 +309,7 @@ class Beer {
 	 * accessor method for beer name
 	 * @return string for for beer name not null
 	 **/
-	public function getBeerName() {
+	public function getBeerName () {
 		return ($this->beerName);
 	}
 
@@ -320,7 +320,7 @@ class Beer {
 	 * @throws \RangeException if string exceeds 64 characters
 	 * @throws \TypeError if $newbeerName is not a string
 	 **/
-	public function setBeerName($newBeerName) {
+	public function setBeerName ($newBeerName) {
 		//verify the beer name content is secure
 		$newBeerName = trim($newBeerName);
 		$newBeerName = filter_var($newBeerName, FILTER_SANITIZE_STRING);
@@ -339,7 +339,7 @@ class Beer {
 	 * accessor method for beer style
 	 * @return string to describe industry style label
 	 **/
-	public function getBeerStyle() {
+	public function getBeerStyle () {
 		return ($this->beerStyle);
 	}
 
@@ -349,7 +349,7 @@ class Beer {
 	 * @throws \InvalidArgumentException if $newbeerStyle content is not a string or is insecure
 	 * @throws \RangeException if string exceeds 32 characters
 	 **/
-	public function setBeerStyle($newBeerStyle) {
+	public function setBeerStyle ($newBeerStyle) {
 		//verify the beer style content is secure
 		$newBeerStyle = trim($newBeerStyle);
 		$newBeerStyle = filter_var($newBeerStyle, FILTER_SANITIZE_STRING);
@@ -371,7 +371,7 @@ class Beer {
 	 * @throws \PDOException when my SQL related errors occur
 	 * @throws \TypeError if $pdo is not a PDO connection object
 	 **/
-	public function insert(\PDO $pdo) {
+	public function insert (\PDO $pdo) {
 		//enforce the beerId is null (i.e., dont insert a beer that already exists)
 		if($this->beerId !== null) {
 			throw (new \PDOException("not a new beer"));
@@ -394,7 +394,7 @@ class Beer {
 	 * @throws \PDOException when mySQL related errors occure
 	 * @throws \TypeError if $pdo is not a PDO connection object
 	 **/
-	public function delete(\PDO $pdo) {
+	public function delete (\PDO $pdo) {
 		//enforce the beerID is not null (i.e., don't delete a beer that has not been inserted)
 		if($this->beerId === null) {
 			throw (new \PDOException("unable to delete a beer that does not exist"));
@@ -416,7 +416,7 @@ class Beer {
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError if $pdo is not a PDO connection object
 	 **/
-	public function update(\PDO $pdo) {
+	public function update (\PDO $pdo) {
 		//enforce the beerID is not null (i.e., do not update a beer that has not been inserted)
 		if($this->beerId === null) {
 			throw(new \PDOException("unable to update a beer that does not exist"));
@@ -429,6 +429,7 @@ class Beer {
 		$parameters = ["beerBreweryId" => $this->beerBreweryId, "beerAbv" => $this->beerAbv, "beerAvailability" => $this->beerAvailability, "beerAwards" => $this->beerAwards, "beerColor" => $this->beerColor, "beerDescription" => $this->beerDescription, "beerIbu" => $this->beerIbu, "beerName" => $this->beerName, "beerStyle" => $this->beerStyle];
 		$statement->execute($parameters);
 	}
+
 	/**
 	 * gets the Beer by content
 	 *
@@ -438,7 +439,7 @@ class Beer {
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when variables are not the correct data type
 	 **/
-	public static function getBeerByBeerIbuContent(\PDO $pdo, string $beerIbu) {
+	public static function getBeerByBeerIbuContent (\PDO $pdo, string $beerIbu) {
 		//sanitize the description before searching
 		$beerIbu = trim($beerIbu);
 		$beerIbu = filter_var($beerIbu, FILTER_SANITIZE_STRING);
@@ -479,7 +480,7 @@ class Beer {
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when variables are not the correct data type
 	 **/
-	public static function getBeerByBeerId(\PDO $pdo, int $beerId) {
+	public static function getBeerByBeerId (\PDO $pdo, int $beerId) {
 		//sanitize the beerId before searching
 		if($beerId <= 0) {
 			throw (new \PDOException("beer id is not positive"));
@@ -503,12 +504,11 @@ class Beer {
 				$beers[$beers->key()] = $beer;
 				$beers->next();
 			}
-		catch
-			(\Exception $exception){
+		}catch(\Exception $exception){
 				//if the row couldnt be converted, rethrow it
 				throw (new \PDOException($exception->getMessage(), 0, $exception));
 			}
-		}
+
 		return ($beers);
 	}
 
