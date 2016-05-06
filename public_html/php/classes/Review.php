@@ -423,5 +423,3 @@ class Review implements \JsonSerializable {
 
 
 }
-
-
