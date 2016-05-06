@@ -1,13 +1,12 @@
 <?php
-namespace Edu\Cnm\Agraham14\BrewCrew\Test;
-use Edu\Cnm\Agraham14\BrewCrew\{User};
-use Edu\Cnm\BrewCrew\Test\BrewCrewTest;
+namespace Edu\Cnm\BrewCrew\Test;
 
-// grab the project test parameters
-require_once("BrewCrewTest.php");
-require_once("User.php");
-// grab the class under scrutiny
-require_once(dirname(__DIR__) . "/php/classes/autoload.php");
+use Edu\Cnm\BrewCrew\{Brewery, User};
+//grab the project test parameters
+require_once ("BrewCrewTest.php");
+
+//grab the class under scrutiny--being tested
+require_once (dirname(__DIR__) . "../php/classes/autoload.php");
 /**
  * Full PHPUnit test for the User class
  *
@@ -19,31 +18,8 @@ require_once(dirname(__DIR__) . "/php/classes/autoload.php");
  **/
 class UserTest extends BrewCrewTest {
 	/**
-	 * date of birth of the User
-	 * @var \DateTime|string|null $VALID_USERDATEOFBIRTH
-	 **/
-	protected $VALID_USERDATEOFBIRTH = "PHPUnit test passing";
-	/**
-	 * email of the User
-	 * @var string $VALID_USEREMAIL
-	 **/
-	protected $VALID_USEREMAIL = "PHPUnit test still passing";
-	/**
-	 * test of User first name
-	 * @string $VALID_USERFIRSTNAME
-	 **/
-	protected $VALID_USERFIRSTNAME;
-	/**
-	 * test of User last name
-	 * @string $VALID_USERLASTNAME
-	 **/
-	protected $VALID_USERLASTNAME;
-	/**
-	 * test of User first name
-	 * @string $VALID_USERUSERNAME
-	 **/
-	protected $VALID_USERUSERNAME;
-	/**
-	 *
+	 * Brewery associated with beer being reviewed
+	 * @var Brewery brewery
 	 */
+	protected $brewery = null;
 }
