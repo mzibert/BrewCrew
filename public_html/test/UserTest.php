@@ -1,6 +1,8 @@
 <?php
 namespace Edu\Cnm\Agraham14\BrewCrew\Test;
 use Edu\Cnm\Agraham14\BrewCrew\{User};
+use Edu\Cnm\BrewCrew\Test\BrewCrewTest;
+
 // grab the project test parameters
 require_once("BrewCrewTest.php");
 require_once("User.php");
@@ -15,10 +17,10 @@ require_once(dirname(__DIR__) . "/php/classes/autoload.php");
  * @see User
  * @author Arlene Carol Graham <agraham14@cnm.edu>
  **/
-class UserTest extends brew-crew-test {
+class UserTest extends BrewCrewTest {
 	/**
 	 * date of birth of the User
-	 * @var Date $VALID_USERDATEOFBIRTH
+	 * @var \DateTime|string|null $VALID_USERDATEOFBIRTH
 	 **/
 	protected $VALID_USERDATEOFBIRTH = "PHPUnit test passing";
 	/**
@@ -38,6 +40,10 @@ class UserTest extends brew-crew-test {
 	protected $VALID_USERLASTNAME;
 	/**
 	 * test of User first name
-	 * @string $VALID_USERFIRSTNAME
+	 * @string $VALID_USERUSERNAME
 	 **/
-	protected $VALID_USERFIRSTNAME;
+	protected $VALID_USERUSERNAME;
+	/**
+	 *
+	 */
+}
