@@ -376,7 +376,7 @@ class Beer {
 			throw (new \PDOException("not a new beer"));
 		}
 		//create query template
-		$query = "INSERT INTO beer(beerBreweryId, beerAbv, beerAvailability, beerAwards, beerColor, beerDescription, beerIbu, beerName, beerStyle) VALUES (:beerBreweryID, :beerAbv, :beerAvailability, :beerAwards, :beerColor, :beerDescription, :beerIbu, :beerName, :beerStyle)";
+		$query = "INSERT INTO Beer(beerBreweryId, beerAbv, beerAvailability, beerAwards, beerColor, beerDescription, beerIbu, beerName, beerStyle) VALUES (:beerBreweryID, :beerAbv, :beerAvailability, :beerAwards, :beerColor, :beerDescription, :beerIbu, :beerName, :beerStyle)";
 		$statement = $pdo->prepare($query);
 
 		//bind the memeber variables to the place holders in the template
@@ -400,7 +400,7 @@ class Beer {
 		}
 
 		//create a query template
-		$query = "DELETE FROM beer WHERE beerId = :beerId";
+		$query = "DELETE FROM Beer WHERE beerId = :beerId";
 		$statement = $pdo->prepare($query);
 
 		//bind the memeber variables to the place holder in the template
@@ -422,7 +422,7 @@ class Beer {
 		}
 
 		//create query template
-		$query = "UPDATE beer SET beerBreweryId = :beerBreweryID, beerAbv= :beerAbv, beerAvailability = :beerAvailability, beerAwards = :beerAwards, beerColor = :beerColor, beerDescription = :beerDescription, beerIbu = :beerIbu, beerName =:beerName, beerStyle = :beerStyle WHERE beerId = :beerId";
+		$query = "UPDATE Beer SET beerBreweryId = :beerBreweryID, beerAbv= :beerAbv, beerAvailability = :beerAvailability, beerAwards = :beerAwards, beerColor = :beerColor, beerDescription = :beerDescription, beerIbu = :beerIbu, beerName =:beerName, beerStyle = :beerStyle WHERE beerId = :beerId";
 		$statement = $pdo->prepare($query);
 		//bind the member variables to the place holders in the template
 		$parameters = ["beerBreweryId" => $this->beerBreweryId, "beerAbv" => $this->beerAbv, "beerAvailability" => $this->beerAvailability, "beerAwards" => $this->beerAwards, "beerColor" => $this->beerColor, "beerDescription" => $this->beerDescription, "beerIbu" => $this->beerIbu, "beerName" => $this->beerName, "beerStyle" => $this->beerStyle];
@@ -446,7 +446,7 @@ class Beer {
 			throw(new \PDOException("beer IBU content is invalid"));
 		}
 		//create query template
-		$query = "SELECT beerId, beerBreweryId, BeerIbu, beerColor, beerName, beerStyle FROM beer WHERE beerIbu LIKE :beerIbu:";
+		$query = "SELECT beerId, beerBreweryId, BeerIbu, beerColor, beerName, beerStyle FROM Beer WHERE beerIbu LIKE :beerIbu:";
 		$statement = $pdo->prepare($query);
 
 		//bind the tweet content to the place holder in the template
@@ -459,7 +459,7 @@ class Beer {
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 		while(($row = $statement->fetch()) !== false) {
 			try {
-				$beer = new Beer($row["beerId"], $row["beerbreweryId"], $row["beeribu"], $row["beerColor"], $row["beerName"], $row["beerStyle"]);
+				$Beer = new Beer($row["beerId"], $row["beerbreweryId"], $row["beeribu"], $row["beerColor"], $row["beerName"], $row["beerStyle"]);
 				$beers[$beers->key()] = $beer;
 				$beers->next();
 			} catch(\Exception $exception) {
@@ -495,11 +495,11 @@ class Beer {
 
 		//grab the beer from mySQL
 		try {
-			$beer = null;
+			$Beer = null;
 			$statement->setFetchMode(\PDO::FETCH_ASSOC);
 			$row = $statement->fetch();
 			if($row !== false) {
-				$beer = new Beer($row["beerId"], $row["beerBreweryID"], $row["beerIbu"], $row["beerColor"], $row["beerName"], $row["beerStyle"]);
+				$Beer = new Beer($row["beerId"], $row["beerBreweryID"], $row["beerIbu"], $row["beerColor"], $row["beerName"], $row["beerStyle"]);
 				$beers[$beers->key()] = $beer;
 				$beers->next();
 			}
