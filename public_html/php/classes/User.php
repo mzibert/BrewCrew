@@ -503,11 +503,11 @@ class User implements \JsonSerializable {
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when variables are not the correct data type
 	 **/
-	public static function getUserByAccessLevel (\PDO $pdo, string $userAccessLevel) {
+	public static function getUserByUserAccessLevel (\PDO $pdo, string $userAccessLevel) {
 		// sanitize the description before searching
 		$userAccessLevel = trim($userAccessLevel);
 		$userAccessLevel = filter_var($userAccessLevel, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-		if(empty($uuserAccessLevel) === true) {
+		if(empty($userAccessLevel) === true) {
 			throw(new \PDOException("user access level is invalid"));
 		}
 		// create query template
@@ -541,7 +541,7 @@ class User implements \JsonSerializable {
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when variables are not the correct data type
 	 **/
-	public static function getUserByActivationToken (\PDO $pdo, string $userActivationToken) {
+	public static function getUserByUserActivationToken (\PDO $pdo, string $userActivationToken) {
 		// sanitize the description before searching
 		$userActivationToken = trim($userActivationToken);
 		$userActivationToken = filter_var($userActivationToken, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);

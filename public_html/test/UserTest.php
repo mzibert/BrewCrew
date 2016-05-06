@@ -22,4 +22,8 @@ class UserTest extends BrewCrewTest {
 	 * @var Brewery brewery
 	 */
 	protected $brewery = null;
+	/**
+	 *
+	 *
+	 */
 }
