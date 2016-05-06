@@ -80,6 +80,33 @@ class User implements \JsonSerializable {
 	 * @throws \TypeError if data types violate type hints
 	 * @throws \Exception if some other exception occurs
 	 **/
+	public function __construct (int $newUserId = null, int $newUserBreweryId, int $newUserAccessLevel, int $newUserActivationToken, $newUserDateOfBirth = null, string $newUserFirstName, string $newUserLastName, string $newUserEmail, string $newUserUsername, string $newUserHash, string $newUserSalt) {
+		try {
+			$this->setUserId($newUserId);
+			$this->setUserBreweryId($newUserBreweryId);
+			$this->setUserAccessLevel($newUserAccessLevel);
+			$this->setUserActivationToken($newUserActivationToken);
+			$this->setUserDateOfBirth($newUserDateOfBirth);
+			$this->setUserFirstName($newUserFirstName);
+			$this->setUserEmail($newUserEmail);
+			$this->setUserHash($newUserHash);
+			$this->setUserLastName($newUserLastName);
+			$this->setUserSalt($newUserSalt);
+			$this->setUserUsername($newUserUsername);
+		} catch(\InvalidArgumentException $invalidArgument) {
+			// rethrow the exception to the caller
+			throw(new \InvalidArgumentException($invalidArgument->getMessage(), 0, $invalidArgument));
+		} catch(\RangeException $range) {
+			// rethrow the exception to the caller
+			throw(new \RangeException($range->getMessage(), 0, $range));
+		} catch(\TypeError $typeError) {
+			// rethrow the exception to the caller
+			throw(new \TypeError($typeError->getMessage(), 0, $typeError));
+		} catch(\Exception $exception) {
+			// rethrow the exception to the caller
+			throw(new \Exception($exception->getMessage(), 0, $exception));
+		}
+	}
 	/**
 	 * accessor method for user id
 	 *
@@ -427,33 +454,7 @@ class User implements \JsonSerializable {
 		// store the userSalt
 		$this->userSalt = $newUserSalt;
 	}
-	public function __construct (int $newUserId = null, int $newUserBreweryId, int $newUserAccessLevel, int $newUserActivationToken, $newUserDateOfBirth = null, string $newUserFirstName, string $newUserLastName, string $newUserEmail, string $newUserUsername, string $newUserHash, string $newUserSalt) {
-		try {
-			$this->setUserId($newUserId);
-			$this->setUserBreweryId($newUserBreweryId);
-			$this->setUserAccessLevel($newUserAccessLevel);
-			$this->setUserActivationToken($newUserActivationToken);
-			$this->setUserDateOfBirth($newUserDateOfBirth);
-			$this->setUserFirstName($newUserFirstName);
-			$this->setUserEmail($newUserEmail);
-			$this->setUserHash($newUserHash);
-			$this->setUserLastName($newUserLastName);
-			$this->setUserSalt($newUserSalt);
-			$this->setUserUsername($newUserUsername);
-		} catch(\InvalidArgumentException $invalidArgument) {
-			// rethrow the exception to the caller
-			throw(new \InvalidArgumentException($invalidArgument->getMessage(), 0, $invalidArgument));
-		} catch(\RangeException $range) {
-			// rethrow the exception to the caller
-			throw(new \RangeException($range->getMessage(), 0, $range));
-		} catch(\TypeError $typeError) {
-			// rethrow the exception to the caller
-			throw(new \TypeError($typeError->getMessage(), 0, $typeError));
-		} catch(\Exception $exception) {
-			// rethrow the exception to the caller
-			throw(new \Exception($exception->getMessage(), 0, $exception));
-		}
-	}
+
 
 	/**
 	 * gets user by userBreweryId
@@ -795,7 +796,6 @@ class User implements \JsonSerializable {
 		}
 		return ($user);
 	}
-
 
 	/**
 	 * @return array
