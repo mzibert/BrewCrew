@@ -801,8 +801,10 @@ class User implements \JsonSerializable {
 	/**
 	 * @return array
 	 */
-	public function jsonSerialize () {
+	public function jsonSerialize() {
 		$fields = get_object_vars($this);
+		Unset($fields["userSalt"]);
+		Unset ($fields["userHash"]);
 		return ($fields);
 	}
 }
