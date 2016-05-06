@@ -116,7 +116,7 @@ class User implements \JsonSerializable {
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when variables are not the correct data type
 	 **/
-	public static function getUserByUserBreweryId(\PDO $pdo, string $userBreweryId) {
+	public static function getUserByUserBreweryId (\PDO $pdo, string $userBreweryId) {
 		// sanitize the description before searching
 		$userBreweryId = trim($userBreweryId);
 		$userBreweryId = filter_var($userBreweryId, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
@@ -137,15 +137,15 @@ class User implements \JsonSerializable {
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 		while(($row = $statement->fetch()) !== false) {
 			try {
-				$user= new User($row["userId"], $row["userBreweryId"], $row["userAccessLevel"], $row["userActivationToken"], $row["userDateOfBirth"], $row["userEmail"], $row["userFirstName"], $row["userHash"], $row["userLastName"], $row["userSalt"],$row["userUsername"]);
+				$user = new User($row["userId"], $row["userBreweryId"], $row["userAccessLevel"], $row["userActivationToken"], $row["userDateOfBirth"], $row["userEmail"], $row["userFirstName"], $row["userHash"], $row["userLastName"], $row["userSalt"], $row["userUsername"]);
 				$users[$users->key()] = $user;
 				$user->next();
-			}catch(\Exception $exception) {
+			} catch(\Exception $exception) {
 				// if the row couldn't be converted, rethrow it
 				throw(new \PDOException($exception->getMessage(), 0, $exception));
 			}
 		}
-		return($users);
+		return ($users);
 	}
 
 	/**
@@ -156,7 +156,7 @@ class User implements \JsonSerializable {
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when variables are not the correct data type
 	 **/
-	public static function getUserByAccessLevel(\PDO $pdo, string $userAccessLevel) {
+	public static function getUserByAccessLevel (\PDO $pdo, string $userAccessLevel) {
 		// sanitize the description before searching
 		$userAccessLevel = trim($userAccessLevel);
 		$userAccessLevel = filter_var($userAccessLevel, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
@@ -175,15 +175,15 @@ class User implements \JsonSerializable {
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 		while(($row = $statement->fetch()) !== false) {
 			try {
-				$user= new User($row["userId"], $row["userBreweryId"], $row["userAccessLevel"], $row["userActivationToken"], $row["userDateOfBirth"], $row["userEmail"], $row["userFirstName"], $row["userHash"], $row["userLastName"], $row["userSalt"],$row["userUsername"]);
+				$user = new User($row["userId"], $row["userBreweryId"], $row["userAccessLevel"], $row["userActivationToken"], $row["userDateOfBirth"], $row["userEmail"], $row["userFirstName"], $row["userHash"], $row["userLastName"], $row["userSalt"], $row["userUsername"]);
 				$users[$users->key()] = $user;
 				$user->next();
-			}catch(\Exception $exception) {
+			} catch(\Exception $exception) {
 				// if the row couldn't be converted, rethrow it
 				throw(new \PDOException($exception->getMessage(), 0, $exception));
 			}
 		}
-		return($users);
+		return ($users);
 	}
 
 	/**
@@ -194,7 +194,7 @@ class User implements \JsonSerializable {
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when variables are not the correct data type
 	 **/
-	public static function getUserByActivationToken(\PDO $pdo, string $userActivationToken) {
+	public static function getUserByActivationToken (\PDO $pdo, string $userActivationToken) {
 		// sanitize the description before searching
 		$userActivationToken = trim($userActivationToken);
 		$userActivationToken = filter_var($userActivationToken, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
@@ -213,15 +213,15 @@ class User implements \JsonSerializable {
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 		while(($row = $statement->fetch()) !== false) {
 			try {
-				$user= new User($row["userId"], $row["userBreweryId"], $row["userAccessLevel"], $row["userActivationToken"], $row["userDateOfBirth"], $row["userEmail"], $row["userFirstName"], $row["userHash"], $row["userLastName"], $row["userSalt"],$row["userUsername"]);
+				$user = new User($row["userId"], $row["userBreweryId"], $row["userAccessLevel"], $row["userActivationToken"], $row["userDateOfBirth"], $row["userEmail"], $row["userFirstName"], $row["userHash"], $row["userLastName"], $row["userSalt"], $row["userUsername"]);
 				$users[$users->key()] = $user;
 				$user->next();
-			}catch(\Exception $exception) {
+			} catch(\Exception $exception) {
 				// if the row couldn't be converted, rethrow it
 				throw(new \PDOException($exception->getMessage(), 0, $exception));
 			}
 		}
-		return($users);
+		return ($users);
 	}
 
 	/**
@@ -232,7 +232,7 @@ class User implements \JsonSerializable {
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when variables are not the correct data type
 	 **/
-	public static function getUserByUserDateOfBirth(\PDO $pdo, string $userDateOfBirth) {
+	public static function getUserByUserDateOfBirth (\PDO $pdo, string $userDateOfBirth) {
 		// sanitize the description before searching
 		$userDateOfBirth = trim($userDateOfBirth);
 		$userDateOfBirth = filter_var($userDateOfBirth, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
@@ -251,15 +251,15 @@ class User implements \JsonSerializable {
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 		while(($row = $statement->fetch()) !== false) {
 			try {
-				$user= new User($row["userId"], $row["userBreweryId"], $row["userAccessLevel"], $row["userActivationToken"], $row["userDateOfBirth"], $row["userEmail"], $row["userFirstName"], $row["userHash"], $row["userLastName"], $row["userSalt"],$row["userUsername"]);
+				$user = new User($row["userId"], $row["userBreweryId"], $row["userAccessLevel"], $row["userActivationToken"], $row["userDateOfBirth"], $row["userEmail"], $row["userFirstName"], $row["userHash"], $row["userLastName"], $row["userSalt"], $row["userUsername"]);
 				$users[$users->key()] = $user;
 				$user->next();
-			}catch(\Exception $exception) {
+			} catch(\Exception $exception) {
 				// if the row couldn't be converted, rethrow it
 				throw(new \PDOException($exception->getMessage(), 0, $exception));
 			}
 		}
-		return($users);
+		return ($users);
 	}
 
 	/**
@@ -270,7 +270,7 @@ class User implements \JsonSerializable {
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when variables are not the correct data type
 	 **/
-	public static function getUserByUserEmail(\PDO $pdo, string $userEmail) {
+	public static function getUserByUserEmail (\PDO $pdo, string $userEmail) {
 		// sanitize the description before searching
 		$userEmail = trim($userEmail);
 		$userEmail = filter_var($userEmail, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
@@ -289,15 +289,15 @@ class User implements \JsonSerializable {
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 		while(($row = $statement->fetch()) !== false) {
 			try {
-				$user= new User($row["userId"], $row["userBreweryId"], $row["userAccessLevel"], $row["userActivationToken"], $row["userDateOfBirth"], $row["userEmail"], $row["userFirstName"], $row["userHash"], $row["userLastName"], $row["userSalt"],$row["userUsername"]);
+				$user = new User($row["userId"], $row["userBreweryId"], $row["userAccessLevel"], $row["userActivationToken"], $row["userDateOfBirth"], $row["userEmail"], $row["userFirstName"], $row["userHash"], $row["userLastName"], $row["userSalt"], $row["userUsername"]);
 				$users[$users->key()] = $user;
 				$user->next();
-			}catch(\Exception $exception) {
+			} catch(\Exception $exception) {
 				// if the row couldn't be converted, rethrow it
 				throw(new \PDOException($exception->getMessage(), 0, $exception));
 			}
 		}
-		return($users);
+		return ($users);
 	}
 
 	/**
@@ -308,7 +308,7 @@ class User implements \JsonSerializable {
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when variables are not the correct data type
 	 **/
-	public static function getUserByuserFirstName(\PDO $pdo, string $userFirstName) {
+	public static function getUserByuserFirstName (\PDO $pdo, string $userFirstName) {
 		// sanitize the description before searching
 		$userFirstName = trim($userFirstName);
 		$userFirstName = filter_var($userFirstName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
@@ -327,15 +327,15 @@ class User implements \JsonSerializable {
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 		while(($row = $statement->fetch()) !== false) {
 			try {
-				$user= new User($row["userId"], $row["userBreweryId"], $row["userAccessLevel"], $row["userActivationToken"], $row["userDateOfBirth"], $row["userEmail"], $row["userFirstName"], $row["userHash"], $row["userLastName"], $row["userSalt"],$row["userUsername"]);
+				$user = new User($row["userId"], $row["userBreweryId"], $row["userAccessLevel"], $row["userActivationToken"], $row["userDateOfBirth"], $row["userEmail"], $row["userFirstName"], $row["userHash"], $row["userLastName"], $row["userSalt"], $row["userUsername"]);
 				$users[$users->key()] = $user;
 				$user->next();
-			}catch(\Exception $exception) {
+			} catch(\Exception $exception) {
 				// if the row couldn't be converted, rethrow it
 				throw(new \PDOException($exception->getMessage(), 0, $exception));
 			}
 		}
-		return($users);
+		return ($users);
 	}
 
 	/**
@@ -346,7 +346,7 @@ class User implements \JsonSerializable {
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when variables are not the correct data type
 	 **/
-	public static function getUserByUserLastName(\PDO $pdo, string $userLastName) {
+	public static function getUserByUserLastName (\PDO $pdo, string $userLastName) {
 		// sanitize the description before searching
 		$userLastName = trim($userLastName);
 		$userLastName = filter_var($userLastName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
@@ -365,15 +365,15 @@ class User implements \JsonSerializable {
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 		while(($row = $statement->fetch()) !== false) {
 			try {
-				$user= new User($row["userId"], $row["userBreweryId"], $row["userAccessLevel"], $row["userActivationToken"], $row["userDateOfBirth"], $row["userEmail"], $row["userFirstName"], $row["userHash"], $row["userLastName"], $row["userSalt"],$row["userUsername"]);
+				$user = new User($row["userId"], $row["userBreweryId"], $row["userAccessLevel"], $row["userActivationToken"], $row["userDateOfBirth"], $row["userEmail"], $row["userFirstName"], $row["userHash"], $row["userLastName"], $row["userSalt"], $row["userUsername"]);
 				$users[$users->key()] = $user;
 				$user->next();
-			}catch(\Exception $exception) {
+			} catch(\Exception $exception) {
 				// if the row couldn't be converted, rethrow it
 				throw(new \PDOException($exception->getMessage(), 0, $exception));
 			}
 		}
-		return($users);
+		return ($users);
 	}
 
 	/**
@@ -384,7 +384,7 @@ class User implements \JsonSerializable {
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when variables are not the correct data type
 	 **/
-	public static function getUserByUserUsername(\PDO $pdo, string $userUserName) {
+	public static function getUserByUserUsername (\PDO $pdo, string $userUserName) {
 		// sanitize the description before searching
 		$userUserName = trim($userUserName);
 		$userUserName = filter_var($userUserName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
@@ -403,15 +403,15 @@ class User implements \JsonSerializable {
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 		while(($row = $statement->fetch()) !== false) {
 			try {
-				$user= new User($row["userId"], $row["userBreweryId"], $row["userAccessLevel"], $row["userActivationToken"], $row["userDateOfBirth"], $row["userEmail"], $row["userFirstName"], $row["userHash"], $row["userLastName"], $row["userSalt"],$row["userUsername"]);
+				$user = new User($row["userId"], $row["userBreweryId"], $row["userAccessLevel"], $row["userActivationToken"], $row["userDateOfBirth"], $row["userEmail"], $row["userFirstName"], $row["userHash"], $row["userLastName"], $row["userSalt"], $row["userUsername"]);
 				$users[$users->key()] = $user;
 				$user->next();
-			}catch(\Exception $exception) {
+			} catch(\Exception $exception) {
 				// if the row couldn't be converted, rethrow it
 				throw(new \PDOException($exception->getMessage(), 0, $exception));
 			}
 		}
-		return($users);
+		return ($users);
 	}
 
 	/**
@@ -423,7 +423,7 @@ class User implements \JsonSerializable {
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when variables are not the correct data type
 	 **/
-	public static function getUserByUserId(\PDO $pdo, int $userId) {
+	public static function getUserByUserId (\PDO $pdo, int $userId) {
 		// sanitixe the user id before searching
 		if($userId <= 0) {
 			throw(new \PDOException("user id is not positive"));
@@ -447,8 +447,8 @@ class User implements \JsonSerializable {
 			// if the row couldnt be converted, rethrow it
 			throw(new \PDOException($exception->getMessage(), 0, $exception));
 		}
-		return($user);
-}
+		return ($user);
+	}
 
 	/**
 	 * accessor method for user id
@@ -805,4 +805,4 @@ class User implements \JsonSerializable {
 		$fields = get_object_vars($this);
 		return ($fields);
 	}
-
+}
