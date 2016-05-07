@@ -523,7 +523,7 @@ class Brewery implements JsonSerializable {
 	 * Gets all breweries
 	 *
 	 * @param PDO $pdo PDO connection object
-	 * @returm SplFixedArray of breweries found
+	 * @return SplFixedArray of breweries found
 	 * @throws \PDOException when mySQL related errors occur
 	 */
 	public static function getAllBreweries(PDO &$pdo) {
