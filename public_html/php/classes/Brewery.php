@@ -427,22 +427,22 @@ public function __construct($breweryId, $breweryDescription, $breweryEstDate, $b
 		}
 		return($brewery);
 	}
-/** Gets the brewery by location
+/** Gets the brewery by description
  *
  * @param \PDO $pdo PDO connection object
- * @param $breweryLocation Location of brewery to search for
+ * @param $breweryDescription description of brewery to search for
  * @param \SplFixedArray of breweries found
  * @throws \PDOException when mySQL-related errors occur
  **/
-	public static function getBrewerybyBreweryLocation(\PDO &$pdo, $breweryLocation) {
+	public static function getBrewerybyBreweryDescription(\PDO &$pdo, $breweryDescription) {
 		// sanitize the brewery location before searching
-		$breweryLocation = trim($breweryLocation);
-		$breweryLocation = filter_var($breweryLocation, FILTER_SANITIZE_STRING);
-			if(empty($breweryLocation) === true) {
-				throw (new \PDOException("Brewery location is invalid"));
+		$breweryDescription = trim($breweryDescription);
+		$breweryDescription = filter_var($breweryDescription, FILTER_SANITIZE_STRING);
+			if(empty($breweryDescription) === true) {
+				throw (new \PDOException("Brewery description is invalid"));
 			}
 			// Create query template
-			$query = "SELECT brewery FROM brewery WHERE breweryLocation LIKE :breweryLocation";
+			$query = "SELECT brewery FROM brewery WHERE breweryDescription LIKE :breweryDescription";
 			$statement = $pdo->prepare($query);
 
 			// Bind the placeholder in the template
@@ -451,11 +451,11 @@ public function __construct($breweryId, $breweryDescription, $breweryEstDate, $b
 
 			// Grab the brewery from mySQL
 			try {
-				$breweryLocation = null;
+				$breweryDescription = null;
 				$statement = setFetchMode(PDO::FETCH_ASSOC);
 				$row = $statement->fetch();
 				if($row !== false) {
-					$breweryLocation = new Brewery($row["breweryId"], $row["breweryDescription"], $row["breweryEstDate"], $row["breweryHours"], $row["breweryLocation"], $row["breweryName"], $row["breweryPhone"], $row["breweryUrl"]);
+					$breweryDescription = new Brewery($row["breweryId"], $row["breweryDescription"], $row["breweryEstDate"], $row["breweryHours"], $row["breweryLocation"], $row["breweryName"], $row["breweryPhone"], $row["breweryUrl"]);
 				}
 			} catch(\Exception $exception) {
 				// If the row couldn't be converted, rethrow it
