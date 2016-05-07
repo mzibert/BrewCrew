@@ -164,9 +164,10 @@ public function __construct($breweryId, $breweryDescription, $breweryEstDate, $b
 
 /** Mutator method for breweryEstDate
  *
- *  @param year $newBreweryEstDate gives year brewery was founded
+ * @param year $newBreweryEstDate gives year brewery was founded
  * @throws \InvalidArgumentException if $newBreweryEstDate is not a year YYYY
  * @throws \RangeException if year exceeds 4 characters
+ * @link http://dev.mysql.com/doc/refman/5.5/en/year.html for year type info
  **/
 	public function setBreweryEstDate ($newBreweryEstDate) {
 		// verify the brewery year content is secure
@@ -174,6 +175,14 @@ public function __construct($breweryId, $breweryDescription, $breweryEstDate, $b
 		$newBreweryEstDate = filter_var($newBreweryEstDate, FILTER_SANITIZE_STRING);
 		if(empty($newBreweryEstDate) === true) {
 			throw (new \InvalidArgumentException("brewery est date is empty or insecure"));
+		}
+		// verify the brewery est date is at least 1901
+		if($newBreweryEstDate < 1901) {
+			throw(new \RangeException("year must be at least 1901"));
+		}
+		// verify the brewery est date is no later than 2155
+		if ($newBreweryEstDate > 2155) {
+			throw (new \RangeException("brewery cannot be from the future"));
 		}
 		// store the brewery est date content
 		$this->breweryEstDate = $newBreweryEstDate;
@@ -418,8 +427,44 @@ public function __construct($breweryId, $breweryDescription, $breweryEstDate, $b
 		}
 		return($brewery);
 	}
-/**
- * Gets the brewery by name
+/** Gets the brewery by location
+ *
+ * @param \PDO $pdo PDO connection object
+ * @param $breweryLocation Location of brewery to search for
+ * @param \SplFixedArray of breweries found
+ * @throws \PDOException when mySQL-related errors occur
+ **/
+	public static function getBrewerybyBreweryLocation(\PDO &$pdo, $breweryLocation) {
+		// sanitize the brewery location before searching
+		$breweryLocation = trim($breweryLocation);
+		$breweryLocation = filter_var($breweryLocation, FILTER_SANITIZE_STRING);
+			if(empty($breweryLocation) === true) {
+				throw (new \PDOException("Brewery location is invalid"));
+			}
+			// Create query template
+			$query = "SELECT brewery FROM brewery WHERE breweryLocation LIKE :breweryLocation";
+			$statement = $pdo->prepare($query);
+
+			// Bind the placeholder in the template
+			$parameters = array("userSearch" => $location);
+			$statement = $pdo->execute($parameters);
+
+			// Grab the brewery from mySQL
+			try {
+				$breweryLocation = null;
+				$statement = setFetchMode(PDO::FETCH_ASSOC);
+				$row = $statement->fetch();
+				if($row !== false) {
+					$breweryLocation = new Brewery($row["breweryId"], $row["breweryDescription"], $row["breweryEstDate"], $row["breweryHours"], $row["breweryLocation"], $row["breweryName"], $row["breweryPhone"], $row["breweryUrl"]);
+				}
+			} catch(\Exception $exception) {
+				// If the row couldn't be converted, rethrow it
+				throw (new \PDOException($exception->getMessage(), 0, $exception));
+			}
+			return ($brewery)
+		}
+ /**
+  * Gets the brewery by name
  *
  *@param \PDO $pdo PDO connection object
  *@param  $breweryName Name of brewery to search for
@@ -427,10 +472,10 @@ public function __construct($breweryId, $breweryDescription, $breweryEstDate, $b
  *@throws \PDOException when mySQL-related errors occur
  **/
 	public static function getBreweryByBreweryName(\PDO &$pdo, $breweryName) {
-		//sanitize the brewery before searching
-		$brewery = trim($brewery);
-		$brewery = filter_var($brewery, FILTER_SANITIZE_STRING);
-		if(empty($brewery) === true) {
+		//sanitize the brewery name before searching
+		$breweryName = trim($breweryName);
+		$breweryName = filter_var($breweryName, FILTER_SANITIZE_STRING);
+		if(empty($breweryName) === true) {
 			throw(new \PDOException("Brewery name is invalid"));
 		}
 		//Create query template
