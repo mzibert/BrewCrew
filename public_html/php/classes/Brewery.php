@@ -156,7 +156,7 @@ public function __construct($breweryId, $breweryDescription, $breweryEstDate, $b
 	}
 /** Accessor method for breweryEstDate
  *
- * @return NO FUCKING CLUE year brewery was established
+ * @return year year brewery was established
  **/
 	public function getBreweryEstDate() {
 		return($this->getBreweryEstDate);
@@ -164,9 +164,20 @@ public function __construct($breweryId, $breweryDescription, $breweryEstDate, $b
 
 /** Mutator method for breweryEstDate
  *
+ *  @param year $newBreweryEstDate gives year brewery was founded
+ * @throws \InvalidArgumentException if $newBreweryEstDate is not a year YYYY
+ * @throws \RangeException if year exceeds 4 characters
  **/
-	NO FUCKING CLUE
-	
+	public function setBreweryEstDate ($newBreweryEstDate) {
+		// verify the brewery year content is secure
+		$newBreweryEstDate = trim($newBreweryEstDate);
+		$newBreweryEstDate = filter_var($newBreweryEstDate, FILTER_SANITIZE_STRING);
+		if(empty($newBreweryEstDate) === true) {
+			throw (new \InvalidArgumentException("brewery est date is empty or insecure"));
+		}
+		// store the brewery est date content
+		$this->breweryEstDate = $newBreweryEstDate;
+
 /** Accessor method for brewery hours
  *
  * @return string brewery hours 
