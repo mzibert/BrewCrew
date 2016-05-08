@@ -1,7 +1,9 @@
 <?php
 namespace Edu\Cnm\mzibert\BrewCrew\Test;
 
-use Edu\Cnm\BrewCrew\{Beer, Brewery};
+use Edu\Cnm\BrewCrew\{
+	Beer, Brewery, Test\BrewCrewTest
+};
 
 //grab the project test parameters
 require_once("BrewCrewTest.php");
@@ -36,13 +38,14 @@ Class BeerTest extends BrewCrewTest{
 	/**
 	 * create dependent objects before running each test
 	 **/
-	public final function setUp(){
+	public final function setUp() {
 		//run the default setUp() method first
 		parent::setup();
 
 		//create and insert a Brewery to own the test Beer
-		$this->beerBreweryId = new BeerBreweryId(null, "@phpunit", "test@phpunit.de", "+12125551212");
+		$this->beerBreweryId = new BeerBreweryId (null, "@phpunit", "test@phpunit.de", "+12125551212");
 		$this->beerBreweryId->insert($this->getPDO());
+	}
 
 		/**
 		 * test inserting a valid beer and verify that the actual mySQL data matches
@@ -52,8 +55,58 @@ Class BeerTest extends BrewCrewTest{
 			$numRows = $this->getConnection()->getRowCount("beer");
 
 			//create a new Beer and insert it into mySQL
-			$beer = new
+			$beer = new Beer(null, $this->beerBreweryId->getbeerBreweryId());
+			$beer->insert($this->getPDO());
+
+			//grab the data from mySQL and enforce the fields match our expectations
+			$pdoBeer = Beer::getBeerbyBeerId($this->getPDO(), $beer->getBeerId());
+			$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("Beer"));
+			$this->assertEquals($pdoBeer->getbeerBreweryId(), $this->beerbrewery->getBeerBreweryId());
 		}
+	/**
+	 * Test inserting a beer that already exists
+	 *
+	 * @expectedException PDOException
+	 **/
+	public function testInsertInvalidBeer(){
+		//create a beer with a non null beer id and watch it fail
+		$beer = new Beer(BrewCrewTest::INVALID_KEY, $this->beerBrewery->getBeerBreweryId());
+		$beer->insert($this->getPDO());
 	}
+	/**
+	 * test inserting a beer, editing it, and then updating it
+	 **/
+	public function testUpdateValidBeer(){
+		//count the number of rows and save it for later
+		$numRows=$this->getConnection()->getRowCount("beer");
+
+		//create a new beer and insert it into mySQL
+		$beer = new Beer(null, $this->beerBrewery->getBeerBreweryId());
+		$beer->insert($this->getPDO());
+
+		//edit the beer and update it in mySQL ?????????????????????????
+		//
+		//
+		//
+
+		//grab the data from mySQL and enforce the fields match our expectations
+		$pdoBeer = Beer::getBeerByBeerId($this->getPDO(), $beer->getBeerId());
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("beer"));
+		$this->asserEquals($pdoBeer->getBeerBreweryId(), $this->beerBrewery->getBeerBreweryId());
+	}
+	/**
+	 * test updating a beer that already exists
+	 *
+	 * @expectedException \PDOException
+	 **/
+	public function testUpdateInvalidBeer(){
+		//create a Beer with a non null beer id and watch it fail
+		$beer = new Beer(null, $this->beerBrewery->getBeerBreweryId());
+		$beer->update($this->getPDO());
+	}
+
+	/**
+	 *test creating a Beer and then deleting it
+	 **/
 
 }
