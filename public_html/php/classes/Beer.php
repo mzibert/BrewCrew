@@ -405,7 +405,7 @@ class Beer {
 		$statement = $pdo->prepare($query);
 
 		//bind the member variables to the place holder in the template
-		$parameters = ["beerId" => $this->beerId, "beerBreweryID" => $this->beerBreweryId, "beerAbv" => $this->beerAbv, "beerAvailability" => $this->beerAvailability, "beerAwards" => $this->beerAwards, "beerColor" => $this->beerColor, "beerDescription" => $this->beerDescription, "beerIbu" => $this->beerIbu, "beerName" => $this->beerName, "beerStyle" => $this->beerStyle];
+		$parameters = ["beerId" => $this->beerId];
 		$statement->execute($parameters);
 	}
 
@@ -434,8 +434,8 @@ class Beer {
 	 * gets the Beer by beer ID
 	 *
 	 * @param \PDO $pdo PDO connection object
-	 * @param int $beerId Ibu beer Id to search for
-	 * @return \Beer|null either beer or null if not found
+	 * @param int $beerId the beerId to search for
+	 * @return \Beer|null either the beer or null if not found
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when variables are not the correct data type
 	 **/
@@ -473,43 +473,167 @@ class Beer {
 
 
 	/**
-	 * gets the beer by beerId
+	 * gets the beer by beerIbu
 	 *
 	 * @param \PDO $pdo PDO connection object
-	 * @param int $beerId beer id to search for
-	 * @return Beer|null Beer found or null if not found
+	 * @param string $beerIbu to search for beers by Ibu
+	 * @return \SplFixedArray SplFixedArray of beers found
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when variables are not the correct data type
 	 **/
-	public static function getBeerByBeerId (\PDO $pdo, int $beerId) {
-		//sanitize the beerId before searching
-		if($beerId <= 0) {
-			throw (new \PDOException("beer id is not positive"));
+	public static function getBeerByBeerIbu(\PDO $pdo, string $beerIbu) {
+		//sanitize the description before searching
+		$beerIbu = trim($beerIbu);
+		$beerIbu = filter_var($beerIbu, FILTER_SANITIZE_STRING);
+		if(empty($beerIbu) === true) {
+			throw (new \PDOException("beer ibu is invalid"));
 		}
 
 		//create query template
-		$query = "SELECT beerId, beerBreweryID, beerAbv, beerAvailability, beerAwards, beerColor, beerDescription, beerIbu, beerName, beerStyle FROM beer WHERE beerId = :beerId";
+		$query = "SELECT beerId, beerBreweryID, beerAbv, beerAvailability, beerAwards, beerColor, beerDescription, beerIbu, beerName, beerStyle FROM beer WHERE beerIbu LIKE :beerIbu";
 		$statement = $pdo->prepare($query);
 
-		//bind the beer Id to the place holder in the template
-		$parameters = array("beerId" => $beerId);
+		//bind the beer Ibu to the place holder in the template
+		$beerIbu = "%$beerIbu%";
+		$parameters = array("beerIbu" => $beerIbu);
 		$statement->execute($parameters);
 
-		//grab the beer from mySQL
-		try {
-			$Beer = null;
-			$statement->setFetchMode(\PDO::FETCH_ASSOC);
-			$row = $statement->fetch();
-			if($row !== false) {
+		//build an array of beers
+		$beers = new \SplFixedArray($statement->rowCount());
+		$statement->setFetchMode(\PDO::FETCH_ASSOC);
+		while(($row = $statement->fetch()) !== false) {
+			try {
 				$beer = new Beer($row["beerId"], $row["beerBreweryID"], $row["beerAbv"], $row["beerAvailability"], $row["beerAwards"], $row["beerColor"], $row["beerDescription"], $row["beerIbu"], $row["beerName"], $row["beerStyle"]);
 				$beers[$beers->key()] = $beer;
 				$beers->next();
-			}
-		}catch(\Exception $exception){
+			} catch(\Exception $exception) {
 				//if the row couldnt be converted, rethrow it
 				throw (new \PDOException($exception->getMessage(), 0, $exception));
 			}
+		}
 		return ($beers);
 	}
+	/**
+	 * gets the beer by beerColor
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @param string $beerColor to search for beers by color
+	 * @return \SplFixedArray SplFixedArray of beers found
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError when variables are not the correct data type
+	 **/
+	public static function getBeerByBeerColor(\PDO $pdo, string $beerColor) {
+		//sanitize the description before searching
+		$beerColor = trim($beerColor);
+		$beerColor = filter_var($beerColor, FILTER_SANITIZE_STRING);
+		if(empty($beerColor) === true) {
+			throw (new \PDOException("beer color is either to long or insecure"));
+		}
 
+		//create query template
+		$query = "SELECT beerId, beerBreweryID, beerAbv, beerAvailability, beerAwards, beerColor, beerDescription, beerIbu, beerName, beerStyle FROM beer WHERE beerColor LIKE :beerColor";
+		$statement = $pdo->prepare($query);
+
+		//bind the beer Ibu to the place holder in the template
+		$beerColor = "%$beerColor%";
+		$parameters = array("beerColor" => $beerColor);
+		$statement->execute($parameters);
+
+		//build an array of beers
+		$beers = new \SplFixedArray($statement->rowCount());
+		$statement->setFetchMode(\PDO::FETCH_ASSOC);
+		while(($row = $statement->fetch()) !== false) {
+			try {
+				$beer = new Beer($row["beerId"], $row["beerBreweryID"], $row["beerAbv"], $row["beerAvailability"], $row["beerAwards"], $row["beerColor"], $row["beerDescription"], $row["beerIbu"], $row["beerName"], $row["beerStyle"]);
+				$beers[$beers->key()] = $beer;
+				$beers->next();
+			} catch(\Exception $exception) {
+				//if the row couldnt be converted, rethrow it
+				throw (new \PDOException($exception->getMessage(), 0, $exception));
+			}
+		}
+		return ($beers);
+	}
+	/**
+	 * gets the beer by beerName
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @param string $beerName to search for beers by Name
+	 * @return \SplFixedArray SplFixedArray of beers found
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError when variables are not the correct data type
+	 **/
+	public static function getBeerByBeerName(\PDO $pdo, string $beerName) {
+		//sanitize the description before searching
+		$beerName = trim($beerName);
+		$beerName = filter_var($beerName, FILTER_SANITIZE_STRING);
+		if(empty($beerName) === true) {
+			throw (new \PDOException("beer name is either too long or insecure"));
+		}
+
+		//create query template
+		$query = "SELECT beerId, beerBreweryID, beerAbv, beerAvailability, beerAwards, beerColor, beerDescription, beerIbu, beerName, beerStyle FROM beer WHERE beerName LIKE :beerName";
+		$statement = $pdo->prepare($query);
+
+		//bind the beer Ibu to the place holder in the template
+		$beerName = "%$beerName%";
+		$parameters = array("beerName" => $beerName);
+		$statement->execute($parameters);
+
+		//build an array of beers
+		$beers = new \SplFixedArray($statement->rowCount());
+		$statement->setFetchMode(\PDO::FETCH_ASSOC);
+		while(($row = $statement->fetch()) !== false) {
+			try {
+				$beer = new Beer($row["beerId"], $row["beerBreweryID"], $row["beerAbv"], $row["beerAvailability"], $row["beerAwards"], $row["beerColor"], $row["beerDescription"], $row["beerIbu"], $row["beerName"], $row["beerStyle"]);
+				$beers[$beers->key()] = $beer;
+				$beers->next();
+			} catch(\Exception $exception) {
+				//if the row couldnt be converted, rethrow it
+				throw (new \PDOException($exception->getMessage(), 0, $exception));
+			}
+		}
+		return ($beers);
+	}
+	/**
+	 * gets the beer by beerStyle
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @param string $beerStyle to search for beers by Ibu
+	 * @return \SplFixedArray SplFixedArray of beers found
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError when variables are not the correct data type
+	 **/
+	public static function getBeerByBeerStyle(\PDO $pdo, string $beerStyle) {
+		//sanitize the description before searching
+		$beerStyle = trim($beerStyle);
+		$beerStyle = filter_var($beerStyle, FILTER_SANITIZE_STRING);
+		if(empty($beerStyle) === true) {
+			throw (new \PDOException("beer style is either too long or insecure"));
+		}
+
+		//create query template
+		$query = "SELECT beerId, beerBreweryID, beerAbv, beerAvailability, beerAwards, beerColor, beerDescription, beerIbu, beerName, beerStyle FROM beer WHERE beerStyle LIKE :beerStyle";
+		$statement = $pdo->prepare($query);
+
+		//bind the beer Ibu to the place holder in the template
+		$beerIbu = "%$beerStyle%";
+		$parameters = array("beerStyle" => $beerStyle);
+		$statement->execute($parameters);
+
+		//build an array of beers
+		$beers = new \SplFixedArray($statement->rowCount());
+		$statement->setFetchMode(\PDO::FETCH_ASSOC);
+		while(($row = $statement->fetch()) !== false) {
+			try {
+				$beer = new Beer($row["beerId"], $row["beerBreweryID"], $row["beerAbv"], $row["beerAvailability"], $row["beerAwards"], $row["beerColor"], $row["beerDescription"], $row["beerIbu"], $row["beerName"], $row["beerStyle"]);
+				$beers[$beers->key()] = $beer;
+				$beers->next();
+			} catch(\Exception $exception) {
+				//if the row couldnt be converted, rethrow it
+				throw (new \PDOException($exception->getMessage(), 0, $exception));
+			}
+		}
+		return ($beers);
+	}
 }
