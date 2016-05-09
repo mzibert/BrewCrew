@@ -245,7 +245,7 @@ class User implements \JsonSerializable {
 	public function setUserActivationToken (int $newUserActivationToken = null) {
 		// base case: if the userActivationToken id is null, this a new userActivationToken without a mySQL assigned id (yet)
 		if($newUserActivationToken === null) {
-			$this->userActivationTokenId = null;
+			$this->userActivationToken = null;
 			return;
 		}
 
@@ -354,7 +354,7 @@ class User implements \JsonSerializable {
 		}
 
 		// store the user's email
-		$this->UserEmail = $newUserEmail;
+		$this->userEmail = $newUserEmail;
 	}
 
 	/**
@@ -459,7 +459,8 @@ class User implements \JsonSerializable {
 
 	/**
 	 * gets user by userBreweryId
-	 * @param string $userBreweryId
+	 * @param int $userBreweryId
+	 * @param \PDO object $pdo
 	 * @return \SplFixedArray SplFixedArray of users by user brewery id found
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when variables are not the correct data type
@@ -499,6 +500,7 @@ class User implements \JsonSerializable {
 	 * gets user by userAccessLevel
 	 *
 	 * @param int $userAccessLevel
+	 * @param \PDO object $pdo
 	 * @return \SplFixedArray SplFixedArray of users found
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when variables are not the correct data type
@@ -538,11 +540,12 @@ class User implements \JsonSerializable {
 	 * gets user by userActivationToken
 	 *
 	 * @param string $userActivationToken user batting to search for
-	 * @return \SplFixedArray SplFixedArray of users found
+	 * @param \PDO object $pdo
+	 * @return User object
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when variables are not the correct data type
 	 **/
-	public static function getUserByUserActivationToken (\PDO $pdo, string $userActivationToken) {
+	public static function getUserByUserActivationToken (\PDO $pdo, string $userActivationToken){
 
 		// sanitize the description before searching
 		$userActivationToken = trim($userActivationToken);
@@ -574,13 +577,12 @@ class User implements \JsonSerializable {
 		return ($user);
 	}
 
-
-
 	/**
 	 * gets user by userEmail
 	 *
 	 * @param string $userEmail
-	 * @return \SplFixedArray SplFixedArray of users found
+	 * @param \PDO object $pdo
+	 * @return User object
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when variables are not the correct data type
 	 **/
@@ -598,11 +600,11 @@ class User implements \JsonSerializable {
 		//bind the user EMAIL to the place holder in the template
 		$parameters = array("userEmail" => $userEmail);
 		$statement->execute($parameters);
-		if($statement === false){
+		if($statement === false) {
 			throw(new \PDOException("user email does not exist"));
 		}
+
 		// get single user by email
-		$users = new \SplFixedArray($statement->rowCount());
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 		$row = $statement->fetch();
 			try {
@@ -621,7 +623,8 @@ class User implements \JsonSerializable {
 	 * gets user by userUsername
 	 *
 	 * @param string $userUsername
-	 * @return \SplFixedArray SplFixedArray of users found
+	 * @param \PDO object $pdo
+	 * @return User object
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when variables are not the correct data type
 	 **/
@@ -645,10 +648,10 @@ class User implements \JsonSerializable {
 		}
 
 		// get single user by unique username
-		$users = new \SplFixedArray($statement->rowCount());
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
-		$row = $statement->fetch();
+
 			try {
+				$row = $statement->fetch();
 				$user = new User($row["userId"], $row["userBreweryId"], $row["userAccessLevel"], $row["userActivationToken"], $row["userDateOfBirth"], $row["userEmail"], $row["userFirstName"], $row["userHash"], $row["userLastName"], $row["userSalt"], $row["userUsername"]);
 
 			} catch(\Exception $exception) {
@@ -657,7 +660,8 @@ class User implements \JsonSerializable {
 			}
 
 		return ($user);
-	}
+
+	}  // getUserByUserUsername
 
 	/**
 	 * gets the user by userId
@@ -683,11 +687,13 @@ class User implements \JsonSerializable {
 		try {
 			$user = null;
 			$statement->setFetchMode(\PDO::FETCH_ASSOC);
+			if($statement === false) {
+				throw(new \PDOException("username does not exist"));
+			}
+
 			$row = $statement->fetch();
-			if($row !== false) {
 				$user = new User($row["userId"], $row["userBreweryId"], $row["userAccessLevel"], $row["userActivationToken"], $row["userDateOfBirth"], $row["userEmail"], $row["userFirstName"], $row["userHash"], $row["userLastName"], $row["userSalt"],
 				 $row["userUsername"]);
-			}
 		} catch(\Exception $exception) {
 			// if the row could not be converted, rethrow row
 			throw(new \PDOException($exception->getMessage(), 0, $exception));
