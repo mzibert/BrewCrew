@@ -23,23 +23,24 @@ class ReviewTag implements \JsonSerializable {
 	 * @var int $reviewTagReviewId
 	 */
 	private $reviewTagTagId;
-	
+
 	//TODO CONSTRUCTOR
 	//TODO CONSTRUCTOR
-	
+
 	//ACCESSORS AND MUTATORS
-	
+
 	/**
 	 * accessor method for reviewTag reviewId
-	 * 
+	 *
 	 * @return int value of reviewTag review id, a foreign key
 	 */
 	public function getReviewTagReviewId() {
 		return ($this->reviewTagReviewId);
 	}
+
 	/**
 	 * mutator method for reviewTag tagId
-	 * 
+	 *
 	 * @param int $newReviewTagReviewId
 	 * @throws \RangeException if $newReviewTagReviewId id is not postitive
 	 * @throws \TypeError if $newReviewTagReviewId is not an integer
@@ -52,13 +53,14 @@ class ReviewTag implements \JsonSerializable {
 		//convert and store the review id
 		$this->reviewTagReviewId = $newReviewTagReviewId;
 	}
+
 	/**
 	 * accessor method for reviewTag TagId
 	 *
 	 * @return int value of reviewTag tag id, a foreign key
 	 */
 	public function getReviewTagTagId() {
-		return($this->reviewTagTagId);
+		return ($this->reviewTagTagId);
 	}
 
 	/**
@@ -79,6 +81,168 @@ class ReviewTag implements \JsonSerializable {
 
 	//BEGIN PDOs for REVIEWTAG
 
+	/**
+	 * inserts the reviewTag into mySQL
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError if $pdo is not a PDO connection object
+	 */
+	public function insert(\PDO $pdo) {
+		//check that that reviewTag exists before inserting
+		if($this->reviewTagReviewId === null || $this->reviewTagTagId === null) {
+			throw(new \PDOException("Review or Tag are not valid, not a valid reviewTag"));
+		}
+		//create a query template
+		$query = "INSERT INTO reviewTag(reviewTagReviewId, reviewTagTagId) VALUES(:reviewTagReviewId, :reviewTagTagId)";
+		$statement = $pdo->prepare($query);
 
+		//bind the variables to the place holders in the template
+		$parameters = ["reviewTagReviewId" => $this->reviewTagReviewId, "reviewTagTagId" => $this->reviewTagTagId];
+		$statement->execute($parameters);
+	}
+
+	/**
+	 * deletes the reviewTag from mySQL
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError if $pdo is not a PDO connection object
+	 */
+	public function delete(\PDO $pdo) {
+		//check that object exists before deleting
+		if($this->reviewTagReviewId === null || $this->reviewTagTagId === null) {
+			throw(new \PDOException("Review or Tag are not valid, not a valid reviewTag"));
+		}
+		//create a query template
+		$query = "DELETE FROM reviewTag WHERE reviewTagReviewId = :reviewTagReviewId AND reviewTagTagId = :reviewTagTagId";
+		$statement = $pdo->prepare($query);
+
+		//bind the variables to the place holders in the template
+		$parameters = ["reviewTagReviewId" => $this->reviewTagReviewId, "reviewTagTagId" => $this->reviewTagTagId];
+		$statement->execute($parameters);
+	}
+
+	/**
+	 * get the reviewTag by review Id
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @param int $reviewTagReviewId review id to search for
+	 * @return \SplFixedArray of ReviewTags found or null if not found
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError when variables are not the correct data types
+	 */
+	public static function getReviewTagByReviewId(\PDO $pdo, int $reviewTagReviewId) {
+		//sanitize the review id
+		if($reviewTagReviewId < 0) {
+			throw(new \PDOException("Review Id is not positive"));
+		}
+		//create query template
+		$query = "SELECT reviewTagReviewId, reviewTagTagId FROM reviewTag WHERE reviewTagReviewId = :reviewTagReviewId";
+		$statement = $pdo->prepare($query);
+
+		//bind the member variables to the place holders in the template
+		$parameters = ["reviewTagReviewId" => $reviewTagReviewId];
+		$statement->execute($parameters);
+
+		//build an array of reviewTags
+		$reviewTags = new \SplFixedArray($statement->rowCount());
+		$statement->setFetchMode(\PDO::FETCH_ASSOC);
+		while(($row = $statement->fetch()) !== false) {
+			try {
+				$reviewTag = new ReviewTag($row["reviewTagReviewId"], $row["reviewTagTagId"]);
+				$reviewTags[$reviewTags->key()] = $reviewTag;
+				$reviewTags->next();
+			} catch(\Exception $exception) {
+				//if the row couldn't be converted, rethrow it
+				throw(new \PDOException($exception->getMessage(), 0, $exception));
+			}
+		}
+		return ($reviewTags);
+	}
+
+
+	/**
+	 * get the reviewTag by tag Id
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @param int $reviewTagTagId tag id to search for
+	 * @return \SplFixedArray of ReviewTags found or null if not found
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError when variables are not the correct data types
+	 */
+	public static function getReviewTagByTagId(\PDO $pdo, int $reviewTagTagId) {
+		//sanitize the review id
+		if($reviewTagTagId < 0) {
+			throw(new \PDOException("Tag Id is not positive"));
+		}
+		//create query template
+		$query = "SELECT reviewTagReviewId, reviewTagTagId FROM reviewTag WHERE reviewTagTagId = :reviewTagTagId";
+		$statement = $pdo->prepare($query);
+
+		//bind the member variables to the place holders in the template
+		$parameters = ["reviewTagTagId" => $reviewTagTagId];
+		$statement->execute($parameters);
+
+		//build an array of reviewTags
+		$reviewTags = new \SplFixedArray($statement->rowCount());
+		$statement->setFetchMode(\PDO::FETCH_ASSOC);
+		while(($row = $statement->fetch()) !== false) {
+			try {
+				$reviewTag = new ReviewTag($row["reviewTagReviewId"], $row["reviewTagTagId"]);
+				$reviewTags[$reviewTags->key()] = $reviewTag;
+				$reviewTags->next();
+			} catch(\Exception $exception) {
+				//if the row couldn't be converted, rethrow it
+				throw(new \PDOException($exception->getMessage(), 0, $exception));
+			}
+		}
+		return ($reviewTags);
+	}
+
+//get review tag by review id and tag id
+	/**
+	 * gets the reviewTag by both review id and tag id
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @param int $reviewTagReviewId review id to search for
+	 * @param int $reviewTagTagId tag id to search for
+	 * @return ReviewTag|null reviewTag if found or null if not
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError when variables are not of the correct data type
+	 */
+	public static function getReviewTagByReviewIdAndTagId(\PDO $pdo, int $reviewTagReviewId, int $reviewTagTagId) {
+		//sanitize the review id and tag id before searching
+		if($reviewTagReviewId < 0) {
+			throw(new \PDOException("review id is not positive"));
+		}
+		if($reviewTagTagId < 0) {
+			throw(new \PDOException("tag is is not positive"));
+		}
+
+		//create a query template
+		$query = "SELECT reviewTagReviewId, reviewTagTagId FROM reviewTag WHERE reviewTagReviewId = :reviewTagReviewId AND reviewTagTagId = :reviewTagTagId";
+		$statement = $pdo->prepare($query);
+
+		//bind the variables to the place holders in the template
+		$parameters = ["reviewTagReviewId" => $reviewTagReviewId, "reviewTagTagId" => $reviewTagTagId];
+		$statement->execute($parameters);
+
+		//grab the reviewTag from mySQL
+		try {
+			$reviewTag = null;
+			$statement->setFetchMode(\PDO::FETCH_ASSOC);
+			$row = $statement->fetch();
+			if($row !== false) {
+				$reviewTag = new ReviewTag($row["reviewTagReviewId"], $row["reviewTagTagId"]);
+			}
+		} catch(\Exception $exception) {
+			//if the row couldn't be converted rethrow it
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
+		}
+		return ($reviewTag);
+	}
+
+//get all reviewtags
 
 }

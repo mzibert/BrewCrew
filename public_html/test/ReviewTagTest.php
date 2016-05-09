@@ -90,7 +90,7 @@ class ReviewTagTest extends BrewCrewTest {
 		$reviewTag->insert($this->getPDO());
 
 		//grab the data from mySQL and enforce that the fields match our expectations
-		$pdoReviewTag = ReviewTag::getReviewTagByReviewTagReviewId($this->getPDO(), $reviewTag->getReviewTagReviewId());
+		$pdoReviewTag = ReviewTag::getReviewTagByReviewId($this->getPDO(), $reviewTag->getReviewTagReviewId());
 		//QUESTION since this uses reviewId, do I need another insert test that uses tagId? would need to duplicate down the line
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("reviewTag"));
 		$this->assertEquals($pdoReviewTag->getReviewTagReviewId(), $this->review->getReviewId());
@@ -134,7 +134,7 @@ class ReviewTagTest extends BrewCrewTest {
 		$reviewTag->delete($this->getPDO());
 
 		//grab the data from mySQL and verify that it doesn't exist
-		$pdoReviewTag = ReviewTag::getReviewTagByReviewTagReviewId($this->getPDO(), $reviewTag->getReviewTagReviewId());
+		$pdoReviewTag = ReviewTag::getReviewTagByReviewId($this->getPDO(), $reviewTag->getReviewTagReviewId());
 		$this->assertNull($pdoReviewTag);
 		$this->assertEquals($numRows, $this->getConnection()->getRowCount("reviewTag"));
 	}
@@ -163,7 +163,7 @@ class ReviewTagTest extends BrewCrewTest {
 		$reviewTag->insert($this->getPDO());
 
 		//grab the data from mySQL and enforce that the fields match our expectations
-		$results = ReviewTag::getReviewTagByReviewTagReviewId($this->getPDO(), $reviewTag->getReviewTagReviewId());
+		$results = ReviewTag::getReviewTagByReviewId($this->getPDO(), $reviewTag->getReviewTagReviewId());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("reviewTag"));
 		$this->assertCout(1, $results);
 		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\BrewCrew\\ReviewTag", $results);
@@ -181,7 +181,7 @@ class ReviewTagTest extends BrewCrewTest {
 	public function getReviewTagByInvalidReviewTagReviewId() {
 
 		//grab a review id that exceeds maximum allowed
-		$reviewTag = ReviewTag::getReviewTagByReviewTagReviewId($this->getPDO(), BrewCrewTest::INVALID_KEY);
+		$reviewTag = ReviewTag::getReviewTagByReviewId($this->getPDO(), BrewCrewTest::INVALID_KEY);
 		$this->assertNull($reviewTag);
 	}
 
@@ -198,7 +198,7 @@ class ReviewTagTest extends BrewCrewTest {
 		$reviewTag->insert($this->getPDO());
 
 		//grab the data from mySQL and enforce that the fields match our expectations
-		$results = ReviewTag::getReviewTagByReviewTagTagId($this->getPDO(), $reviewTag->getReviewTagTagId());
+		$results = ReviewTag::getReviewTagByTagId($this->getPDO(), $reviewTag->getReviewTagTagId());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("reviewTag"));
 		$this->assertCout(1, $results);
 		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\BrewCrew\\ReviewTag", $results);
@@ -215,7 +215,7 @@ class ReviewTagTest extends BrewCrewTest {
 	public function getReviewTagByInvalidReviewTagTagId() {
 
 		//grab a tag id that exceeds maximum allowed
-		$reviewTag = ReviewTag::getReviewTagByReviewTagTagId($this->getPDO(), BrewCrewTest::INVALID_KEY);
+		$reviewTag = ReviewTag::getReviewTagByTagId($this->getPDO(), BrewCrewTest::INVALID_KEY);
 		$this->assertNull($reviewTag);
 	}
 
