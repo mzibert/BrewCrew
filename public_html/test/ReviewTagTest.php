@@ -86,15 +86,15 @@ class ReviewTagTest extends BrewCrewTest {
 		$numRows = $this->getConnection()->getRowCount("reviewTag");
 
 		//create a new reviewTag and insert it into mySQL
-		$reviewTag = new ReviewTag($this->review->getReviewId(), $this->tag->getTagId());
+		$reviewTag = new ReviewTag($this->reviewTag->getReviewTagReviewId(), $this->reviewtag->getReviewTagTagId());
 		$reviewTag->insert($this->getPDO());
 
 		//grab the data from mySQL and enforce that the fields match our expectations
 		$pdoReviewTag = ReviewTag::getReviewTagByReviewId($this->getPDO(), $reviewTag->getReviewTagReviewId());
 		//QUESTION since this uses reviewId, do I need another insert test that uses tagId? would need to duplicate down the line
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("reviewTag"));
-		$this->assertEquals($pdoReviewTag->getReviewTagReviewId(), $this->review->getReviewId());
-		$this->assertEquals($pdoReviewTag->getReviewTagTagId(), $this->tag->getTagId());
+		$this->assertEquals($pdoReviewTag->getReviewTagReviewId(), $this->reviewTag->getReviewTagReviewId());
+		$this->assertEquals($pdoReviewTag->getReviewTagTagId(), $this->reviewTag->getReviewTagTagId());
 	}
 
 	/**
@@ -103,7 +103,7 @@ class ReviewTagTest extends BrewCrewTest {
 	 */
 	public function testInsertInvalidReviewTag() {
 		//create a reviewTag with a non-null id and watch it fail
-		$reviewTag = new ReviewTag(BrewCrewTest::INVALID_KEY, $this->tag->getTagId());
+		$reviewTag = new ReviewTag(BrewCrewTest::INVALID_KEY, $this->reviewTag->getReviewTagTagId());
 		$reviewTag->insert($this->getPDO());
 	}
 
@@ -113,7 +113,7 @@ class ReviewTagTest extends BrewCrewTest {
 	 */
 	public function testUpdateInvalidReviewTag() {
 		//create a reviewTag with a non-null id and watch it fail
-		$reviewTag = new ReviewTag($this->review->getReviewId(), $this->tag->getTagId());
+		$reviewTag = new ReviewTag($this->reviewTag->getReviewTagReviewId(), $this->reviewTag->getReviewTagTagId());
 		$reviewTag->update($this->getPDO());
 	}
 
@@ -126,7 +126,7 @@ class ReviewTagTest extends BrewCrewTest {
 		$numRows = $this->getConnection()->getRowCount("reviewTag");
 
 		//create a new reviewTag and insert it into mySQL
-		$reviewTag = new ReviewTag($this->review->getReviewId(), $this->tag->getTagId());
+		$reviewTag = new ReviewTag($this->reviewTag->getReviewTagReviewId(), $this->reviewTag->getReviewTagTagId());
 		$reviewTag->insert($this->getPDO());
 
 		//delete the reviewTag from mySQL
@@ -146,7 +146,7 @@ class ReviewTagTest extends BrewCrewTest {
 	 */
 	public function testDeleteInvalidReviewTag() {
 		//create a reviewTag and try to delete it without actually inserting it
-		$reviewTag = new ReviewTag($this->review->getReviewId(), $this->tag->getTagId());
+		$reviewTag = new ReviewTag($this->reviewTag->getReviewTagReviewId(), $this->reviewTag->getReviewTagTagId());
 		$reviewTag->delete($this->getPDO());
 	}
 
@@ -159,7 +159,7 @@ class ReviewTagTest extends BrewCrewTest {
 		$numRows = $this->getConnection()->getRowCount("reviewTag");
 
 		//create a new reviewTag and insert it into mySQL
-		$reviewTag = new ReviewTag($this->review->getReviewId(), $this->tag->getTagId());
+		$reviewTag = new ReviewTag($this->reviewTag->getReviewTagReviewId(), $this->reviewTag->getReviewTagTagId());
 		$reviewTag->insert($this->getPDO());
 
 		//grab the data from mySQL and enforce that the fields match our expectations
@@ -170,8 +170,8 @@ class ReviewTagTest extends BrewCrewTest {
 
 		//grab the results from the array and validate them
 		$pdoReviewTag = $results[0];
-		$this->assertEquals($pdoReviewTag->getReviewTagReviewId(), $this->review->getReviewId());
-		$this->assertEquals($pdoReviewTag->getReviewTagTagId(), $this->tag->getTagId());
+		$this->assertEquals($pdoReviewTag->getReviewTagReviewId(), $this->reviewTag->getReviewTagReviewId());
+		$this->assertEquals($pdoReviewTag->getReviewTagTagId(), $this->reviewTag->getReviewTagTagId());
 
 	}
 
@@ -194,7 +194,7 @@ class ReviewTagTest extends BrewCrewTest {
 		$numRows = $this->getConnection()->getRowCount("reviewTag");
 
 		//create a new reviewTag and insert it into mySQL
-		$reviewTag = new ReviewTag($this->review->getReviewId(), $this->tag->getTagId());
+		$reviewTag = new ReviewTag($this->reviewTag->getReviewTagReviewId(), $this->reviewTag->getReviewTagTagId());
 		$reviewTag->insert($this->getPDO());
 
 		//grab the data from mySQL and enforce that the fields match our expectations
@@ -205,8 +205,8 @@ class ReviewTagTest extends BrewCrewTest {
 
 		//grab the results from the array and validate them
 		$pdoReviewTag = $results[0];
-		$this->assertEquals($pdoReviewTag->getReviewTagReviewId(), $this->review->getReviewId());
-		$this->assertEquals($pdoReviewTag->getReviewTagTagId(), $this->tag->getTagId());
+		$this->assertEquals($pdoReviewTag->getReviewTagReviewId(), $this->reviewTag->getReviewTagReviewId());
+		$this->assertEquals($pdoReviewTag->getReviewTagTagId(), $this->reviewTag->getReviewTagTagId());
 	}
 
 	/**
@@ -228,7 +228,7 @@ class ReviewTagTest extends BrewCrewTest {
 		$numRows = $this->getConnection()->getRowCount("reviewTag");
 
 		//create a new reviewTag and insert it into mySQL
-		$reviewTag = new ReviewTag($this->review->getReviewId(), $this->tag->getTagId());
+		$reviewTag = new ReviewTag($this->reviewTag->getReviewTagReviewId(), $this->reviewTag->getReviewTagTagId());
 		$reviewTag->insert($this->getPDO());
 
 		//grab the data from mySQL and enforce that the fields match our expectations
@@ -239,8 +239,8 @@ class ReviewTagTest extends BrewCrewTest {
 
 		//grab the results from the array and validate them
 		$pdoReviewTag = $results[0];
-		$this->assertEquals($pdoReviewTag->getReviewTagReviewId(), $this->review->getReviewId());
-		$this->assertEquals($pdoReviewTag->getReviewTagTagId(), $this->tag->getTagId());
+		$this->assertEquals($pdoReviewTag->getReviewTagReviewId(), $this->reviewTag->getReviewTagReviewId());
+		$this->assertEquals($pdoReviewTag->getReviewTagTagId(), $this->reviewTag->getReviewTagTagId());
 	}
 
 	/**
@@ -263,7 +263,7 @@ class ReviewTagTest extends BrewCrewTest {
 		$numRows = $this->getConnection()->getRowCount("reviewTag");
 
 		//create a new reviewTag and insert it into mySQL
-		$reviewTag = new ReviewTag($this->review->getReviewId(), $this->tag->getTagId());
+		$reviewTag = new ReviewTag($this->reviewTag->getReviewTagReviewId(), $this->reviewTag->getReviewTagTagId());
 		$reviewTag->insert($this->getPDO());
 
 		//grab the data from mySQL and enforce that the fields match our expectations
@@ -274,8 +274,8 @@ class ReviewTagTest extends BrewCrewTest {
 
 		//grab the results from the array and validate them
 		$pdoReviewTag = $results[0];
-		$this->assertEquals($pdoReviewTag->getReviewTagReviewId(), $this->review->getReviewId());
-		$this->assertEquals($pdoReviewTag->getReviewTagTagId(), $this->tag->getTagId());
+		$this->assertEquals($pdoReviewTag->getReviewTagReviewId(), $this->reviewTag->getReviewTagReviewId());
+		$this->assertEquals($pdoReviewTag->getReviewTagTagId(), $this->reviewTag->getReviewTagTagId());
 	}
 
 }

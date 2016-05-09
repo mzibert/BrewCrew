@@ -24,8 +24,35 @@ class ReviewTag implements \JsonSerializable {
 	 */
 	private $reviewTagTagId;
 
-	//TODO CONSTRUCTOR
-	//TODO CONSTRUCTOR
+	//CONSTRUCTOR
+	/**
+	 * constructor for reviewTag
+	 *
+	 * @param int $newReviewTagReviewId foreign key review id
+	 * @param int $newReviewTagTagId foreign key tag id
+	 * @throws \InvalidArgumentException if the data types are not valid
+	 * @throws \RangeException if the data values are out of bound (e.g. negative integers)
+	 * @throws \TypeError if data types violate type hints
+	 * @throws \Exception if some other exception occurs
+	 */
+	public function __construct(int $newReviewTagReviewId, int $newReviewTagTagId) {
+		try {
+			$this->setReviewTagReviewId($newReviewTagReviewId);
+			$this->setReviewTagTagId($newReviewTagTagId);
+		} catch(\InvalidArgumentException $invalidArgument) {
+			//rethrow the exception to the caller
+			throw(new \InvalidArgumentException($invalidArgument->getMessage(), 0, $invalidArgument));
+		} catch(\RangeException $range) {
+			//rethrow the exception to the caller
+			throw(new \RangeException($range->getMessage(), 0, $range));
+		} catch(\TypeError $typeError) {
+			//rethrow the exception to the caller
+			throw(new \TypeError($typeError->getMessage(), 0, $typeError));
+		} catch(\Exception $exception) {
+			//rethrow the exception to the caller
+			throw(new \Exception($exception->getMessage(), 0, $exception));
+		}
+	}
 
 	//ACCESSORS AND MUTATORS
 
