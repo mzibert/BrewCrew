@@ -14,9 +14,8 @@ require_once (dirname(__DIR__) . "../php/classes/autoload.php");
  *
  * This is a complete PHPUnit test of the review class.  It is considered complete because *ALL* mySQL/PDO enabled methods are tested for both invalid, and for valid inputs.
  *
- * @see \Edu\Cnm\BREWCREW\Review
+ * @see \Edu\Cnm\BrewCrew\Review
  * @author Alicia Broadhurst <abroadhurst@cnm.edu>
- *
  */
 
 class ReviewTest extends BrewCrewTest {

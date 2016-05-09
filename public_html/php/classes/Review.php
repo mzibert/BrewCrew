@@ -256,7 +256,6 @@ class Review implements \JsonSerializable {
 	public function setReviewText(string $newReviewText) {
 		//if user isn't leaving a text review, don't even bother
 		if($newReviewText === null) {
-			$this->newReviewText = null;
 			return;
 		}
 
