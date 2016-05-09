@@ -223,7 +223,7 @@ class ReviewTagTest extends BrewCrewTest {
 	/**
 	 *testing get reviewTag by valid review id, tag id
 	 */
-	public function getValidReviewTagByBothIds() {
+	public function getValidReviewTagByReviewIdAndTagId() {
 		//count the number of rows and save it for later
 		$numRows = $this->getConnection()->getRowCount("reviewTag");
 
@@ -232,7 +232,7 @@ class ReviewTagTest extends BrewCrewTest {
 		$reviewTag->insert($this->getPDO());
 
 		//grab the data from mySQL and enforce that the fields match our expectations
-		$results = ReviewTag::getReviewTagByBothIds($this->getPDO(), $reviewTag->getReviewTagReviewId(), $reviewTag->getReviewTagTagId());
+		$results = ReviewTag::getReviewTagByReviewIdAndTagId($this->getPDO(), $reviewTag->getReviewTagReviewId(), $reviewTag->getReviewTagTagId());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("reviewTag"));
 		$this->assertCout(1, $results);
 		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\BrewCrew\\ReviewTag", $results);
@@ -249,7 +249,7 @@ class ReviewTagTest extends BrewCrewTest {
 	public function getReviewTagByBothIds() {
 
 		//grab a review id that exceeds maximum allowed
-		$reviewTag = ReviewTag::getReviewTagByBothIds($this->getPDO(), BrewCrewTest::INVALID_KEY);
+		$reviewTag = ReviewTag::getReviewTagByReviewIdAndTagId($this->getPDO(), BrewCrewTest::INVALID_KEY);
 		$this->assertNull($reviewTag);
 	}
 
