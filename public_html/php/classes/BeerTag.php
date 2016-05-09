@@ -82,4 +82,14 @@ class BeerTag {
 		//convert and store the beer tag tag Id
 		$this->beerTagTagId = $newBeerTagTagId;
 	}
+	/**
+	 * inserts this beer tag into mySQL
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError if $pdo is not a PDO connection object
+	 **/
+	public function insert(\PDO $pdo){
+		//enforce the beerTag is null (i.e., dont insert a beer tag that already exists)
+		if($this->)
+	}
 }

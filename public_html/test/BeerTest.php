@@ -1,13 +1,13 @@
 <?php
-namespace Edu\Cnm\mzibert\BrewCrew\Test;
+namespace Edu\Cnm\BrewCrew\Test;
 
-use Edu\Cnm\mzibert\BrewCrew\{Beer, beerBrewery};
+use Edu\Cnm\BrewCrew\{Beer, Brewery};
 
 //grab the project test parameters
 require_once("BrewCrewTest.php");
 
 //grab the class under scrutiny
-require_once(dirname(__DIR__)."php/classes/autoload.php)");
+require_once (dirname(__DIR__) . "/php/classes/autoload.php");
 
 /**
  * Full PHPUnit test for the Beer class
@@ -17,33 +17,52 @@ require_once(dirname(__DIR__)."php/classes/autoload.php)");
  * @see Beer
  * @author Merri Zibert <mzibert@cnm.edu>
  **/
-Class BeerTest extends BrewCrewTest {
+class BeerTest extends BrewCrewTest {
 	/**
-	 * beer brewery of the Beer
-	 * @var int $VALID_BEERBREWERYID
+	 * decimal generated for alcohol content by volume
+	 * @var int $VALID_BEERABV
 	 **/
-	protected $VALID_BEERBREWERYID = "PHPUnit test passing";
+	protected $VALID_BEERABV = "7.57";
 	/**
-	 * content of the updated beer brewery id
-	 * @var int $VALID_BEERBREWERYID2
+	 * updated decimal of beer abv
+	 * @var int $VALID_BEERABV2
 	 **/
-	protected $VALID_BEERBREWERYID2 = "PHPUnit test still passing";
+	protected $VALID_BEERABV2 = "2";
 	/**
-	 *beer brewery that created the beer; this is for foreign key relations
-	 * @var BeerBreweryId beerBreweryId
+	 * the amount of ibu a beer contains
+	 * @var string $VALID_BEERIBU
 	 **/
-	protected $beerBreweryId = null;
+	protected $VALID_BEERIBU = "classified";
+	/**
+	 * color of the beer
+	 * @var string $VALID_BEERCOLOR
+	 **/
+	protected $VALID_BEERCOLOR = ".75";
+	/**
+	 * name of the beer
+	 * @var string $VALID_BEERNAME
+	 **/
+	protected $VALID_BEERNAME = "Marzen Oktoberfest VMO #2";
+	/**
+	 * style of the beer
+	 **/
+	protected $VALID_BEERSTYLE = "malt";
+	/**
+	 *brewery that created the beer; this is for foreign key relations
+	 * @var Brewery brewery
+	 **/
+	protected $Brewery = null;
 
 	/**
 	 * create dependent objects before running each test
 	 **/
 	public final function setUp() {
 		//run the default setUp() method first
-		parent::setup();
+		parent::setUp();
 
-		//create and insert a Brewery to own the test Beer
-		$this->beerBreweryId = new BeerBreweryId (null, "@phpunit", "test@phpunit.de", "+12125551212");
-		$this->beerBreweryId->insert($this->getPDO());
+		//create and insert a Brewery to own the created Beer
+		$this->brewery = new Brewery (null, "Describe this test brewery in full", "2010", "24/7/365 unless its raining, then we are closed", "transylvania", "Nerdfighteria", "5057771212", "test@phpunit.de");
+		$this->brewery->insert($this->getPDO());
 	}
 
 	/**
@@ -54,13 +73,18 @@ Class BeerTest extends BrewCrewTest {
 		$numRows = $this->getConnection()->getRowCount("beer");
 
 		//create a new Beer and insert it into mySQL
-		$beer = new Beer(null, $this->beerBreweryId->getbeerBreweryId());
+		$beer = new Beer(null, $this->brewery->getbeerBreweryId(), $this->VALID_BEERABV, $this->VALID_BEERIBU, $this->VALID_BEERCOLOR, $this->VALID_BEERNAME, $this->VALID_BEERSTYLE);
 		$beer->insert($this->getPDO());
 
 		//grab the data from mySQL and enforce the fields match our expectations
 		$pdoBeer = Beer::getBeerbyBeerId($this->getPDO(), $beer->getBeerId());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("Beer"));
-		$this->assertEquals($pdoBeer->getbeerBreweryId(), $this->beerbrewery->getBeerBreweryId());
+		$this->assertEquals($pdoBeer->getBeerBreweryId(), $this->beer->getBeerBreweryId());
+		$this->assertEquals($pdoBeer->getBeerAbv(), $this->VALID_BEERABV);
+		$this->assertEquals($pdoBeer->getBeerIbu(), $this->VALID_BEERIBU);
+		$this->assertEquals($pdoBeer->getBeerColor(), $this->VALID_BEERCOLOR);
+		$this->assertEquals($pdoBeer->getBeerName(), $this->VALID_BEERNAME);
+		$this->assertEquals($pdoBeer->getBeerStyle(), $this->VALID_BEERSTYLE);
 	}
 
 	/**
