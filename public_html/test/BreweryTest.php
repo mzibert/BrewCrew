@@ -20,76 +20,186 @@ require_once (dirname(__DIR__) . "../php/classes/autoload.php");
 
 class BreweryTest extends BrewCrewTest {
 	/**
-	 * description of the brewery
-	 * @var string $VALID_BREWERYDESCRIPTION
+	 * Valid ID to use; this starts as null and is assigned later
+	 * @var int $VALID_BREWERYID
 	 */
-	protected $VALID_BREWERYDESCRIPTION = "Some description";
+	protected $VALID_BREWERY_ID = null;
 
 	/**
-	 * year brewery was established
-	 * @var string $VALID_BREWERYESTDATE
+	 * Content generated for description text
+	 * @var string $VALID_BREWERY_DESCRIPTION
 	 */
-	protected $VALID_BREWERYESTDATE = "1985";
+	protected $VALID_BREWERY_DESCRIPTION = "PHPUnit test passing";
 
 	/**
-	 * hours of the brewery
-	 * @var string $VALID_BREWERYHOURS
+	 * Updated content for description text
+	 * @var string $VALID_BREWERYEST_DESCRIPTION2
 	 */
-	protected $VALID_BREWERY = "Some hours";
+	protected $VALID_BREWERY_DESCRIPTION2 = "PHPUnit test still passing";
 
 	/**
-	 * address of the brewery
+	 * Valid est date of a brewery
+	 * @var string $VALID_BREWERY_EST_DATE
+	 */
+	protected $VALID_BREWERY_EST_DATE = "1985";
+
+	/**
+	 * Valid address of a brewery
 	 * @var string $VALID_BREWERYLOCATION
 	 */
-	protected $VALID_BREWERYLOCATION = "Some address";
+	protected $VALID_BREWERY_LOCATION = "Some address";
+
 	/**
-	 * name of the brewery
+	 * Valid name to use
 	 * @var string $VALID_BREWERYNAME
 	 */
-	protected $VALID_BREWERYNAME = "Some brewery name";
+	protected $VALID_BREWERY_NAME = "Deep Dive";
+
+	/**
+	 * Second valid name to use
+	 * @var string $VALID_BREWERYNAME2
+	 */
+	protected $VALID_BREWERY_NAME2 = "Deep Dive 2";
 
 	/**
 	 * phone number associated with the brewery
 	 * @var string $VALID_BREWERYPHONE
 	 */
-	protected $VALID_BREWERYPHONE = "Some phone number";
+	protected $VALID_BREWERY_PHONE = "Some phone number";
 
 	/**
 	 * website of the brewery
 	 * @var string $VALID_BREWERYURL
 	 */
-	protected $VALID_BREWERYURL = "Some website";
-
-
-
-
-
-
+	protected $VALID_BREWERY_URL = "Some website";
 
 	/**
-	 * id of the brewery; this starts as null and is assigned later
-	 * @var int $VALID_BREWERYID
-	 */
-	protected $VALID_BREWERYID = null;
-
+	 * No dependent objects in this class, right?
+	 **/
 
 	/**
-	 * test that inserts a valid brewery and then verifies that the mySQL data matches
+	 * Test that inserts a valid brewery and then verifies that the mySQL data matches
 	 */
 	public function testInsertValidBrewery() {
-		// count the number of rows and save this for later
+		// Count the number of rows and save this for later
 		$numRows  = $this->getConnection()->getRowCount("brewery");
 
-		// create a new brewery and insert it into mySQL
-		$brewery = new Brewery(null, $this->VALID_BREWERYDESCRIPTION, $this->VALID_BREWERYESTDATE, $this->VALID_BREWERYLOCATION, $this->VALID_BREWERYNAME, $this->VALID_BREWERYPHONE, $this->VALID_BREWERYURL);
+		// Create a new brewery and insert it into mySQL
+		$brewery = new Brewery(null, $this->VALID_BREWERY_ID, $this->VALID_BREWERY_DESCRIPTION, $this->VALID_BREWERY_EST_DATE, $this->VALID_BREWERY_LOCATION, $this->VALID_BREWERY_NAME, $this->VALID_BREWERY_PHONE, $this->VALID_BREWERY_URL);
 		$brewery->insert($this->getPDO());
 
-		// grab the data from mySQL and check the fields against our expectations
+		// Grab the data from mySQL and check the fields against our expectations
+		// Looked at Skyler's work to figure out how this might be done
+		// @Link https://github.com/Skylarity/trufork/blob/master/public_html/test/restaurant-test.php
 		$pdoBrewery = Brewery::getBreweryByBreweryId($this->getPDO(), $brewery->getBreweryId());
 		$this->assertEquals($numRows +1, $this->getConnection()->getRowCount("brewery"));
-		$this->assertEquals($pdoBrewery->//no idea102)
+		$this->assertLessThan($pdoBrewery->getBreweryId(), $this->getBreweryId(), 0);
+		$this->assertEquals($pdoBeer->getBreweryId(), $this->VALID_BREWERY_ID);
+		$this->assertEquals($pdoBeer->getBreweryDescription(), $this->VALID_BREWERY_DESCRIPTION);
+		$this->assertEquals($pdoBeer->getBreweryEstDate(), $this->VALID_BREWERY_EST_DATE);
+		$this->assertEquals($pdoBeer->getBreweryLocation(), $this->VALID_BREWERY_LOCATION);
+		$this->assertEquals($pdoBeer->getBreweryName(), $this->VALID_BREWERY_NAME);
+		$this->assertEquals($pdoBeer->getBreweryPhone(), $this->VALID_BREWERY_PHONE);
+		$this->assertEquals($pdoBeer->getBreweryUrl(), $this->VALID_BREWERY_URL);
+	}
+	/**
+	 * Test inserting a brewery that already exists
+	 *
+	 * @expectedException PDOException
+	 **/
+	public function testInsertInvalidBrewery() {
+		//create a brewery with a non null brewery id and watch it fail
+		$brewery = new Brewery(BrewCrewTest::INVALID_KEY, $this->Brewery->getBreweryId());
+		$brewery->insert($this->getPDO());
+	}
+	/**
+	 * Test inserting a brewery, editing it, and then updating it
+	 **/
+	public function testUpdateValidBrewery() {
+		// Count the number of rows and save it for later
+		$numRows = $this->getConnection()->getRowCount("brewery");
+
+		// Create a new brewery and insert it into mySQL
+		$brewery = new Brewery(null, $this->VALID_BREWERY_ID, $this->VALID_BREWERY_DESCRIPTION, $this->VALID_BREWERY_EST_DATE, $this->VALID_BREWERY_LOCATION, $this->VALID_BREWERY_NAME, $this->VALID_BREWERY_PHONE, $this->VALID_BREWERY_URL);
+		$brewery->insert($this->getPDO());
+
+		// Edit the brewery and update it in mySQL
+		$brewery->setName($this->VALID_NAME2);
+		$brewery->update($this->getPDO());
+
+		// Grab the data from mySQL and enforce the fields match our expectations
+		// Looked at Skyler's work to figure out how this might be done
+		// @Link https://github.com/Skylarity/trufork/blob/master/public_html/test/restaurant-test.php
+		$pdoBeer = Beer::getBeerByBeerId($this->getPDO(), $brewery->getBeerId());
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("beer"));
+		$this->assertLessThan($pdoBeer->getBrewery->getBreweryId(), 0);
+		$this->assertEquals($pdoBeer->getBreweryId(), $this->VALID_BREWERY_ID);
+		$this->assertEquals($pdoBeer->getBreweryDescription(), $this->VALID_BREWERY_DESCRIPTION);
+		$this->assertEquals($pdoBeer->getBreweryEstDate(), $this->VALID_BREWERY_EST_DATE);
+		$this->assertEquals($pdoBeer->getBreweryLocation(), $this->VALID_BREWERY_LOCATION);
+		$this->assertEquals($pdoBeer->getBreweryName(), $this->VALID_BREWERY_NAME);
+		$this->assertEquals($pdoBeer->getBreweryPhone(), $this->VALID_BREWERY_PHONE);
+		$this->assertEquals($pdoBeer->getBreweryUrl(), $this->VALID_BREWERY_URL);
+	}
+	/** Test updating a Brewery that does not exist
+	 *
+	 * @expectedException PDOException
+	 * Again copying Skyler's work because I have no idea what this is
+	 * */
+	public function testUpdateInvalidBrewery() {
+		// Create a brewery and try to update it without actually inserting it
+		$brewery = new Brewery(null, $this->VALID_BREWERY_ID, $this->VALID_BREWERY_DESCRIPTION, $this->VALID_BREWERY_EST_DATE, $this->VALID_BREWERY_LOCATION, $this->VALID_BREWERY_NAME, $this->VALID_BREWERY_PHONE, $this->VALID_BREWERY_URL);
+		$brewery->update($this->getPDO());
+	}
+	/**
+	 * Test creating a brewery and then deleting it
+	 */
+	public function testDeleteValidBrewery() {
+		// Count the number of rows and save it for later
+		$numRows = $this->getConnection()->getRowCount("brewery");
+
+		// Create a new brewery and insert it into mySQL
+		$brewery = new Brewery(null, $this->VALID_BREWERY_ID, $this->VALID_BREWERY_DESCRIPTION, $this->VALID_BREWERY_EST_DATE, $this->VALID_BREWERY_LOCATION, $this->VALID_BREWERY_NAME, $this->VALID_BREWERY_PHONE, $this->VALID_BREWERY_URL);
+		$brewery->insert($this->getPDO());
+
+		// Delete the brewery from mySQL
+		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("brewery"));
+		$brewery->delete($this->getPDO());
+
+		// Grab the data from MySQL and enforce the Restaurant does not exist
+		$pdoBrewery = Brewery::getBreweryByBreweryId($this->getPDO(), $brewery->getBreweryId());
+		$this->assertNull($pdoBrewery);
+		$this->assertSame($numRows, $this->getConnection()->getRowCount("brewery"));
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
