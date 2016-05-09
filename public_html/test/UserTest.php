@@ -19,7 +19,8 @@ require_once (dirname(__DIR__) . "../php/classes/autoload.php");
 class UserTest extends BrewCrewTest {
 	/**
 	 * Brewery associated with beer being reviewed
-	 * @var Brewery brewery
+	 * @var int brewery
 	 */
 	protected $brewery = null;
+
 }
