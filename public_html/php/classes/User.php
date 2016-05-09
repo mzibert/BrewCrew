@@ -1,6 +1,8 @@
 <?php
 
 namespace Edu\Cnm\Agraham14\BrewCrew;
+use Edu\Cnm\BrewCrew\ValidateDate;
+
 require_once("autoload.php");
 require_once ("ValidateDate");
 
@@ -218,8 +220,11 @@ class User implements \JsonSerializable {
 		if($newUserDateOfBirth === null) {
 			throw (new \OutOfBoundsException("You must enter your date of birth"));
 		}
-		$newUserDateOfBirth->add(new \DateInterval('y21'));
-		if($newUserDateOfBirth > $newUserDateOfBirth . getdate()) {
+
+		$newUserDateOfBirth = ValidateDate::validateDate($newUserDateOfBirth);
+		$drinkDate = $newUserDateOfBirth->add(new \DateInterval('P21Y'));
+		$todaysDate = new \DateTime();
+		if($drinkDate > $todaysDate)  {
 			throw (new \RangeException("You are too young."));
 		}
 		// store the userDateOfBirth date
