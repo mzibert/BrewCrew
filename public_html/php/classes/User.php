@@ -4,7 +4,7 @@ namespace Edu\Cnm\Agraham14\BrewCrew;
 use Edu\Cnm\BrewCrew\ValidateDate;
 
 require_once("autoload.php");
-require_once ("ValidateDate");
+require_once ("ValidateDate.php");
 
 class User implements \JsonSerializable {
 	use ValidateDate;
@@ -705,7 +705,85 @@ class User implements \JsonSerializable {
 		}
 		return ($user);
 	}
+	/**
+	 * inserts this User into mySQL
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError if $pdo is not a PDO connection object
+	 **/
+	public function insert(\PDO $pdo) {
+// enforce the userId is null (i.e., don't insert a user that already exists)
+		if($this->userId !== null) {
+			throw(new \PDOException("not a new user"));
+		}
 
+// create query template
+		$query = "INSERT INTO user(userBreweryId,userAccessLevel, userActivationToken, userDateOfBirth,userEmail,userFirstName,userHash, userLastName, userSalt, userUsername) VALUES(:userBreweryId, :userAccessLevel, :userActivationToken, :userDateOfBirth, :userEmail, :userFirstName, :userHash, :userLastName, :userSalt, :userUsername)";
+		$statement = $pdo->prepare($query);
+
+// bind the member variables to the place holders in the template
+
+		$parameters = ["userBreweryId" => $this->userBreweryId,
+			"userAccessLevel" => $this->userAccessLevel,
+			"userActivationToken" => $this->userActivationToken,
+			"userDateOfBirth"=>$this->userDateOfBirth,
+			"userEmail" => $this->userEmail,
+			"userFirstName" => $this->userFirstName,
+			"userHash" => $this->userHash,
+			"userLastName" => $this->userLastName,
+			"userSalt" => $this->userSalt,
+			"userUsername"=>$this->userUsername];
+		$statement->execute($parameters);
+
+// update the null userId with what mySQL just gave us
+		$this->userId = intval($pdo->lastInsertId());
+	}
+
+
+	/**
+	 * deletes this User from mySQL
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError if $pdo is not a PDO connection object
+	 **/
+	public function delete(\PDO $pdo) {
+// enforce the userId is not null (i.e., don't delete a user that hasn't been inserted)
+		if($this->userId === null) {
+			throw(new \PDOException("unable to delete a user that does not exist"));
+		}
+
+// create query template
+		$query = "DELETE FROM user WHERE userId = :userId";
+		$statement = $pdo->prepare($query);
+
+// bind the member variables to the place holder in the template
+		$parameters = ["userId" => $this->userId];
+		$statement->execute($parameters);
+	}
+
+	/**
+	 * updates this User in mySQL
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError if $pdo is not a PDO connection object
+	 **/
+	public function update(\PDO $pdo) {
+// enforce the userId is not null (i.e., don't update a user that hasn't been inserted)
+		if($this->userId === null) {
+			throw(new \PDOException("unable to update a user that does not exist"));
+		}
+
+// create query template
+		$query = "UPDATE user SET userBreweryId = :userBreweryId, userAccessLevel = :userAccessLevel, userActivationToken = :userActivationToken, userDateOfBirth = :userDateOfBirth, userEmail = :userEmail, userFirstName = :userFirstName, userHash = :userHash, userLastName = :userLastName, userSalt =:userSalt, userUsername =:userUsername WHERE userId = :userId";
+		$statement = $pdo->prepare($query);
+
+		$parameters = ["userBreweryId" => $this->userBreweryId, "userAccessLevel" => $this->userAccessLevel, "userActivationToken" => $this->userActivationToken, "userDateOfBirth" => $this->userDateOfBirth, "userEmail" => $this->userEmail,
+			"userFirstName" => $this->userFirstName, "userHash" => $this->userHash, "userLastName" => $this->userLastName, "userSalt" => $this->userSalt, "userUsername => $this->userUsername"];
+		$statement->execute($parameters);
+	}
 	/**
 	 * @return array
 	 */
