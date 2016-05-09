@@ -2,7 +2,7 @@
 
 namespace Edu\Cnm\Agraham14\BrewCrew;
 require_once("autoload.php");
-// ToDo require_once ("ValidateDate");
+require_once ("ValidateDate");
 
 class User implements \JsonSerializable {
 	use ValidateDate;
