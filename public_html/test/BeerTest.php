@@ -93,8 +93,10 @@ class BeerTest extends BrewCrewTest {
 	 * @expectedException PDOException
 	 **/
 	public function testInsertInvalidBeer() {
-		//create a beer with a non null beer id and watch it fail
-		$beer = new Beer(BrewCrewTest::INVALID_KEY, $this->beerBrewery->getBeerBreweryId());
+		//create a beer with a non null primary key (beer id) and watch it fail
+		$beer = new Beer(BrewCrewTest::INVALID_KEY, $this->beer->getBeerId(),
+		$this->VALID_BEERABV, $this->VALID_BEERIBU, $this->VALID_BEERCOLOR, $this->VALID_BEERNAME,
+		$this->VALID_BEERSTYLE);
 		$beer->insert($this->getPDO());
 	}
 
