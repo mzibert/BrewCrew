@@ -57,7 +57,7 @@ class ReviewTagTest extends BrewCrewTest {
 		parent::setUp();
 
 		//create and insert a brewery to own the reviewed beer
-		$this->brewery = new Brewery(null, "description of Test Brewery", "2005", "24/7 8 days a week", "The middle of nowhere", "Test Brewery", "1238675309", "www.awesometestbrewery.com");
+		$this->brewery = new Brewery(null, "description of Test Brewery", "2005", "24/7 8 days a week", "The middle of nowhere aka Rolla, MO", "Test Brewery", "1238675309", "www.awesometestbrewery.com");
 		$this->brewery->insert($this->getPDO());
 
 		//create and insert a beer that is being reviewed
@@ -91,7 +91,6 @@ class ReviewTagTest extends BrewCrewTest {
 
 		//grab the data from mySQL and enforce that the fields match our expectations
 		$pdoReviewTag = ReviewTag::getReviewTagByReviewId($this->getPDO(), $reviewTag->getReviewTagReviewId());
-		//QUESTION since this uses reviewId, do I need another insert test that uses tagId? would need to duplicate down the line
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("reviewTag"));
 		$this->assertEquals($pdoReviewTag->getReviewTagReviewId(), $this->reviewTag->getReviewTagReviewId());
 		$this->assertEquals($pdoReviewTag->getReviewTagTagId(), $this->reviewTag->getReviewTagTagId());
@@ -254,28 +253,5 @@ class ReviewTagTest extends BrewCrewTest {
 	}
 
 
-
-	/**
-	 * test grabbing all reviewTags
-	 */
-	public function getAllReviewTags() {
-		//count the number of rows and save it for later
-		$numRows = $this->getConnection()->getRowCount("reviewTag");
-
-		//create a new reviewTag and insert it into mySQL
-		$reviewTag = new ReviewTag($this->reviewTag->getReviewTagReviewId(), $this->reviewTag->getReviewTagTagId());
-		$reviewTag->insert($this->getPDO());
-
-		//grab the data from mySQL and enforce that the fields match our expectations
-		$results = ReviewTag::getAllReviewTags($this->getPDO());
-		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("reviewTag"));
-		$this->assertCout(1, $results);
-		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\BrewCrew\\ReviewTag", $results);
-
-		//grab the results from the array and validate them
-		$pdoReviewTag = $results[0];
-		$this->assertEquals($pdoReviewTag->getReviewTagReviewId(), $this->reviewTag->getReviewTagReviewId());
-		$this->assertEquals($pdoReviewTag->getReviewTagTagId(), $this->reviewTag->getReviewTagTagId());
-	}
 
 }

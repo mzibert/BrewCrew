@@ -269,37 +269,7 @@ class ReviewTag implements \JsonSerializable {
 		}
 		return ($reviewTag);
 	}
-
-//get all reviewtags
-	/**
-	 * gets all the reviewTags
-	 *
-	 * @param \PDO $pdo PDO connection object
-	 * @return \SplFixedArray SplFixedArray of all the review tags found, or null if there aren't any
-	 * @throws \PDOException when mySQL related errors occur
-	 * @throws \TypeError when variables are not the correct data type
-	 */
-	public static function getAllReviewTags(\PDO $pdo) {
-		//create query template
-		$query = "SELECT reviewTagReviewId, reviewTagTagId FROM reviewTag";
-		$statement = $pdo->prepare($query);
-		$statement->execute();
-
-		//build an array of reviewTags
-		$reviewTags = new \SplFixedArray($statement->rowCount());
-		$statement->setFetchMode(\PDO::FETCH_ASSOC);
-		while(($row = $statement->fetch()) !== false) {
-			try {
-				$reviewTag = new ReviewTag($row["reviewTagReviewId"], $row["reviewTagTagId"]);
-				$reviewTags[$reviewTags->key()] = $reviewTag;
-				$reviewTags->next();
-			} catch(\Exception $exception) {
-				//if the row couldn't be converted, rethrow it
-				throw(new \PDOException($exception->getMessage(), 0, $exception));
-			}
-		}
-		return($reviewTags);
-	}
+	
 
 
 	//jsonSerialize
