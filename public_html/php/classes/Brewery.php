@@ -327,7 +327,7 @@ class Brewery implements JsonSerializable {
 		//store the brewery URL content
 		$this->breweryUrl = $newBreweryUrl;
 	}
-
+// PDO
 	/**
 	 * Inserts this brewery into mySQL
 	 *
@@ -342,7 +342,7 @@ class Brewery implements JsonSerializable {
 			throw(new \PDOException("Not a new brewery"));
 		}
 		// Crete query template
-		$query = "INSERT INTO brewery(breweryId, breweryDescription, breweryEstDate, breweryHours, breweryLocation, breweryName, breweryPhone, breweryUrl) VALUES(:breweryId, breweryDescription, breweryEstDate, breweryHours, breweryLocation, breweryName, breweryPhone, breweryUrl)";
+		$query = "INSERT INTO brewery(breweryId, breweryDescription, breweryEstDate, breweryHours, breweryLocation, breweryName, breweryPhone, breweryUrl) VALUES(:breweryId, :breweryDescription, :breweryEstDate, :breweryHours, :breweryLocation, :breweryName, :breweryPhone, :breweryUrl)";
 		$statement = $pdo->prepare($query);
 
 		// Bind the member variables to the place holders in the template
@@ -445,7 +445,7 @@ class Brewery implements JsonSerializable {
 	 * @throws \PDOException when mySQL-related errors occur
 	 **/
 	public static function getBrewerybyBreweryDescription(\PDO &$pdo, $breweryDescription) {
-		// sanitize the brewery location before searching
+		// sanitize the brewery description before searching
 		$breweryDescription = trim($breweryDescription);
 		$breweryDescription = filter_var($breweryDescription, FILTER_SANITIZE_STRING);
 		if(empty($breweryDescription) === true) {

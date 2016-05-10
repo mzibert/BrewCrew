@@ -74,10 +74,6 @@ class BreweryTest extends BrewCrewTest {
 	protected $VALID_BREWERY_URL = "Some website";
 
 	/**
-	 * No dependent objects in this class, right?
-	 **/
-
-	/**
 	 * Test that inserts a valid brewery and then verifies that the mySQL data matches
 	 */
 	public function testInsertValidBrewery() {
@@ -94,13 +90,13 @@ class BreweryTest extends BrewCrewTest {
 		$pdoBrewery = Brewery::getBreweryByBreweryId($this->getPDO(), $brewery->getBreweryId());
 		$this->assertEquals($numRows +1, $this->getConnection()->getRowCount("brewery"));
 		$this->assertLessThan($pdoBrewery->getBreweryId(), $this->getBreweryId(), 0);
-		$this->assertEquals($pdoBeer->getBreweryId(), $this->VALID_BREWERY_ID);
-		$this->assertEquals($pdoBeer->getBreweryDescription(), $this->VALID_BREWERY_DESCRIPTION);
-		$this->assertEquals($pdoBeer->getBreweryEstDate(), $this->VALID_BREWERY_EST_DATE);
-		$this->assertEquals($pdoBeer->getBreweryLocation(), $this->VALID_BREWERY_LOCATION);
-		$this->assertEquals($pdoBeer->getBreweryName(), $this->VALID_BREWERY_NAME);
-		$this->assertEquals($pdoBeer->getBreweryPhone(), $this->VALID_BREWERY_PHONE);
-		$this->assertEquals($pdoBeer->getBreweryUrl(), $this->VALID_BREWERY_URL);
+		$this->assertEquals($pdoBrewery->getBreweryId(), $this->VALID_BREWERY_ID);
+		$this->assertEquals($pdoBrewery->getBreweryDescription(), $this->VALID_BREWERY_DESCRIPTION);
+		$this->assertEquals($pdoBrewery->getBreweryEstDate(), $this->VALID_BREWERY_EST_DATE);
+		$this->assertEquals($pdoBrewery->getBreweryLocation(), $this->VALID_BREWERY_LOCATION);
+		$this->assertEquals($pdoBrewery->getBreweryName(), $this->VALID_BREWERY_NAME);
+		$this->assertEquals($pdoBrewery->getBreweryPhone(), $this->VALID_BREWERY_PHONE);
+		$this->assertEquals($pdoBrewery->getBreweryUrl(), $this->VALID_BREWERY_URL);
 	}
 	/**
 	 * Test inserting a brewery that already exists
@@ -130,16 +126,16 @@ class BreweryTest extends BrewCrewTest {
 		// Grab the data from mySQL and enforce the fields match our expectations
 		// Looked at Skyler's work to figure out how this might be done
 		// @Link https://github.com/Skylarity/trufork/blob/master/public_html/test/restaurant-test.php
-		$pdoBeer = Beer::getBeerByBeerId($this->getPDO(), $brewery->getBeerId());
-		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("beer"));
-		$this->assertLessThan($pdoBeer->getBrewery->getBreweryId(), 0);
-		$this->assertEquals($pdoBeer->getBreweryId(), $this->VALID_BREWERY_ID);
-		$this->assertEquals($pdoBeer->getBreweryDescription(), $this->VALID_BREWERY_DESCRIPTION);
-		$this->assertEquals($pdoBeer->getBreweryEstDate(), $this->VALID_BREWERY_EST_DATE);
-		$this->assertEquals($pdoBeer->getBreweryLocation(), $this->VALID_BREWERY_LOCATION);
-		$this->assertEquals($pdoBeer->getBreweryName(), $this->VALID_BREWERY_NAME);
-		$this->assertEquals($pdoBeer->getBreweryPhone(), $this->VALID_BREWERY_PHONE);
-		$this->assertEquals($pdoBeer->getBreweryUrl(), $this->VALID_BREWERY_URL);
+		$pdoBrewery = Brewery::getBreweryByBreweryId($this->getPDO(), $brewery->getBreweryId());
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("brewery"));
+		$this->assertLessThan($pdoBrewery->getBrewery->getBreweryId(), 0);
+		$this->assertEquals($pdoBrewery->getBreweryId(), $this->VALID_BREWERY_ID);
+		$this->assertEquals($pdoBrewery->getBreweryDescription(), $this->VALID_BREWERY_DESCRIPTION);
+		$this->assertEquals($pdoBrewery->getBreweryEstDate(), $this->VALID_BREWERY_EST_DATE);
+		$this->assertEquals($pdoBrewery->getBreweryLocation(), $this->VALID_BREWERY_LOCATION);
+		$this->assertEquals($pdoBrewery->getBreweryName(), $this->VALID_BREWERY_NAME);
+		$this->assertEquals($pdoBrewery->getBreweryPhone(), $this->VALID_BREWERY_PHONE);
+		$this->assertEquals($pdoBrewery->getBreweryUrl(), $this->VALID_BREWERY_URL);
 	}
 	/** Test updating a Brewery that does not exist
 	 *
@@ -166,13 +162,11 @@ class BreweryTest extends BrewCrewTest {
 		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("brewery"));
 		$brewery->delete($this->getPDO());
 
-		// Grab the data from MySQL and enforce the Restaurant does not exist
+		// Grab the data from MySQL and enforce the brewery does not exist
 		$pdoBrewery = Brewery::getBreweryByBreweryId($this->getPDO(), $brewery->getBreweryId());
 		$this->assertNull($pdoBrewery);
 		$this->assertSame($numRows, $this->getConnection()->getRowCount("brewery"));
 	}
-}
-
 
 
 
