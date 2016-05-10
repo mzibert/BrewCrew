@@ -253,7 +253,7 @@ class Review implements \JsonSerializable {
 	 * @throws \RangeException if $newReviewText is greater than 2000 characters
 	 * @throws \TypeError if $newReviewText is not a string
 	 */
-	public function setReviewText(string $newReviewText) {
+	public function setReviewText(string $newReviewText = null) {
 		//if user isn't leaving a text review, don't even bother
 		if($newReviewText === null) {
 			return;
@@ -262,8 +262,9 @@ class Review implements \JsonSerializable {
 		//verify that the review text is valid and/or secure
 		$newReviewText = trim($newReviewText);
 		$newReviewText = filter_var($newReviewText, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-		if(empty($newReviewText) === true){
-		throw(new \InvalidArgumentException("Review is empty or is insecure"));}
+		if(empty($newReviewText) === true) {
+			throw(new \InvalidArgumentException("Review is empty or is insecure"));
+		}
 
 		//verify that the text of the review will fit in the database
 		if(strlen($newReviewText) > 2000) {
@@ -383,6 +384,119 @@ class Review implements \JsonSerializable {
 		}
 		return ($review);
 	}
+	
+	/** get the review by beerId
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @param int $reviewBeerId the reviewBeerId to search for
+	 * @return Review|null either the review, or null if not found
+	 * @throws \PDOException when mySQL related errors are found
+	 * @throws \TypeError when variables are not the correct data type
+	 */
+	public static function getReviewByBeerId(\PDO $pdo, int $reviewBeerId) {
+		//sanitize the beerId before searching
+		if($reviewBeerId <= 0) {
+			throw(new \PDOException ("beer id is not positive"));
+		}
+
+		//create query template
+		$query = "SELECT reviewId, reviewBeerId, reviewUserId, reviewDate, reviewPintRating, reviewText FROM review WHERE reviewBeerId = :reviewBeerId";
+		$statement = $pdo->prepare($query);
+
+		//bind the beer id to the place holder in the template
+		$parameters = array("reviewBeerId" => $reviewBeerId);
+		$statement->execute($parameters);
+
+		//grab the review from mySQL
+		try {
+			$review = null;
+			$statement->setFetchMode(\PDO::FETCH_ASSOC);
+			$row = $statement->fetch();
+			if($row !== false) {
+				$review = new Review($row["reviewId"], $row["reviewBeerId"], $row["reviewUserId"], $row["reviewDate"], $row["reviewPintRating"], $row["reviewText"]);
+			}
+		} catch(\Exception $exception) {
+			//if the row couldn't be converted rethrow it
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
+		}
+		return ($review);
+	}
+
+	
+	//TODO get review by user id
+	/** get the review by userId
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @param int $reviewUserId the reviewUserId to search for
+	 * @return Review|null either the review, or null if not found
+	 * @throws \PDOException when mySQL related errors are found
+	 * @throws \TypeError when variables are not the correct data type
+	 */
+	public static function getReviewByUserId(\PDO $pdo, int $reviewUserId) {
+		//sanitize the beerId before searching
+		if($reviewUserId <= 0) {
+			throw(new \PDOException ("beer id is not positive"));
+		}
+
+		//create query template
+		$query = "SELECT reviewId, reviewBeerId, reviewUserId, reviewDate, reviewPintRating, reviewText FROM review WHERE reviewUserId = :reviewUserId";
+		$statement = $pdo->prepare($query);
+
+		//bind the user id to the place holder in the template
+		$parameters = array("reviewUserId" => $reviewUserId);
+		$statement->execute($parameters);
+
+		//grab the review from mySQL
+		try {
+			$review = null;
+			$statement->setFetchMode(\PDO::FETCH_ASSOC);
+			$row = $statement->fetch();
+			if($row !== false) {
+				$review = new Review($row["reviewId"], $row["reviewBeerId"], $row["reviewUserId"], $row["reviewDate"], $row["reviewPintRating"], $row["reviewText"]);
+			}
+		} catch(\Exception $exception) {
+			//if the row couldn't be converted rethrow it
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
+		}
+		return ($review);
+	}
+	
+	/** get the review by breweryId
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @param int $breweryId the breweryId to search for
+	 * @return Review|null either the review, or null if not found
+	 * @throws \PDOException when mySQL related errors are found
+	 * @throws \TypeError when variables are not the correct data type
+	 */
+	public static function getReviewByBreweryId(\PDO $pdo, int $breweryId) {
+		//sanitize the breweryId before searching
+		if($breweryId <= 0) {
+			throw(new \PDOException ("brewery id is not positive"));
+		}
+
+		//create query template
+		$query = "SELECT reviewId, reviewBeerId, reviewUserId, reviewDate, reviewPintRating, reviewText, breweryId FROM review INNER JOIN beer ON review.reviewBeerId = beer.beerId INNER JOIN brewery ON beer.beerBreweryId = brewery.breweryId";
+		$statement = $pdo->prepare($query);
+
+		//bind the brewery id to the place holder in the template
+		$parameters = array("breweryId" => $breweryId);
+		$statement->execute($parameters);
+
+		//grab the review from mySQL
+		try {
+			$review = null;
+			$statement->setFetchMode(\PDO::FETCH_ASSOC);
+			$row = $statement->fetch();
+			if($row !== false) {
+				$review = new Review($row["reviewId"], $row["reviewBeerId"], $row["reviewUserId"], $row["reviewDate"], $row["reviewPintRating"], $row["reviewText"]);
+			}
+		} catch(\Exception $exception) {
+			//if the row couldn't be converted rethrow it
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
+		}
+		return ($review);
+	}
 
 	/**
 	 * get review by pint rating
@@ -423,36 +537,7 @@ class Review implements \JsonSerializable {
 		}
 		return ($reviews);
 	}
-
-	/**
-	 * get all the reviews
-	 *
-	 * @param \PDO $pdo PDO connection object
-	 * @return \SplFixedArray SplFixedArray of reviews found
-	 * @throws \PDOException when mySQL related errors occur
-	 * @throws \TypeError when the variables are not of the correct data type
-	 */
-	public static function getAllReviews(\PDO $pdo) {
-		//create query template
-		$query = "SELECT reviewId, reviewBeerId, reviewUserId, reviewDate, reviewPintRating, reviewText FROM review";
-		$statement = $pdo->prepare($query);
-		$statement->execute();
-
-		//build an array of reviews
-		$reviews = new \SplFixedArray($statement->rowCount());
-		$statement->setFetchMode(\PDO::FETCH_ASSOC);
-		while(($row = $statement->fetch()) !== false) {
-			try {
-				$review = new Review($row["reviewId"], $row["reviewBeerId"], $row["reviewUserId"], $row["reviewDate"], $row["reviewPintRating"], $row["reviewText"]);
-				$reviews[$reviews->key()] = $review;
-				$reviews->next();
-			} catch(\Exception $exception) {
-				//if the row couldn't be converted, rethrow it
-				throw(new \PDOException($exception->getMessage(), 0, $exception));
-			}
-		}
-		return ($reviews);
-	}
+	
 
 //jsonSerialize
 	public function jsonSerialize() {
