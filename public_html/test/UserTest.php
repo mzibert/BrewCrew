@@ -23,7 +23,7 @@ class UserTest extends BrewCrewTest {
 	 */
 	protected $VALID_EMAIL = "PHPUnit test passing";
 
-	protected $VALID_EMAIL2 = "PHPUnit test passing again";
+	protected $VALID_EMAIL3 = "PHPUnit test passing again";
 	/**
 	 * user
 	 * @var string $VALID_USER2
