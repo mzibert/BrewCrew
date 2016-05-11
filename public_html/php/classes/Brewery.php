@@ -75,7 +75,7 @@ class Brewery implements JsonSerializable {
 	 * @throws \TypeError if data types violate type hints
 	 * @throws \Exception if some other exception occurs
 		 */
-	public function __construct(int $breweryId, string $breweryDescription, year $breweryEstDate, string $breweryHours, string $breweryLocation, string $breweryName, string $breweryPhone, string $breweryUrl) {
+	public function __construct(int $breweryId, string $breweryDescription, $breweryEstDate, string $breweryHours, string $breweryLocation, string $breweryName, string $breweryPhone, string $breweryUrl) {
 		try {
 			$this->setBreweryId($breweryId);
 			$this->setBreweryDescription($breweryDescription);
@@ -437,27 +437,27 @@ class Brewery implements JsonSerializable {
 		return ($brewery);
 	}
 
-	/** Gets the brewery by description
+	/** Gets the brewery by location
 	 *
 	 * @param \PDO $pdo PDO connection object
-	 * @param $breweryDescription description of brewery to search for
+	 * @param $breweryLocation location of brewery to search for
 	 * @param \SplFixedArray of breweries found
 	 * @throws \PDOException when mySQL-related errors occur
 	 **/
-	public static function getBrewerybyBreweryDescription(\PDO &$pdo, $breweryDescription) {
-		// sanitize the brewery description before searching
-		$breweryDescription = trim($breweryDescription);
-		$breweryDescription = filter_var($breweryDescription, FILTER_SANITIZE_STRING);
-		if(empty($breweryDescription) === true) {
-			throw (new \PDOException("Brewery description is invalid"));
+	public static function getBrewerybyBreweryLocation(\PDO &$pdo, $breweryLocation) {
+		// sanitize the brewery location before searching
+		$breweryLocation = trim($breweryLocation);
+		$breweryLocation = filter_var($breweryLocation, FILTER_SANITIZE_STRING);
+		if(empty($breweryLocation) === true) {
+			throw (new \PDOException("Brewery location is invalid"));
 		}
 		// Create query template
-		$query = "SELECT breweryId, breweryDescription, breweryEstDate, breweryHours, breweryLocation, breweryName, breweryPhone, breweryUrl FROM brewery WHERE breweryDescription LIKE :breweryDescription";
+		$query = "SELECT breweryId, breweryDescription, breweryEstDate, breweryHours, breweryLocation, breweryName, breweryPhone, breweryUrl FROM brewery WHERE breweryLocation LIKE :breweryLocation";
 		$statement = $pdo->prepare($query);
 
 		// Bind the placeholder in the template
-		$breweryDescription = "%breweryDescription%";
-		$parameters = array("breweryDescription" => $breweryDescription);
+		$breweryLocation = "%breweryLocation%";
+		$parameters = array("breweryLocation" => $breweryLocation);
 		$statement = $pdo->execute($parameters);
 
 		// Grab the breweries from mySQL
@@ -465,11 +465,11 @@ class Brewery implements JsonSerializable {
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 		while(($row = $statement->fetch()) !== false) {
 			try {
-				$breweryDescription = null;
+				$breweryLocation = null;
 				$statement = setFetchMode(PDO::FETCH_ASSOC);
 				$row = $statement->fetch();
 				if($row !== false) {
-					$breweryDescription = new Brewery($row["breweryId"], $row["breweryDescription"], $row["breweryEstDate"], $row["breweryHours"], $row["breweryLocation"], $row["breweryName"], $row["breweryPhone"], $row["breweryUrl"]);
+					$breweryLocation = new Brewery($row["breweryId"], $row["breweryDescription"], $row["breweryEstDate"], $row["breweryHours"], $row["breweryLocation"], $row["breweryName"], $row["breweryPhone"], $row["breweryUrl"]);
 				}
 			} catch(\Exception $exception) {
 				// If the row couldn't be converted, rethrow it

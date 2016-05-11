@@ -168,6 +168,8 @@ class BreweryTest extends BrewCrewTest {
 		$this->assertSame($numRows, $this->getConnection()->getRowCount("brewery"));
 	}
 
+}
+
 
 
 
