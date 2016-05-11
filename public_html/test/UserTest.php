@@ -132,7 +132,7 @@ class UserTest extends BrewCrewTest {
 		$User->update($this->getPDO());
 
 
-		// grab the data from mySQL and enforce the fields match our expectations
+		// grab the data from mySQL and enforce the fields match
 
 		$pdoUser = User::getUserByUserId($this->getPDO(), $User->getUserId());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("user"));
@@ -149,6 +149,62 @@ class UserTest extends BrewCrewTest {
 
 
 	}
+	/**
+	 *
+	 * test updating a User that does not exist
+	 *
+	 **/
+	public function testUpdateInvalidUser() {
+		// create a User and try to update it without actually inserting it
+		$User = new User(null, $this->VALID_ACCESSLEVEL, $this->VALID_ACTIVATIONTOKEN, $this->VALID_DATEOFBIRTH, $this->VALID_EMAIL, $this->VALID_FIRSTNAME, $this->hash, $this->VALID_LASTNAME, $this->salt, $this->VALID_USERUSERNAME);
+		$User->insert($this->getPDO());
 
-
+	}
+	/**
+	 * test creating a User and then deleting it
+	 **/
+	public function testDeleteValidUser() {
+		// count the number of rows and save it for later
+		$numRows = $this->getConnection()->getRowCount("user");
+		// create a new User and insert to into mySQL
+		$User = new User(null, $this->VALID_ACCESSLEVEL, $this->VALID_ACTIVATIONTOKEN, $this->VALID_DATEOFBIRTH, $this->VALID_EMAIL, $this->VALID_FIRSTNAME, $this->hash, $this->VALID_LASTNAME, $this->salt, $this->VALID_USERUSERNAME);
+		$User->insert($this->getPDO());
+		// delete the User from mySQL
+		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("user"));
+		$User->delete($this->getPDO());
+		// grab the data from mySQL and enforce the User does not exist
+		$pdoUser = User::getUserByUserId($this->getPDO(), $User->getUserId());
+		$this->assertNull($pdoUser);
+		$this->assertSame($numRows, $this->getConnection()->getRowCount("user"));
+	}
+	/**
+	 * test deleting a User that does not exist
+	 *
+	 * @expectedException PDOException
+	 **/
+	public function testDeleteInvalidUser() {
+		// create a User and try to delete it without actually inserting it
+		$User = new User(null, $this->VALID_ACCESSLEVEL, $this->VALID_ACTIVATIONTOKEN, $this->VALID_DATEOFBIRTH, $this->VALID_EMAIL, $this->VALID_FIRSTNAME, $this->hash, $this->VALID_LASTNAME, $this->salt, $this->VALID_USERUSERNAME);
+		$User->delete($this->getPDO());
+	}
+	/**
+	 * test inserting a User and regrabbing it from mySQL
+	 **/
+	public function testGetValidUserByUserId() {
+		// count the number of rows and save it for later
+		$numRows = $this->getConnection()->getRowCount("user");
+		// create a new user and insert to into mySQL
+		$User = new User(null, $this->VALID_ACCESSLEVEL, $this->VALID_ACTIVATIONTOKEN, $this->VALID_DATEOFBIRTH, $this->VALID_EMAIL, $this->VALID_FIRSTNAME, $this->hash, $this->VALID_LASTNAME, $this->salt, $this->VALID_USERUSERNAME);
+		$User->insert($this->getPDO());
+		// grab the data from mySQL and enforce the fields match
+		$this->assertSame($pdoUser->getUserAccessLevel(), $this->VALID_ACCESSLEVEL);
+		$this->assertSame($pdoUser->getUserActivationToken(), $this->VALID_ACTIVATIONTOKEN);
+		$this->assertSame($pdoUser->getUserDateOfBirth(), $this->VALID_DATEOFBIRTH);
+		$this->assertSame($pdoUser->getUserEmail(), $this->VALID_EMAIL);
+		$this->assertSame($pdoUser->getUserFirstName(), $this->VALID_FIRSTNAME);
+		$this->assertSame($pdoUser->getUserHash(), $this->hash);
+		$this->assertSame($pdoUser->getUserLastName(), $this->VALID_LASTNAME);
+		$this->assertSame($pdoUser->getUserSalt(), $this->salt);
+		$this->assertSame($pdoUser->getUserUsername(), $this->VALID_USERUSERNAME);
+	}
 }
