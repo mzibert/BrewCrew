@@ -422,8 +422,7 @@ class Review implements \JsonSerializable {
 		return ($review);
 	}
 
-	
-	//TODO get review by user id
+
 	/** get the review by userId
 	 *
 	 * @param \PDO $pdo PDO connection object
@@ -476,7 +475,10 @@ class Review implements \JsonSerializable {
 		}
 
 		//create query template
-		$query = "SELECT reviewId, reviewBeerId, reviewUserId, reviewDate, reviewPintRating, reviewText, breweryId FROM review INNER JOIN beer ON review.reviewBeerId = beer.beerId INNER JOIN brewery ON beer.beerBreweryId = brewery.breweryId";
+		$query = "SELECT reviewId, reviewBeerId, reviewUserId, reviewDate, reviewPintRating, reviewText, breweryId FROM review
+INNER JOIN beer ON review.reviewBeerId = beer.beerId 
+INNER JOIN brewery ON beer.beerBreweryId = brewery.breweryId
+WHERE breweryId = :breweryId";
 		$statement = $pdo->prepare($query);
 
 		//bind the brewery id to the place holder in the template

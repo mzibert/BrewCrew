@@ -262,7 +262,7 @@ class ReviewTest extends BrewCrewTest {
 		$this->assertNull($review);
 	}
 
-	//QUESTION not so sure about this set of tests. can you call the brewery and set invalid brewery ids here?
+	
 	/**
 	 * test grabbing a review by breweryId
 	 */
