@@ -137,11 +137,12 @@ class BreweryTest extends BrewCrewTest {
 		$this->assertEquals($pdoBrewery->getBreweryPhone(), $this->VALID_BREWERY_PHONE);
 		$this->assertEquals($pdoBrewery->getBreweryUrl(), $this->VALID_BREWERY_URL);
 	}
-	/** Test updating a Brewery that does not exist
+	/**
+	 * Test updating a Brewery that does not exist
 	 *
 	 * @expectedException PDOException
 	 * Again copying Skyler's work because I have no idea what this is
-	 * */
+	 **/
 	public function testUpdateInvalidBrewery() {
 		// Create a brewery and try to update it without actually inserting it
 		$brewery = new Brewery(null, $this->VALID_BREWERY_ID, $this->VALID_BREWERY_DESCRIPTION, $this->VALID_BREWERY_EST_DATE, $this->VALID_BREWERY_LOCATION, $this->VALID_BREWERY_NAME, $this->VALID_BREWERY_PHONE, $this->VALID_BREWERY_URL);
@@ -149,7 +150,7 @@ class BreweryTest extends BrewCrewTest {
 	}
 	/**
 	 * Test creating a brewery and then deleting it
-	 */
+	 **/
 	public function testDeleteValidBrewery() {
 		// Count the number of rows and save it for later
 		$numRows = $this->getConnection()->getRowCount("brewery");
@@ -167,7 +168,61 @@ class BreweryTest extends BrewCrewTest {
 		$this->assertNull($pdoBrewery);
 		$this->assertSame($numRows, $this->getConnection()->getRowCount("brewery"));
 	}
+	/**
+	 * Test getting brewery by valid brewery id
+	 */
+	public function testGetBrewerybyValidBreweryId() {
+		// Count the number of rows and save this for later
+		$numRows = $this->getConnection()->getRowCount("brewery");
 
+		// Create a new brewery and insert it into mySQL
+		$brewery = new Brewery(null, $this->VALID_BREWERY_ID, $this->VALID_BREWERY_DESCRIPTION, $this->VALID_BREWERY_EST_DATE, $this->VALID_BREWERY_LOCATION, $this->VALID_BREWERY_NAME, $this->VALID_BREWERY_PHONE, $this->VALID_BREWERY_URL);
+		$brewery->insert($this->getPDO());
+
+		// Grab the data from mySQL and check the fields against our expectations
+		$pdoBrewery = Brewery::getBreweryByBreweryId($this->getPDO(), $brewery->getBreweryId());
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("brewery"));
+		$this->assertLessThan($pdoBrewery->getBreweryId(), $this->getBreweryId(), 0);
+		$this->assertEquals($pdoBrewery->getBreweryId(), $this->VALID_BREWERY_ID);
+		$this->assertEquals($pdoBrewery->getBreweryDescription(), $this->VALID_BREWERY_DESCRIPTION);
+		$this->assertEquals($pdoBrewery->getBreweryEstDate(), $this->VALID_BREWERY_EST_DATE);
+		$this->assertEquals($pdoBrewery->getBreweryLocation(), $this->VALID_BREWERY_LOCATION);
+		$this->assertEquals($pdoBrewery->getBreweryName(), $this->VALID_BREWERY_NAME);
+		$this->assertEquals($pdoBrewery->getBreweryPhone(), $this->VALID_BREWERY_PHONE);
+		$this->assertEquals($pdoBrewery->getBreweryUrl(), $this->VALID_BREWERY_URL);
+	}
+	/**
+ 	 * Test getting brewery by invalid brewery id
+	 *
+	 **/
+	public function testGetBreweryByInvalidBreweryId() {
+	// Grab a brewery by invalid key
+		$brewery = Brewery::getBreweryByBreweryId($this->getPDO(), BrewCrewTest::INVALID_KEY);
+		$this->assertNull($brewery);
+	}
+	/**
+	 * Test getting brewery by location
+	 */
+	public function testGetBreweryByBreweryLocation() {
+		// Count the number of rows and save this for later
+		$numRows = $this->getConnection()->getRowCount("brewery");
+
+		// Create a new brewery and insert it into mySQL
+		$brewery = new Brewery(null, $this->VALID_BREWERY_DESCRIPTION, $this->VALID_BREWERY_EST_DATE, $this->VALID_BREWERY_LOCATION, $this->VALID_BREWERY_NAME, $this->VALID_BREWERY_PHONE, $this->VALID_BREWERY_URL);
+		$brewery->insert($this->getPDO());
+
+		// Grab the brewery by location and check it against our expectations
+		$pdoBrewery = Brewery::getBreweryByBreweryLocation($this->getPDO(), $brewery->getBreweryLocation());
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("brewery"));
+		$this->assertLessThan($pdoBrewery->getBreweryLocation(), $this->getBreweryId(), 0);
+		$this->assertEquals($pdoBrewery->getBreweryId(), $this->VALID_BREWERY_ID);
+		$this->assertEquals($pdoBrewery->getBreweryDescription(), $this->VALID_BREWERY_DESCRIPTION);
+		$this->assertEquals($pdoBrewery->getBreweryEstDate(), $this->VALID_BREWERY_EST_DATE);
+		$this->assertEquals($pdoBrewery->getBreweryLocation(), $this->VALID_BREWERY_LOCATION);
+		$this->assertEquals($pdoBrewery->getBreweryName(), $this->VALID_BREWERY_NAME);
+		$this->assertEquals($pdoBrewery->getBreweryPhone(), $this->VALID_BREWERY_PHONE);
+		$this->assertEquals($pdoBrewery->getBreweryUrl(), $this->VALID_BREWERY_URL);
+	}
 }
 
 
