@@ -173,6 +173,14 @@ class BreweryTest extends BrewCrewTest {
 		$this->assertSame($numRows, $this->getConnection()->getRowCount("brewery"));
 	}
 	/**
+	 * Test deleting a brewery that doesn't exist
+	 */
+	public function testDeleteInvalidBrewery() {
+		// Create a brewery and then try to delete it without inserting it into mySQL
+		$brewery = new Brewery(null, $this->VALID_BREWERY_DESCRIPTION, $this->VALID_BREWERY_EST_DATE, $this->VALID_BREWERY_HOURS, $this->VALID_BREWERY_LOCATION, $this->VALID_BREWERY_NAME, $this->VALID_BREWERY_PHONE, $this->VALID_BREWERY_URL);
+		$brewery->delete($this->getPDO());
+	}
+	/**
 	 * Test getting brewery by valid brewery id
 	 */
 	public function testGetBrewerybyValidBreweryId() {
