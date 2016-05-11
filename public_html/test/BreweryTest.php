@@ -89,7 +89,6 @@ class BreweryTest extends BrewCrewTest {
 		// @Link https://github.com/Skylarity/trufork/blob/master/public_html/test/restaurant-test.php
 		$pdoBrewery = Brewery::getBreweryByBreweryId($this->getPDO(), $brewery->getBreweryId());
 		$this->assertEquals($numRows +1, $this->getConnection()->getRowCount("brewery"));
-		$this->assertLessThan($pdoBrewery->getBreweryId(), $this->getBreweryId(), 0);
 		$this->assertEquals($pdoBrewery->getBreweryId(), $this->VALID_BREWERY_ID);
 		$this->assertEquals($pdoBrewery->getBreweryDescription(), $this->VALID_BREWERY_DESCRIPTION);
 		$this->assertEquals($pdoBrewery->getBreweryEstDate(), $this->VALID_BREWERY_EST_DATE);
@@ -128,7 +127,6 @@ class BreweryTest extends BrewCrewTest {
 		// @Link https://github.com/Skylarity/trufork/blob/master/public_html/test/restaurant-test.php
 		$pdoBrewery = Brewery::getBreweryByBreweryId($this->getPDO(), $brewery->getBreweryId());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("brewery"));
-		$this->assertLessThan($pdoBrewery->getBrewery->getBreweryId(), 0);
 		$this->assertEquals($pdoBrewery->getBreweryId(), $this->VALID_BREWERY_ID);
 		$this->assertEquals($pdoBrewery->getBreweryDescription(), $this->VALID_BREWERY_DESCRIPTION);
 		$this->assertEquals($pdoBrewery->getBreweryEstDate(), $this->VALID_BREWERY_EST_DATE);
@@ -182,7 +180,6 @@ class BreweryTest extends BrewCrewTest {
 		// Grab the data from mySQL and check the fields against our expectations
 		$pdoBrewery = Brewery::getBreweryByBreweryId($this->getPDO(), $brewery->getBreweryId());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("brewery"));
-		$this->assertLessThan($pdoBrewery->getBreweryId(), $this->getBreweryId(), 0);
 		$this->assertEquals($pdoBrewery->getBreweryId(), $this->VALID_BREWERY_ID);
 		$this->assertEquals($pdoBrewery->getBreweryDescription(), $this->VALID_BREWERY_DESCRIPTION);
 		$this->assertEquals($pdoBrewery->getBreweryEstDate(), $this->VALID_BREWERY_EST_DATE);
@@ -193,7 +190,6 @@ class BreweryTest extends BrewCrewTest {
 	}
 	/**
  	 * Test getting brewery by invalid brewery id
-	 *
 	 **/
 	public function testGetBreweryByInvalidBreweryId() {
 	// Grab a brewery by invalid key
@@ -214,7 +210,6 @@ class BreweryTest extends BrewCrewTest {
 		// Grab the brewery by location and check it against our expectations
 		$pdoBrewery = Brewery::getBreweryByBreweryLocation($this->getPDO(), $brewery->getBreweryLocation());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("brewery"));
-		$this->assertLessThan($pdoBrewery->getBreweryLocation(), $this->getBreweryId(), 0);
 		$this->assertEquals($pdoBrewery->getBreweryId(), $this->VALID_BREWERY_ID);
 		$this->assertEquals($pdoBrewery->getBreweryDescription(), $this->VALID_BREWERY_DESCRIPTION);
 		$this->assertEquals($pdoBrewery->getBreweryEstDate(), $this->VALID_BREWERY_EST_DATE);
@@ -222,6 +217,14 @@ class BreweryTest extends BrewCrewTest {
 		$this->assertEquals($pdoBrewery->getBreweryName(), $this->VALID_BREWERY_NAME);
 		$this->assertEquals($pdoBrewery->getBreweryPhone(), $this->VALID_BREWERY_PHONE);
 		$this->assertEquals($pdoBrewery->getBreweryUrl(), $this->VALID_BREWERY_URL);
+	}
+	/**
+	 * Test getting brewery by location that does not exist
+	 **/
+	public function testGetBreweryByInvalidLocation() {
+		// Grab a brewery by invalid location
+		$brewery = Brewery::getBreweryByInvalidLocation($this->getPDO(),"Mars");
+		$this->assertEmpty($brewery);
 	}
 }
 
