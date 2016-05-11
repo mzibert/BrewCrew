@@ -44,10 +44,16 @@ class BreweryTest extends BrewCrewTest {
 	protected $VALID_BREWERY_EST_DATE = "1985";
 
 	/**
+	 * Valid hours of a brewery
+	 * @var string $VALID_BREWERY_HOURS
+	 */
+	protected $VALID_BREWERY_HOURS = "noon to midnight";
+
+	/**
 	 * Valid address of a brewery
 	 * @var string $VALID_BREWERYLOCATION
 	 */
-	protected $VALID_BREWERY_LOCATION = "Some address";
+	protected $VALID_BREWERY_LOCATION = "Murica'";
 
 	/**
 	 * Valid name to use
@@ -65,7 +71,7 @@ class BreweryTest extends BrewCrewTest {
 	 * phone number associated with the brewery
 	 * @var string $VALID_BREWERYPHONE
 	 */
-	protected $VALID_BREWERY_PHONE = "Some phone number";
+	protected $VALID_BREWERY_PHONE = "The reject hotline. Google it.";
 
 	/**
 	 * website of the brewery
@@ -81,7 +87,7 @@ class BreweryTest extends BrewCrewTest {
 		$numRows  = $this->getConnection()->getRowCount("brewery");
 
 		// Create a new brewery and insert it into mySQL
-		$brewery = new Brewery(null, $this->VALID_BREWERY_ID, $this->VALID_BREWERY_DESCRIPTION, $this->VALID_BREWERY_EST_DATE, $this->VALID_BREWERY_LOCATION, $this->VALID_BREWERY_NAME, $this->VALID_BREWERY_PHONE, $this->VALID_BREWERY_URL);
+		$brewery = new Brewery(null, $this->VALID_BREWERY_DESCRIPTION, $this->VALID_BREWERY_EST_DATE, $this->VALID_BREWERY_HOURS, $this->VALID_BREWERY_LOCATION, $this->VALID_BREWERY_NAME, $this->VALID_BREWERY_PHONE, $this->VALID_BREWERY_URL);
 		$brewery->insert($this->getPDO());
 
 		// Grab the data from mySQL and check the fields against our expectations
@@ -115,11 +121,11 @@ class BreweryTest extends BrewCrewTest {
 		$numRows = $this->getConnection()->getRowCount("brewery");
 
 		// Create a new brewery and insert it into mySQL
-		$brewery = new Brewery(null, $this->VALID_BREWERY_ID, $this->VALID_BREWERY_DESCRIPTION, $this->VALID_BREWERY_EST_DATE, $this->VALID_BREWERY_LOCATION, $this->VALID_BREWERY_NAME, $this->VALID_BREWERY_PHONE, $this->VALID_BREWERY_URL);
+		$brewery = new Brewery(null, $this->VALID_BREWERY_DESCRIPTION, $this->VALID_BREWERY_EST_DATE, $this->VALID_BREWERY_HOURS, $this->VALID_BREWERY_LOCATION, $this->VALID_BREWERY_NAME, $this->VALID_BREWERY_PHONE, $this->VALID_BREWERY_URL);
 		$brewery->insert($this->getPDO());
 
 		// Edit the brewery and update it in mySQL
-		$brewery->setName($this->VALID_NAME2);
+		$brewery->setName($this->VALID_BREWERY_NAME2);
 		$brewery->update($this->getPDO());
 
 		// Grab the data from mySQL and enforce the fields match our expectations
@@ -143,7 +149,7 @@ class BreweryTest extends BrewCrewTest {
 	 **/
 	public function testUpdateInvalidBrewery() {
 		// Create a brewery and try to update it without actually inserting it
-		$brewery = new Brewery(null, $this->VALID_BREWERY_ID, $this->VALID_BREWERY_DESCRIPTION, $this->VALID_BREWERY_EST_DATE, $this->VALID_BREWERY_LOCATION, $this->VALID_BREWERY_NAME, $this->VALID_BREWERY_PHONE, $this->VALID_BREWERY_URL);
+		$brewery = new Brewery(null, $this->VALID_BREWERY_DESCRIPTION, $this->VALID_BREWERY_EST_DATE, $this->VALID_BREWERY_HOURS, $this->VALID_BREWERY_LOCATION, $this->VALID_BREWERY_NAME, $this->VALID_BREWERY_PHONE, $this->VALID_BREWERY_URL);
 		$brewery->update($this->getPDO());
 	}
 	/**
@@ -174,7 +180,7 @@ class BreweryTest extends BrewCrewTest {
 		$numRows = $this->getConnection()->getRowCount("brewery");
 
 		// Create a new brewery and insert it into mySQL
-		$brewery = new Brewery(null, $this->VALID_BREWERY_ID, $this->VALID_BREWERY_DESCRIPTION, $this->VALID_BREWERY_EST_DATE, $this->VALID_BREWERY_LOCATION, $this->VALID_BREWERY_NAME, $this->VALID_BREWERY_PHONE, $this->VALID_BREWERY_URL);
+		$brewery = new Brewery(null, $this->VALID_BREWERY_DESCRIPTION, $this->VALID_BREWERY_EST_DATE, $this->VALID_BREWERY_HOURS, $this->VALID_BREWERY_LOCATION, $this->VALID_BREWERY_NAME, $this->VALID_BREWERY_PHONE, $this->VALID_BREWERY_URL);
 		$brewery->insert($this->getPDO());
 
 		// Grab the data from mySQL and check the fields against our expectations
@@ -204,7 +210,7 @@ class BreweryTest extends BrewCrewTest {
 		$numRows = $this->getConnection()->getRowCount("brewery");
 
 		// Create a new brewery and insert it into mySQL
-		$brewery = new Brewery(null, $this->VALID_BREWERY_DESCRIPTION, $this->VALID_BREWERY_EST_DATE, $this->VALID_BREWERY_LOCATION, $this->VALID_BREWERY_NAME, $this->VALID_BREWERY_PHONE, $this->VALID_BREWERY_URL);
+		$brewery = new Brewery(null, $this->VALID_BREWERY_DESCRIPTION, $this->VALID_BREWERY_EST_DATE, $this->VALID_BREWERY_HOURS, $this->VALID_BREWERY_LOCATION, $this->VALID_BREWERY_NAME, $this->VALID_BREWERY_PHONE, $this->VALID_BREWERY_URL);
 		$brewery->insert($this->getPDO());
 
 		// Grab the brewery by location and check it against our expectations
@@ -227,78 +233,3 @@ class BreweryTest extends BrewCrewTest {
 		$this->assertEmpty($brewery);
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
