@@ -1,6 +1,6 @@
 <?php
 
-namespace Edu\Cnm\kmcgaughey\brewcrew;
+namespace Edu\Cnm\brewcrew;
 require_once("autoload.php");
 
 /**
