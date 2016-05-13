@@ -36,22 +36,22 @@ class UserTest extends BrewCrewTest {
 	/**
 	 * @var string $newUserEmail string containing user email
 	 */
-	protected $VALID_EMAIL = "PHPUnit test passing";
+	protected $VALID_EMAIL = "email@email.com";
 	/**
 	 * @var string $newUserEmail string containing user email
 	 */
-	protected $VALID_EMAIL2 = "PHPUnit test passing again";
+	protected $VALID_EMAIL2 = "email2@email.co ";
 
 	/**
 	 * valid firstName of userId
 	 * @var string $firstName
 	 **/
-	protected $VALID_FIRSTNAME = "PHPUnit test passing";
+	protected $VALID_FIRSTNAME = "Arlene";
 	/**
 	 * valid lastName of userId
 	 * @var string $lastName
 	 **/
-	protected $VALID_LASTNAME = "PHPUnit test passing";
+	protected $VALID_LASTNAME = "Graham";
 	/**
 	 * user
 	 * @var string userUsername
