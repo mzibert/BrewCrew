@@ -12,7 +12,6 @@ require_once("autoload.php");
  *
  */
 class ReviewTag implements \JsonSerializable {
-	use ValidateDate;
 	/**
 	 * review id for the review being linked with tags, a foreign key
 	 * @var int $reviewTagReviewId
