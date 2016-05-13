@@ -74,7 +74,7 @@ class Brewery implements \JsonSerializable {
 	 * @throws \TypeError if data types violate type hints
 	 * @throws \Exception if some other exception occurs
 		 */
-	public function __construct(int $breweryId, string $breweryDescription, $breweryEstDate, string $breweryHours, string $breweryLocation, string $breweryName, string $breweryPhone, string $breweryUrl) {
+	public function __construct(int $breweryId = null, string $breweryDescription, $breweryEstDate, string $breweryHours, string $breweryLocation, string $breweryName, string $breweryPhone, string $breweryUrl) {
 		try {
 			$this->setBreweryId($breweryId);
 			$this->setBreweryDescription($breweryDescription);
