@@ -1,5 +1,5 @@
 <?php
-namespace Edu\Cnm\mzibert\BrewCrew;
+namespace Edu\Cnm\BrewCrew;
 
 require_once("autoload.php");
 

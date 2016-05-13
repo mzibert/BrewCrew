@@ -191,7 +191,7 @@ class ReviewTest extends BrewCrewTest {
 
 	/**
 	 * test grabbing a review that doesn't exist from the database
-	 */
+	 **/
 	public function testGetInvalidReviewByReviewId() {
 		//grab a review id that exceeds maximum allowable id limit
 		$review = Review::getReviewByReviewId($this->getPDO(), BrewCrewTest::INVALID_KEY);

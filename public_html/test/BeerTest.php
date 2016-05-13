@@ -73,7 +73,7 @@ class BeerTest extends BrewCrewTest {
 		$numRows = $this->getConnection()->getRowCount("beer");
 
 		//create a new Beer and insert it into mySQL
-		$beer = new Beer(null, $this->brewery->getbeerBreweryId(), $this->VALID_BEERABV, $this->VALID_BEERIBU, $this->VALID_BEERCOLOR, $this->VALID_BEERNAME, $this->VALID_BEERSTYLE);
+		$beer = new Beer(null, $this->brewery->getbeerBreweryId(), $this->VALID_BEERABV, $this->VALID_BEERABV, $this->VALID_BEERAVAILABILITY, $this->VALID_BEERAWARDS, $this->VALID_BEERIBU, $this->VALID_BEERCOLOR, $this->VALID_BEERNAME, $this->VALID_BEERSTYLE);
 		$beer->insert($this->getPDO());
 
 		//grab the data from mySQL and enforce the fields match our expectations
@@ -209,6 +209,9 @@ class BeerTest extends BrewCrewTest {
 		//create a new beer and insert into mySQL
 		$beer = new Beer(null, $this->beer->getBeerBreweryId(), $this->VALID_BEERABV, $this->VALID_BEERAVAILABILITY, $this->VALID_BEERAWARDS, $this->VALID_BEERCOLOR, $this->VALID_BEERDESCRIPTION, $this->VALID_BEERIBU, $this->VALID_BEERNAME, $this->VALID_BEERSTYLE);
 		$beer->insert($this->getPDO());
+
+		//grab the data from mySQL and check the fields against our expectations
+		$results = Beer::getBeerByBeerBreweryId($this->getPDO(), )
 	}
 
 	/**
