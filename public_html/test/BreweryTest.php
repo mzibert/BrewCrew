@@ -110,7 +110,7 @@ class BreweryTest extends BrewCrewTest {
 	 **/
 	public function testInsertInvalidBrewery() {
 		//create a brewery with a non null brewery id and watch it fail
-		$brewery = new brewery(BrewCrewTest::INVALID_KEY, $this->Brewery->getBreweryId());
+		$brewery = new Brewery(BrewCrewTest::INVALID_KEY, $this->brewery->getBreweryId());
 		$brewery->insert($this->getPDO());
 	}
 	/**
