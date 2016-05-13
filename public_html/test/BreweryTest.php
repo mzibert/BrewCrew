@@ -71,7 +71,7 @@ class BreweryTest extends BrewCrewTest {
 	 * phone number associated with the brewery
 	 * @var string $VALID_BREWERYPHONE
 	 */
-	protected $VALID_BREWERY_PHONE = "The reject hotline. Google it.";
+	protected $VALID_BREWERY_PHONE = "773-509-5096";
 
 	/**
 	 * website of the brewery
