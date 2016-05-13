@@ -94,9 +94,8 @@ class BeerTest extends BrewCrewTest {
 	 **/
 	public function testInsertInvalidBeer() {
 		//create a beer with a non null primary key (beer id) and watch it fail
-		$beer = new Beer(BrewCrewTest::INVALID_KEY, $this->beer->getBeerId(),
-		$this->VALID_BEERABV, $this->VALID_BEERIBU, $this->VALID_BEERCOLOR, $this->VALID_BEERNAME,
-		$this->VALID_BEERSTYLE);
+		$beer = new Beer(BrewCrewTest::INVALID_KEY, $this->beer->getBeerBreweryId(),
+		$this->VALID_BEERABV, $this->VALID_BEERAVAILABILITY, $this->VALID_BEERAWARDS, $this->VALID_BEERCOLOR, $this->VALID_BEERDESCRIPTION, $this->VALID_BEERIBU, $this->VALID_BEERNAME, $this->VALID_BEERSTYLE);
 		$beer->insert($this->getPDO());
 	}
 
@@ -108,18 +107,19 @@ class BeerTest extends BrewCrewTest {
 		$numRows = $this->getConnection()->getRowCount("beer");
 
 		//create a new beer and insert it into mySQL
-		$beer = new Beer(null, $this->beerBrewery->getBeerBreweryId());
+		$beer = new Beer(null, $this->beer->getBeerBreweryId(),
+			$this->VALID_BEERABV, $this->VALID_BEERAVAILABILITY, $this->VALID_BEERAWARDS, $this->VALID_BEERCOLOR, $this->VALID_BEERDESCRIPTION, $this->VALID_BEERIBU, $this->VALID_BEERNAME, $this->VALID_BEERSTYLE);
 		$beer->insert($this->getPDO());
 
-		//edit the beer and update it in mySQL ?????????????????????????
-		//
-		//
-		//
+		//edit the beer and update it in mySQL
+		$beer->setBeerAbv($this->VALID_BEERABV2);
+		$beer->update($this->getPDO());
 
 		//grab the data from mySQL and enforce the fields match our expectations
 		$pdoBeer = Beer::getBeerByBeerId($this->getPDO(), $beer->getBeerId());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("beer"));
-		$this->asserEquals($pdoBeer->getBeerBreweryId(), $this->beerBrewery->getBeerBreweryId());
+		$this->assertEquals($pdoBeer->getBeerBreweryId(), $this->beer->getBeerBreweryId());
+		
 	}
 
 	/**
