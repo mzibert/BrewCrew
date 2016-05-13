@@ -1,7 +1,7 @@
 <?php
 namespace Edu\Cnm\BrewCrew\Test;
 // grab the project test parameters
-use Edu\Cnm\kmcgaughey\brewcrew\Brewery;
+use Edu\Cnm\BrewCrew\Brewery;
 
 require_once ("BrewCrewTest.php");
 
