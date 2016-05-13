@@ -6,7 +6,7 @@ use Edu\Cnm\BrewCrew;
 require_once ("BrewCrewTest.php");
 
 //grab the class under scrutiny--being tested
-require_once (dirname(__DIR__) . "../php/classes/autoload.php");
+require_once (dirname(__DIR__) . "/php/classes/autoload.php");
 /**
  * Full PHPUnit test for the User class
  *
