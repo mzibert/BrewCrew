@@ -9,8 +9,7 @@ require_once("autoload.php");
  * @author Kate McGaughey therealmcgaughey@gmail.com
  */
 
-class Brewery implements JsonSerializable {
-	use ValidateDate;
+class Brewery implements \JsonSerializable {
 
 	/**
 	 * ID for the brewery; this is the primary key
