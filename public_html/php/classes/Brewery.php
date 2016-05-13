@@ -158,7 +158,7 @@ class Brewery implements \JsonSerializable {
 	 * @return year year brewery was established
 	 **/
 	public function getBreweryEstDate() {
-		return ($this->getBreweryEstDate);
+		return ($this->breweryEstDate);
 	}
 
 	/** Mutator method for breweryEstDate
