@@ -248,7 +248,7 @@ class Brewery implements \JsonSerializable {
 	 * @return string name of brewery
 	 **/
 	public function getBreweryName() {
-		return ($this->BreweryName);
+		return ($this->breweryName);
 	}
 
 	/** Mutator method for brewery location
@@ -276,7 +276,7 @@ class Brewery implements \JsonSerializable {
 	 * @return string brewery phone
 	 **/
 	public function getBreweryPhone() {
-		return ($this->BreweryPhone);
+		return ($this->breweryPhone);
 	}
 
 	/** Mutator method for brewery phone
@@ -304,7 +304,7 @@ class Brewery implements \JsonSerializable {
 	 * @return string brewery website
 	 **/
 	public function getBreweryUrl() {
-		return ($this->BreweryUrl);
+		return ($this->breweryUrl);
 	}
 
 	/** Mutator method for brewery URL
