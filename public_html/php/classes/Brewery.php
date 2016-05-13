@@ -443,7 +443,7 @@ class Brewery implements \JsonSerializable {
 	 * @param \SplFixedArray of breweries found
 	 * @throws \PDOException when mySQL-related errors occur
 	 **/
-	public static function getBrewerybyBreweryLocation(\PDO &$pdo, $breweryLocation) {
+	public static function getBrewerybyBreweryLocation(\PDO $pdo, $breweryLocation) {
 		// sanitize the brewery location before searching
 		$breweryLocation = trim($breweryLocation);
 		$breweryLocation = filter_var($breweryLocation, FILTER_SANITIZE_STRING);
@@ -486,7 +486,7 @@ class Brewery implements \JsonSerializable {
 	 * @return \SplFixedArray of breweries found
 	 * @throws \PDOException when mySQL-related errors occur
 	 **/
-	public static function getBreweryByBreweryName(\PDO &$pdo, $breweryName) {
+	public static function getBreweryByBreweryName(\PDO $pdo, $breweryName) {
 		//sanitize the brewery name before searching
 		$breweryName = trim($breweryName);
 		$breweryName = filter_var($breweryName, FILTER_SANITIZE_STRING);
@@ -525,7 +525,7 @@ class Brewery implements \JsonSerializable {
 	 * @return SplFixedArray of breweries found
 	 * @throws \PDOException when mySQL related errors occur
 	 */
-	public static function getAllBreweries(PDO &$pdo) {
+	public static function getAllBreweries(PDO $pdo) {
 		// Create query template
 		$query = "SELECT breweryId, breweryDescription, breweryEstDate, breweryHours, breweryLocation, breweryName, breweryPhone, breweryUrl FROM brewery";
 		$statement = $pdo->prepare($query);
