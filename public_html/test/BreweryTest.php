@@ -53,7 +53,7 @@ class BreweryTest extends BrewCrewTest {
 	 * Valid address of a brewery
 	 * @var string $VALID_BREWERYLOCATION
 	 */
-	protected $VALID_BREWERY_LOCATION = "Murica'";
+	protected $VALID_BREWERY_LOCATION = "Murica";
 
 	/**
 	 * Valid name to use
