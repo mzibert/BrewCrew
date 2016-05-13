@@ -2,13 +2,11 @@
 	<testsuites>
 		<testsuite name="brewcrew">
 			<file>BeerTest.php</file>
-			<file>BrewCrewTest.php</file>
-			<file>BreweryTest</file>
+			<file>BreweryTest.php</file>
 			<file>ReviewTagTest.php</file>
 			<file>ReviewTest.php</file>
 			<file>TagTest.php</file> <!--Class not yet written-->
 			<file>UserTest.php</file>
-			<directory suffix = "-test.php">.</directory>
 		</testsuite>
 	</testsuites>
 	<filter>
