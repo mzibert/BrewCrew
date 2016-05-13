@@ -220,7 +220,7 @@ class Brewery implements \JsonSerializable {
 	 * @return string brewery location
 	 **/
 	public function getBreweryLocation() {
-		return ($this->BreweryLocation);
+		return ($this->breweryLocation);
 	}
 
 	/** Mutator method for brewery location
