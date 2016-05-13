@@ -40,7 +40,7 @@ class UserTest extends BrewCrewTest {
 	/**
 	 * @var string $newUserEmail string containing user email
 	 */
-	protected $VALID_EMAIL2 = "email2@email.co ";
+	protected $VALID_EMAIL2 = "email2@email.com ";
 
 	/**
 	 * valid firstName of userId
