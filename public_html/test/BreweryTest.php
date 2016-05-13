@@ -6,7 +6,7 @@ use Edu\Cnm\kmcgaughey\brewcrew\Brewery;
 require_once ("BrewCrewTest.php");
 
 // grab the class being tested
-require_once (dirname(__DIR__) . "../php/classes/autoload.php");
+require_once (dirname(__DIR__) . "/php/classes/autoload.php");
 
 /**
  * Full PHPUnit test for brewery class
