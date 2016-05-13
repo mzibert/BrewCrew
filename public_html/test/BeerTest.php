@@ -119,7 +119,14 @@ class BeerTest extends BrewCrewTest {
 		$pdoBeer = Beer::getBeerByBeerId($this->getPDO(), $beer->getBeerId());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("beer"));
 		$this->assertEquals($pdoBeer->getBeerBreweryId(), $this->beer->getBeerBreweryId());
-		
+		$this->assertEquals($pdoBeer->getBeerAbv(), $this->VALID_BEERABV);
+		$this->assertEquals($pdoBeer->getBeerAvailability(), $this->VALID_AVAILABILITY);
+		$this->assertEquals($pdoBeer->getBeerAwards(), $this->VALID_BEER_AWARDS);
+		$this->assertEquals($pdoBeer->getBeerColor(), $this->VALID_BEERCOLOR);
+		$this->assertEquals($pdoBeer->getBeerDescription(), $this->VALID_BEERDESCRIPTION);
+		$this->assertEquals($pdoBeer->getBeerIbu(), $this->VALID_BEERIBU);
+		$this->assertEquals($pdoBeer->getBeerName(), $this->VALID_BEERNAME);
+		$this->assertEquals($pdoBeer->getBeerStyle(), $this->VALID_BEERSTYLE);
 	}
 
 	/**
@@ -129,7 +136,8 @@ class BeerTest extends BrewCrewTest {
 	 **/
 	public function testUpdateInvalidBeer() {
 		//create a Beer with a non null beer id and watch it fail
-		$beer = new Beer(null, $this->beerBrewery->getBeerBreweryId());
+		$beer = new Beer(null, $this->beer->getBeerBreweryId(),
+			$this->VALID_BEERABV, $this->VALID_BEERAVAILABILITY, $this->VALID_BEERAWARDS, $this->VALID_BEERCOLOR, $this->VALID_BEERDESCRIPTION, $this->VALID_BEERIBU, $this->VALID_BEERNAME, $this->VALID_BEERSTYLE);
 		$beer->update($this->getPDO());
 	}
 
@@ -141,7 +149,8 @@ class BeerTest extends BrewCrewTest {
 		$numRows = $this->getConnection()->getRowCount("beer");
 
 		//create a new Beer and insert it into mySQL
-		$beer = new Beer(null, $this->beerBrewery->getBeerBreweryId());
+		$beer = new Beer(null, $this->beer->getBeerBreweryId(),
+			$this->VALID_BEERABV, $this->VALID_BEERAVAILABILITY, $this->VALID_BEERAWARDS, $this->VALID_BEERCOLOR, $this->VALID_BEERDESCRIPTION, $this->VALID_BEERIBU, $this->VALID_BEERNAME, $this->VALID_BEERSTYLE);
 		$beer->insert($this->getPDO());
 
 		//delete the beer from mySQL
@@ -161,7 +170,8 @@ class BeerTest extends BrewCrewTest {
 	 **/
 	public function testDeleteInvalidBeer() {
 		//create a Beer and try to delete it without actually inserting it
-		$beer = new Beer(null, $this->beerBrewery->getBeerBreweryId());
+		$beer = new Beer(null, $this->beer->getBeerBreweryId(),
+			$this->VALID_BEERABV, $this->VALID_BEERAVAILABILITY, $this->VALID_BEERAWARDS, $this->VALID_BEERCOLOR, $this->VALID_BEERDESCRIPTION, $this->VALID_BEERIBU, $this->VALID_BEERNAME, $this->VALID_BEERSTYLE);
 		$beer->delete($this->getPDO());
 	}
 
@@ -185,14 +195,21 @@ class BeerTest extends BrewCrewTest {
 	 * test grabbing a Beer that does not exist
 	 **/
 	public function testGetInvalidBeerByBeerId() {
-		//grab a grab a beerBrewery id that exceeds the maximum allowable beerBrewery id
+		//grab a beer id that exceeds the maximum allowable id limit
 		$beer = Beer::getBeerByBeerId($this->getPDO(), BrewCrewTest::INVALID_KEY);
 		$this->assertNull($beer);
 	}
 	/**
-	 * test grabbing a Tweet by tweet content
-	 * NEED HELP HERE (Top of Page 6)
+	 * test grabbing a beer by breweryId
 	 **/
+	public function testGetBeerByBreweryId(){
+		//count the number of rows and save for later
+		$numRows = $this->getConnection()->getRowCount ("beer");
+
+		//create a new beer and insert into mySQL
+		$beer = new Beer(null, $this->beer->getBeerBreweryId(), $this->VALID_BEERABV, $this->VALID_BEERAVAILABILITY, $this->VALID_BEERAWARDS, $this->VALID_BEERCOLOR, $this->VALID_BEERDESCRIPTION, $this->VALID_BEERIBU, $this->VALID_BEERNAME, $this->VALID_BEERSTYLE);
+		$beer->insert($this->getPDO());
+	}
 
 	/**
 	 * test grabbing a tweet by content that does not exist
