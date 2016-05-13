@@ -194,7 +194,7 @@ class BreweryTest extends BrewCrewTest {
 		// Grab the data from mySQL and check the fields against our expectations
 		$pdoBrewery = Brewery::getBreweryByBreweryId($this->getPDO(), $brewery->getBreweryId());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("brewery"));
-		$this->assertEquals($pdoBrewery->getBreweryId(), $this->VALID_BREWERY_ID);
+		$this->assertEquals($pdoBrewery->getBreweryId(), 0);
 		$this->assertEquals($pdoBrewery->getBreweryDescription(), $this->VALID_BREWERY_DESCRIPTION);
 		$this->assertEquals($pdoBrewery->getBreweryEstDate(), $this->VALID_BREWERY_EST_DATE);
 		$this->assertEquals($pdoBrewery->getBreweryLocation(), $this->VALID_BREWERY_LOCATION);
