@@ -1,6 +1,6 @@
 <?php
 
-namespace Edu\Cnm\brewcrew;
+namespace Edu\Cnm\BrewCrew;
 require_once("autoload.php");
 
 /**

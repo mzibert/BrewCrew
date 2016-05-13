@@ -13,7 +13,7 @@ require_once (dirname(__DIR__) . "/php/classes/autoload.php");
  *
  * This is a complete PHPUnit test of the brewery class.
  *
- * @see \Edu\Cnm\BREWCREW\Brewery
+ * @see \Edu\Cnm\BrewCrew\Brewery
  * @author Kate McGaughey therealmcgaughey@gmail.com
  *
  */
