@@ -65,7 +65,7 @@ class ReviewTagTest extends BrewCrewTest {
 		$this->beer->insert($this->getPDO());
 
 		//create and insert a user that owns the review
-		$this->user = new User(null, null, 0, "token", '1980-01-01', "anon@test.com", "John", "d3f5cd178c01bff44f6be00eb0d5d0a0cb3d5275a641fa11e41739ae1ed7c717d9c0cbf08912836d63715c1e5116df38b505c72f762a737a88d964e435dc78a1", "Smith", "cfad559b8d496bac9af4dbfc0bf5ebdd", "beerfan4lyfe");
+		$this->user = new User(null, null, 0, "token", '1980-01-01', "anon@test.com", "John", $hash, "Smith", $salt, "beerfan4lyfe");
 		$this->user->insert($this->getPDO());
 
 		//create a review for the tags to be associated with
