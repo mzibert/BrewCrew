@@ -64,6 +64,11 @@ class ReviewTagTest extends BrewCrewTest {
 		$this->beer = new Beer(null, $this->brewery->getBreweryId, 10.5, "available whenever we like it to be", "lots of awards we don't care to name", .5, "something something about the taste.", "50", "Teh Awesome Beer", "Lager");
 		$this->beer->insert($this->getPDO());
 
+		//salt and hash generation
+		$password = "hunter2";
+		$salt = bin2hex(random_bytes(16));
+		$hash = hash_pbkdf2("sha512", $password, $salt, 262144);
+
 		//create and insert a user that owns the review
 		$this->user = new User(null, null, 0, "token", '1980-01-01', "anon@test.com", "John", $hash, "Smith", $salt, "beerfan4lyfe");
 		$this->user->insert($this->getPDO());
