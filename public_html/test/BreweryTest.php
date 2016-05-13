@@ -197,6 +197,7 @@ class BreweryTest extends BrewCrewTest {
 		$this->assertLessThan($pdoBrewery->getBreweryId(), 0);
 		$this->assertEquals($pdoBrewery->getBreweryDescription(), $this->VALID_BREWERY_DESCRIPTION);
 		$this->assertEquals($pdoBrewery->getBreweryEstDate(), $this->VALID_BREWERY_EST_DATE);
+		$this->assertEquals($pdoBrewery->getBreweryLocation(), $this->VALID_BREWERY_LOCATION);
 		$this->assertEquals($pdoBrewery->getBreweryName(), $this->VALID_BREWERY_NAME);
 		$this->assertEquals($pdoBrewery->getBreweryPhone(), $this->VALID_BREWERY_PHONE);
 		$this->assertEquals($pdoBrewery->getBreweryUrl(), $this->VALID_BREWERY_URL);
