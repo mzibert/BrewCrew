@@ -335,7 +335,7 @@ class Brewery implements \JsonSerializable {
 	 * @throws \PDOException when mySQL-related errors occur
 	 * @throws \TypeError if $pdo is not a PDO connection object
 	 **/
-	public function insert(\PDO &$pdo) {
+	public function insert(\PDO $pdo) {
 		// Make sure this is a new brewery
 		if($this->breweryId !== null) {
 			throw(new \PDOException("Not a new brewery"));
