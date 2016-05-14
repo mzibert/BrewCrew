@@ -125,7 +125,7 @@ class BreweryTest extends BrewCrewTest {
 		$brewery->insert($this->getPDO());
 
 		// Edit the brewery and update it in mySQL
-		$brewery->setName($this->VALID_BREWERY_NAME2);
+		$brewery->setBreweryName($this->VALID_BREWERY_NAME2);
 		$brewery->update($this->getPDO());
 
 		// Grab the data from mySQL and enforce the fields match our expectations
