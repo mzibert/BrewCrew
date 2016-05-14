@@ -174,6 +174,8 @@ class BreweryTest extends BrewCrewTest {
 	}
 	/**
 	 * Test deleting a brewery that doesn't exist
+	 *
+	 * @expectedException \PDOException
 	 */
 	public function testDeleteInvalidBrewery() {
 		// Create a brewery and then try to delete it without inserting it into mySQL
