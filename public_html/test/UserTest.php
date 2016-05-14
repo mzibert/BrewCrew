@@ -73,8 +73,6 @@ class UserTest extends BrewCrewTest {
 		//create and insert a Brewery to own the test user
 		$this->brewery = new Brewery(null, "brewery description", "2016", "7am - 11pm", "location", "Marble Brewery", "15055551212", "Marble@Marble.com");
 		$this->brewery->insert($this->getPDO());
-		$this->VALID_EMAIL = new \User();
-
 	}
 
 	//test inserting a valid USER and verify that it matches the mySQL data
