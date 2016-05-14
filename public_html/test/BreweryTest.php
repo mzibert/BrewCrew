@@ -160,11 +160,11 @@ class BreweryTest extends BrewCrewTest {
 		$numRows = $this->getConnection()->getRowCount("brewery");
 
 		// Create a new brewery and insert it into mySQL
-		$brewery = new Brewery(null, $this->VALID_BREWERY_ID, $this->VALID_BREWERY_DESCRIPTION, $this->VALID_BREWERY_EST_DATE, $this->VALID_BREWERY_LOCATION, $this->VALID_BREWERY_NAME, $this->VALID_BREWERY_PHONE, $this->VALID_BREWERY_URL);
+		$brewery = new Brewery(null, $this->VALID_BREWERY_DESCRIPTION, $this->VALID_BREWERY_EST_DATE, $this->VALID_BREWERY_HOURS, $this->VALID_BREWERY_LOCATION, $this->VALID_BREWERY_NAME, $this->VALID_BREWERY_PHONE, $this->VALID_BREWERY_URL);
 		$brewery->insert($this->getPDO());
 
 		// Delete the brewery from mySQL
-		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("brewery"));
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("brewery"));
 		$brewery->delete($this->getPDO());
 
 		// Grab the data from MySQL and enforce the brewery does not exist
