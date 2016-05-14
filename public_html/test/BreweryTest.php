@@ -95,7 +95,7 @@ class BreweryTest extends BrewCrewTest {
 		// @Link https://github.com/Skylarity/trufork/blob/master/public_html/test/restaurant-test.php
 		$pdoBrewery = Brewery::getBreweryByBreweryId($this->getPDO(), $brewery->getBreweryId());
 		$this->assertEquals($numRows +1, $this->getConnection()->getRowCount("brewery"));
-		$this->assertLessThan($pdoBrewery->getBreweryByBreweryId(), 0);
+		// $this->assertEquals($pdoBrewery->getBreweryByBreweryId(), 0);
 		$this->assertEquals($pdoBrewery->getBreweryDescription(), $this->VALID_BREWERY_DESCRIPTION);
 		$this->assertEquals($pdoBrewery->getBreweryEstDate(), $this->VALID_BREWERY_EST_DATE);
 		$this->assertEquals($pdoBrewery->getBreweryLocation(), $this->VALID_BREWERY_LOCATION);
