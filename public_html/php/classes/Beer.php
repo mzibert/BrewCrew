@@ -62,7 +62,7 @@ class Beer {
 	 * @throws \TypeError if data types violate type hints
 	 * @throws \Exception if some other exception occurs
 	 **/
-	public function __construct(int $newBeerId, int $newBeerBreweryId, float $newBeerAbv, string $newBeerAvailability, string $newBeerAwards, float $newBeerColor, string $newBeerDescription, string $newBeerIbu, string $newBeerName, string $newBeerStyle) {
+	public function __construct(int $newBeerId = null, int $newBeerBreweryId, float $newBeerAbv, string $newBeerAvailability, string $newBeerAwards, float $newBeerColor, string $newBeerDescription, string $newBeerIbu, string $newBeerName, string $newBeerStyle) {
 		try {
 			$this->setBeerId($newBeerId);
 			$this->setBeerBreweryId($newBeerBreweryId);
@@ -103,14 +103,16 @@ class Beer {
 	/**
 	 *mutator method for beer id
 	 *
-	 * @param int $newBeerId new value of beer id
+	 * @param int|null $newBeerId new value of beer id
 	 * @throws \RangeException if $newbeerId is not positive
 	 * @throws \TypeError if $newBeerId is not an integer
 	 **/
-	public function setBeerId($newBeerId) {
-		//verify the profile id is positive
-		if($newBeerId <= 0) {
-			throw (new \RangeException("beer id is not positive"));
+	public function setBeerId(int $newBeerId = null) {
+		//when this is null, this is a new beer with no sql id yet
+		if($newBeerId === 0) {
+			$this->beerId = null;
+			return;
+
 		}
 		//convert and store the beer id
 		$this->beerId = $newBeerId;
