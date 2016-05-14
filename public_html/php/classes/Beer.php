@@ -94,6 +94,7 @@ class Beer {
 
 	/**
 	 * accessor method for beer id
+	 *
 	 * @return int value of beer id
 	 **/
 	public function getBeerId() {
@@ -109,10 +110,13 @@ class Beer {
 	 **/
 	public function setBeerId(int $newBeerId = null) {
 		//when this is null, this is a new beer with no sql id yet
-		if($newBeerId === 0) {
+		if($newBeerId === null) {
 			$this->beerId = null;
 			return;
-
+		}
+		// verify the beer id is a positive number
+		if($newBeerId <= 0){
+			throw (new \RangeException("beer Id is not a positive number"));
 		}
 		//convert and store the beer id
 		$this->beerId = $newBeerId;
