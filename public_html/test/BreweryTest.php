@@ -225,14 +225,6 @@ class BreweryTest extends BrewCrewTest {
 
 		// Grab the brewery by location and check it against our expectations
 		$pdoBrewery = Brewery::getBreweryByBreweryLocation($this->getPDO(), $brewery->getBreweryLocation());
-		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("brewery"));
-		$this->assertEquals($pdoBrewery->getBreweryId(), $this->VALID_BREWERY_ID);
-		$this->assertEquals($pdoBrewery->getBreweryDescription(), $this->VALID_BREWERY_DESCRIPTION);
-		$this->assertEquals($pdoBrewery->getBreweryEstDate(), $this->VALID_BREWERY_EST_DATE);
-		$this->assertEquals($pdoBrewery->getBreweryLocation(), $this->VALID_BREWERY_LOCATION);
-		$this->assertEquals($pdoBrewery->getBreweryName(), $this->VALID_BREWERY_NAME);
-		$this->assertEquals($pdoBrewery->getBreweryPhone(), $this->VALID_BREWERY_PHONE);
-		$this->assertEquals($pdoBrewery->getBreweryUrl(), $this->VALID_BREWERY_URL);
 	}
 	/**
 	 * Test getting brewery by location that does not exist
