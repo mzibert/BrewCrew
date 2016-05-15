@@ -29,6 +29,26 @@ class BeerTest extends BrewCrewTest {
 	 **/
 	protected $VALID_BEERABV2 = "2";
 	/**
+	 * the indication of when beer is available
+	 * @var string $VALID_BEERAVAILABILITY
+	 **/
+	protected $VALID_BEERAVAILABILITY = "year round";
+	/**
+	 * all of the awards a beer has earned
+	 * @var string $VALID_BEERAWARDS
+	 **/
+	protected $VAILID_BEERAWARDS = "BEST of Albuquerque 2016";
+	/**
+	 * color of the beer
+	 * @var string $VALID_BEERCOLOR
+	 **/
+	protected $VALID_BEERCOLOR = ".75";
+	/**
+	 * Detailed description of the beer
+	 * @var string $VALID_BEERDESCRIPTION
+	 **/
+	protected $VALID_BEERDESCRIPTION = "this beer is served mit hefe with a voluminous white head. The aroma is everything we love in the style; clove, banana and vanilla. The body is rich and creamy, yet finishes fairly dry and is as refreshing as any beer you’ll drink here or anywhere else.";
+	/**
 	 * the amount of ibu a beer contains
 	 * @var string $VALID_BEERIBU
 	 **/
@@ -38,11 +58,6 @@ class BeerTest extends BrewCrewTest {
 	 * @var string $VALID_BEERIBU
 	 **/
 	protected $VALID_BEERIBU2 = "55";
-	/**
-	 * color of the beer
-	 * @var string $VALID_BEERCOLOR
-	 **/
-	protected $VALID_BEERCOLOR = ".75";
 	/**
 	 * name of the beer
 	 * @var string $VALID_BEERNAME
@@ -222,7 +237,7 @@ class BeerTest extends BrewCrewTest {
 		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\BrewCrew\\Beer", $results);
 
 		//grab the result from the resulting array and validate it
-		$pdoReview = $results[0];
+		$pdoBeer = $results[0];
 		$this->assertEquals($pdoBeer->getBeerBreweryId(), $this->beer->getBeerBreweryId());
 		$this->assertEquals($pdoBeer->getBeerIbu(), $this->beer->getBeerIbu());
 		$this->assertEquals($pdoBeer->getBeerColor(), $this->VALID_BEERCOLOR);
@@ -256,7 +271,7 @@ class BeerTest extends BrewCrewTest {
 		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\BrewCrew\\Beer", $results);
 
 		//grab the result from the resulting array and validate it
-		$pdoReview = $results[0];
+		$pdoBeer = $results[0];
 		$this->assertEquals($pdoBeer->getBeerBreweryId(), $this->beer->getBeerBreweryId());
 		$this->assertEquals($pdoBeer->getBeerIbu(), $this->VALID_BEERIBU);
 		$this->assertEquals($pdoBeer->getBeerColor(), $this->VALID_BEERCOLOR);
@@ -291,7 +306,7 @@ class BeerTest extends BrewCrewTest {
 		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\BrewCrew\\Beer", $results);
 
 		//grab the result from the resulting array and validate it
-		$pdoReview = $results[0];
+		$pdoBeer = $results[0];
 		$this->assertEquals($pdoBeer->getBeerBreweryId(), $this->beer->getBeerBreweryId());
 		$this->assertEquals($pdoBeer->getBeerIbu(), $this->VALID_BEERIBU);
 		$this->assertEquals($pdoBeer->getBeerColor(), $this->VALID_BEERCOLOR);
@@ -307,38 +322,6 @@ class BeerTest extends BrewCrewTest {
 		$this->assertCount(0, $beer);
 	}
 	/**
-	 * test grabbing a beer by beer color
-	 **/
-	public function testGetBeerByBeerColor() {
-		//count the number of rows and save this for later
-		$numRows = $this->getConnection()->getRowCount("beer");
-
-		//create a new beer and insert it into mySQL
-		$beer = new Beer(null, $this->beer->getBeerBreweryId(), $this->VALID_BEERIBU, $this->VALID_BEERCOLOR, $this->VALID_BEERNAME, $this->VALID_BEERSTYLE);
-		$beer->insert($this->getPDO());
-
-		//grab the data from mySQL and check the fields against our expectations
-		$results = Beer::getBeerByBeerColor($this->getPDO(), $beer->getBeerColor());
-		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("beer"));
-		$this->assertCount(1, $results);
-		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\BrewCrew\\Beer", $results);
-
-		//grab the result from the resulting array and validate it
-		$pdoReview = $results[0];
-		$this->assertEquals($pdoBeer->getBeerBreweryId(), $this->beer->getBeerBreweryId());
-		$this->assertEquals($pdoBeer->getBeerIbu(), $this->VALID_BEERIBU);
-		$this->assertEquals($pdoBeer->getBeerColor(), $this->VALID_BEERCOLOR);
-		$this->assertEquals($pdoBeer->getBeerName(), $this->VALID_BEERNAME);
-		$this->assertEquals($pdoBeer->getBeerStyle(), $this->VALID_BEERSTYLE);
-	}
-	/**
-	 * test grabbing a beer by beer color that doesn't exist
-	 */
-	public function testGetInvalidBeerByBeerColor() {
-		//grab a beer by looking for beers with no applicable beer color
-		$beer = Beer::getBeerByBeerColor($this->getPDO(), "light amber");
-		$this->assertCount(0, $beer);
-	}/**
  * test grabbing a beer by beer style
  **/
 	public function testGetBeerByBeerStyle() {
@@ -356,7 +339,7 @@ class BeerTest extends BrewCrewTest {
 		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\BrewCrew\\Beer", $results);
 
 		//grab the result from the resulting array and validate it
-		$pdoReview = $results[0];
+		$pdoBeer = $results[0];
 		$this->assertEquals($pdoBeer->getBeerBreweryId(), $this->beer->getBeerBreweryId());
 		$this->assertEquals($pdoBeer->getBeerIbu(), $this->VALID_BEERIBU);
 		$this->assertEquals($pdoBeer->getBeerColor(), $this->VALID_BEERCOLOR);
