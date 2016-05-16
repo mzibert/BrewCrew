@@ -14,38 +14,47 @@ class Beer {
 	 * @var int $beerId
 	 **/
 	private $beerId;
+	
 	/** Id of the brewery that has this beer; this is the foreign key
 	 * @var int $beerBreweryId
 	 **/
 	private $beerBreweryId;
+	
 	/** Actual percentage measurement for value of alcohol by volume
 	 * @var float $beerAbv
 	 **/
 	private $beerAbv;
+	
 	/** string provided by the API to inform if and when beer is available
 	 * @var string $beerAvailability
 	 **/
 	private $beerAvailability;
+	
 	/** text field provided by the API to reflect any awards the beer has earned
 	 * @var string $beerAwards
 	 **/
 	private $beerAwards;
+	
 	/** Decimal number created on a scale from 0 to 1 to reflect beer color on a scale from 0 being darkest to 1 being lightest
 	 * @var float $beerColor
 	 **/
 	private $beerColor;
+	
 	/** string of open text taken from the API used to describe the beer
 	 * @var string $beerDescription
 	 **/
 	private $beerDescription;
+	
 	/** string usually numbers used to evaluate the quantitative value designated to the measurement of bitterness in beer.  Lower values less bitter, higher values more bitter.  However, some brewery use creative text descriptions instead
 	 * @var string $beerIbu
 	 **/
 	private $beerIbu;
+	
 	/** string of open text for the name of the beer
 	 * @var string $beerName
 	 **/
 	private $beerName;
+	
 	/** string used to capture the industry standard style label of the beer
 	 * @var string
 	 **/
@@ -389,7 +398,7 @@ class Beer {
 			throw (new \PDOException("not a new beer"));
 		}
 		//create query template
-		$query = "INSERT INTO Beer(beerBreweryId, beerAbv, beerAvailability, beerAwards, beerColor, beerDescription, beerIbu, beerName, beerStyle) VALUES (:beerBreweryID, :beerAbv, :beerAvailability, :beerAwards, :beerColor, :beerDescription, :beerIbu, :beerName, :beerStyle)";
+		$query = "INSERT INTO beer(beerBreweryId, beerAbv, beerAvailability, beerAwards, beerColor, beerDescription, beerIbu, beerName, beerStyle) VALUES (:beerBreweryID, :beerAbv, :beerAvailability, :beerAwards, :beerColor, :beerDescription, :beerIbu, :beerName, :beerStyle)";
 		$statement = $pdo->prepare($query);
 
 		//bind the member variables to the place holders in the template
