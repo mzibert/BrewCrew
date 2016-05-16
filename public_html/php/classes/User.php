@@ -25,7 +25,7 @@ class User implements \JsonSerializable {
 	private $userAccessLevel;
 	/**
 	 *  userActivationToken
-	 * @var int $userActivationToken
+	 * @var string $userActivationToken
 	 */
 	private $userActivationToken;
 	/**
@@ -69,7 +69,7 @@ class User implements \JsonSerializable {
 	 * @param int|null $newUserId id of this User or null if a new User
 	 * @param int $newUserBreweryId int id of the Brewery
 	 * @param int $newUserAccessLevel
-	 * @param int $newUserActivationToken int with user token
+	 * @param string $newUserActivationToken int with user token
 	 * @param \DateTime $newUserDateOfBirth date User was sent or null if set to current date and time
 	 * @param string $newUserFirstName string containing actual user first name
 	 * @param string $newUserEmail string containing user email
@@ -83,7 +83,7 @@ class User implements \JsonSerializable {
 	 * @throws \TypeError if data types violate type hints
 	 * @throws \Exception if some other exception occurs
 	 **/
-	public function __construct (int $newUserId = null, int $newUserBreweryId, int $newUserAccessLevel, int $newUserActivationToken, $newUserDateOfBirth = null, string $newUserFirstName, string $newUserLastName, string $newUserEmail, string $newUserUsername, string $newUserHash, string $newUserSalt) {
+	public function __construct (int $newUserId = null, $newUserBreweryId = null, int $newUserAccessLevel, int $newUserActivationToken, $newUserDateOfBirth = null, string $newUserFirstName, string $newUserLastName, string $newUserEmail, string $newUserUsername, string $newUserHash, string $newUserSalt) {
 		try {
 			$this->setUserId($newUserId);
 			$this->setUserBreweryId($newUserBreweryId);
@@ -231,36 +231,28 @@ class User implements \JsonSerializable {
 		$this->userDateOfBirth = date($newUserDateOfBirth);
 
 	}
-
 	/**
-	 * accessor method for userActivationToken
-	 * @return int|null value of userActivationToken
-	 **/
-	public function getUserActivationToken () {
+	 * accessor method for user activation token
+	 *
+	 * @return string value of activation token
+	 */
+	public function getUserActivationToken() {
 		return ($this->userActivationToken);
 	}
-
 	/**
-	 * mutator method for userActivationToken id
+	 * mutator method for user activation token
 	 *
-	 * @param int|null $newUserActivationToken new value of userActivationToken
+	 * @param string $newUserActivationToken new value
 	 * @throws \RangeException if $newUserActivationToken is not positive
-	 * @throws \TypeError if $newUserActivationToken is not an integer
-	 **/
-	public function setUserActivationToken (int $newUserActivationToken = null) {
-		// base case: if the userActivationToken id is null, this a new userActivationToken without a mySQL assigned id (yet)
-		if($newUserActivationToken === null) {
-			$this->userActivationToken = null;
-			return;
+	 * @throws \TypeError if $newUserActivation in not an integer
+	 */
+	public function setUserActivationToken($newUserActivationToken) {
+		// verify the user activation token is positive
+		if($newUserActivationToken <=0) {
+			throw(new \RangeException("user activation token is not positive"));
 		}
-
-		// verify the userActivationToken id is positive
-		if($newUserActivationToken <= 0) {
-			throw(new \RangeException("UserActivationToken must a positive number."));
-		}
-
-		// convert and store the userActivationToken
-		$this->userActivationToken = intval($newUserActivationToken);
+		//convert and store the user activation token
+		$this->userActivationToken = $newUserActivationToken;
 	}
 
 	/**
