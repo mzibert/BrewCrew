@@ -398,11 +398,11 @@ class Beer {
 			throw (new \PDOException("not a new beer"));
 		}
 		//create query template
-		$query = "INSERT INTO beer(beerBreweryId, beerAbv, beerAvailability, beerAwards, beerColor, beerDescription, beerIbu, beerName, beerStyle) VALUES (:beerBreweryID, :beerAbv, :beerAvailability, :beerAwards, :beerColor, :beerDescription, :beerIbu, :beerName, :beerStyle)";
+		$query = "INSERT INTO beer(beerBreweryId, beerAbv, beerAvailability, beerAwards, beerColor, beerDescription, beerIbu, beerName, beerStyle) VALUES (:beerBreweryId, :beerAbv, :beerAvailability, :beerAwards, :beerColor, :beerDescription, :beerIbu, :beerName, :beerStyle)";
 		$statement = $pdo->prepare($query);
 
 		//bind the member variables to the place holders in the template
-		$parameters = ["beerBreweryID" => $this->beerBreweryId, "beerAbv" => $this->beerAbv, "beerAvailability" => $this->beerAvailability, "beerAwards" => $this->beerAwards, "beerColor" => $this->beerColor, "beerDescription" => $this->beerDescription, "beerIbu" => $this->beerIbu, "beerName" => $this->beerName, "beerStyle" => $this->beerStyle];
+		$parameters = ["beerBreweryId" => $this->beerBreweryId, "beerAbv" => $this->beerAbv, "beerAvailability" => $this->beerAvailability, "beerAwards" => $this->beerAwards, "beerColor" => $this->beerColor, "beerDescription" => $this->beerDescription, "beerIbu" => $this->beerIbu, "beerName" => $this->beerName, "beerStyle" => $this->beerStyle];
 		$statement->execute($parameters);
 
 		//update the null beerId with what my SQL just gave us
