@@ -74,16 +74,16 @@ class Brewery implements \JsonSerializable {
 	 * @throws \TypeError if data types violate type hints
 	 * @throws \Exception if some other exception occurs
 		 */
-	public function __construct(int $breweryId = null, string $breweryDescription, $breweryEstDate, string $breweryHours, string $breweryLocation, string $breweryName, string $breweryPhone, string $breweryUrl) {
+	public function __construct(int $newBreweryId = null, string $newBreweryDescription, $newBreweryEstDate, string $newBreweryHours, string $newBreweryLocation, string $newBreweryName, string $newBreweryPhone, string $newBreweryUrl) {
 		try {
-			$this->setBreweryId($breweryId);
-			$this->setBreweryDescription($breweryDescription);
-			$this->setBreweryEstDate($breweryEstDate);
-			$this->setBreweryHours($breweryHours);
-			$this->setBreweryLocation($breweryLocation);
-			$this->setBreweryName($breweryName);
-			$this->setBreweryPhone($breweryPhone);
-			$this->setBreweryUrl($breweryUrl);
+			$this->setBreweryId($newBreweryId);
+			$this->setBreweryDescription($newBreweryDescription);
+			$this->setBreweryEstDate($newBreweryEstDate);
+			$this->setBreweryHours($newBreweryHours);
+			$this->setBreweryLocation($newBreweryLocation);
+			$this->setBreweryName($newBreweryName);
+			$this->setBreweryPhone($newBreweryPhone);
+			$this->setBreweryUrl($newBreweryUrl);
 		} catch(InvalidArgumentException $invalidArgument) {
 			// Rethrow exception to the caller
 			throw(new InvalidArgumentException($invalidArgument->getMessage(), 0, $invalidArgument));
