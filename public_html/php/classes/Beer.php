@@ -22,8 +22,8 @@ class Beer {
 	 * @var float $beerAbv
 	 **/
 	private $beerAbv;
-	/** decimal provided by the API to inform if and when beer is available
-	 * @var float $beerAvailability
+	/** string provided by the API to inform if and when beer is available
+	 * @var string $beerAvailability
 	 **/
 	private $beerAvailability;
 	/** text field provided by the API to reflect any awards the beer has earned
