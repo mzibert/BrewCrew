@@ -457,7 +457,7 @@ class Brewery implements \JsonSerializable {
 		// Bind the placeholder in the template
 		$breweryLocation = "%breweryLocation%";
 		$parameters = array("breweryLocation" => $breweryLocation);
-		$statement = $pdo->execute($parameters);
+		$statement->execute($parameters);
 
 		// Grab the breweries from mySQL
 		$breweries = new \SplFixedArray($statement->rowCount());
