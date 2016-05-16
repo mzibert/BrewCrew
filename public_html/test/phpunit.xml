@@ -2,11 +2,11 @@
 	<testsuites>
 		<testsuite name="brewcrew">
 			<file>BeerTest.php</file>
-			<!--<file>BreweryTest.php</file>-->
-			<!--<file>ReviewTagTest.php</file>-->
-			<!--<file>ReviewTest.php</file>-->
-			<!--<file>TagTest.php</file> &lt;!&ndash;Class not yet written&ndash;&gt;-->
-			<!--<file>UserTest.php</file>-->
+			<file>BreweryTest.php</file>
+			<file>ReviewTagTest.php</file>
+			<file>ReviewTest.php</file>
+			<file>TagTest.php</file> <!--Class not yet written-->
+			<file>UserTest.php</file>
 		</testsuite>
 	</testsuites>
 	<filter>
