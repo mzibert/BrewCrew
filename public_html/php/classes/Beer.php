@@ -3,6 +3,12 @@ namespace Edu\Cnm\BrewCrew;
 
 require_once("autoload.php");
 
+/**
+ * This class contains data and functionality for beer
+ * @author Merri Zibert mjzibert2@gmail.com
+ **/
+
+
 class Beer {
 	/** Id for this beer is assigned by the system; this is the primary key.
 	 * @var int $beerId
@@ -16,8 +22,8 @@ class Beer {
 	 * @var float $beerAbv
 	 **/
 	private $beerAbv;
-	/** text field provided by the API to inform if and when beer is available
-	 * @var string $beerAvailability
+	/** decimal provided by the API to inform if and when beer is available
+	 * @var float $beerAvailability
 	 **/
 	private $beerAvailability;
 	/** text field provided by the API to reflect any awards the beer has earned

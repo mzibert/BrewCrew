@@ -1,7 +1,7 @@
 <?php
 namespace Edu\Cnm\BrewCrew\Test;
 
-use Edu\Cnm\BrewCrew\{Beer, Brewery};
+use Edu\Cnm\BrewCrew\{Brewery, Beer};
 
 //grab the project test parameters
 require_once("BrewCrewTest.php");
@@ -20,14 +20,14 @@ require_once (dirname(__DIR__) . "/php/classes/autoload.php");
 class BeerTest extends BrewCrewTest {
 	/**
 	 * decimal generated for alcohol content by volume
-	 * @var int $VALID_BEERABV
+	 * @var float $VALID_BEERABV
 	 **/
-	protected $VALID_BEERABV = "7.57";
+	protected $VALID_BEERABV = 7.57;
 	/**
 	 * updated decimal of beer abv
-	 * @var int $VALID_BEERABV2
+	 * @var float $VALID_BEERABV2
 	 **/
-	protected $VALID_BEERABV2 = "2";
+	protected $VALID_BEERABV2 = 2;
 	/**
 	 * the indication of when beer is available
 	 * @var string $VALID_BEERAVAILABILITY
@@ -37,12 +37,12 @@ class BeerTest extends BrewCrewTest {
 	 * all of the awards a beer has earned
 	 * @var string $VALID_BEERAWARDS
 	 **/
-	protected $VAILID_BEERAWARDS = "BEST of Albuquerque 2016";
+	protected $VALID_BEERAWARDS = "BEST of Albuquerque 2016";
 	/**
 	 * color of the beer
-	 * @var string $VALID_BEERCOLOR
+	 * @var float $VALID_BEERCOLOR
 	 **/
-	protected $VALID_BEERCOLOR = ".75";
+	protected $VALID_BEERCOLOR = .75;
 	/**
 	 * Detailed description of the beer
 	 * @var string $VALID_BEERDESCRIPTION
@@ -65,13 +65,14 @@ class BeerTest extends BrewCrewTest {
 	protected $VALID_BEERNAME = "Marzen Oktoberfest VMO #2";
 	/**
 	 * style of the beer
+	 * @var string $VALID_BEERSTYLE
 	 **/
 	protected $VALID_BEERSTYLE = "malt";
 	/**
 	 *brewery that created the beer; this is for foreign key relations
 	 * @var Brewery brewery
 	 **/
-	protected $Brewery = null;
+	protected $brewery = null;
 
 	/**
 	 * create dependent objects before running each test
@@ -93,7 +94,7 @@ class BeerTest extends BrewCrewTest {
 		$numRows = $this->getConnection()->getRowCount("beer");
 
 		//create a new Beer and insert it into mySQL
-		$beer = new Beer(null, $this->brewery->getbeerBreweryId(), $this->VALID_BEERABV, $this->VALID_BEERABV, $this->VALID_BEERAVAILABILITY, $this->VALID_BEERAWARDS, $this->VALID_BEERIBU, $this->VALID_BEERCOLOR, $this->VALID_BEERNAME, $this->VALID_BEERSTYLE);
+		$beer = new Beer(null, $this->brewery->getBreweryId(), $this->VALID_BEERABV, $this->VALID_BEERABV, $this->VALID_BEERAVAILABILITY, $this->VALID_BEERAWARDS, $this->VALID_BEERIBU, $this->VALID_BEERCOLOR, $this->VALID_BEERNAME, $this->VALID_BEERSTYLE);
 		$beer->insert($this->getPDO());
 
 		//grab the data from mySQL and enforce the fields match our expectations
@@ -127,7 +128,7 @@ class BeerTest extends BrewCrewTest {
 		$numRows = $this->getConnection()->getRowCount("beer");
 
 		//create a new beer and insert it into mySQL
-		$beer = new Beer(null, $this->beer->getBeerBreweryId(),
+		$beer = new Beer(null, $this->brewery->getBreweryId(),
 			$this->VALID_BEERABV, $this->VALID_BEERAVAILABILITY, $this->VALID_BEERAWARDS, $this->VALID_BEERCOLOR, $this->VALID_BEERDESCRIPTION, $this->VALID_BEERIBU, $this->VALID_BEERNAME, $this->VALID_BEERSTYLE);
 		$beer->insert($this->getPDO());
 
@@ -156,7 +157,7 @@ class BeerTest extends BrewCrewTest {
 	 **/
 	public function testUpdateInvalidBeer() {
 		//create a Beer with a non null beer id and watch it fail
-		$beer = new Beer(null, $this->beer->getBeerBreweryId(),
+		$beer = new Beer(null, $this->brewery->getBreweryId(),
 			$this->VALID_BEERABV, $this->VALID_BEERAVAILABILITY, $this->VALID_BEERAWARDS, $this->VALID_BEERCOLOR, $this->VALID_BEERDESCRIPTION, $this->VALID_BEERIBU, $this->VALID_BEERNAME, $this->VALID_BEERSTYLE);
 		$beer->update($this->getPDO());
 	}
@@ -169,7 +170,7 @@ class BeerTest extends BrewCrewTest {
 		$numRows = $this->getConnection()->getRowCount("beer");
 
 		//create a new Beer and insert it into mySQL
-		$beer = new Beer(null, $this->beer->getBeerBreweryId(),
+		$beer = new Beer(null, $this->brewery->getBreweryId(),
 			$this->VALID_BEERABV, $this->VALID_BEERAVAILABILITY, $this->VALID_BEERAWARDS, $this->VALID_BEERCOLOR, $this->VALID_BEERDESCRIPTION, $this->VALID_BEERIBU, $this->VALID_BEERNAME, $this->VALID_BEERSTYLE);
 		$beer->insert($this->getPDO());
 
@@ -190,7 +191,7 @@ class BeerTest extends BrewCrewTest {
 	 **/
 	public function testDeleteInvalidBeer() {
 		//create a Beer and try to delete it without actually inserting it
-		$beer = new Beer(null, $this->beer->getBeerBreweryId(),
+		$beer = new Beer(null, $this->brewery->getBreweryId(),
 			$this->VALID_BEERABV, $this->VALID_BEERAVAILABILITY, $this->VALID_BEERAWARDS, $this->VALID_BEERCOLOR, $this->VALID_BEERDESCRIPTION, $this->VALID_BEERIBU, $this->VALID_BEERNAME, $this->VALID_BEERSTYLE);
 		$beer->delete($this->getPDO());
 	}
@@ -203,7 +204,7 @@ class BeerTest extends BrewCrewTest {
 		$numRows = $this->getConnection()->getRowCount("beer");
 
 		//create a new beer and insert it into mySQL
-		$beer = new Beer(null, $this->beerBrewery->getBeerBreweryID());
+		$beer = new Beer(null, $this->Brewery->getBreweryID());
 
 		//grab the data from mySQL and enforce the fields match our expectations
 		$pdoBeer = Beer::getBeerbyBeerId($this->getPDO(), $beer->getBeerId());
@@ -227,7 +228,7 @@ class BeerTest extends BrewCrewTest {
 		$numRows = $this->getConnection()->getRowCount ("beer");
 
 		//create a new beer and insert into mySQL
-		$beer = new Beer(null, $this->beer->getBeerBreweryId(), $this->VALID_BEERABV, $this->VALID_BEERAVAILABILITY, $this->VALID_BEERAWARDS, $this->VALID_BEERCOLOR, $this->VALID_BEERDESCRIPTION, $this->VALID_BEERIBU, $this->VALID_BEERNAME, $this->VALID_BEERSTYLE);
+		$beer = new Beer(null, $this->brewery->getBreweryId(), $this->VALID_BEERABV, $this->VALID_BEERAVAILABILITY, $this->VALID_BEERAWARDS, $this->VALID_BEERCOLOR, $this->VALID_BEERDESCRIPTION, $this->VALID_BEERIBU, $this->VALID_BEERNAME, $this->VALID_BEERSTYLE);
 		$beer->insert($this->getPDO());
 
 		//grab the data from mySQL and check the fields against our expectations
@@ -261,7 +262,7 @@ class BeerTest extends BrewCrewTest {
 		$numRows = $this->getConnection()->getRowCount("beer");
 
 		//create a new beer and insert it into mySQL
-		$beer = new Beer(null, $this->beer->getBeerBreweryId(), $this->VALID_BEERIBU, $this->VALID_BEERCOLOR, $this->VALID_BEERNAME, $this->VALID_BEERSTYLE);
+		$beer = new Beer(null, $this->brewery->getBreweryId(), $this->VALID_BEERIBU, $this->VALID_BEERCOLOR, $this->VALID_BEERNAME, $this->VALID_BEERSTYLE);
 		$beer->insert($this->getPDO());
 
 		//grab the data from mySQL and check the fields against our expectations
@@ -296,7 +297,7 @@ class BeerTest extends BrewCrewTest {
 		$numRows = $this->getConnection()->getRowCount("beer");
 
 		//create a new beer and insert it into mySQL
-		$beer = new Beer(null, $this->beer->getBeerBreweryId(), $this->VALID_BEERIBU, $this->VALID_BEERCOLOR, $this->VALID_BEERNAME, $this->VALID_BEERSTYLE);
+		$beer = new Beer(null, $this->brewery->getBreweryId(), $this->VALID_BEERIBU, $this->VALID_BEERCOLOR, $this->VALID_BEERNAME, $this->VALID_BEERSTYLE);
 		$beer->insert($this->getPDO());
 
 		//grab the data from mySQL and check the fields against our expectations
@@ -329,7 +330,7 @@ class BeerTest extends BrewCrewTest {
 		$numRows = $this->getConnection()->getRowCount("beer");
 
 		//create a new beer and insert it into mySQL
-		$beer = new Beer(null, $this->beer->getBeerBreweryId(), $this->VALID_BEERIBU, $this->VALID_BEERCOLOR, $this->VALID_BEERNAME, $this->VALID_BEERSTYLE);
+		$beer = new Beer(null, $this->brewery->getBreweryId(), $this->VALID_BEERIBU, $this->VALID_BEERCOLOR, $this->VALID_BEERNAME, $this->VALID_BEERSTYLE);
 		$beer->insert($this->getPDO());
 
 		//grab the data from mySQL and check the fields against our expectations
