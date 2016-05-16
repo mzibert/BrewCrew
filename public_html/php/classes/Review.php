@@ -290,7 +290,7 @@ class Review implements \JsonSerializable {
 		}
 
 		//create a query template
-		$query = "INSERT INTO review(reviewBeerId, reviewUserId, reviewDate, reviewPintRating, reviewText) VALUES (:reviewBeerId, reviewUserId, reviewDate, reviewPintRating, reviewText)";
+		$query = "INSERT INTO review(reviewBeerId, reviewUserId, reviewDate, reviewPintRating, reviewText) VALUES (:reviewBeerId, :reviewUserId, :reviewDate, :reviewPintRating, :reviewText)";
 		$statement = $pdo->prepare($query);
 
 		//bind the member variables to the place holders in the template
