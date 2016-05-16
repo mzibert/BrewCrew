@@ -62,13 +62,13 @@ class Brewery implements \JsonSerializable {
 	/** Constructor for this Brewery
 	 *
 	 * @param int|null $newBreweryId id of this brewery or null if a new brewery
-	 * @param string $breweryDescription string of open text taken from the API used to describe the brewery
-	 * @param |Year $breweryEstDate date brewery was established
-	 * @param string $breweryHours an array of brewery's hours
-	 * @param string $breweryLocation string containing brewery location
-	 * @param string $breweryName string containing brewery name
-	 * @param string $breweryPhone phone number of the brewery
-	 * @param string $breweryUrl string containing website of the brewery
+	 * @param string $newBreweryDescription string of open text taken from the API used to describe the brewery
+	 * @param |Year $newBreweryEstDate date brewery was established
+	 * @param string $newBreweryHours an array of brewery's hours
+	 * @param string $newBreweryLocation string containing brewery location
+	 * @param string $newBreweryName string containing brewery name
+	 * @param string $newBreweryPhone phone number of the brewery
+	 * @param string $newBreweryUrl string containing website of the brewery
 	 * @throws \InvalidArgumentException if data types are not valid
 	 * @throws \RangeException if data values are out of bounds
 	 * @throws \TypeError if data types violate type hints
