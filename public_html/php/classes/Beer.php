@@ -157,7 +157,7 @@ class Beer {
 			throw (new \RangeException("brewery id is not positive"));
 		}
 		//convert and store the new brewery id
-		$this->breweryId = $newBeerBreweryId;
+		$this->beerBreweryId = $newBeerBreweryId;
 	}
 
 	/**
@@ -422,7 +422,7 @@ class Beer {
 		}
 
 		//create a query template
-		$query = "DELETE FROM Beer WHERE beerId = :beerId";
+		$query = "DELETE FROM beer WHERE beerId = :beerId";
 		$statement = $pdo->prepare($query);
 
 		//bind the member variables to the place holder in the template
@@ -444,10 +444,10 @@ class Beer {
 		}
 
 		//create query template
-		$query = "UPDATE Beer SET beerBreweryId = :beerBreweryID, beerAbv= :beerAbv, beerAvailability = :beerAvailability, beerAwards = :beerAwards, beerColor = :beerColor, beerDescription = :beerDescription, beerIbu = :beerIbu, beerName =:beerName, beerStyle = :beerStyle WHERE beerId = :beerId";
+		$query = "UPDATE beer SET beerBreweryId = :beerBreweryId, beerAbv = :beerAbv, beerAvailability = :beerAvailability, beerAwards = :beerAwards, beerColor = :beerColor, beerDescription = :beerDescription, beerIbu = :beerIbu, beerName =:beerName, beerStyle = :beerStyle WHERE beerId = :beerId";
 		$statement = $pdo->prepare($query);
 		//bind the member variables to the place holders in the template
-		$parameters = ["beerBreweryId" => $this->beerBreweryId, "beerAbv" => $this->beerAbv, "beerAvailability" => $this->beerAvailability, "beerAwards" => $this->beerAwards, "beerColor" => $this->beerColor, "beerDescription" => $this->beerDescription, "beerIbu" => $this->beerIbu, "beerName" => $this->beerName, "beerStyle" => $this->beerStyle];
+		$parameters = ["beerBreweryId" => $this->beerBreweryId, "beerAbv" => $this->beerAbv, "beerAvailability" => $this->beerAvailability, "beerAwards" => $this->beerAwards, "beerColor" => $this->beerColor, "beerDescription" => $this->beerDescription, "beerIbu" => $this->beerIbu, "beerName" => $this->beerName, "beerStyle" => $this->beerStyle, "beerId" => $this->beerId];
 		$statement->execute($parameters);
 	}
 
@@ -511,7 +511,7 @@ class Beer {
 		}
 
 		//create query template
-		$query = "SELECT beerId, beerBreweryID, beerAbv, beerAvailability, beerAwards, beerColor, beerDescription, beerIbu, beerName, beerStyle FROM beer WHERE beerIbu LIKE :beerIbu";
+		$query = "SELECT beerId, beerBreweryId, beerAbv, beerAvailability, beerAwards, beerColor, beerDescription, beerIbu, beerName, beerStyle FROM beer WHERE beerIbu LIKE :beerIbu";
 		$statement = $pdo->prepare($query);
 
 		//bind the beer Ibu to the place holder in the template
@@ -524,7 +524,7 @@ class Beer {
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 		while(($row = $statement->fetch()) !== false) {
 			try {
-				$beer = new Beer($row["beerId"], $row["beerBreweryID"], $row["beerAbv"], $row["beerAvailability"], $row["beerAwards"], $row["beerColor"], $row["beerDescription"], $row["beerIbu"], $row["beerName"], $row["beerStyle"]);
+				$beer = new Beer($row["beerId"], $row["beerBreweryId"], $row["beerAbv"], $row["beerAvailability"], $row["beerAwards"], $row["beerColor"], $row["beerDescription"], $row["beerIbu"], $row["beerName"], $row["beerStyle"]);
 				$beers[$beers->key()] = $beer;
 				$beers->next();
 			} catch(\Exception $exception) {
@@ -538,25 +538,23 @@ class Beer {
 	 * gets the beer by beerColor
 	 *
 	 * @param \PDO $pdo PDO connection object
-	 * @param string $beerColor to search for beers by color
+	 * @param float $beerColor to search for beers by color
 	 * @return \SplFixedArray SplFixedArray of beers found
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when variables are not the correct data type
 	 **/
-	public static function getBeerByBeerColor(\PDO $pdo, string $beerColor) {
-		//sanitize the description before searching
-		$beerColor = trim($beerColor);
-		$beerColor = filter_var($beerColor, FILTER_SANITIZE_STRING);
-		if(empty($beerColor) === true) {
-			throw (new \PDOException("beer color is either to long or insecure"));
+	public static function getBeerByBeerColor(\PDO $pdo, float $beerColor) {
+		//check that the beer color is 0 to 1
+		if($beerColor < 0 || $beerColor > 1) {
+			throw (new \RangeException("beer color must be between 0 and 1"));
 		}
 
 		//create query template
-		$query = "SELECT beerId, beerBreweryID, beerAbv, beerAvailability, beerAwards, beerColor, beerDescription, beerIbu, beerName, beerStyle FROM beer WHERE beerColor LIKE :beerColor";
+		$query = "SELECT beerId, beerBreweryId, beerAbv, beerAvailability, beerAwards, beerColor, beerDescription, beerIbu, beerName, beerStyle FROM beer WHERE beerColor LIKE :beerColor";
 		$statement = $pdo->prepare($query);
 
-		//bind the beer Ibu to the place holder in the template
-		$beerColor = "%$beerColor%";
+		//bind the beer color to the place holder in the template
+		$beerColor = "%beerColor%";
 		$parameters = array("beerColor" => $beerColor);
 		$statement->execute($parameters);
 
