@@ -24,7 +24,7 @@ class User implements \JsonSerializable {
 	 */
 	private $userAccessLevel;
 	/**
-	 *  userActivationToken
+	 *
 	 * @var string $userActivationToken
 	 */
 	private $userActivationToken;
