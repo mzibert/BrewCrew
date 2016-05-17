@@ -80,7 +80,7 @@ class ReviewTest extends BrewCrewTest {
 		$hash = hash_pbkdf2("sha512", $password, $salt, 262144);
 
 		//create and insert a user that owns the review being tested
-		$this->user = new User(null, $this->brewery->getBreweryId(), 0, "token", '1980-01-01', "anon@test.com", "John", $hash, "Smith", $salt, "beerfan4lyfe");
+		$this->user = new User(null, $this->brewery->getBreweryId(), 0, 1, '1980-01-01', $hash, "anon@test.com", $salt, "John", "beerfan4lyfe", "Smith");
 		$this->user->insert($this->getPDO());
 
 		//create and insert a beer that is being reviewed
