@@ -171,7 +171,7 @@ class Brewery implements \JsonSerializable {
 	public function setBreweryEstDate($newBreweryEstDate) {
 		// verify the brewery year content is secure
 		$newBreweryEstDate = trim($newBreweryEstDate);
-		$newBreweryEstDate = filter_var($newBreweryEstDate, FILTER_SANITIZE_STRING);
+		$newBreweryEstDate = filter_var($newBreweryEstDate, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($newBreweryEstDate) === true) {
 			throw (new \InvalidArgumentException("brewery est date is empty or insecure"));
 		}
@@ -204,7 +204,7 @@ class Brewery implements \JsonSerializable {
 	public function setBreweryHours($newBreweryHours) {
 		//verify the brewery description content is secure
 		$newBreweryHours = trim($newBreweryHours);
-		$newBreweryHours = filter_var($newBreweryHours, FILTER_SANITIZE_STRING);
+		$newBreweryHours = filter_var($newBreweryHours, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($newBreweryHours) === true) {
 			throw (new \InvalidArgumentException("brewery hours field is empty or insecure"));
 		}
@@ -232,7 +232,7 @@ class Brewery implements \JsonSerializable {
 	public function setBreweryLocation($newBreweryLocation) {
 		//verify the brewery location content is secure
 		$newBreweryLocation = trim($newBreweryLocation);
-		$newBreweryLocation = filter_var($newBreweryLocation, FILTER_SANITIZE_STRING);
+		$newBreweryLocation = filter_var($newBreweryLocation, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($newBreweryLocation) === true) {
 			throw (new \InvalidArgumentException("brewery location is empty or insecure"));
 		}
@@ -260,7 +260,7 @@ class Brewery implements \JsonSerializable {
 	public function setBreweryName($newBreweryName) {
 		//verify the brewery name content is secure
 		$newBreweryName = trim($newBreweryName);
-		$newBreweryName = filter_var($newBreweryName, FILTER_SANITIZE_STRING);
+		$newBreweryName = filter_var($newBreweryName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($newBreweryName) === true) {
 			throw (new \InvalidArgumentException("brewery name is empty or insecure"));
 		}
@@ -288,7 +288,7 @@ class Brewery implements \JsonSerializable {
 	public function setBreweryPhone($newBreweryPhone) {
 		//verify the brewery phone content is secure
 		$newBreweryPhone = trim($newBreweryPhone);
-		$newBreweryPhone = filter_var($newBreweryPhone, FILTER_SANITIZE_STRING);
+		$newBreweryPhone = filter_var($newBreweryPhone, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($newBreweryPhone) === true) {
 			throw (new \InvalidArgumentException("brewery phone is empty or insecure"));
 		}
@@ -316,7 +316,7 @@ class Brewery implements \JsonSerializable {
 	public function setBreweryUrl($newBreweryUrl) {
 		//verify the brewery URL content is secure
 		$newBreweryUrl = trim($newBreweryUrl);
-		$newBreweryUrl = filter_var($newBreweryUrl, FILTER_SANITIZE_STRING);
+		$newBreweryUrl = filter_var($newBreweryUrl, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($newBreweryUrl) === true) {
 			throw (new \InvalidArgumentException("brewery URL is empty or insecure"));
 		}
@@ -446,7 +446,7 @@ class Brewery implements \JsonSerializable {
 	public static function getBrewerybyBreweryLocation(\PDO $pdo, $breweryLocation) {
 		// sanitize the brewery location before searching
 		$breweryLocation = trim($breweryLocation);
-		$breweryLocation = filter_var($breweryLocation, FILTER_SANITIZE_STRING);
+		$breweryLocation = filter_var($breweryLocation, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($breweryLocation) === true) {
 			throw (new \PDOException("Brewery location is invalid"));
 		}
@@ -489,7 +489,7 @@ class Brewery implements \JsonSerializable {
 	public static function getBreweryByBreweryName(\PDO $pdo, $breweryName) {
 		//sanitize the brewery name before searching
 		$breweryName = trim($breweryName);
-		$breweryName = filter_var($breweryName, FILTER_SANITIZE_STRING);
+		$breweryName = filter_var($breweryName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($breweryName) === true) {
 			throw(new \PDOException("Brewery name is invalid"));
 		}

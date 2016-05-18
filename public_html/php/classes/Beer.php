@@ -203,7 +203,7 @@ class Beer {
 	public function setBeerAvailability($newBeerAvailability) {
 		//verify the beer availabilty content is secure
 		$newBeerAvailability = trim($newBeerAvailability);
-		$newBeerAvailability = filter_var($newBeerAvailability, FILTER_SANITIZE_STRING);
+		$newBeerAvailability = filter_var($newBeerAvailability, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($newBeerAvailability) === true) {
 			throw(new \InvalidArgumentException("Beer availability content is either empty or insecure"));
 		}
@@ -233,7 +233,7 @@ class Beer {
 	public function setBeerAwards($newBeerAwards) {
 		//verify the beer awards content is secure
 		$newBeerAwards = trim($newBeerAwards);
-		$newBeerAwards = filter_var($newBeerAwards, FILTER_SANITIZE_STRING);
+		$newBeerAwards = filter_var($newBeerAwards, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($newBeerAwards) === true) {
 			throw (new \InvalidArgumentException("beer awards content is either empty or insecure"));
 		}
@@ -285,7 +285,7 @@ class Beer {
 	public function setBeerDescription($newBeerDescription) {
 		//verify the beer description content is secure
 		$newBeerDescription = trim($newBeerDescription);
-		$newBeerDescription = filter_var($newBeerDescription, FILTER_SANITIZE_STRING);
+		$newBeerDescription = filter_var($newBeerDescription, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($newBeerDescription) === true) {
 			throw (new \InvalidArgumentException("beer description is either empty or insecure"));
 		}
@@ -314,7 +314,7 @@ class Beer {
 	public function setBeerIbu($newBeerIbu) {
 		//verify the beer ibu content is secure
 		$newBeerIbu = trim($newBeerIbu);
-		$newBeerIbu = filter_var($newBeerIbu, FILTER_SANITIZE_STRING);
+		$newBeerIbu = filter_var($newBeerIbu, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($newBeerIbu) === true) {
 			throw (new \InvalidArgumentException("beer IBU content is either empty or insecure"));
 		}
@@ -344,7 +344,7 @@ class Beer {
 	public function setBeerName($newBeerName) {
 		//verify the beer name content is secure
 		$newBeerName = trim($newBeerName);
-		$newBeerName = filter_var($newBeerName, FILTER_SANITIZE_STRING);
+		$newBeerName = filter_var($newBeerName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($newBeerName) === true) {
 			throw(new \InvalidArgumentException("beer name is either empty or insecure"));
 		}
@@ -373,7 +373,7 @@ class Beer {
 	public function setBeerStyle($newBeerStyle) {
 		//verify the beer style content is secure
 		$newBeerStyle = trim($newBeerStyle);
-		$newBeerStyle = filter_var($newBeerStyle, FILTER_SANITIZE_STRING);
+		$newBeerStyle = filter_var($newBeerStyle, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($newBeerStyle) === true) {
 			throw (new \InvalidArgumentException("beer style content is either empty or insecure"));
 		}
@@ -518,7 +518,7 @@ class Beer {
 	public static function getBeerByBeerIbu(\PDO $pdo, string $beerIbu) {
 		//sanitize the description before searching
 		$beerIbu = trim($beerIbu);
-		$beerIbu = filter_var($beerIbu, FILTER_SANITIZE_STRING);
+		$beerIbu = filter_var($beerIbu, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($beerIbu) === true) {
 			throw (new \PDOException("beer ibu is invalid"));
 		}
@@ -598,7 +598,7 @@ class Beer {
 	public static function getBeerByBeerName(\PDO $pdo, string $beerName) {
 		//sanitize the description before searching
 		$beerName = trim($beerName);
-		$beerName = filter_var($beerName, FILTER_SANITIZE_STRING);
+		$beerName = filter_var($beerName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($beerName) === true) {
 			throw (new \PDOException("beer name is either too long or insecure"));
 		}
@@ -639,7 +639,7 @@ class Beer {
 	public static function getBeerByBeerStyle(\PDO $pdo, string $beerStyle) {
 		//sanitize the description before searching
 		$beerStyle = trim($beerStyle);
-		$beerStyle = filter_var($beerStyle, FILTER_SANITIZE_STRING);
+		$beerStyle = filter_var($beerStyle, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($beerStyle) === true) {
 			throw (new \PDOException("beer style is either too long or insecure"));
 		}
