@@ -251,7 +251,7 @@ class BeerTest extends BrewCrewTest {
 		$beer->insert($this->getPDO());
 
 		//grab the data from mySQL and check the fields against our expectations
-		$results = Beer::getBeerByBreweryId($this->getPDO(), $beer->getBreweryId());
+		$results = Beer::getBeerByBreweryId($this->getPDO(), $beer->getBeerBreweryId());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("beer"));
 		$this->assertCount(1, $results);
 		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\BrewCrew\\Beer", $results);

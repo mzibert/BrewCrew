@@ -1,14 +1,13 @@
 <?php
 namespace Edu\Cnm\BrewCrew;
 
-require_once ("autoload.php");
+require_once("autoload.php");
 
 /**
  * Class BeerTag
  * This class contains everything for a user to be able to link beer flavor tags with the beers that they drink
  * @author Merri Zibert <mzibert@cnm.edu>
  **/
-
 class BeerTag {
 	/**
 	 * this is the Id for this beer that this beer tag refers to, this is the foreign key
@@ -20,7 +19,7 @@ class BeerTag {
 	 * @var int $beerTagTagId
 	 **/
 	private $beerTagTagId;
-	
+
 	/**
 	 * Constructor for class BeerTag
 	 * @param int $newBeerTagBeerId new value of beer tag beer Id
@@ -33,7 +32,7 @@ class BeerTag {
 		try {
 			$this->setBeerTagBeerId($newBeerTagBeerId);
 			$this->setBeerTagTagId($newBeerTagTagId);
-		} catch(\InvalidArgumentException $InvalidArgument){
+		} catch(\InvalidArgumentException $InvalidArgument) {
 			//rethrow the exception to the caller
 			throw (\InvalidArgumentException($InvalidArgument->getMessage(), 0, $InvalidArgument));
 		} catch(\RangeException $range) {
@@ -94,6 +93,7 @@ class BeerTag {
 		//convert and store the beer tag tag Id
 		$this->beerTagTagId = $newBeerTagTagId;
 	}
+
 	/**
 	 * inserts this beer tag into mySQL
 	 * @param \PDO $pdo PDO connection object
@@ -102,7 +102,7 @@ class BeerTag {
 	 **/
 	public function insert(\PDO $pdo) {
 		//check that the beer tag exists before inserting into SQL
-		if($this->beerTagBeerId === null || $this->beerTagTagId === null){
+		if($this->beerTagBeerId === null || $this->beerTagTagId === null) {
 			throw (new \PDOException("beer or tag not valid"));
 		}
 		//create query template
@@ -112,50 +112,62 @@ class BeerTag {
 		//bind the member variables to the place holders in the template
 		$parameters = ["beerTagBeerId" => $this->beerTagBeerId, "beerTagTagId" => $this->beerTagTagId];
 		$statement->execute($parameters);
-		//update the null beerId with what my SQL just gave us
-		
-		
 	}
+
+	/**
+	 * deletes this beer tag from mySQL
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when mySQL related errors occure
+	 * @throws \TypeError if $pdo is not a PDO connection object
+	 **/
+	public function delete(\PDO $pdo) {
+		// check that the object exists before deleting it
+		if($this->beerTagBeerId === null || $this->beerTagTagId === null) {
+			throw (new \PDOException ("beer or tag not valid"));
+		}
+		//create a query template
+		$query = "DELETE FROM beerTag WHERE beerTagBeerId = :beerTagBeerId AND beerTagTagId = :beerTagTagId";
+		$statement = $pdo->prepare($query);
+
+		//bind the member variables to the place holder in the template
+		$parameters = ["beerTagBeerId" => $this->beerTagBeerId, "beerTagTagId" => $this->beerTagTagId];
+		$statement->execute($parameters);
+	}
+
+	/**
+	 * gets the Beer Tag by beerTag ID
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @param int $beerTagBeerId the beerId to search for
+	 * @return \SplFixedArrayBeer of beer tags found or null if not found
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError when variables are not the correct data type
+	 **/
+	public static function getBeerTagByBeerId(\PDO $pdo, int $beerTagByBeerId) {
+		//sanitize the beer id
+		if($beerTagBeerId < 0) {
+			throw (new\PDOException("beer id is not positive"));
+		}
+		//create query template
+		$query = "SELECT beerTagBeerId, beerTagTagId FROM beerTag WHERE beerTagBeerId = :beerTagBeerId AND beerTagTagId = :beerTagTagId";
+		$statement = $pdo->prepare($query);
+		
+		//bind the beer id to the place holder in the template
+		$parameters = ["beerTagBeerId" => $beerTagBeerId];
+		$statement->execute($parameters);
+		
+		//build an array of beerTags
+		$beerTags = new \SplFixedArray($statement->rowCount());
+		$statement->setFetchMode(\PDO::FETCH_ASSOC);
+		while(($row = $statement->fetch()) !== false){
+			try {
+				$beerTag = new BeerTag($row["beerTagBeerId"], $row["beerTagTagId"]);
+				$beerTags[$beerTags->key()] = $beerTag;
+				$beerTags->next();
+			}catch(\Exception $exception){
+				//if the row cant be converted rethrow it
+				throw (new \PDOException($exception->getMessage(), 0, $exception)); 
+			}
+		}
+		return ($beerTags);
 }
-
-/**
- * deletes this beer tag from mySQL
- * @param \PDO $pdo PDO connection object
- * @throws \PDOException when mySQL related errors occure
- * @throws \TypeError if $pdo is not a PDO connection object
- **/
-
-//enforce the beerTagID is not null (i.e., don't delete a beer tag that has not been inserted)
-
-//create a query template
-
-//bind the member variables to the place holder in the template
-
-
-/**
- * updates this Beer Tag in mySQL
- *
- * @param \PDO $pdo PDO connection object
- * @throws \PDOException when mySQL related errors occur
- * @throws \TypeError if $pdo is not a PDO connection object
- **/
-
-//create query template
-
-//bind the member variables to the place holders in the template
-
-/**
- * gets the Beer Tag by beerTag ID
- *
- * @param \PDO $pdo PDO connection object
- * @param int $beerId the beerId to search for
- * @return \Beer|null either the beer or null if not found
- * @throws \PDOException when mySQL related errors occur
- * @throws \TypeError when variables are not the correct data type
- **/
-
-//create query template
-
-//bind the beer id to the place holder in the template
-
-//grab the beer from mySQL
