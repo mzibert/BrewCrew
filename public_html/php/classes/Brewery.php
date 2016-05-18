@@ -455,7 +455,7 @@ class Brewery implements \JsonSerializable {
 		$statement = $pdo->prepare($query);
 
 		// Bind the placeholder in the template
-		$breweryLocation = "%breweryLocation%";
+		$breweryLocation = "%$breweryLocation%";
 		$parameters = array("breweryLocation" => $breweryLocation);
 		$statement->execute($parameters);
 
@@ -465,10 +465,10 @@ class Brewery implements \JsonSerializable {
 		while(($row = $statement->fetch()) !== false) {
 			try {
 				$breweryLocation = null;
-				$statement = setFetchMode(PDO::FETCH_ASSOC);
+				$statement = setFetchMode(\PDO::FETCH_ASSOC);
 				$row = $statement->fetch();
 				if($row !== false) {
-					$breweryLocation = new Brewery($row["breweryId"], $row["breweryDescription"], $row["breweryEstDate"], $row["breweryHours"], $row["breweryLocation"], $row["breweryName"], $row["breweryPhone"], $row["breweryUrl"]);
+					$breweries = new Brewery($row["breweryId"], $row["breweryDescription"], $row["breweryEstDate"], $row["breweryHours"], $row["breweryLocation"], $row["breweryName"], $row["breweryPhone"], $row["breweryUrl"]);
 				}
 			} catch(\Exception $exception) {
 				// If the row couldn't be converted, rethrow it
@@ -498,8 +498,8 @@ class Brewery implements \JsonSerializable {
 		$statement = $pdo->prepare($query);
 
 		// Bind name to the placeholder in the template
-		$breweryName = "%breweryName";
-		$parameters = array("userSearch" => $breweryName);
+		$breweryName = "%$breweryName%";
+		$parameters = array("breweryName" => $breweryName);
 		$statement->execute($parameters);
 
 		// Grab the brewery from mySQL

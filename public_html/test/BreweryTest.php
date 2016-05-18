@@ -20,12 +20,6 @@ require_once (dirname(__DIR__) . "/php/classes/autoload.php");
 
 class BreweryTest extends BrewCrewTest {
 	/**
-	 * Valid ID to use; this starts as null and is assigned later
-	 * @var int $VALID_BREWERYID
-	 */
-	protected $VALID_BREWERY_ID = null;
-
-	/**
 	 * Content generated for description text
 	 * @var string $VALID_BREWERY_DESCRIPTION
 	 */
@@ -95,7 +89,6 @@ class BreweryTest extends BrewCrewTest {
 		// @Link https://github.com/Skylarity/trufork/blob/master/public_html/test/restaurant-test.php
 		$pdoBrewery = Brewery::getBreweryByBreweryId($this->getPDO(), $brewery->getBreweryId());
 		$this->assertEquals($numRows +1, $this->getConnection()->getRowCount("brewery"));
-		// $this->assertEquals($pdoBrewery->getBreweryByBreweryId(), 0);
 		$this->assertEquals($pdoBrewery->getBreweryDescription(), $this->VALID_BREWERY_DESCRIPTION);
 		$this->assertEquals($pdoBrewery->getBreweryEstDate(), $this->VALID_BREWERY_EST_DATE);
 		$this->assertEquals($pdoBrewery->getBreweryLocation(), $this->VALID_BREWERY_LOCATION);
@@ -133,11 +126,10 @@ class BreweryTest extends BrewCrewTest {
 		// @Link https://github.com/Skylarity/trufork/blob/master/public_html/test/restaurant-test.php
 		$pdoBrewery = Brewery::getBreweryByBreweryId($this->getPDO(), $brewery->getBreweryId());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("brewery"));
-		$this->assertEquals($pdoBrewery->getBreweryId(), $this->VALID_BREWERY_ID);
 		$this->assertEquals($pdoBrewery->getBreweryDescription(), $this->VALID_BREWERY_DESCRIPTION);
 		$this->assertEquals($pdoBrewery->getBreweryEstDate(), $this->VALID_BREWERY_EST_DATE);
 		$this->assertEquals($pdoBrewery->getBreweryLocation(), $this->VALID_BREWERY_LOCATION);
-		$this->assertEquals($pdoBrewery->getBreweryName(), $this->VALID_BREWERY_NAME);
+		$this->assertEquals($pdoBrewery->getBreweryName(), $this->VALID_BREWERY_NAME2);
 		$this->assertEquals($pdoBrewery->getBreweryPhone(), $this->VALID_BREWERY_PHONE);
 		$this->assertEquals($pdoBrewery->getBreweryUrl(), $this->VALID_BREWERY_URL);
 	}
@@ -231,7 +223,6 @@ class BreweryTest extends BrewCrewTest {
 
 		// Grab the result from the array and validate it
 		$pdoBrewery = $results[0];
-		$this->assertEquals($pdoBrewery->getBreweryId(), $this->VALID_BREWERY_ID);
 		$this->assertEquals($pdoBrewery->getBreweryDescription(), $this->VALID_BREWERY_DESCRIPTION);
 		$this->assertEquals($pdoBrewery->getBreweryEstDate(), $this->VALID_BREWERY_EST_DATE);
 		$this->assertEquals($pdoBrewery->getBreweryLocation(), $this->VALID_BREWERY_LOCATION);
