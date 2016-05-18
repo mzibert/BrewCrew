@@ -4,7 +4,7 @@ namespace Edu\Cnm\BrewCrew;
 use Edu\Cnm\BrewCrew\ValidateDate;
 
 require_once("autoload.php");
-//require_once ("ValidateDate.php");
+require_once ("ValidateDate.php");
 
 class User implements \JsonSerializable {
 	use ValidateDate;
@@ -231,8 +231,6 @@ class User implements \JsonSerializable {
 	 * mutator method for userDateOfBirth date
 	 *
 	 * @param \DateInterval | \DateTime $newUserDateOfBirth user DateOfBirth date as a DateTime object o
-	 * @throws \InvalidArgumentException if $newUserDateOfBirth is not a valid object
-	 * @throws \RangeException if $newUserDateOfBirth is a date that does not exist
 	 * @throws \OutOfRangeException if $newUserDateOfBirth is < 21
 	 **/
 	public function setUserDateOfBirth ($newUserDateOfBirth = null) {
@@ -245,7 +243,7 @@ class User implements \JsonSerializable {
 		$drinkDate = $newUserDateOfBirth->add(new \DateInterval('P21Y'));
 		$todaysDate = new \DateTime();
 		if($drinkDate > $todaysDate)  {
-			throw (new \RangeException("You are too young."));
+			throw (new \OutOfRangeException("You are too young."));
 		}
 		// store the userDateOfBirth date
 		$this->userDateOfBirth = date($newUserDateOfBirth);
@@ -681,18 +679,15 @@ class User implements \JsonSerializable {
 		// grab the user from mySQL
 		try {
 			$user = null;
-			$statement->setFetchMode(\PDO::FETCH_ASSOC);
-			if($statement === false) {
-				throw(new \PDOException("username does not exist"));
-			}
-
+			$statement->setFetchMode (\PDO::FETCH_ASSOC);
 			$row = $statement->fetch();
+			if($row !== false)
 				$user = new User($row["userId"], $row["userBreweryId"], $row["userAccessLevel"], $row["userActivationToken"], $row["userDateOfBirth"],$row["userEmail"], $row["userFirstName"], $row["userHash"],$row["userLastName"], $row["userSalt"], $row["userUsername"] );
 		} catch(\Exception $exception) {
-			// if the row could not be converted, rethrow row
+			//if the row couldn't be converted, rethrow it
 			throw(new \PDOException($exception->getMessage(), 0, $exception));
 		}
-		return ($user);
+		return($user);
 	}
 	/**
 	 * inserts this User into mySQL

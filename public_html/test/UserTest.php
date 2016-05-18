@@ -223,11 +223,18 @@ class UserTest extends BrewCrewTest {
 		// count the number of rows and save it for later
 		$numRows = $this->getConnection()->getRowCount("user");
 		// create a new User and insert to into mySQL
-		$user = new User(null, $this->VALID_ACCESSLEVEL,$this->VALID_EMAIL, $this->VALID_FIRSTNAME, $this->hash, $this->VALID_LASTNAME, $this->salt, $this->VALID_USERUSERNAME);
+		$user = new User(null,$this->brewery->getBreweryId(), $this->VALID_ACCESSLEVEL,$this->VALID_ACTIVATIONTOKEN,$this->VALID_DATEOFBIRTH,$this->VALID_EMAIL, $this->VALID_FIRSTNAME, $this->hash, $this->VALID_LASTNAME, $this->salt, $this->VALID_USERUSERNAME);
 		$user->insert($this->getPDO());
-		// grab the data from mySQL and enforce the fields match our expectations
-		$pdoUser = User::getUserByUserEmail($this->getPDO(), $this->VALID_EMAIL);
-		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("user"));
+
+		/// grab the data from mySQL and enforce the fields match our expectations
+		$results = User::getUserByUserEmail($this->getPDO(), $user->getUserEmail());
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("user"));
+		$this->assertCount(1, $results);
+		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\BrewCrew\\User", $results);
+
+		//grab the result from the array and validate it
+		$pdoUser = $results[0];
+		$this->assertSame($pdoUser->getUserBreweryId(),$this->brewery->getBreweryId());
 		$this->assertSame($pdoUser->getUserAccessLevel(), $this->VALID_ACCESSLEVEL);
 		$this->assertSame($pdoUser->getUserActivationToken(),$this->VALID_ACTIVATIONTOKEN);
 		$this->assertSame($pdoUser->getUserDateOfBirth(),$this->VALID_DATEOFBIRTH);
