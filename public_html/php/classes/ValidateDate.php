@@ -7,7 +7,7 @@ namespace Edu\Cnm\BrewCrew;
  * This trait will inject a private method to validate a mySQL style date (e.g., 2016-01-15 15:32:48). It will
  * convert a string representation to a DateTime object or throw an exception.
  *
- * @author Arlene Carol Graham <agraham14@cnm.edu>
+ * @author Dylan McDonald <dmcdonald21@cnm.edu>
  **/
 trait ValidateDate {
 	/**

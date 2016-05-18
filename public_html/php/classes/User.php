@@ -4,7 +4,7 @@ namespace Edu\Cnm\BrewCrew;
 use Edu\Cnm\BrewCrew\ValidateDate;
 
 require_once("autoload.php");
-require_once ("ValidateDate.php");
+//require_once ("ValidateDate.php");
 
 class User implements \JsonSerializable {
 	use ValidateDate;
@@ -30,7 +30,7 @@ class User implements \JsonSerializable {
 	private $userActivationToken;
 	/**
 	 * birth date of user
-	 * @var \DateTime $userDateOfBirth
+	 * @var \DateInterval |\DateTime $userDateOfBirth
 	 */
 	private $userDateOfBirth;
 	/**
@@ -69,8 +69,8 @@ class User implements \JsonSerializable {
 	 * @param int|null $newUserId id of this User or null if a new User
 	 * @param int $newUserBreweryId int id of the Brewery
 	 * @param int $newUserAccessLevel
-	 * @param string $newUserActivationToken int with user token
-	 * @param \DateTime|null|string $newUserDateOfBirth date User was sent or null if set to current date and time
+	 * @param string $newUserActivationToken string with user token
+	 * @param \DateInterval |\DateTime $newUserDateOfBirth date User was sent or set to current date and time
 	 * @param string $newUserEmail string containing user email
 	 * @param string $newUserFirstName string containing actual user first name
 	 * @param string $newUserHash string containing actual user password hash
@@ -202,33 +202,26 @@ class User implements \JsonSerializable {
 		return ($this->userActivationToken);
 	}
 	/**
-	 * mutator method for UserActivationToken
+	 * mutator method for userActivationToken
 	 *
-	 * @param string $newUserActivationToken n
+	 * @param string $newUserActivationToken
 	 * @throws \InvalidArgumentException if $newUserActivationToken is not a string or insecure
-	 * @throws \RangeException if $newUserActivationToken is > 128 characters
 	 * @throws \TypeError if $newUserActivationToken is not a string
 	 **/
 	public function setUserActivationToken (string $newUserActivationToken) {
-		// verify the User's email content is secure
+		// verify the User's Activation Token is secure
 		$newUserActivationToken = trim($newUserActivationToken);
 		$newUserActivationToken = filter_var($newUserActivationToken, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($newUserActivationToken) === true) {
 			throw(new \InvalidArgumentException("ActivationToken content is empty or insecure"));
 		}
-
-		// verify the ActivationTokenwill fit in the database
-		if(strlen($newUserActivationToken) > 128) {
-			throw(new \RangeException("ActivationToken too large"));
-		}
-
 		// store the ActivationToken
 		$this->userActivationToken = $newUserActivationToken;
 	}
 		/**
 	 * accessor method for userDateOfBirth date
 	 *
-	 * @return \DateInterval|\DateTime|null|string  value of userDateOfBirth date
+	 * @return \DateInterval | \DateTime value of userDateOfBirth date
 	 **/
 	public function getUserDateOfBirth () {
 		return ($this->userDateOfBirth);
@@ -237,8 +230,8 @@ class User implements \JsonSerializable {
 	/**
 	 * mutator method for userDateOfBirth date
 	 *
-	 * @param \DateInterval|\DateTime|null|string  $newUserDateOfBirth user DateOfBirth date as a DateTime object or string
-	 * @throws \InvalidArgumentException if $newUserDateOfBirth is not a valid object or string
+	 * @param \DateInterval | \DateTime $newUserDateOfBirth user DateOfBirth date as a DateTime object o
+	 * @throws \InvalidArgumentException if $newUserDateOfBirth is not a valid object
 	 * @throws \RangeException if $newUserDateOfBirth is a date that does not exist
 	 * @throws \OutOfRangeException if $newUserDateOfBirth is < 21
 	 **/
@@ -248,7 +241,7 @@ class User implements \JsonSerializable {
 			throw (new \OutOfBoundsException("You must enter your date of birth"));
 		}
 
-		$newUserDateOfBirth = ValidateDate::ValidateDate($newUserDateOfBirth);
+		$newUserDateOfBirth = ValidateDate::validateDate($newUserDateOfBirth);
 		$drinkDate = $newUserDateOfBirth->add(new \DateInterval('P21Y'));
 		$todaysDate = new \DateTime();
 		if($drinkDate > $todaysDate)  {
@@ -475,7 +468,7 @@ class User implements \JsonSerializable {
 			throw(new \PDOException("user brewery id is invalid"));
 		}
 		// create query template
-		$query = "SELECT userId, userBreweryId, userAccessLevel, userActivationToken, userDateOfBirth, userFirstName, userHash, userLastName, userSalt, userUsername FROM user WHERE userBreweryId = :userBreweryId";
+		$query = "SELECT userId, userBreweryId, userAccessLevel, userActivationToken, userDateOfBirth, userEmail, userFirstName, userHash, userLastName, userSalt, userUsername FROM user WHERE userBreweryId = :userBreweryId";
 		$statement = $pdo->prepare($query);
 
 		//bind the userBreweryID to the place holder in the template
@@ -487,7 +480,7 @@ class User implements \JsonSerializable {
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 		while(($row = $statement->fetch()) !== false) {
 			try {
-				$user = new User($row["userId"], $row["userBreweryId"], $row["userAccessLevel"], $row["userActivationToken"], $row["userDateOfBirth"], $row["userHash"], $row["userEmail"], $row["userSalt"], $row["userFirstName"], $row["userUsername"], $row["userLastName"]);
+				$user = new User($row["userId"], $row["userBreweryId"], $row["userAccessLevel"], $row["userActivationToken"], $row["userDateOfBirth"],$row["userEmail"], $row["userFirstName"], $row["userHash"],$row["userLastName"], $row["userSalt"], $row["userUsername"] );
 				$users[$users->key()] = $user;
 				$users->next();
 			} catch(\Exception $exception) {
@@ -515,7 +508,7 @@ class User implements \JsonSerializable {
 			throw(new \PDOException("user access level is invalid"));
 		}
 		// create query template
-		$query = "SELECT userId, userBreweryId, userAccessLevel, userActivationToken, userDateOfBirth, userFirstName, userHash, userLastName, userSalt, userUsername FROM user WHERE userAccessLevel = :userAccessLevel";
+		$query = "SELECT userId, userBreweryId, userAccessLevel, userActivationToken, userDateOfBirth,userEmail, userFirstName, userHash, userLastName, userSalt, userUsername FROM user WHERE userAccessLevel = :userAccessLevel";
 		$statement = $pdo->prepare($query);
 
 		//bind the user access level to the place holder in the template
@@ -527,7 +520,7 @@ class User implements \JsonSerializable {
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 		while(($row = $statement->fetch()) !== false) {
 			try {
-				$user = new User($row["userId"], $row["userBreweryId"], $row["userAccessLevel"], $row["userActivationToken"], $row["userDateOfBirth"], $row["userHash"], $row["userEmail"], $row["userSalt"], $row["userFirstName"], $row["userUsername"], $row["userLastName"]);
+				$user = new User($row["userId"],$row["userBreweryId"], $row["userAccessLevel"], $row["userActivationToken"], $row["userDateOfBirth"],$row["userEmail"], $row["userFirstName"], $row["userHash"],$row["userLastName"], $row["userSalt"], $row["userUsername"] );
 				$users[$users->key()] = $user;
 				$users->next();
 			} catch(\Exception $exception) {
@@ -556,7 +549,7 @@ class User implements \JsonSerializable {
 			throw(new \PDOException("user activation token is invalid"));
 		}
 		// create query template
-		$query = "SELECT userId, userBreweryId, userAccessLevel, userActivationToken, userDateOfBirth, userFirstName, userHash, userLastName, userSalt, userUsername  FROM user WHERE userActivationToken = :userActivationToken";
+		$query = "SELECT userId, userBreweryId, userAccessLevel, userActivationToken, userDateOfBirth,userEmail, userFirstName, userHash, userLastName, userSalt, userUsername  FROM user WHERE userActivationToken = :userActivationToken";
 		$statement = $pdo->prepare($query);
 
 		//bind the user ActivationToken to the place holder in the template
@@ -570,7 +563,7 @@ class User implements \JsonSerializable {
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 		$row = $statement->fetch();
 			try {
-				$user = new User($row["userId"], $row["userBreweryId"], $row["userAccessLevel"], $row["userActivationToken"], $row["userDateOfBirth"], $row["userHash"], $row["userEmail"], $row["userSalt"], $row["userFirstName"], $row["userUsername"], $row["userLastName"]);
+				$user = new User($row["userId"], $row["userBreweryId"], $row["userAccessLevel"], $row["userActivationToken"], $row["userDateOfBirth"],$row["userEmail"], $row["userFirstName"], $row["userHash"],$row["userLastName"], $row["userSalt"], $row["userUsername"] );
 			} catch(\Exception $exception) {
 				// if the row couldn't be converted, rethrow it
 				throw(new \PDOException($exception->getMessage(), 0, $exception));
@@ -596,7 +589,7 @@ class User implements \JsonSerializable {
 			throw(new \PDOException("user email is invalid"));
 		}
 		// create query template
-		$query = "SELECT userId, userBreweryId, userAccessLevel, userActivationToken, userDateOfBirth, userFirstName, userHash, userLastName, userSalt, userUsername FROM user WHERE userEmail = :userEmail";
+		$query = "SELECT userId, userBreweryId, userAccessLevel, userActivationToken, userDateOfBirth, userEmail, userFirstName, userHash, userLastName, userSalt, userUsername FROM user WHERE userEmail = :userEmail";
 		$statement = $pdo->prepare($query);
 
 		//bind the user EMAIL to the place holder in the template
@@ -610,7 +603,7 @@ class User implements \JsonSerializable {
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 		$row = $statement->fetch();
 			try {
-				$user = new User($row["userId"], $row["userBreweryId"], $row["userAccessLevel"], $row["userActivationToken"], $row["userDateOfBirth"], $row["userHash"], $row["userEmail"], $row["userSalt"], $row["userFirstName"], $row["userUsername"], $row["userLastName"]);
+				$user = new User($row["userId"], $row["userBreweryId"], $row["userAccessLevel"], $row["userActivationToken"], $row["userDateOfBirth"],$row["userEmail"], $row["userFirstName"], $row["userHash"],$row["userLastName"], $row["userSalt"], $row["userUsername"] );
 
 			} catch(\Exception $exception) {
 				// if the row couldn't be converted, rethrow it
@@ -639,7 +632,7 @@ class User implements \JsonSerializable {
 		}
 
 		// create query template
-		$query = "SELECT userId, userBreweryId, userAccessLevel, userActivationToken, userDateOfBirth, userFirstName,userHash, userLastName, userSalt, userUsername  FROM user WHERE userUsername = :userUsername";
+		$query = "SELECT userId, userBreweryId, userAccessLevel, userActivationToken, userDateOfBirth,userEmail, userFirstName,userHash, userLastName, userSalt, userUsername  FROM user WHERE userUsername = :userUsername";
 		$statement = $pdo->prepare($query);
 
 		//bind the username to the place holder in the template
@@ -654,7 +647,7 @@ class User implements \JsonSerializable {
 
 			try {
 				$row = $statement->fetch();
-				$user = new User($row["userId"], $row["userBreweryId"], $row["userAccessLevel"], $row["userActivationToken"], $row["userDateOfBirth"], $row["userHash"], $row["userEmail"], $row["userSalt"], $row["userFirstName"], $row["userUsername"], $row["userLastName"]);
+				$user = new User($row["userId"], $row["userBreweryId"], $row["userAccessLevel"], $row["userActivationToken"], $row["userDateOfBirth"],$row["userEmail"], $row["userFirstName"], $row["userHash"],$row["userLastName"], $row["userSalt"], $row["userUsername"]);
 
 			} catch(\Exception $exception) {
 				// if the row couldn't be converted, rethrow it
@@ -680,7 +673,7 @@ class User implements \JsonSerializable {
 			throw(new \PDOException("user id is not positive"));
 		}
 		// create query template
-		$query = "SELECT userId, userBreweryId, userAccessLevel, userActivationToken, userDateOfBirth, userFirstName, userHash, userLastName, userSalt, userUsername FROM user WHERE userId = :userId";
+		$query = "SELECT userId, userBreweryId, userAccessLevel, userActivationToken, userDateOfBirth,userEmail, userFirstName, userHash, userLastName, userSalt, userUsername FROM user WHERE userId = :userId";
 		$statement = $pdo->prepare($query);
 		// bind the user id to the place holder in the template
 		$parameters = array("userId" => $userId);
@@ -694,7 +687,7 @@ class User implements \JsonSerializable {
 			}
 
 			$row = $statement->fetch();
-				$user = new User($row["userId"], $row["userBreweryId"], $row["userAccessLevel"], $row["userActivationToken"], $row["userDateOfBirth"], $row["userHash"], $row["userEmail"], $row["userSalt"], $row["userFirstName"], $row["userUsername"], $row["userLastName"]);
+				$user = new User($row["userId"], $row["userBreweryId"], $row["userAccessLevel"], $row["userActivationToken"], $row["userDateOfBirth"],$row["userEmail"], $row["userFirstName"], $row["userHash"],$row["userLastName"], $row["userSalt"], $row["userUsername"] );
 		} catch(\Exception $exception) {
 			// if the row could not be converted, rethrow row
 			throw(new \PDOException($exception->getMessage(), 0, $exception));
