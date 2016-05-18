@@ -25,17 +25,23 @@ class UserTest extends BrewCrewTest {
 	 */
 	protected $VALID_USERID = "10";
 	/**
+	 * @var int $userBreweryId
+	 */
+	protected $brewery = null;
+	/**
 	 * @var int $userAccessLevel
 	 */
 	protected $VALID_ACCESSLEVEL = "1";
 	/**
 	 * @var string $newUserActivationToken int with user token
-	 */
-	protected $VALID_ACTIVATIONTOKEN = "cefb8egb9";
+	**/
+	protected $VALID_ACTIVATIONTOKEN = "ceegb";
 	/**
 	 * @var \DateInterval|\DateTime|null|string  $newUserDateOfBirth date User was sent or null if set to current date and time
 	 */
-	protected $VALID_DATEOFBIRTH = "1960-12-25";
+	protected $VALID_DATEOFBIRTH = "1960-12-25 00:00:00";
+
+
 	/**
 	 * @var string $newUserEmail string containing user email
 	 */
@@ -56,20 +62,25 @@ class UserTest extends BrewCrewTest {
 	 **/
 	protected $VALID_FIRSTNAME = "Arlene";
 	/**
+	 * @var string hash
+	 */
+	private $hash;
+	/**
 	 * valid lastName of userId
 	 * @var string $lastName
 	 **/
 	protected $VALID_LASTNAME = "Graham";
+	/**
+	 * @var string salt
+	 */
+	private $salt;
 	/**
 	 * user
 	 * @var string userUsername
 	 **/
 	protected $VALID_USERUSERNAME = "ABQBrewCrew";
 
-	protected $brewery = null;
 
-	private $salt;
-	private $hash;
 	private $password = "password";
 
 	//create dependent objects before running each test
@@ -93,15 +104,15 @@ class UserTest extends BrewCrewTest {
 //
 //
 //		//create a new user and insert it into mySQL
-		$user = new User(null,$this->VALID_ACCESSLEVEL,$this->VALID_ACTIVATIONTOKEN, $this->VALID_DATEOFBIRTH, $this->VALID_EMAIL,$this->VALID_FIRSTNAME,$this->hash,$this->VALID_LASTNAME, $this->salt,$this->VALID_USERUSERNAME);
+		$user = new User(null, $this->brewery->getBreweryId(),$this->VALID_ACCESSLEVEL,$this->VALID_ACTIVATIONTOKEN,$this->VALID_DATEOFBIRTH, $this->VALID_EMAIL,$this->VALID_FIRSTNAME,$this->hash,$this->VALID_LASTNAME, $this->salt,$this->VALID_USERUSERNAME);
 		$user->insert($this->getPDO());
 //		//grab the data from mySQL and enforce the fields to match our expectations
 		$pdoUser = User::getUserByUserId($this->getPDO(), $user->getUserId());
 
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("user"));
 		$this->assertSame($pdoUser->getUserAccessLevel(), $this->VALID_ACCESSLEVEL);
-		$this->assertSame($pdoUser->getUserActivationToken(), $this->VALID_ACTIVATIONTOKEN);
-		$this->assertSame($pdoUser->getUserDateOfBirth(), $this->VALID_DATEOFBIRTH);
+		$this->assertSame($pdoUser->getUserActivationToken(),$this->VALID_ACTIVATIONTOKEN);
+		$this->assertSame($pdoUser->getUserDateOfBirth(),$this->VALID_DATEOFBIRTH);
 		$this->assertSame($pdoUser->getUserEmail(), $this->VALID_EMAIL);
 		$this->assertSame($pdoUser->getUserFirstName(), $this->VALID_FIRSTNAME);
 		$this->assertSame($pdoUser->getUserHash(), $this->hash);
@@ -110,18 +121,8 @@ class UserTest extends BrewCrewTest {
 		$this->assertSame($pdoUser->getUserUsername(), $this->VALID_USERUSERNAME);
 
 	}
-	/**
-	 * test inserting a User that already exists
-	 *
-	 * @expectedException PDOException
-	 **/
-	public function testInsertInvalidUser() {
-		// create a profile with a non null UserId and watch it fail
 
-		$user = new User(BrewCrewTest::INVALID_KEY, $this->VALID_ACCESSLEVEL, $this->VALID_ACTIVATIONTOKEN, $this->VALID_DATEOFBIRTH, $this->VALID_EMAIL, $this->VALID_LASTNAME, $this->VALID_FIRSTNAME, $this->VALID_USERUSERNAME, $this->hash, $this->salt);
-		$user->insert($this->getPDO());
-	}
-//
+
 	/**
 	 * test inserting a User, editing it, and then updating it by changing user email
  **/
@@ -129,7 +130,7 @@ class UserTest extends BrewCrewTest {
 		// count the number of rows and save it for later
 		$numRows = $this->getConnection()->getRowCount("user");
 		// create a new User and insert to into mySQL
-		$user = new User(null, $this->VALID_ACCESSLEVEL, $this->VALID_ACTIVATIONTOKEN, $this->VALID_DATEOFBIRTH, $this->VALID_EMAIL, $this->VALID_FIRSTNAME, $this->hash, $this->VALID_LASTNAME, $this->salt, $this->VALID_USERUSERNAME);
+		$user = new User(null, $this->VALID_ACCESSLEVEL,$this->VALID_ACTIVATIONTOKEN,$this->VALID_DATEOFBIRTH, $this->VALID_EMAIL, $this->VALID_FIRSTNAME, $this->hash, $this->VALID_LASTNAME, $this->salt, $this->VALID_USERUSERNAME);
 		$user->insert($this->getPDO());
 
 		$user->insert($this->getPDO());
@@ -143,8 +144,8 @@ class UserTest extends BrewCrewTest {
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("user"));
 
 		$this->assertSame($pdoUser->getUserAccessLevel(), $this->VALID_ACCESSLEVEL);
-		$this->assertSame($pdoUser->getUserActivationToken(), $this->VALID_ACTIVATIONTOKEN);
-		$this->assertSame($pdoUser->getUserDateOfBirth(), $this->VALID_DATEOFBIRTH);
+		$this->assertSame($pdoUser->getUserActivationToken(),$this->VALID_ACTIVATIONTOKEN);
+		$this->assertSame($pdoUser->getUserDateOfBirth(),$this->VALID_DATEOFBIRTH);
 		$this->assertSame($pdoUser->getUserEmail(), $this->VALID_EMAIL2);
 		$this->assertSame($pdoUser->getUserFirstName(), $this->VALID_FIRSTNAME);
 		$this->assertSame($pdoUser->getUserHash(), $this->hash);
@@ -154,15 +155,7 @@ class UserTest extends BrewCrewTest {
 
 
 	}
-	/**
-	 ** test updating a User that does not exist
-	 *
-	 **/
-	public function testUpdateInvalidUser() {
-		// create a User and try to update it without actually inserting it
-		$user = new User(null, $this->VALID_ACCESSLEVEL, $this->VALID_ACTIVATIONTOKEN, $this->VALID_DATEOFBIRTH, $this->VALID_EMAIL, $this->VALID_FIRSTNAME, $this->hash, $this->VALID_LASTNAME, $this->salt, $this->VALID_USERUSERNAME);
-		$user->insert($this->getPDO());
-	}
+
 	/**
 	 * test creating a User and then deleting it
 	 **/
@@ -190,14 +183,7 @@ class UserTest extends BrewCrewTest {
 		$this->assertSame($numRows, $this->getConnection()->getRowCount("user"));
 	}
 
-	/** test deleting a User that does not exist
-	* @expectedException PDOException
-	 **/
-	public function testDeleteInvalidUser() {
-		// create a User and try to delete it without actually inserting it
-		$user = new User(null, $this->VALID_ACCESSLEVEL, $this->VALID_ACTIVATIONTOKEN, $this->VALID_DATEOFBIRTH, $this->VALID_EMAIL, $this->VALID_FIRSTNAME, $this->hash, $this->VALID_LASTNAME, $this->salt, $this->VALID_USERUSERNAME);
-		$user->delete($this->getPDO());
-	}
+
 
 	/**
 	 * test inserting a User and regrabbing it from mySQL
@@ -206,13 +192,13 @@ class UserTest extends BrewCrewTest {
 		// count the number of rows and save it for later
 		$numRows = $this->getConnection()->getRowCount("user");
 		// create a new user and insert to into mySQL
-		$user = new User(null, $this->VALID_ACCESSLEVEL, $this->VALID_ACTIVATIONTOKEN, $this->VALID_DATEOFBIRTH, $this->VALID_EMAIL, $this->VALID_FIRSTNAME, $this->hash, $this->VALID_LASTNAME, $this->salt, $this->VALID_USERUSERNAME);
+		$user = new User(null, $this->VALID_ACCESSLEVEL,$this->VALID_ACTIVATIONTOKEN,$this->VALID_DATEOFBIRTH, $this->VALID_EMAIL, $this->VALID_FIRSTNAME, $this->hash, $this->VALID_LASTNAME, $this->salt, $this->VALID_USERUSERNAME);
 		$user->insert($this->getPDO());
 		$pdoUser = User::getUserByUserId($this->getPDO(), $user->getUserId());
 		// grab the data from mySQL and enforce the fields match
 		$this->assertSame($pdoUser->getUserAccessLevel(), $this->VALID_ACCESSLEVEL);
-		$this->assertSame($pdoUser->getUserActivationToken(), $this->VALID_ACTIVATIONTOKEN);
-		$this->assertSame($pdoUser->getUserDateOfBirth(), $this->VALID_DATEOFBIRTH);
+		$this->assertSame($pdoUser->getUserActivationToken(),$this->VALID_ACTIVATIONTOKEN);
+		$this->assertSame($pdoUser->getUserDateOfBirth(),$this->VALID_DATEOFBIRTH);
 		$this->assertSame($pdoUser->getUserEmail(), $this->VALID_EMAIL);
 		$this->assertSame($pdoUser->getUserFirstName(), $this->VALID_FIRSTNAME);
 		$this->assertSame($pdoUser->getUserHash(), $this->hash);
@@ -227,14 +213,14 @@ class UserTest extends BrewCrewTest {
 		// count the number of rows and save it for later
 		$numRows = $this->getConnection()->getRowCount("user");
 		// create a new User and insert to into mySQL
-		$user = new User(null, $this->VALID_ACCESSLEVEL, $this->VALID_ACTIVATIONTOKEN, $this->VALID_DATEOFBIRTH, $this->VALID_EMAIL, $this->VALID_FIRSTNAME, $this->hash, $this->VALID_LASTNAME, $this->salt, $this->VALID_USERUSERNAME);
+		$user = new User(null, $this->VALID_ACCESSLEVEL,$this->VALID_EMAIL, $this->VALID_FIRSTNAME, $this->hash, $this->VALID_LASTNAME, $this->salt, $this->VALID_USERUSERNAME);
 		$user->insert($this->getPDO());
 		// grab the data from mySQL and enforce the fields match our expectations
 		$pdoUser = User::getUserByUserEmail($this->getPDO(), $this->VALID_EMAIL);
 		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("user"));
 		$this->assertSame($pdoUser->getUserAccessLevel(), $this->VALID_ACCESSLEVEL);
-		$this->assertSame($pdoUser->getUserActivationToken(), $this->VALID_ACTIVATIONTOKEN);
-		$this->assertSame($pdoUser->getUserDateOfBirth(), $this->VALID_DATEOFBIRTH);
+		$this->assertSame($pdoUser->getUserActivationToken(),$this->VALID_ACTIVATIONTOKEN);
+		$this->assertSame($pdoUser->getUserDateOfBirth(),$this->VALID_DATEOFBIRTH);
 		$this->assertSame($pdoUser->getUserEmail(), $this->VALID_EMAIL);
 		$this->assertSame($pdoUser->getUserFirstName(), $this->VALID_FIRSTNAME);
 		$this->assertSame($pdoUser->getUserHash(), $this->hash);
@@ -242,14 +228,7 @@ class UserTest extends BrewCrewTest {
 		$this->assertSame($pdoUser->getUserSalt(), $this->salt);
 		$this->assertSame($pdoUser->getUserUsername(), $this->VALID_USERUSERNAME);
 	}
-	/**
-	 * test grabbing a User by an email that does not exists
-	 **/
-	public function testGetInvalidUserByEmail() {
-		// grab an email that does not exist
-		$user = User::getUserByUserEmail($this->getPDO(), $this->INVALID_EMAIL);
-		$this->assertNull($user);
-	}
+
 
 
 }

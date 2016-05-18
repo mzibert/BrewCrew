@@ -70,7 +70,7 @@ class User implements \JsonSerializable {
 	 * @param int $newUserBreweryId int id of the Brewery
 	 * @param int $newUserAccessLevel
 	 * @param string $newUserActivationToken int with user token
-	 * @param \DateInterval|\DateTime|null|string $newUserDateOfBirth date User was sent or null if set to current date and time
+	 * @param \DateTime|null|string $newUserDateOfBirth date User was sent or null if set to current date and time
 	 * @param string $newUserEmail string containing user email
 	 * @param string $newUserFirstName string containing actual user first name
 	 * @param string $newUserHash string containing actual user password hash
@@ -80,7 +80,7 @@ class User implements \JsonSerializable {
 	 * @throws \Exception if some other exception occurs
 	 * @throws \TypeError if data types violate type hints
 	 */
-	public function __construct (int $newUserId = null, int $newUserBreweryId = null, int $newUserAccessLevel, string $newUserActivationToken, string $newUserDateOfBirth, string $newUserEmail, string $newUserFirstName, string $newUserHash, string $newUserLastName, string $newUserSalt, string $newUserUsername) {
+	public function __construct (int $newUserId = null, int $newUserBreweryId = null, int $newUserAccessLevel, string $newUserActivationToken, $newUserDateOfBirth, string $newUserEmail, string $newUserFirstName, string $newUserHash, string $newUserLastName, string $newUserSalt, string $newUserUsername) {
 		try {
 			$this->setUserId($newUserId);
 			$this->setUserBreweryId($newUserBreweryId);
@@ -194,8 +194,38 @@ class User implements \JsonSerializable {
 			return;
 		}
 	}
-
 	/**
+	 * accessor method for user activation token
+	 * @return string value of activation token
+	 */
+	public function getUserActivationToken() {
+		return ($this->userActivationToken);
+	}
+	/**
+	 * mutator method for UserActivationToken
+	 *
+	 * @param string $newUserActivationToken n
+	 * @throws \InvalidArgumentException if $newUserActivationToken is not a string or insecure
+	 * @throws \RangeException if $newUserActivationToken is > 128 characters
+	 * @throws \TypeError if $newUserActivationToken is not a string
+	 **/
+	public function setUserActivationToken (string $newUserActivationToken) {
+		// verify the User's email content is secure
+		$newUserActivationToken = trim($newUserActivationToken);
+		$newUserActivationToken = filter_var($newUserActivationToken, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($newUserActivationToken) === true) {
+			throw(new \InvalidArgumentException("ActivationToken content is empty or insecure"));
+		}
+
+		// verify the ActivationTokenwill fit in the database
+		if(strlen($newUserActivationToken) > 128) {
+			throw(new \RangeException("ActivationToken too large"));
+		}
+
+		// store the ActivationToken
+		$this->userActivationToken = $newUserActivationToken;
+	}
+		/**
 	 * accessor method for userDateOfBirth date
 	 *
 	 * @return \DateInterval|\DateTime|null|string  value of userDateOfBirth date
@@ -218,7 +248,7 @@ class User implements \JsonSerializable {
 			throw (new \OutOfBoundsException("You must enter your date of birth"));
 		}
 
-		$newUserDateOfBirth = ValidateDate::validateDate($newUserDateOfBirth);
+		$newUserDateOfBirth = ValidateDate::ValidateDate($newUserDateOfBirth);
 		$drinkDate = $newUserDateOfBirth->add(new \DateInterval('P21Y'));
 		$todaysDate = new \DateTime();
 		if($drinkDate > $todaysDate)  {
@@ -229,28 +259,38 @@ class User implements \JsonSerializable {
 
 	}
 	/**
-	 * accessor method for user activation token
-	 *
-	 * @return string value of activation token
-	 */
-	public function getUserActivationToken() {
-		return ($this->userActivationToken);
+	 * accessor method for UserEmail
+	 * @return string value of UserEmail
+	 **/
+	public function getUserEmail () {
+		return ($this->userEmail);
 	}
-/**
-* mutator method for UserActivationToken
-*
-* @param string $newUserActivationToken new value of UserActivationToken
-* @throws \InvalidArgumentException if $newUserActivationToken is not a string or insecure
-* @throws \RangeException if $newUserActivationToken is > 32 characters
-* @throws \TypeError if $newUserActivationToken is not a string
-**/
-	public function setUserActivationToken (string $newUserActivationToken) {
-		// verify the  User Activation Token content is secure
-		$newUserActivationToken = trim($newUserActivationToken);
-		$newUserActivationToken = filter_var($newUserActivationToken, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-		if(empty($newUserActivationToken === true) {
-			throw(new \InvalidArgumentException("User Activation Token content is empty or insecure"));
+
+	/**
+	 * mutator method for UserEmail
+	 *
+	 * @param string $newUserEmail new value of userEmail
+	 * @throws \InvalidArgumentException if $newUserEmaili s not a string or insecure
+	 * @throws \RangeException if $newUserEmail is > 128 characters
+	 * @throws \TypeError if $newUserEmail is not a string
+	 **/
+	public function setUserEmail (string $newUserEmail) {
+		// verify the User's email content is secure
+		$newUserEmail = trim($newUserEmail);
+		$newUserEmail = filter_var($newUserEmail, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($newUserEmail) === true) {
+			throw(new \InvalidArgumentException("User's email content is empty or insecure"));
 		}
+
+		// verify the email will fit in the database
+		if(strlen($newUserEmail) > 128) {
+			throw(new \RangeException("Email too large"));
+		}
+
+		// store the user's email
+		$this->userEmail = $newUserEmail;
+	}
+
 
 	/**
 	 * accessor method for userFirstName
@@ -318,38 +358,6 @@ class User implements \JsonSerializable {
 		$this->userLastName = $newUserLastName;
 	}
 
-	/**
-	 * accessor method for UserEmail
-	 * @return string value of UserEmail
-	 **/
-	public function getUserEmail () {
-		return ($this->userEmail);
-	}
-
-	/**
-	 * mutator method for UserEmail
-	 *
-	 * @param string $newUserEmail new value of userEmail
-	 * @throws \InvalidArgumentException if $newUserEmaili s not a string or insecure
-	 * @throws \RangeException if $newUserEmail is > 128 characters
-	 * @throws \TypeError if $newUserEmail is not a string
-	 **/
-	public function setUserEmail (string $newUserEmail) {
-		// verify the User's email content is secure
-		$newUserEmail = trim($newUserEmail);
-		$newUserEmail = filter_var($newUserEmail, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-		if(empty($newUserEmail) === true) {
-			throw(new \InvalidArgumentException("User's email content is empty or insecure"));
-		}
-
-		// verify the email will fit in the database
-		if(strlen($newUserEmail) > 128) {
-			throw(new \RangeException("Email too large"));
-		}
-
-		// store the user's email
-		$this->userEmail = $newUserEmail;
-	}
 
 	/**
 	 * accessor method for username
@@ -781,5 +789,4 @@ class User implements \JsonSerializable {
 		Unset ($fields["userHash"]);
 		return ($fields);
 	}
-}
 }
