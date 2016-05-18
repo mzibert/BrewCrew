@@ -492,7 +492,20 @@ class Beer {
 		return ($beer);
 	}
 
-
+	/**
+	 * gets the beer by brewery id
+	 * @param \PDO $pdo PDO connection object
+	 * @param int $breweryId the brewery Id to search for
+	 * @return beer|null either return the beer or null if not found
+	 * @throws \PDOException when mySQL errors are found
+	 * @throws \TypeError when the variable returned is not an integer
+	 **/
+	public static function getBeerByBreweryId(\PDO $pdo, int $breweryId){
+		//sanitize the brewery id before searching
+		if($breweryId <=0){
+			throw(new \PDOException("brewery Id is not positive"));
+		}
+	}
 	/**
 	 * gets the beer by beerIbu
 	 *

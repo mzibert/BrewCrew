@@ -350,7 +350,7 @@ class BeerTest extends BrewCrewTest {
 	 */
 	public function testGetInvalidBeerByBeerColor() {
 		//grab a beer by looking for beers with no applicable beer color
-		$beer = Beer::getBeerByBeerColor($this->getPDO(), "light amber");
+		$beer = Beer::getBeerByBeerColor($this->getPDO(), .62);
 		$this->assertCount(0, $beer);
 	}
 	/**
@@ -387,7 +387,7 @@ class BeerTest extends BrewCrewTest {
 	 */
 	public function testGetInvalidBeerByBeerStyle() {
 		//grab a beer by looking for beers with no applicable beer style
-		$beer = Beer::getBeerByBeerColor($this->getPDO(), "1212121212121212121212121212121212121212121212");
+		$beer = Beer::getBeerByBeerColor($this->getPDO(), .0224);
 		$this->assertCount(0, $beer);
 	}
 }
