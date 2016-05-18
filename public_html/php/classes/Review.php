@@ -384,12 +384,13 @@ class Review implements \JsonSerializable {
 		}
 		return ($review);
 	}
-	
+
+
 	/** get the review by beerId
 	 *
 	 * @param \PDO $pdo PDO connection object
 	 * @param int $reviewBeerId the reviewBeerId to search for
-	 * @return Review|null either the review, or null if not found
+	 * @return \SplFixedArray SplFixedArray of reviews or null if not found
 	 * @throws \PDOException when mySQL related errors are found
 	 * @throws \TypeError when variables are not the correct data type
 	 */
@@ -407,19 +408,20 @@ class Review implements \JsonSerializable {
 		$parameters = array("reviewBeerId" => $reviewBeerId);
 		$statement->execute($parameters);
 
-		//grab the review from mySQL
-		try {
-			$review = null;
-			$statement->setFetchMode(\PDO::FETCH_ASSOC);
-			$row = $statement->fetch();
-			if($row !== false) {
+		//build an array of reviews
+		$reviews = new \SplFixedArray($statement->rowCount());
+		$statement->setFetchMode(\PDO::FETCH_ASSOC);
+		while(($row = $statement->fetch()) !== false) {
+			try {
 				$review = new Review($row["reviewId"], $row["reviewBeerId"], $row["reviewUserId"], $row["reviewDate"], $row["reviewPintRating"], $row["reviewText"]);
+				$reviews[$reviews->key()] = $review;
+				$reviews->next();
+			} catch(\Exception $exception) {
+				//if the row couldn't be converted rethrow it
+				throw(new \PDOException($exception->getMessage(), 0, $exception));
 			}
-		} catch(\Exception $exception) {
-			//if the row couldn't be converted rethrow it
-			throw(new \PDOException($exception->getMessage(), 0, $exception));
 		}
-		return ($review);
+		return ($reviews);
 	}
 
 
@@ -427,7 +429,7 @@ class Review implements \JsonSerializable {
 	 *
 	 * @param \PDO $pdo PDO connection object
 	 * @param int $reviewUserId the reviewUserId to search for
-	 * @return Review|null either the review, or null if not found
+	 * @return \SplFixedArray SplFixedArray of reviews or null if not found
 	 * @throws \PDOException when mySQL related errors are found
 	 * @throws \TypeError when variables are not the correct data type
 	 */
@@ -445,26 +447,28 @@ class Review implements \JsonSerializable {
 		$parameters = array("reviewUserId" => $reviewUserId);
 		$statement->execute($parameters);
 
-		//grab the review from mySQL
-		try {
-			$review = null;
-			$statement->setFetchMode(\PDO::FETCH_ASSOC);
-			$row = $statement->fetch();
-			if($row !== false) {
+		//build an array of reviews
+		$reviews = new \SplFixedArray($statement->rowCount());
+		$statement->setFetchMode(\PDO::FETCH_ASSOC);
+		while(($row = $statement->fetch()) !== false) {
+			try {
 				$review = new Review($row["reviewId"], $row["reviewBeerId"], $row["reviewUserId"], $row["reviewDate"], $row["reviewPintRating"], $row["reviewText"]);
+				$reviews[$reviews->key()] = $review;
+				$reviews->next();
+			} catch(\Exception $exception) {
+				//if the row couldn't be converted rethrow it
+				throw(new \PDOException($exception->getMessage(), 0, $exception));
 			}
-		} catch(\Exception $exception) {
-			//if the row couldn't be converted rethrow it
-			throw(new \PDOException($exception->getMessage(), 0, $exception));
 		}
-		return ($review);
+		return ($reviews);
 	}
-	
+
+
 	/** get the review by breweryId
 	 *
 	 * @param \PDO $pdo PDO connection object
 	 * @param int $breweryId the breweryId to search for
-	 * @return Review|null either the review, or null if not found
+	 * @return \SplFixedArray SplFixedArray of reviews or null if not found
 	 * @throws \PDOException when mySQL related errors are found
 	 * @throws \TypeError when variables are not the correct data type
 	 */
@@ -485,19 +489,20 @@ WHERE breweryId = :breweryId";
 		$parameters = array("breweryId" => $breweryId);
 		$statement->execute($parameters);
 
-		//grab the review from mySQL
-		try {
-			$review = null;
+		//build an array of reviews
+			$reviews = new \SplFixedArray($statement->rowCount());
 			$statement->setFetchMode(\PDO::FETCH_ASSOC);
-			$row = $statement->fetch();
-			if($row !== false) {
-				$review = new Review($row["reviewId"], $row["reviewBeerId"], $row["reviewUserId"], $row["reviewDate"], $row["reviewPintRating"], $row["reviewText"]);
+			while(($row = $statement->fetch()) !== false) {
+				try {
+					$review = new Review($row["reviewId"], $row["reviewBeerId"], $row["reviewUserId"], $row["reviewDate"], $row["reviewPintRating"], $row["reviewText"]);
+					$reviews[$reviews->key()] = $review;
+					$reviews->next();
+				} catch(\Exception $exception) {
+					//if the row couldn't be converted rethrow it
+					throw(new \PDOException($exception->getMessage(), 0, $exception));
 			}
-		} catch(\Exception $exception) {
-			//if the row couldn't be converted rethrow it
-			throw(new \PDOException($exception->getMessage(), 0, $exception));
 		}
-		return ($review);
+		return ($reviews);
 	}
 
 	/**
