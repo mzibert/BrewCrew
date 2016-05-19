@@ -522,7 +522,7 @@ class Brewery implements \JsonSerializable {
 	 * @return SplFixedArray of breweries found
 	 * @throws \PDOException when mySQL related errors occur
 	 */
-	public static function getAllBreweries(PDO $pdo) {
+	public static function getAllBreweries(\PDO $pdo) {
 		// Create query template
 		$query = "SELECT breweryId, breweryDescription, breweryEstDate, breweryHours, breweryLocation, breweryName, breweryPhone, breweryUrl FROM brewery";
 		$statement = $pdo->prepare($query);
