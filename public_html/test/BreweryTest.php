@@ -220,7 +220,7 @@ class BreweryTest extends BrewCrewTest {
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("brewery"));
 		$this->assertCount(1, $results);
 		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\Brewcrew\\Brewery", $results);
-
+		
 		// Grab the result from the array and validate it
 		$pdoBrewery = $results[0];
 		$this->assertEquals($pdoBrewery->getBreweryDescription(), $this->VALID_BREWERY_DESCRIPTION);
