@@ -484,7 +484,7 @@ class Brewery implements \JsonSerializable {
 	 * @throws \PDOException when mySQL-related errors occur
 	 **/
 	public static function getBreweryByBreweryName(\PDO $pdo, $breweryName) {
-		//sanitize the brewery name before searching
+		// Sanitize the brewery name before searching
 		$breweryName = trim($breweryName);
 		$breweryName = filter_var($breweryName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($breweryName) === true) {
@@ -499,20 +499,20 @@ class Brewery implements \JsonSerializable {
 		$parameters = array("breweryName" => $breweryName);
 		$statement->execute($parameters);
 
-		// Grab the brewery from mySQL
-		try {
-			$brewery = null;
-			$statement = setFetchMode(PDO::FETCH_ASSOC);
-			$row = $statement->fetch();
-
-			if($row !== false) {
+		// Grab the breweries from mySQL
+		$breweries = new \SplFixedArray($statement->rowCount());
+		$statement->setFetchMode(\PDO::FETCH_ASSOC);
+		while(($row = $statement->fetch()) !== false) {
+			try {
 				$brewery = new Brewery($row["breweryId"], $row["breweryDescription"], $row["breweryEstDate"], $row["breweryHours"], $row["breweryLocation"], $row["breweryName"], $row["breweryPhone"], $row["breweryUrl"]);
+				$breweries[$breweries->key()] = $brewery;
+				$breweries->next();
+			} catch(\Exception $exception) {
+				// If the row couldn't be converted, rethrow it
+				throw (new \PDOException($exception->getMessage(), 0, $exception));
 			}
-		} catch(\Exception $exception) {
-			// If the row couldn't be converted, rethrow it
-			throw(new \PDOException($exception->getMessage(), 0, $exception));
 		}
-		return ($brewery);
+		return($breweries);
 	}
 
 	/**
