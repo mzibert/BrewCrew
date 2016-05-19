@@ -39,7 +39,7 @@ class UserTest extends BrewCrewTest {
 	/**
 	 * @var \DateInterval |\DateTime|null $newUserDateOfBirth date User was sent or null if set to current date and time
 	 */
-	protected $VALID_DATEOFBIRTH = "1960-12-25 00:00:00";
+	protected $VALID_DATEOFBIRTH = "1960-12-25";
 	/**
 	 * @var string $newUserEmail string containing user email
 	 */
@@ -245,7 +245,4 @@ class UserTest extends BrewCrewTest {
 		$this->assertSame($pdoUser->getUserSalt(), $this->salt);
 		$this->assertSame($pdoUser->getUserUsername(), $this->VALID_USERUSERNAME);
 	}
-
-
-
 }

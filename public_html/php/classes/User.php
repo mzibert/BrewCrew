@@ -184,15 +184,14 @@ class User implements \JsonSerializable {
 	 * mutator method for userAccessLevel
 	 *
 	 * @param int|null $userAccessLevel new value of user id
-	 * @throws \RangeException if $userAccessLevel is not positive
-	 * @throws \TypeError if $userAccessLevel is not an integer
+	 * @throws \InvalidArgumentException if $userAccessLevel cannot be null
 	 **/
-	public function setUserAccessLevel (int $userAccessLevel = null) {
+	public function setUserAccessLevel (int $userAccessLevel) {
 
 		if($userAccessLevel === null) {
-			$this->userAccessLevel = null;
-			return;
+			throw(new \InvalidArgumentException("User Access Level cannot be null"));
 		}
+		$this->userAccessLevel=$userAccessLevel;
 	}
 	/**
 	 * accessor method for user activation token
@@ -239,14 +238,14 @@ class User implements \JsonSerializable {
 			throw (new \OutOfBoundsException("You must enter your date of birth"));
 		}
 
-		$newUserDateOfBirth = ValidateDate::validateDate($newUserDateOfBirth);
+		$newUserDateOfBirth = self::validateDate($newUserDateOfBirth);
 		$drinkDate = $newUserDateOfBirth->add(new \DateInterval('P21Y'));
 		$todaysDate = new \DateTime();
 		if($drinkDate > $todaysDate)  {
 			throw (new \OutOfRangeException("You are too young."));
 		}
 		// store the userDateOfBirth date
-		$this->userDateOfBirth = date($newUserDateOfBirth);
+		$this->userDateOfBirth = $newUserDateOfBirth;
 
 	}
 	/**
@@ -396,20 +395,16 @@ class User implements \JsonSerializable {
 	 *
 	 * @param string $newUserHash new value of userHash
 	 * @throws \InvalidArgumentException if $newUserHash is not a string or insecure
-	 * @throws \RangeException if $newUserHash is > 64 characters
+	 * @throws \RangeException if $newUserHash is > 128 characters
 	 * @throws \TypeError if $newUserHash is not a string
 	 **/
 	public function setUserHash (string $newUserHash) {
-		// verify the User's password hash is secure
-		$newUserHash = trim($newUserHash);
-		$newUserHash = filter_var($newUserHash, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-		if(empty($newUserHash) === true) {
-			throw(new \InvalidArgumentException("User's password hash is empty or insecure"));
+		if(ctype_xdigit($newUserHash) === false){
+			throw(new \InvalidArgumentException("Hash is not a string or insecure."));
 		}
-
 		// verify the hash will fit in the database
-		if(strlen($newUserHash) > 64) {
-			throw(new \RangeException("Hash too large"));
+		if(strlen($newUserHash) !== 128) {
+			throw(new \RangeException("Hash failed"));
 		}
 
 		// store the userHash
@@ -711,7 +706,7 @@ class User implements \JsonSerializable {
 		$parameters = ["userBreweryId" => $this->userBreweryId,
 			"userAccessLevel" => $this->userAccessLevel,
 			"userActivationToken" => $this->userActivationToken,
-			"userDateOfBirth"=>$this->userDateOfBirth,
+			"userDateOfBirth"=>$this->userDateOfBirth->format("Y-m-d"),
 			"userEmail" => $this->userEmail,
 			"userFirstName" => $this->userFirstName,
 			"userHash" => $this->userHash,
