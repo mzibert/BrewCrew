@@ -403,6 +403,7 @@ class User implements \JsonSerializable {
 			throw(new \InvalidArgumentException("Hash is not a string or insecure."));
 		}
 		// verify the hash will fit in the database
+		var_dump($newUserHash);
 		if(strlen($newUserHash) !== 128) {
 			throw(new \RangeException("Hash failed"));
 		}
