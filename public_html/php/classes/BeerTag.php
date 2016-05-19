@@ -8,7 +8,7 @@ require_once("autoload.php");
  * This class contains everything for a user to be able to link beer flavor tags with the beers that they drink
  * @author Merri Zibert <mzibert@cnm.edu>
  **/
-class BeerTag {
+class BeerTag implements \JsonSerializable {
 	/**
 	 * this is the Id for this beer that this beer tag refers to, this is the foreign key
 	 * @var int $beerTagBeerId
@@ -25,6 +25,7 @@ class BeerTag {
 	 * @param int $newBeerTagBeerId new value of beer tag beer Id
 	 * @param int $newBeerTagTagId new value of the tag id assigned to this beer
 	 * @throws \InvalidArgumentException if the data types are not valid
+	 * @throws \RangeException if data values are not positive
 	 * @throws \TypeError if the data entered is the incorrect type
 	 * @throws \Exception if any other type of errors occur
 	 **/
@@ -34,7 +35,7 @@ class BeerTag {
 			$this->setBeerTagTagId($newBeerTagTagId);
 		} catch(\InvalidArgumentException $InvalidArgument) {
 			//rethrow the exception to the caller
-			throw (\InvalidArgumentException($InvalidArgument->getMessage(), 0, $InvalidArgument));
+			throw(new \InvalidArgumentException($InvalidArgument->getMessage(), 0, $InvalidArgument));
 		} catch(\RangeException $range) {
 			//rethrow the exception to the caller
 			throw (new \RangeException($range->getMessage(), 0, $range));
@@ -42,6 +43,7 @@ class BeerTag {
 			//rethrow exception to the caller
 			throw(new \TypeError($typeError->getMessage(), 0, $typeError));
 		} catch(\ Exception $exception) {
+			//rethrow the exception to the caller
 			throw (new \Exception($exception->getMessage(), 0, $exception));
 		}
 	}
@@ -151,26 +153,27 @@ class BeerTag {
 		//create query template
 		$query = "SELECT beerTagBeerId, beerTagTagId FROM beerTag WHERE beerTagBeerId = :beerTagBeerId AND beerTagTagId = :beerTagTagId";
 		$statement = $pdo->prepare($query);
-		
+
 		//bind the beer id to the place holder in the template
 		$parameters = ["beerTagBeerId" => $beerTagBeerId];
 		$statement->execute($parameters);
-		
+
 		//build an array of beerTags
 		$beerTags = new \SplFixedArray($statement->rowCount());
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
-		while(($row = $statement->fetch()) !== false){
+		while(($row = $statement->fetch()) !== false) {
 			try {
 				$beerTag = new BeerTag($row["beerTagBeerId"], $row["beerTagTagId"]);
 				$beerTags[$beerTags->key()] = $beerTag;
 				$beerTags->next();
-			}catch(\Exception $exception){
+			} catch(\Exception $exception) {
 				//if the row cant be converted rethrow it
-				throw (new \PDOException($exception->getMessage(), 0, $exception)); 
+				throw (new \PDOException($exception->getMessage(), 0, $exception));
 			}
 		}
 		return ($beerTags);
 	}
+
 	/**
 	 * gets the beer tag by tag Id
 	 *
@@ -180,9 +183,9 @@ class BeerTag {
 	 * @throws \PDOException when mySQL related errors are found
 	 * @throws \TypeError when variables are not the correct data type
 	 */
-	public static function getBeerTagByTagId(\PDO $pdo, int $beerTagTagId){
-	// sanitize the tag id
-		if($beerTagTagId <0){
+	public static function getBeerTagByTagId(\PDO $pdo, int $beerTagTagId) {
+		// sanitize the tag id
+		if($beerTagTagId < 0) {
 			throw(new \PDOException ("Tag Id is not positive"));
 		}
 		//create query template
@@ -190,5 +193,72 @@ class BeerTag {
 		$statement = $pdo->prepare($query);
 
 		//bind the member variables to the placeholders in the template
+		$parameters = ["beerTagTagId" => $beerTagTagId];
+		$statement->execute($parameters);
+
+		//build an array of beer tags
+		$beerTags = new \SplFixedArray($statement->rowCount());
+		$statement->setFetchMode(\PDO::FETCH_ASSOC);
+		while(($row = $statement->fetch()) !== false) {
+			try {
+				$beerTag = new BeerTag($row["beerTagBeerid"], $row["beerTagTagId"]);
+				$beerTags[$beerTags->key()] = $beerTag;
+				$beerTags->next();
+			} catch(\Exception $exception) {
+				//if the row could not be converted, rethrow it
+				throw(new \PDOException($exception->getMessage(), 0, $exception));
+			}
+		}
+		return ($beerTags);
+	}
+
+	//get beer tag by beer id and tag id
+	/**
+	 * gets the beer tag by both beer and tag id
+	 * @param \PDO $pdo PDO connection object
+	 * @param int $beerTagBeerID beer id to search for
+	 * @param int $beerTagTagId tag id to search for
+	 * @return BeerTag|null beerTag if found, null if not
+	 * @throws \PDOException when mySQL errors occur
+	 * @throws \TypeError when variables are not of the correct data type
+	 **/
+	public static function getBeerTagByBeerIdAndTagId(\PDO $pdo, int $beerTagBeerId, int $beerTagTagId) {
+		//sanitize the beer id and the tag id before searching
+		if($beerTagBeerId < 0) {
+			throw (new \PDOException("beer id is not positive"));
+		}
+		if($beerTagTagId < 0) {
+			throw (new \PDOException("tag id is not positive"));
+		}
+
+		//create a query template
+		$query = "SELECT beerTagBeerId, beerTagTagId FROM beerTag WHERE beerTagBeerId = :beerTagBeerId AND beerTagTagId = :beerTagTagId;";
+		$statement = $pdo->prepare($query);
+
+		//bind the variables to the placeholders in the template
+		$parameters = ["beerTagBeerId" => $beerTagBeerId, "beerTagTagId" => $beerTagTagId];
+		$statement->execute($parameters);
+
+		//grab the beer tag from mySQL
+		try {
+			$beerTag = null;
+			$statement->setFetchMode(\PDO::FETCH_ASSOC);
+			$row = $statement->fetch();
+			if($row !== false) {
+				$beerTag = new BeerTag($row["beerTagBeerId"], $row["beerTagTagId"]);
+			}
+		} catch(\Exception $exception) {
+
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
+		}
+		return ($beerTag);
+	}
+
+
+
+	//jsonSerialize
+	public function jsonSerialize() {
+		$fields = get_object_vars($this);
+		return ($fields);
 	}
 }
