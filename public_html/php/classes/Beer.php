@@ -496,15 +496,38 @@ class Beer {
 	 * gets the beer by brewery id
 	 * @param \PDO $pdo PDO connection object
 	 * @param int $breweryId the brewery Id to search for
-	 * @return beer|null either return the beer or null if not found
+	 * @return \SplFixedArray  an array of beers or null if not found
 	 * @throws \PDOException when mySQL errors are found
 	 * @throws \TypeError when the variable returned is not an integer
 	 **/
-	public static function getBeerByBreweryId(\PDO $pdo, int $breweryId){
+	public static function getBeerByBeerBreweryId(\PDO $pdo, int $beerBreweryId){
 		//sanitize the brewery id before searching
-		if($breweryId <=0){
+		if($beerBreweryId <=0){
 			throw(new \PDOException("brewery Id is not positive"));
 		}
+		//create a query template
+		$query = "SELECT beerId, beerBreweryId, beerAbv, beerAvailability, beerAwards, beerColor, beerDescription, beerIbu, beerName, beerStyle FROM beer WHERE beerBreweryId = :beerBreweryId";
+		$statement = $pdo->prepare($query);
+
+		//bind the brewery id to the placeholder in the template
+		$parameters = array("beerBreweryId" => $beerBreweryId);
+		$statement->execute ($parameters);
+
+		//build an array of beers
+		$beers = new \SplFixedArray($statement->rowCount());
+		$statement->setFetchMode(\PDO::FETCH_ASSOC);
+		while(($row = $statement->fetch()) !== false){
+			try {
+				$beer = new Beer($row["beerid"], $row["beerBreweryId"], $row["beerAbv"], $row["beerAvailability"], $row["beerAwards"], $row["beerColor"], $row["beerDescription"], $row["beerIbu"], $row["beerName"], $row["beerStyle"]);
+				$beers[$beers->key()] = $beers;
+				$beers->next();
+			}catch(\Exception $exception){
+				
+				//If the row couldnt be converted, rethrow it
+				throw (new \PDOException($exception->getMessage(), 0, $exception));
+			}
+		}
+		return ($beers);
 	}
 	/**
 	 * gets the beer by beerIbu

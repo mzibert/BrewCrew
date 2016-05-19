@@ -170,4 +170,25 @@ class BeerTag {
 			}
 		}
 		return ($beerTags);
+	}
+	/**
+	 * gets the beer tag by tag Id
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @param int $beerTagTagID tag Id to search for
+	 * @return \SplFixedArray of BeerTags found or null if nothing is found
+	 * @throws \PDOException when mySQL related errors are found
+	 * @throws \TypeError when variables are not the correct data type
+	 */
+	public static function getBeerTagByTagId(\PDO $pdo, int $beerTagTagId){
+	// sanitize the tag id
+		if($beerTagTagId <0){
+			throw(new \PDOException ("Tag Id is not positive"));
+		}
+		//create query template
+		$query = "SELECT beerTagBeerId, beerTagTagId FROM beerTag WHERE beerTagTagId = :beerTagTagId";
+		$statement = $pdo->prepare($query);
+
+		//bind the member variables to the placeholders in the template
+	}
 }

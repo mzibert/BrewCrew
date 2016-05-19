@@ -251,7 +251,7 @@ class BeerTest extends BrewCrewTest {
 		$beer->insert($this->getPDO());
 
 		//grab the data from mySQL and check the fields against our expectations
-		$results = Beer::getBeerByBreweryId($this->getPDO(), $beer->getBeerBreweryId());
+		$results = Beer::getBeerByBreweryId($this->getPDO(), $brewery->getBreweryId());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("beer"));
 		$this->assertCount(1, $results);
 		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\BrewCrew\\Beer", $results);
@@ -387,7 +387,7 @@ class BeerTest extends BrewCrewTest {
 	 */
 	public function testGetInvalidBeerByBeerStyle() {
 		//grab a beer by looking for beers with no applicable beer style
-		$beer = Beer::getBeerByBeerColor($this->getPDO(), .0224);
+		$beer = Beer::getBeerByBeerStyle($this->getPDO(), .0224);
 		$this->assertCount(0, $beer);
 	}
 }
