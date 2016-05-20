@@ -216,7 +216,7 @@ class Review implements \JsonSerializable {
 	 * @return int value of the pint rating
 	 */
 	public function getReviewPintRating() {
-		return ($this->reviewDate);
+		return ($this->reviewPintRating);
 	}
 
 	/**
@@ -376,7 +376,7 @@ class Review implements \JsonSerializable {
 			$statement->setFetchMode(\PDO::FETCH_ASSOC);
 			$row = $statement->fetch();
 			if($row !== false) {
-				$review = new Review($row["reviewId"], $row["reviewBeerId"], $row["reviewUserId"], $row["reviewDate"], $row["reviewPintRating"], $row["reviewText"]);
+				$review = new Review($row["reviewId"], $row["reviewBeerId"], $row["reviewUserId"], \DateTime::createFromFormat("Y-m-d H:i:s", $row["reviewDate"]), $row["reviewPintRating"], $row["reviewText"]);
 			}
 		} catch(\Exception $exception) {
 			//if the row couldn't be converted rethrow it
@@ -413,7 +413,7 @@ class Review implements \JsonSerializable {
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 		while(($row = $statement->fetch()) !== false) {
 			try {
-				$review = new Review($row["reviewId"], $row["reviewBeerId"], $row["reviewUserId"], $row["reviewDate"], $row["reviewPintRating"], $row["reviewText"]);
+				$review = new Review($row["reviewId"], $row["reviewBeerId"], $row["reviewUserId"], \DateTime::createFromFormat("Y-m-d H:i:s", $row["reviewDate"]), $row["reviewPintRating"], $row["reviewText"]);
 				$reviews[$reviews->key()] = $review;
 				$reviews->next();
 			} catch(\Exception $exception) {
@@ -452,7 +452,7 @@ class Review implements \JsonSerializable {
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 		while(($row = $statement->fetch()) !== false) {
 			try {
-				$review = new Review($row["reviewId"], $row["reviewBeerId"], $row["reviewUserId"], $row["reviewDate"], $row["reviewPintRating"], $row["reviewText"]);
+				$review = new Review($row["reviewId"], $row["reviewBeerId"], $row["reviewUserId"], \DateTime::createFromFormat("Y-m-d H:i:s", $row["reviewDate"]), $row["reviewPintRating"], $row["reviewText"]);
 				$reviews[$reviews->key()] = $review;
 				$reviews->next();
 			} catch(\Exception $exception) {
@@ -494,7 +494,7 @@ WHERE breweryId = :breweryId";
 			$statement->setFetchMode(\PDO::FETCH_ASSOC);
 			while(($row = $statement->fetch()) !== false) {
 				try {
-					$review = new Review($row["reviewId"], $row["reviewBeerId"], $row["reviewUserId"], $row["reviewDate"], $row["reviewPintRating"], $row["reviewText"]);
+					$review = new Review($row["reviewId"], $row["reviewBeerId"], $row["reviewUserId"], \DateTime::createFromFormat("Y-m-d H:i:s", $row["reviewDate"]), $row["reviewPintRating"], $row["reviewText"]);
 					$reviews[$reviews->key()] = $review;
 					$reviews->next();
 				} catch(\Exception $exception) {
@@ -525,8 +525,7 @@ WHERE breweryId = :breweryId";
 		$statement = $pdo->prepare($query);
 
 		//bind the review content to the place holder in the template
-		$reviewContent = "%reviewContent%";
-		$parameters = array("reviewContent" => $reviewContent);
+		$parameters = array("reviewPintRating" => $reviewPintRating);
 		$statement->execute($parameters);
 
 		//build an array of reviews
@@ -534,7 +533,7 @@ WHERE breweryId = :breweryId";
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 		while(($row = $statement->fetch()) !== false) {
 			try {
-				$review = new Review($row["reviewId"], $row["reviewBeerId"], $row["reviewUserId"], $row["reviewDate"], $row["reviewPintRating"], $row["reviewText"]);
+				$review = new Review($row["reviewId"], $row["reviewBeerId"], $row["reviewUserId"], \DateTime::createFromFormat("Y-m-d H:i:s", $row["reviewDate"]), $row["reviewPintRating"], $row["reviewText"]);
 				$reviews[$reviews->key()] = $review;
 				$reviews->next();
 			} catch(\Exception $exception) {

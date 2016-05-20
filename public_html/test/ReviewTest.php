@@ -134,7 +134,7 @@ class ReviewTest extends BrewCrewTest {
 		$review->insert($this->getPDO());
 
 		//edit this review and update it in mySQL
-		$review->setReviewContent($this->VALID_REVIEWCONTENT2);
+		$review->setReviewText($this->VALID_REVIEWCONTENT2);
 		$review->update($this->getPDO());
 
 		//grab the data from mySQL and check that the fields match our expectations
@@ -333,7 +333,7 @@ class ReviewTest extends BrewCrewTest {
 	 */
 	public function testGetInvalidReviewByPintRating() {
 		//grab a review by looking for reviews with no applicable pint ratings
-		$review = Review::getReviewByReviewPintRating($this->getPDO(), 42);
+		$review = Review::getReviewByReviewPintRating($this->getPDO(), 1);
 		$this->assertCount(0, $review);
 	}
 
