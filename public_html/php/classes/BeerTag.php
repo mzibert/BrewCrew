@@ -5,7 +5,9 @@ require_once("autoload.php");
 
 /**
  * Class BeerTag
+ * 
  * This class contains everything for a user to be able to link beer flavor tags with the beers that they drink
+ * 
  * @author Merri Zibert <mzibert@cnm.edu>
  **/
 class BeerTag implements \JsonSerializable {
@@ -145,7 +147,7 @@ class BeerTag implements \JsonSerializable {
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when variables are not the correct data type
 	 **/
-	public static function getBeerTagByBeerId(\PDO $pdo, int $beerTagByBeerId) {
+	public static function getBeerTagByBeerId(\PDO $pdo, int $beerTagBeerId) {
 		//sanitize the beer id
 		if($beerTagBeerId < 0) {
 			throw (new\PDOException("beer id is not positive"));

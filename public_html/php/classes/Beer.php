@@ -5,11 +5,13 @@ require_once("autoload.php");
 
 /**
  * This class contains data and functionality for beer
+ *
  * @author Merri Zibert mjzibert2@gmail.com
+ *
  **/
 
 
-class Beer {
+class Beer implements \JsonSerializable {
 	/** Id for this beer is assigned by the system; this is the primary key.
 	 * @var int $beerId
 	 **/
@@ -518,8 +520,8 @@ class Beer {
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 		while(($row = $statement->fetch()) !== false){
 			try {
-				$beer = new Beer($row["beerid"], $row["beerBreweryId"], $row["beerAbv"], $row["beerAvailability"], $row["beerAwards"], $row["beerColor"], $row["beerDescription"], $row["beerIbu"], $row["beerName"], $row["beerStyle"]);
-				$beers[$beers->key()] = $beers;
+				$beer = new Beer($row["beerId"], $row["beerBreweryId"], $row["beerAbv"], $row["beerAvailability"], $row["beerAwards"], $row["beerColor"], $row["beerDescription"], $row["beerIbu"], $row["beerName"], $row["beerStyle"]);
+				$beers[$beers->key()] = $beer;
 				$beers->next();
 			}catch(\Exception $exception){
 				
@@ -586,11 +588,10 @@ class Beer {
 		}
 
 		//create query template
-		$query = "SELECT beerId, beerBreweryId, beerAbv, beerAvailability, beerAwards, beerColor, beerDescription, beerIbu, beerName, beerStyle FROM beer WHERE beerColor LIKE :beerColor";
+		$query = "SELECT beerId, beerBreweryId, beerAbv, beerAvailability, beerAwards, beerColor, beerDescription, beerIbu, beerName, beerStyle FROM beer WHERE beerColor = :beerColor";
 		$statement = $pdo->prepare($query);
 
 		//bind the beer color to the place holder in the template
-		$beerColor = "%beerColor%";
 		$parameters = array("beerColor" => $beerColor);
 		$statement->execute($parameters);
 
@@ -599,7 +600,7 @@ class Beer {
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 		while(($row = $statement->fetch()) !== false) {
 			try {
-				$beer = new Beer($row["beerId"], $row["beerBreweryID"], $row["beerAbv"], $row["beerAvailability"], $row["beerAwards"], $row["beerColor"], $row["beerDescription"], $row["beerIbu"], $row["beerName"], $row["beerStyle"]);
+				$beer = new Beer($row["beerId"], $row["beerBreweryId"], $row["beerAbv"], $row["beerAvailability"], $row["beerAwards"], $row["beerColor"], $row["beerDescription"], $row["beerIbu"], $row["beerName"], $row["beerStyle"]);
 				$beers[$beers->key()] = $beer;
 				$beers->next();
 			} catch(\Exception $exception) {
@@ -690,5 +691,10 @@ class Beer {
 			}
 		}
 		return ($beers);
+	}
+	//jsonSerialize
+	public function jsonSerialize() {
+		$fields = get_object_vars($this);
+		return ($fields);
 	}
 }
