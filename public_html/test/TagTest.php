@@ -18,37 +18,54 @@ require_once (dirname(__DIR__) . "/php/classes/autoload.php");
  *
  */
 
-/**
- * Full PHPUnit test for brewery class
- *
- * This is a complete PHPUnit test of the brewery class. It is complete because "ALL" mySQL/PDO enabled methods are tested for both invalid and valid inputs.
- *
- * @see \Edu\Cnm\BrewCrew\Brewery
- * @author Kate McGaughey therealmcgaughey@gmail.com
- *
- */
-
 class TagTest extends BrewCrewTest {
-	/**
-	 * Content generated for description text
-	 * @var string $VALID_TAGID
-	 */
-	protected $VALID_BREWERY_DESCRIPTION = "PHPUnit test passing";
 
 	/**
-	 * Updated content for description text
-	 * @var string $VALID_BREWERYEST_DESCRIPTION2
+	 * Valid flavor label to use
+	 * @var string $VALID_TAG_LABEL
 	 */
-	protected $VALID_BREWERY_DESCRIPTION2 = "PHPUnit test still passing";
+	protected $VALID_TAG_LABEL = "Sweet";
 
 
+	/**
+	 * Test inserting a valid tag and verifying that the mySQL data matches
+	 */
+	public function testInsertValidTag() {
+	
+	}
 
 
+	/**
+	 * Test inserting a tag that already exists
+	 */
 
 
+	/**
+	 * Test creating a tag and then deleting it
+	 */
 
 
+	/**
+	 * Test deleting a tag that doesn't exist
+	 */
 
-/**
-* Test getting all tags
-*/
+
+	/**
+	 * Test getting a tag by valid tag id
+	 */
+
+
+	/**
+	 * Test getting a tag by invalid tag id
+	 */
+
+
+	/**
+	 * Test getting tag by tag label
+	 */
+
+
+	/**
+	 * Test getting all tags
+	 */
+}
