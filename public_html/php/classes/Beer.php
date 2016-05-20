@@ -153,7 +153,7 @@ class Beer implements \JsonSerializable {
 	 * @throws \RangeException if $newBeerBreweryId is not positive
 	 * @throws \TypeError if $newBeerBreweryId is not an integer
 	 **/
-	public function setBeerBreweryId($newBeerBreweryId) {
+	public function setBeerBreweryId(int $newBeerBreweryId) {
 		//verify the brewery id is positive
 		if($newBeerBreweryId <= 0) {
 			throw (new \RangeException("brewery id is not positive"));
@@ -177,7 +177,7 @@ class Beer implements \JsonSerializable {
 	 * @throws \RangeException if $newbeerAbv is less than zero or greater than 100%
 	 * @throws \TypeError if $newbeerAbv is not a float
 	 **/
-	public function setBeerAbv($newBeerAbv) {
+	public function setBeerAbv(float $newBeerAbv) {
 		//verify the beer abv is between 0% and 100%
 		if($newBeerAbv < 0 || $newBeerAbv > 100) {
 			throw (new \RangeException ("beer abv is out of range"));
@@ -202,7 +202,7 @@ class Beer implements \JsonSerializable {
 	 * @throws \RangeException if $newbeerAvailability is > 100 characters
 	 * @throws \TypeError if $newbeerAvailability is not a string
 	 **/
-	public function setBeerAvailability($newBeerAvailability) {
+	public function setBeerAvailability(string $newBeerAvailability) {
 		//verify the beer availabilty content is secure
 		$newBeerAvailability = trim($newBeerAvailability);
 		$newBeerAvailability = filter_var($newBeerAvailability, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
@@ -232,7 +232,7 @@ class Beer implements \JsonSerializable {
 	 * @throws \RangeException if $newbeerAwards is greater that  1000 characters
 	 * @throws \TypeError if $newbeerAwards is not a string
 	 **/
-	public function setBeerAwards($newBeerAwards) {
+	public function setBeerAwards(string $newBeerAwards) {
 		//verify the beer awards content is secure
 		$newBeerAwards = trim($newBeerAwards);
 		$newBeerAwards = filter_var($newBeerAwards, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
@@ -261,7 +261,7 @@ class Beer implements \JsonSerializable {
 	 * @throws \RangeException if $newbeerColor is less than zero or greater than 1
 	 * @throws \TypeError if $newbeerColor is not a float
 	 **/
-	public function setBeerColor($newBeerColor) {
+	public function setBeerColor(float $newBeerColor) {
 		//verify the beer abv is between 0 and 1
 		if($newBeerColor < 0 || $newBeerColor > 1) {
 			throw (new \RangeException ("beer color is out of range"));
@@ -284,7 +284,7 @@ class Beer implements \JsonSerializable {
 	 * @throws \InvalidArgumentException if $newbeerDescription is not a string or is insecure
 	 * @throws \RangeException if the string exceeds 2000 characters
 	 **/
-	public function setBeerDescription($newBeerDescription) {
+	public function setBeerDescription(string $newBeerDescription) {
 		//verify the beer description content is secure
 		$newBeerDescription = trim($newBeerDescription);
 		$newBeerDescription = filter_var($newBeerDescription, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
@@ -313,7 +313,7 @@ class Beer implements \JsonSerializable {
 	 * @throws \RangeException if the string exceeds 50 characters
 	 * @throws \TypeError if $newbeerIbu is not a string
 	 **/
-	public function setBeerIbu($newBeerIbu) {
+	public function setBeerIbu(string $newBeerIbu) {
 		//verify the beer ibu content is secure
 		$newBeerIbu = trim($newBeerIbu);
 		$newBeerIbu = filter_var($newBeerIbu, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
@@ -343,7 +343,7 @@ class Beer implements \JsonSerializable {
 	 * @throws \RangeException if string exceeds 64 characters
 	 * @throws \TypeError if $newbeerName is not a string
 	 **/
-	public function setBeerName($newBeerName) {
+	public function setBeerName(string $newBeerName) {
 		//verify the beer name content is secure
 		$newBeerName = trim($newBeerName);
 		$newBeerName = filter_var($newBeerName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
@@ -372,7 +372,7 @@ class Beer implements \JsonSerializable {
 	 * @throws \InvalidArgumentException if $newbeerStyle content is not a string or is insecure
 	 * @throws \RangeException if string exceeds 32 characters
 	 **/
-	public function setBeerStyle($newBeerStyle) {
+	public function setBeerStyle(string $newBeerStyle) {
 		//verify the beer style content is secure
 		$newBeerStyle = trim($newBeerStyle);
 		$newBeerStyle = filter_var($newBeerStyle, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
