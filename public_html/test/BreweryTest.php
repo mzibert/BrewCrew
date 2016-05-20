@@ -5,13 +5,13 @@ use Edu\Cnm\BrewCrew\Brewery;
 
 require_once ("BrewCrewTest.php");
 
-// grab the class being tested
+// Grab the class being tested
 require_once (dirname(__DIR__) . "/php/classes/autoload.php");
 
 /**
  * Full PHPUnit test for brewery class
  *
- * This is a complete PHPUnit test of the brewery class.
+ * This is a complete PHPUnit test of the brewery class. It is complete because "ALL" mySQL/PDO enabled methods are tested for both invalid and valid inputs.
  *
  * @see \Edu\Cnm\BrewCrew\Brewery
  * @author Kate McGaughey therealmcgaughey@gmail.com
@@ -85,7 +85,7 @@ class BreweryTest extends BrewCrewTest {
 		$brewery->insert($this->getPDO());
 
 		// Grab the data from mySQL and check the fields against our expectations
-		// Looked at Skyler's work to figure out how this might be done
+		// Looked at Skyler's work for help
 		// @Link https://github.com/Skylarity/trufork/blob/master/public_html/test/restaurant-test.php
 		$pdoBrewery = Brewery::getBreweryByBreweryId($this->getPDO(), $brewery->getBreweryId());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("brewery"));
@@ -101,7 +101,7 @@ class BreweryTest extends BrewCrewTest {
 	 * Test inserting a brewery that already exists
 	 *
 	 * @expectedException PDOException
-	 **/
+	 */
 	public function testInsertInvalidBrewery() {
 		//create a brewery with a non null brewery id and watch it fail
 		$brewery = new Brewery(BrewCrewTest::INVALID_KEY, $this->VALID_BREWERY_DESCRIPTION, $this->VALID_BREWERY_EST_DATE, $this->VALID_BREWERY_HOURS, $this->VALID_BREWERY_LOCATION, $this->VALID_BREWERY_NAME, $this->VALID_BREWERY_PHONE, $this->VALID_BREWERY_URL);
@@ -110,7 +110,7 @@ class BreweryTest extends BrewCrewTest {
 
 	/**
 	 * Test inserting a brewery, editing it, and then updating it
-	 **/
+	 */
 	public function testUpdateValidBrewery() {
 		// Count the number of rows and save it for later
 		$numRows = $this->getConnection()->getRowCount("brewery");
@@ -141,7 +141,7 @@ class BreweryTest extends BrewCrewTest {
 	 *
 	 * @expectedException PDOException
 	 * Again copying Skyler's work because I have no idea what this is
-	 **/
+	 */
 	public function testUpdateInvalidBrewery() {
 		// Create a brewery and try to update it without actually inserting it
 		$brewery = new Brewery(null, $this->VALID_BREWERY_DESCRIPTION, $this->VALID_BREWERY_EST_DATE, $this->VALID_BREWERY_HOURS, $this->VALID_BREWERY_LOCATION, $this->VALID_BREWERY_NAME, $this->VALID_BREWERY_PHONE, $this->VALID_BREWERY_URL);
@@ -150,7 +150,7 @@ class BreweryTest extends BrewCrewTest {
 
 	/**
 	 * Test creating a brewery and then deleting it
-	 **/
+	 */
 	public function testDeleteValidBrewery() {
 		// Count the number of rows and save it for later
 		$numRows = $this->getConnection()->getRowCount("brewery");
@@ -205,7 +205,7 @@ class BreweryTest extends BrewCrewTest {
 
 	/**
 	 * Test getting brewery by invalid brewery id
-	 **/
+	 */
 	public function testGetBreweryByInvalidBreweryId() {
 		// Grab a brewery by invalid key
 		$brewery = Brewery::getBreweryByBreweryId($this->getPDO(), BrewCrewTest::INVALID_KEY);
@@ -241,7 +241,7 @@ class BreweryTest extends BrewCrewTest {
 
 	/**
 	 * Test getting brewery by location that does not exist
-	 **/
+	 */
 	public function testGetInvalidBreweryByBreweryLocation() {
 		// Grab a brewery by searching for a brewery that does not exist
 		$brewery = Brewery::getBrewerybyBreweryLocation($this->getPDO(), "Mars");
@@ -277,7 +277,7 @@ class BreweryTest extends BrewCrewTest {
 
 	/**
 	 * Test getting brewery by name that does not exist
-	 **/
+	 */
 	public function testGetInvalidBreweryByBreweryName() {
 		// Grab a brewery by searching for a brewery that does not exist
 		$brewery = Brewery::getBrewerybyBreweryName($this->getPDO(), "WTF name");
