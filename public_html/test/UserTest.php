@@ -85,6 +85,10 @@ class UserTest extends BrewCrewTest {
 	public final function setUp () {
 		//run the default setUp() method first
 		parent::setUp();
+		//create salt and hash for user
+		$password = "42fedfeaeuf34q3eqf";
+		$this->salt = bin2hex(random_bytes(16));
+		$this->hash = hash_pbkdf2("sha512", $this->password, $this->salt, 262144);
 		//create and insert a Brewery to own the test user
 		$this->brewery = new Brewery(null, "brewery description", "2016", "7am - 11pm", "location", "Marble Brewery", "15055551212", "Marble@Marble.com");
 		//var_dump($this->brewery);

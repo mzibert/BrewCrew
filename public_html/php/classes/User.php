@@ -481,23 +481,21 @@ class User implements \JsonSerializable {
 
 
 	/**
-	 * deletes this User from mySQL
+	 * deletes the user from mySQL
 	 *
 	 * @param \PDO $pdo PDO connection object
-	 * @throws \PDOException when mySQL related errors occur
-	 * @throws \TypeError if $pdo is not a PDO connection object
-	 **/
+	 * @param \PDOException when mySQL related errors occur
+	 * @param \TypeError if $pdo is not a PDO connection object
+	 */
 	public function delete(\PDO $pdo) {
-// enforce the userId is not null (i.e., don't delete a user that hasn't been inserted)
+		//enforce the the userId is not null (tldr don't delete a user that is not yet inserted)
 		if($this->userId === null) {
 			throw(new \PDOException("unable to delete a user that does not exist"));
 		}
-
-// create query template
+		//create query template
 		$query = "DELETE FROM user WHERE userId = :userId";
 		$statement = $pdo->prepare($query);
-
-// bind the member variables to the place holder in the template
+		// bind the member variables to the place holder in the template
 		$parameters = ["userId" => $this->userId];
 		$statement->execute($parameters);
 	}
@@ -519,7 +517,7 @@ class User implements \JsonSerializable {
 		$query = "UPDATE user SET userBreweryId = :userBreweryId, userAccessLevel = :userAccessLevel, userActivationToken = :userActivationToken, userDateOfBirth = :userDateOfBirth, userEmail = :userEmail, userFirstName = :userFirstName, userHash = :userHash, userLastName = :userLastName, userSalt =:userSalt, userUsername =:userUsername WHERE userId = :userId";
 		$statement = $pdo->prepare($query);
 
-		$parameters = ["userBreweryId" => $this->userBreweryId, "userAccessLevel" => $this->userAccessLevel, "userActivationToken" => $this->userActivationToken, "userDateOfBirth" => $this->userDateOfBirth, "userEmail" => $this->userEmail,
+		$parameters = ["userId" => $this->userId,"userBreweryId" => $this->userBreweryId, "userAccessLevel" => $this->userAccessLevel, "userActivationToken" => $this->userActivationToken, "userDateOfBirth" => $this->userDateOfBirth, "userEmail" => $this->userEmail,
 			"userFirstName" => $this->userFirstName, "userHash" => $this->userHash, "userLastName" => $this->userLastName, "userSalt" => $this->userSalt, "userUsername => $this->userUsername"];
 		$statement->execute($parameters);
 	}
