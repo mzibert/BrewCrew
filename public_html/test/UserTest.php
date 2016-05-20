@@ -62,7 +62,7 @@ class UserTest extends BrewCrewTest {
 	/**
 	 * @var string hash
 	 */
-	private $hash = null;
+	private $hash;
 	/**
 	 * valid lastName of userId
 	 * @var string $lastName
@@ -178,9 +178,6 @@ class UserTest extends BrewCrewTest {
 		$this->assertNull($pdoUser);
 		$this->assertSame($numRows, $this->getConnection()->getRowCount("user"));
 	}
-
-
-
 	/**
 	 * test inserting a User and regrabbing it from mySQL
 	 **/

@@ -34,15 +34,15 @@ class User implements \JsonSerializable {
 	 */
 	private $userDateOfBirth;
 	/**
-	 * first name of user
-	 * @var string $userFirstName
-	 */
-	private $userFirstName;
-	/**
 	 * email of user
 	 * @var string $userEmail
 	 */
 	private $userEmail;
+	/**
+	 * first name of user
+	 * @var string $userFirstName
+	 */
+	private $userFirstName;
 	/**
 	 * name of userHash
 	 * @var string $userHash
@@ -314,6 +314,36 @@ class User implements \JsonSerializable {
 		// store the user's first name
 		$this->userFirstName = $newUserFirstName;
 	}
+	/**
+	 * accessor method for user hash
+	 *
+	 * @return int|null for $newUserHash
+	 */
+	public function getUserHash() {
+		return ($this->userHash);
+	}
+	/**
+	 * mutator method for user hash
+	 *
+	 * @param string $newUserHash string of user hash
+	 * @param \InvalidArgumentException if $newUserHash is not a string
+	 * @param \RangeException if $newUserHash = 128
+	 * @param \TypeError if $newUserHash is not a string
+	 */
+	public function setUserHash(string $newUserHash) {
+		//verification that $userHash is secure
+		$newUserHash = strtolower(trim($newUserHash));
+		//make sure that user activation cannot be null
+		if(ctype_xdigit($newUserHash) === false) {
+			throw(new \RangeException("user hash cannot be null"));
+		}
+		//make sure user activation =  128
+		if(strlen($newUserHash) !== 128) {
+			throw(new \RangeException("user hash has to be 128"));
+		}
+		//convert and store user activation
+		$this->userHash = $newUserHash;
+	}
 
 	/**
 	 * accessor method for userLastName
@@ -347,7 +377,38 @@ class User implements \JsonSerializable {
 		// store the user's last name
 		$this->userLastName = $newUserLastName;
 	}
+	/**
+	 * accessor method for userSalt
+	 * @return string value of userSalt
+	 **/
+	public function getUserSalt () {
+		return ($this->userSalt);
+	}
 
+	/**
+	 * mutator method for userSalt
+	 *
+	 * @param string $newUserSalt new value of userSalt
+	 * @throws \InvalidArgumentException if $newUserSalt is not a string or insecure
+	 * @throws \RangeException if $newUserSalt is > 64 characters
+	 * @throws \TypeError if $newUserSalt is not a string
+	 **/
+	public function setUserSalt (string $newUserSalt) {
+		// verify the User's password salt is secure
+		$newUserSalt = trim($newUserSalt);
+		$newUserSalt = filter_var($newUserSalt, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($newUserSalt) === true) {
+			throw(new \InvalidArgumentException("User's password salt is empty or insecure"));
+		}
+
+		// verify the salt will fit in the database
+		if(strlen($newUserSalt) > 64) {
+			throw(new \RangeException("Salt too large"));
+		}
+
+		// store the userSalt
+		$this->userSalt = $newUserSalt;
+	}
 
 	/**
 	 * accessor method for username
@@ -382,67 +443,87 @@ class User implements \JsonSerializable {
 		$this->userUsername = $newUserUsername;
 	}
 
-	/**
-	 * accessor method for user hash
-	 *
-	 * @return int|null for $newUserHash
-	 */
-	public function getUserHash() {
-		return ($this->userHash);
-	}
-	/**
-	 * mutator method for user hash
-	 *
-	 * @param string $newUserHash string of user hash
-	 * @param \InvalidArgumentException if $newUserHash is not a string
-	 * @param \RangeException if $newUserHash = 128
-	 * @param \TypeError if $newUserHash is not a string
-	 */
-	public function setUserHash(string $newUserHash) {
-		//make sure that user activation cannot be null
-		if(ctype_xdigit($newUserHash) === false) {
-			throw(new \RangeException("user hash cannot be null"));
-		}
-		//make sure user activation =  128
-		if(strlen($newUserHash) !== 128) {
-			throw(new \RangeException("user hash has to be 128"));
-		}
-		//convert and store user activation
-		$this->userHash = $newUserHash;
-	}
 
 	/**
-	 * accessor method for userSalt
-	 * @return string value of userSalt
+	 * inserts this User into mySQL
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError if $pdo is not a PDO connection object
 	 **/
-	public function getUserSalt () {
-		return ($this->userSalt);
+	public function insert(\PDO $pdo) {
+// enforce the userId is null (i.e., don't insert a user that already exists)
+		if($this->userId !== null) {
+			throw(new \PDOException("not a new user"));
+		}
+
+// create query template
+		$query = "INSERT INTO user(userBreweryId,userAccessLevel, userActivationToken, userDateOfBirth,userEmail,userFirstName,userHash, userLastName, userSalt, userUsername) VALUES(:userBreweryId, :userAccessLevel, :userActivationToken, :userDateOfBirth, :userEmail, :userFirstName, :userHash, :userLastName, :userSalt, :userUsername)";
+		$statement = $pdo->prepare($query);
+
+// bind the member variables to the place holders in the template
+
+		$parameters = ["userBreweryId" => $this->userBreweryId,
+			"userAccessLevel" => $this->userAccessLevel,
+			"userActivationToken" => $this->userActivationToken,
+			"userDateOfBirth"=>$this->userDateOfBirth->format("Y-m-d"),
+			"userEmail" => $this->userEmail,
+			"userFirstName" => $this->userFirstName,
+			"userHash" => $this->userHash,
+			"userLastName" => $this->userLastName,
+			"userSalt" => $this->userSalt,
+			"userUsername"=>$this->userUsername];
+		$statement->execute($parameters);
+
+// update the null userId with what mySQL just gave us
+		$this->userId = intval($pdo->lastInsertId());
+	}
+
+
+	/**
+	 * deletes this User from mySQL
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError if $pdo is not a PDO connection object
+	 **/
+	public function delete(\PDO $pdo) {
+// enforce the userId is not null (i.e., don't delete a user that hasn't been inserted)
+		if($this->userId === null) {
+			throw(new \PDOException("unable to delete a user that does not exist"));
+		}
+
+// create query template
+		$query = "DELETE FROM user WHERE userId = :userId";
+		$statement = $pdo->prepare($query);
+
+// bind the member variables to the place holder in the template
+		$parameters = ["userId" => $this->userId];
+		$statement->execute($parameters);
 	}
 
 	/**
-	 * mutator method for userSalt
+	 * updates this User in mySQL
 	 *
-	 * @param string $newUserSalt new value of userSalt
-	 * @throws \InvalidArgumentException if $newUserSalt is not a string or insecure
-	 * @throws \RangeException if $newUserSalt is > 64 characters
-	 * @throws \TypeError if $newUserSalt is not a string
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError if $pdo is not a PDO connection object
 	 **/
-	public function setUserSalt (string $newUserSalt) {
-		// verify the User's password salt is secure
-		$newUserSalt = trim($newUserSalt);
-		$newUserSalt = filter_var($newUserSalt, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-		if(empty($newUserSalt) === true) {
-			throw(new \InvalidArgumentException("User's password salt is empty or insecure"));
+	public function update(\PDO $pdo) {
+// enforce the userId is not null (i.e., don't update a user that hasn't been inserted)
+		if($this->userId === null) {
+			throw(new \PDOException("unable to update a user that does not exist"));
 		}
 
-		// verify the salt will fit in the database
-		if(strlen($newUserSalt) > 64) {
-			throw(new \RangeException("Salt too large"));
-		}
+// create query template
+		$query = "UPDATE user SET userBreweryId = :userBreweryId, userAccessLevel = :userAccessLevel, userActivationToken = :userActivationToken, userDateOfBirth = :userDateOfBirth, userEmail = :userEmail, userFirstName = :userFirstName, userHash = :userHash, userLastName = :userLastName, userSalt =:userSalt, userUsername =:userUsername WHERE userId = :userId";
+		$statement = $pdo->prepare($query);
 
-		// store the userSalt
-		$this->userSalt = $newUserSalt;
+		$parameters = ["userBreweryId" => $this->userBreweryId, "userAccessLevel" => $this->userAccessLevel, "userActivationToken" => $this->userActivationToken, "userDateOfBirth" => $this->userDateOfBirth, "userEmail" => $this->userEmail,
+			"userFirstName" => $this->userFirstName, "userHash" => $this->userHash, "userLastName" => $this->userLastName, "userSalt" => $this->userSalt, "userUsername => $this->userUsername"];
+		$statement->execute($parameters);
 	}
+
 
 
 	/**
@@ -689,85 +770,6 @@ class User implements \JsonSerializable {
 			throw(new \PDOException($exception->getMessage(), 0, $exception));
 		}
 		return($user);
-	}
-	/**
-	 * inserts this User into mySQL
-	 *
-	 * @param \PDO $pdo PDO connection object
-	 * @throws \PDOException when mySQL related errors occur
-	 * @throws \TypeError if $pdo is not a PDO connection object
-	 **/
-	public function insert(\PDO $pdo) {
-// enforce the userId is null (i.e., don't insert a user that already exists)
-		if($this->userId !== null) {
-			throw(new \PDOException("not a new user"));
-		}
-
-// create query template
-		$query = "INSERT INTO user(userBreweryId,userAccessLevel, userActivationToken, userDateOfBirth,userEmail,userFirstName,userHash, userLastName, userSalt, userUsername) VALUES(:userBreweryId, :userAccessLevel, :userActivationToken, :userDateOfBirth, :userEmail, :userFirstName, :userHash, :userLastName, :userSalt, :userUsername)";
-		$statement = $pdo->prepare($query);
-
-// bind the member variables to the place holders in the template
-
-		$parameters = ["userBreweryId" => $this->userBreweryId,
-			"userAccessLevel" => $this->userAccessLevel,
-			"userActivationToken" => $this->userActivationToken,
-			"userDateOfBirth"=>$this->userDateOfBirth->format("Y-m-d"),
-			"userEmail" => $this->userEmail,
-			"userFirstName" => $this->userFirstName,
-			"userHash" => $this->userHash,
-			"userLastName" => $this->userLastName,
-			"userSalt" => $this->userSalt,
-			"userUsername"=>$this->userUsername];
-		$statement->execute($parameters);
-
-// update the null userId with what mySQL just gave us
-		$this->userId = intval($pdo->lastInsertId());
-	}
-
-
-	/**
-	 * deletes this User from mySQL
-	 *
-	 * @param \PDO $pdo PDO connection object
-	 * @throws \PDOException when mySQL related errors occur
-	 * @throws \TypeError if $pdo is not a PDO connection object
-	 **/
-	public function delete(\PDO $pdo) {
-// enforce the userId is not null (i.e., don't delete a user that hasn't been inserted)
-		if($this->userId === null) {
-			throw(new \PDOException("unable to delete a user that does not exist"));
-		}
-
-// create query template
-		$query = "DELETE FROM user WHERE userId = :userId";
-		$statement = $pdo->prepare($query);
-
-// bind the member variables to the place holder in the template
-		$parameters = ["userId" => $this->userId];
-		$statement->execute($parameters);
-	}
-
-	/**
-	 * updates this User in mySQL
-	 *
-	 * @param \PDO $pdo PDO connection object
-	 * @throws \PDOException when mySQL related errors occur
-	 * @throws \TypeError if $pdo is not a PDO connection object
-	 **/
-	public function update(\PDO $pdo) {
-// enforce the userId is not null (i.e., don't update a user that hasn't been inserted)
-		if($this->userId === null) {
-			throw(new \PDOException("unable to update a user that does not exist"));
-		}
-
-// create query template
-		$query = "UPDATE user SET userBreweryId = :userBreweryId, userAccessLevel = :userAccessLevel, userActivationToken = :userActivationToken, userDateOfBirth = :userDateOfBirth, userEmail = :userEmail, userFirstName = :userFirstName, userHash = :userHash, userLastName = :userLastName, userSalt =:userSalt, userUsername =:userUsername WHERE userId = :userId";
-		$statement = $pdo->prepare($query);
-
-		$parameters = ["userBreweryId" => $this->userBreweryId, "userAccessLevel" => $this->userAccessLevel, "userActivationToken" => $this->userActivationToken, "userDateOfBirth" => $this->userDateOfBirth, "userEmail" => $this->userEmail,
-			"userFirstName" => $this->userFirstName, "userHash" => $this->userHash, "userLastName" => $this->userLastName, "userSalt" => $this->userSalt, "userUsername => $this->userUsername"];
-		$statement->execute($parameters);
 	}
 	/**
 	 * @return array
