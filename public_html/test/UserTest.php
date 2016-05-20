@@ -62,7 +62,7 @@ class UserTest extends BrewCrewTest {
 	/**
 	 * @var string hash
 	 */
-	private $hash;
+	private $hash = null;
 	/**
 	 * valid lastName of userId
 	 * @var string $lastName

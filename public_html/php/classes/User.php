@@ -383,32 +383,31 @@ class User implements \JsonSerializable {
 	}
 
 	/**
-	 * accessor method for userHash
-	 * @return string value of userHash
-	 **/
-	public function getUserHash () {
+	 * accessor method for user hash
+	 *
+	 * @return int|null for $newUserHash
+	 */
+	public function getUserHash() {
 		return ($this->userHash);
 	}
-
 	/**
-	 * mutator method for userHash
+	 * mutator method for user hash
 	 *
-	 * @param string $newUserHash new value of userHash
-	 * @throws \InvalidArgumentException if $newUserHash is not a string or insecure
-	 * @throws \RangeException if $newUserHash is > 128 characters
-	 * @throws \TypeError if $newUserHash is not a string
-	 **/
-	public function setUserHash (string $newUserHash) {
-		if(ctype_xdigit($newUserHash) === false){
-			throw(new \InvalidArgumentException("Hash is not a string or insecure."));
+	 * @param string $newUserHash string of user hash
+	 * @param \InvalidArgumentException if $newUserHash is not a string
+	 * @param \RangeException if $newUserHash = 128
+	 * @param \TypeError if $newUserHash is not a string
+	 */
+	public function setUserHash(string $newUserHash) {
+		//make sure that user activation cannot be null
+		if(ctype_xdigit($newUserHash) === false) {
+			throw(new \RangeException("user hash cannot be null"));
 		}
-		// verify the hash will fit in the database
-		var_dump($newUserHash);
+		//make sure user activation =  128
 		if(strlen($newUserHash) !== 128) {
-			throw(new \RangeException("Hash failed"));
+			throw(new \RangeException("user hash has to be 128"));
 		}
-
-		// store the userHash
+		//convert and store user activation
 		$this->userHash = $newUserHash;
 	}
 
@@ -667,11 +666,17 @@ class User implements \JsonSerializable {
 			throw(new \PDOException("user id is not positive"));
 		}
 		// create query template
-		$query = "SELECT userId, userBreweryId, userAccessLevel, userActivationToken, userDateOfBirth,userEmail, userFirstName, userHash, userLastName, userSalt, userUsername FROM user WHERE userId = :userId";
+		$query = "SELECT userId, userBreweryId, userAccessLevel, userActivationToken, userDateOfBirth,userEmail, userFirstName, userHash, userLastName, userSalt, userUsername
+			FROM user
+			WHERE userId = :userId";
+
 		$statement = $pdo->prepare($query);
+
 		// bind the user id to the place holder in the template
+
 		$parameters = array("userId" => $userId);
 		$statement->execute($parameters);
+
 		// grab the user from mySQL
 		try {
 			$user = null;
