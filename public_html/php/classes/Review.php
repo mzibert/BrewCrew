@@ -338,7 +338,7 @@ class Review implements \JsonSerializable {
 		}
 
 		//create a query template
-		$query = "UPDATE review SET reviewBeerId = :reviewBeerId, reviewUserId = :reviewUserId, reviewDate = :reviewDate, reviewPintRating = :reviewPintRating, reviewText = :reviewTextRating WHERE reviewId = :reviewId";
+		$query = "UPDATE review SET reviewBeerId = :reviewBeerId, reviewUserId = :reviewUserId, reviewDate = :reviewDate, reviewPintRating = :reviewPintRating, reviewText = :reviewText WHERE reviewId = :reviewId";
 		$statement = $pdo->prepare($query);
 
 		//bind the member variables to the place holders in the template
@@ -434,9 +434,9 @@ class Review implements \JsonSerializable {
 	 * @throws \TypeError when variables are not the correct data type
 	 */
 	public static function getReviewByUserId(\PDO $pdo, int $reviewUserId) {
-		//sanitize the beerId before searching
+		//sanitize the userId before searching
 		if($reviewUserId <= 0) {
-			throw(new \PDOException ("beer id is not positive"));
+			throw(new \PDOException ("user id is not positive"));
 		}
 
 		//create query template

@@ -231,7 +231,7 @@ class ReviewTest extends BrewCrewTest {
 	public function testGetInvalidReviewByBeerId() {
 		//grab a beer id that exceeds maximum allowable id limit
 		$review = Review::getReviewByBeerId($this->getPDO(), BrewCrewTest::INVALID_KEY);
-		$this->assertNull($review);
+		$this->assertCount(0, $review);
 	}
 
 	/**
@@ -265,7 +265,7 @@ class ReviewTest extends BrewCrewTest {
 	public function testGetInvalidReviewByUserId() {
 		//grab a user id that exceeds maximum allowable id limit
 		$review = Review::getReviewByUserId($this->getPDO(), BrewCrewTest::INVALID_KEY);
-		$this->assertNull($review);
+		$this->assertCount(0, $review);
 	}
 
 
@@ -300,7 +300,7 @@ class ReviewTest extends BrewCrewTest {
 	public function testGetInvalidReviewByBreweryId() {
 		//grab a brewery id that exceeds maximum allowable id limit
 		$review = Review::getReviewByBreweryId($this->getPDO(), BrewCrewTest::INVALID_KEY);
-		$this->assertNull($review);
+		$this->assertCount(0, $review);
 	}
 	/**
 	 * test grabbing a review by pint rating
