@@ -343,7 +343,7 @@ class Review implements \JsonSerializable {
 
 		//bind the member variables to the place holders in the template
 		$formattedDate = $this->reviewDate->format("Y-m-d H:i:s");
-		$parameters = ["reviewBeerId" => $this->reviewBeerId, "reviewUserId" => $this->reviewUserId, "reviewDate" => $formattedDate, "reviewPintRating" => $this->reviewPintRating, "reviewText" => $this->reviewText];
+		$parameters = ["reviewId"=> $this->reviewId, "reviewBeerId" => $this->reviewBeerId, "reviewUserId" => $this->reviewUserId, "reviewDate" => $formattedDate, "reviewPintRating" => $this->reviewPintRating, "reviewText" => $this->reviewText];
 		$statement->execute($parameters);
 	}
 

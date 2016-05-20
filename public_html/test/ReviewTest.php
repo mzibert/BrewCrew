@@ -212,7 +212,7 @@ class ReviewTest extends BrewCrewTest {
 		$review->insert($this->getPDO());
 
 		//grab the data from mySQL and check the fields against our expectations
-		$results = Review::getReviewByBeerId($this->getPDO(), $beer->getBeerId());
+		$results = Review::getReviewByBeerId($this->getPDO(), $this->beer->getBeerId());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("review"));
 		$this->assertCount(1, $results);
 		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\BrewCrew\\Review", $results);
@@ -281,7 +281,7 @@ class ReviewTest extends BrewCrewTest {
 		$review->insert($this->getPDO());
 
 		//grab the data from mySQL and check the fields against our expectations
-		$results = Review::getReviewByBreweryId($this->getPDO(), $brewery->getbreweryId());
+		$results = Review::getReviewByBreweryId($this->getPDO(), $this->brewery->getbreweryId());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("review"));
 		$this->assertCount(1, $results);
 		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\BrewCrew\\Review", $results);
