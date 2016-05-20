@@ -408,7 +408,7 @@ class Beer implements \JsonSerializable {
 		$statement->execute($parameters);
 
 		//update the null beerId with what my SQL just gave us
-		$this->beerId = intval($pdo->lastInsertId())
+		$this->beerId = intval($pdo->lastInsertId());
 	}
 
 	/**
