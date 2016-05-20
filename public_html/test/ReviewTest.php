@@ -34,7 +34,7 @@ class ReviewTest extends BrewCrewTest {
 
 	/**
 	 * timestamp for the review; this starts as null and is assigned later
-	 * @var \DateTime $VALID_REVIEWDATE
+	 * @var DateTime $VALID_REVIEWDATE
 	 */
 	protected $VALID_REVIEWDATE = null;
 
