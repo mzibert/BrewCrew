@@ -688,21 +688,27 @@ class User implements \JsonSerializable {
 		}
 		return ($user);
 	}
-
+	/**
+	 * accessor method for user name
+	 *
+	 * @return string value for username
+	 **/
+	public function getUsername() {
+		return ($this->username);
+	}
 
 	/**
-	 * gets user by userUsername
+	 * mutator method for userUsername
 	 *
-	 * @param string $userUsername
-	 * @param \PDO object $pdo
-	 * @return User object
-	 * @throws \PDOException when mySQL related errors occur
-	 * @throws \TypeError when variables are not the correct data type
+	 * @param string $newUserUsername new value for username
+	 * @throws \InvalidArgumentException if value is not a string or is insecure
+	 * @throws \RangeException if $newUserusername is > 128 characters
+	 * @throws \TypeError if $newUserUsername is not a string
 	 **/
-	public static function getUserByUserUsername (\PDO $pdo, string $userUsername) {
+	public static function setUserByUserUsername (\PDO $pdo, string $userUsername) {
 		// sanitize the description before searching
 		$userUsername = trim($userUsername);
-		$userUsername = filter_var($userUsername, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		$userUsername = filter_var($userUsername, FILTER_SANITIZE_STRING);
 		if(empty($userUsername) === false) {
 			throw(new \PDOException("user name is invalid"));
 		}
