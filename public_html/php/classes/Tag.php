@@ -77,4 +77,31 @@ class Tag implements \JsonSerializable {
 			$this->tagId = $newTagId;
 		}
 
+		/** Accessor method for tag label
+		 *
+		 * @return string tag label (tag for flavors)
+		 **/
+		public function getTagLabel() {
+			return ($this->tagLabel);
+		}
+
+		/** Mutator method for tag label
+		 *
+		 * @param string $newTagLabel new value of flavor tag
+		 * @throws \InvalidArgumentException if $newTagLabel is not a string or is insecure
+		 * @throws \RangeException if string exceeds 64 characters
+		 **/
+		public function setTagLabel($newTagLabel) {
+			//verify the tag label content is secure
+			$newTagLabel = trim($newTagLabel);
+			$newTagLabel = filter_var($newTagLabel, FILTER_SANITIZE_STRING);
+			if(empty($newTagLabel) === true) {
+				throw (new \InvalidArgumentException("tag label field is empty or insecure"));
+			}
+			if(strlen($newTagLabel) > 64) {
+				throw (new \RangeException("tag label field is greater than 64 characters"));
+			}
+			//store the tag label content
+			$this->tagLabel = $newTagLabel;
+		}
 	}
