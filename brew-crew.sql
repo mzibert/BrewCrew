@@ -30,7 +30,7 @@ CREATE TABLE user (
 	userFirstName  VARCHAR(32) NOT NULL,
 	userHash  CHAR(128) NOT NULL,
 	userLastName  VARCHAR(32) NOT NULL,
-	userSalt  CHAR(128) NOT NULL,
+	userSalt  CHAR(64) NOT NULL,
 	userUsername  VARCHAR(32) NOT NULL,
 	UNIQUE(userUsername),
 	UNIQUE(userEmail),
