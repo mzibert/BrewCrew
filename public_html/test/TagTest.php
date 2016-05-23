@@ -95,7 +95,7 @@ class TagTest extends BrewCrewTest {
 		$tag->insert($this->getPDO());
 
 		// Grab the data from mySQL and check the fields against our expectations
-		$pdoBrewery = Tag::getTagByTagId($this->getPDO(), $tag->getTagId());
+		$pdoTag= Tag::getTagByTagId($this->getPDO(), $tag->getTagId());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("tag"));
 		$this->assertLessThan($pdoTag->getTagId(), 0);
 		$this->assertEquals($pdoTag->getTagLabel(), $this->VALID_TAG_LABEL);
