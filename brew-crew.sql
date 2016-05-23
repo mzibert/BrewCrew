@@ -28,7 +28,7 @@ CREATE TABLE user (
 	userDateOfBirth  DATE NOT NULL,
 	userEmail  VARCHAR(128) NOT NULL,
 	userFirstName  VARCHAR(32) NOT NULL,
-	userHash  CHAR(64) NOT NULL,
+	userHash  CHAR(128) NOT NULL,
 	userLastName  VARCHAR(32) NOT NULL,
 	userSalt  CHAR(128) NOT NULL,
 	userUsername  VARCHAR(32) NOT NULL,
