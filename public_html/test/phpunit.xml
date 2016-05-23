@@ -1,6 +1,7 @@
 <phpunit>
 	<testsuites>
 		<testsuite name="brewcrew">
+			<file>BeerTagTest.php</file>
 			<file>BeerTest.php</file>
 			<file>BreweryTest.php</file>
 			<file>ReviewTagTest.php</file>

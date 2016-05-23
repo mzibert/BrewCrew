@@ -56,7 +56,7 @@ class BeerTagTest extends BrewCrewTest {
 		parent::setUp();
 
 		//create and insert a beer that is being tagged
-		$this->beer = new Beer(null, $this->brewery->getBreweryId, 10.5, "available whenever we like it to be", "lots of awards we don't care to name", .5, "something something about the taste.", "50", "Teh Awesome Beer", "Lager");
+		$this->beer = new Beer(null, $this->brewery->getBreweryId, 4.2, "year-round", "Best of Albuquerque 2015", .5, "A nice, light, airy ale with a hint of orange", "so many IBU's its serverd with a spoon!", "Ivanna Beer", "Pale Ale");
 		$this->beer->insert($this->getPDO());
 
 		//create and insert a brewery to own the tagged beer
