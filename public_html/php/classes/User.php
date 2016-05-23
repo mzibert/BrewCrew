@@ -505,7 +505,7 @@ class User implements \JsonSerializable {
 	 * @param \PDO $pdo PDO connection object
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError if $pdo is not a PDO connection object
-
+*/
 	public function update(\PDO $pdo) {
 // enforce the userId is not null (i.e., don't update a user that hasn't been inserted)
 		if($this->userId === null) {
@@ -520,7 +520,7 @@ class User implements \JsonSerializable {
 			"userFirstName" => $this->userFirstName, "userHash" => $this->userHash, "userLastName" => $this->userLastName, "userSalt" => $this->userSalt, "userUsername => $this->userUsername"];
 		$statement->execute($parameters);
 	}
-	 **/
+
 
 
 	/**
