@@ -90,7 +90,7 @@ class UserTest extends BrewCrewTest {
 		parent::setUp();
 		//create salt and hash for user
 ;
-		$password = "42123";
+		$password = "421245";
 		$this->salt = bin2hex(random_bytes(32));
 		$this->hash = hash_pbkdf2("sha512", $password, $this->salt, 262144);
 		//create and insert a Brewery to own the test user
