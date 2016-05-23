@@ -48,7 +48,7 @@ class Tag implements \JsonSerializable {
 			// Rethrow exception to the caller
 			throw(new \Exception($exception->getMessage(), 0, $exception));
 		}
-		
+
 		/** Accessor method for tagId
 		 *
 		 * @return int|null value of Tag id
@@ -92,16 +92,16 @@ class Tag implements \JsonSerializable {
 		 * @throws \RangeException if string exceeds 64 characters
 		 **/
 		public function setTagLabel($newTagLabel) {
-			//verify the tag label content is secure
+			// Verify the tag label content is secure
 			$newTagLabel = trim($newTagLabel);
-			$newTagLabel = filter_var($newTagLabel, FILTER_SANITIZE_STRING);
+			$newTagLabel = filter_var($newTagLabel, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 			if(empty($newTagLabel) === true) {
 				throw (new \InvalidArgumentException("tag label field is empty or insecure"));
 			}
 			if(strlen($newTagLabel) > 64) {
 				throw (new \RangeException("tag label field is greater than 64 characters"));
 			}
-			//store the tag label content
+			// Store the tag label content
 			$this->tagLabel = $newTagLabel;
 		}
 
@@ -119,7 +119,7 @@ class Tag implements \JsonSerializable {
 				throw(new \PDOException("Not a new tag"));
 			}
 			// Crete query template
-			$query = "INSERT INTO tag(tagId, tagLabel)";
+			$query = "INSERT INTO tag(tagId, tagLabel) VALUES (:tagId, :tagLabel)";
 			$statement = $pdo->prepare($query);
 
 			// Bind the member variables to the place holders in the template
@@ -129,4 +129,45 @@ class Tag implements \JsonSerializable {
 			// Update the null tag id with what mySQL generated
 			$this->setTagId(intval($pdo->lastInsertId()));
 		}
+		/**
+		 * Deletes this tag from mySQL
+		 *
+		 * @param PDO $pdo PDO connection object
+		 * @throws \PDOException when mySQL-related errors occur
+		 * @throws \TypeError if $pdo is not a PDO connection object
+		 **/
+		public function delete(\PDO $pdo) {
+			// Make sure this tag exists
+			if($this->tagId === null) {
+				throw (new \PDOException("Unable to delete a tag that does not exist"));
+			}
+			// Create query template
+			$query = "DELETE FROM tag WHERE tagId = :tagId";
+			$statement = $pdo->prepare($query);
+
+			// Bind the member variables to the placeholders in the templates
+			$parameters = ["tagId" => $this->getTagId(),];
+			$statement->execute($parameters);
+		}
+		/**
+		 * Updates this tag in mySQL
+		 *
+		 * @param \PDO $pdo PDO connection object
+		 * @throws \PDOException when mySQL-related errors occur
+		 * @throws \TypeError if $pdo is not a PDO connection object
+		 * **/
+		public function update(\PDO $pdo) {
+			// Make sure this tag exists
+			if($this->tagId === null) {
+				throw(new \PDOException("Unable to update a tag that does not exist"));
+			}
+			// Create query template
+			$query = "UPDATE tag SET tagLabel = :tagLabel WHERE tagId = :tagId";
+			$statement = $pdo->prepare($query);
+
+			//Bind the member variables to the placeholders in the templates
+			$parameters = ["tagId" => $this->getTagId(), "tagLabel" => $this->getTagLabel()];
+			$statement->execute($parameters);
+		}
+		
 	}
