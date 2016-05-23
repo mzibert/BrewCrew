@@ -246,4 +246,8 @@ class UserTest extends BrewCrewTest {
 		$this->assertEquals($pdoUser->getUserSalt(), $this->salt);
 		$this->assertEquals($pdoUser->getUserUsername(), $this->VALID_USERUSERNAME);
 	}
+
+
+
+
 }

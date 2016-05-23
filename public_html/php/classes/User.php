@@ -30,7 +30,7 @@ class User implements \JsonSerializable {
 	private $userActivationToken;
 	/**
 	 * birth date of user
-	 * @var \DateInterval |\DateTime $userDateOfBirth
+	 * @var \DateInterval |\DateTime | string $userDateOfBirth
 	 */
 	private $userDateOfBirth;
 	/**
@@ -70,7 +70,7 @@ class User implements \JsonSerializable {
 	 * @param int $newUserBreweryId int id of the Brewery
 	 * @param int $newUserAccessLevel
 	 * @param string $newUserActivationToken string with user token
-	 * @param \DateInterval |\DateTime $newUserDateOfBirth date User was sent or set to current date and time
+	 * @param \DateInterval |\DateTime string $newUserDateOfBirth date User was sent or set to current date and time
 	 * @param string $newUserEmail string containing user email
 	 * @param string $newUserFirstName string containing actual user first name
 	 * @param string $newUserHash string containing actual user password hash
@@ -220,7 +220,7 @@ class User implements \JsonSerializable {
 		/**
 	 * accessor method for userDateOfBirth date
 	 *
-	 * @return \DateInterval | \DateTime value of userDateOfBirth date
+	 * @return \DateInterval | \DateTime  | string value of userDateOfBirth date
 	 **/
 	public function getUserDateOfBirth () {
 		return ($this->userDateOfBirth);
@@ -229,7 +229,7 @@ class User implements \JsonSerializable {
 	/**
 	 * mutator method for userDateOfBirth date
 	 *
-	 * @param \DateInterval | \DateTime $newUserDateOfBirth user DateOfBirth date as a DateTime object o
+	 * @param \DateInterval | \DateTime  | string $newUserDateOfBirth user DateOfBirth date as a DateTime object o
 	 * @throws \OutOfRangeException if $newUserDateOfBirth is < 21
 	 **/
 	public function setUserDateOfBirth ($newUserDateOfBirth = null) {
