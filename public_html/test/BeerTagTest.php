@@ -24,29 +24,29 @@ class BeerTagTest extends BrewCrewTest {
 
 
 	/**
-	 * Beer that the associated tags refer to
-	 * @var Beer beer
+	 * Valid ID to use; this starts as null and is assigned later
+	 * @var int $VALID_BEERID
 	 **/
-	protected $beer = null;
+	protected $VALID_BEERID = null;
 
 	/**
-	 * BeerTag that associates the beer with the tag
-	 * @var BeerTag beerTag
+	 * BeerTag Id that associates the beer with the tag
+	 * @var int $VALID_BEERTAG
 	 **/
-	protected $beerTag = null;
+	protected $VALID_BEERTAG = null;
 
 	/**
 	 * Brewery that made the beer being tagged
-	 * @var Brewery brewery
+	 * @var int $VALID_BREWERYID
 	 **/
-	protected $brewery = null;
+	protected $VALID_BREWERYID = null;
 
 	/**
 	 * Tag that is linked to the beer
-	 * @var Tag tag
+	 * @var int VALID_TAGID
 	 *
 	 **/
-	protected $tag = null;
+	protected $VAILID_TAGID = null;
 
 	/**
 	 * Create dependent objects for each foreign key before running the test
