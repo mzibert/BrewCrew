@@ -48,4 +48,33 @@ class Tag implements \JsonSerializable {
 			// Rethrow exception to the caller
 			throw(new \Exception($exception->getMessage(), 0, $exception));
 		}
+		
+		/** Accessor method for tagId
+		 *
+		 * @return int|null value of Tag id
+		 **/
+		public function getTagId() {
+			return ($this->tagId);
+		}
+
+		/** Mutator method for tagId
+		 *
+		 * @param int $newTagId new value of tag Id
+		 * @throws \RangeException if $newTagId is not positive
+		 * @throws \TypeError if $newTagId is not an integer
+		 */
+		public function setTagId(int $newTagId = null) {
+			//base case: If tagId is null, this is a new tag without a mySQL assigned id yet
+			if($newTagId === null) {
+				$this->tagId = null;
+				return;
+			}
+			//verify the tag id is positive
+			if($newTagId <= 0) {
+				throw (new \RangeException("tag id is not positive"));
+			}
+			//convert and store the tag id
+			$this->tagId = $newTagId;
+		}
+
 	}
