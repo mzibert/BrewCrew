@@ -100,7 +100,7 @@ class BreweryTest extends BrewCrewTest {
 	/**
 	 * Test inserting a brewery that already exists
 	 *
-	 * @expectedException PDOException
+	 * @expectedException \PDOException
 	 */
 	public function testInsertInvalidBrewery() {
 		//create a brewery with a non null brewery id and watch it fail
