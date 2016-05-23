@@ -30,7 +30,7 @@ class User implements \JsonSerializable {
 	private $userActivationToken;
 	/**
 	 * birth date of user
-	 * @var \DateInterval |\DateTime | string $userDateOfBirth
+	 * @var \DateInterval |\DateTime | null $userDateOfBirth
 	 */
 	private $userDateOfBirth;
 	/**
@@ -70,7 +70,7 @@ class User implements \JsonSerializable {
 	 * @param int $newUserBreweryId int id of the Brewery
 	 * @param int $newUserAccessLevel
 	 * @param string $newUserActivationToken string with user token
-	 * @param \DateInterval |\DateTime string $newUserDateOfBirth date User was sent or set to current date and time
+	 * @param \DateInterval |\DateTime null $newUserDateOfBirth date User was sent or set to current date and time
 	 * @param string $newUserEmail string containing user email
 	 * @param string $newUserFirstName string containing actual user first name
 	 * @param string $newUserHash string containing actual user password hash
@@ -220,7 +220,7 @@ class User implements \JsonSerializable {
 		/**
 	 * accessor method for userDateOfBirth date
 	 *
-	 * @return \DateInterval | \DateTime  | string value of userDateOfBirth date
+	 * @return \DateInterval | \DateTime  | null value of userDateOfBirth date
 	 **/
 	public function getUserDateOfBirth () {
 		return ($this->userDateOfBirth);
@@ -229,7 +229,7 @@ class User implements \JsonSerializable {
 	/**
 	 * mutator method for userDateOfBirth date
 	 *
-	 * @param \DateInterval | \DateTime  | string $newUserDateOfBirth user DateOfBirth date as a DateTime object o
+	 * @param \DateInterval | \DateTime  | null $newUserDateOfBirth user DateOfBirth date as a DateTime object o
 	 * @throws \OutOfRangeException if $newUserDateOfBirth is < 21
 	 **/
 	public function setUserDateOfBirth ($newUserDateOfBirth = null) {
@@ -239,9 +239,9 @@ class User implements \JsonSerializable {
 		}
 
 		$newUserDateOfBirth = self::validateDate($newUserDateOfBirth);
-		$drinkDate = $newUserDateOfBirth->add(new \DateInterval('P21Y'));
-		$todaysDate = new \DateTime();
-		if($drinkDate > $todaysDate)  {
+		$drinkDate = new \DateTime();
+		$drinkDate = $drinkDate->sub(new \DateInterval('P21Y'));
+		if($drinkDate < $newUserDateOfBirth) {
 			throw (new \OutOfRangeException("You are too young."));
 		}
 		// store the userDateOfBirth date

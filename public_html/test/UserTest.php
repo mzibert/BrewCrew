@@ -39,7 +39,7 @@ class UserTest extends BrewCrewTest {
 	/**
 	 * @var \DateInterval |\DateTime|null $newUserDateOfBirth date User was sent or null if set to current date and time
 	 */
-	protected $VALID_DATEOFBIRTH = "1960-12-25";
+	protected $VALID_DATEOFBIRTH = "1970-12-25";
 	/**
 	 * @var string $newUserEmail string containing user email
 	 */
@@ -114,7 +114,7 @@ class UserTest extends BrewCrewTest {
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("user"));
 		$this->assertEquals($pdoUser->getUserAccessLevel(), $this->VALID_ACCESSLEVEL);
 		$this->assertEquals($pdoUser->getUserActivationToken(),$this->VALID_ACTIVATIONTOKEN);
-		$this->assertEquals($pdoUser->getUserDateOfBirth(),$this->VALID_DATEOFBIRTH);
+		$this->assertEquals($pdoUser->getUserDateOfBirth()->format("Y-m-d"),$this->VALID_DATEOFBIRTH);
 		$this->assertEquals($pdoUser->getUserEmail(), $this->VALID_EMAIL);
 		$this->assertEquals($pdoUser->getUserFirstName(), $this->VALID_FIRSTNAME);
 		$this->assertEquals($pdoUser->getUserHash(), $this->hash);
