@@ -104,4 +104,29 @@ class Tag implements \JsonSerializable {
 			//store the tag label content
 			$this->tagLabel = $newTagLabel;
 		}
+
+		// PDO
+		/**
+		 * Inserts this tag into mySQL
+		 *
+		 * @param \PDO $pdo PDO connection object
+		 * @throws \PDOException when mySQL-related errors occur
+		 * @throws \TypeError if $pdo is not a PDO connection object
+		 **/
+		public function insert(\PDO $pdo) {
+			// Make sure this is a new tag
+			if($this->tagId !== null) {
+				throw(new \PDOException("Not a new tag"));
+			}
+			// Crete query template
+			$query = "INSERT INTO tag(tagId, tagLabel)";
+			$statement = $pdo->prepare($query);
+
+			// Bind the member variables to the place holders in the template
+			$parameters = ["tagId" => $this->getTagId(), "tagLabel" => $this->getTagLabel()];
+			$statement->execute($parameters);
+
+			// Update the null tag id with what mySQL generated
+			$this->setTagId(intval($pdo->lastInsertId()));
+		}
 	}
