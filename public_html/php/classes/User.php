@@ -513,11 +513,19 @@ class User implements \JsonSerializable {
 		}
 
 // create query template
-		$query = "UPDATE user SET userBreweryId = :userBreweryId, userAccessLevel = :userAccessLevel, userActivationToken = :userActivationToken, userDateOfBirth = :userDateOfBirth, userEmail = :userEmail, userFirstName = :userFirstName, userHash = :userHash, userLastName = :userLastName, userSalt =:userSalt, userUsername =:userUsername WHERE userId = :userId";
+		$query = "UPDATE user SET userBreweryId = :userBreweryId, userAccessLevel = :userAccessLevel,
+						userActivationToken = :userActivationToken, userDateOfBirth = :userDateOfBirth, userEmail = :userEmail,
+						userFirstName = :userFirstName, userHash = :userHash, userLastName = :userLastName, userSalt =:userSalt,
+						userUsername =:userUsername WHERE userId = :userId";
 		$statement = $pdo->prepare($query);
 
-		$parameters = ["userId" => $this->userId,"userBreweryId" => $this->userBreweryId, "userAccessLevel" => $this->userAccessLevel, "userActivationToken" => $this->userActivationToken, "userDateOfBirth" => $this->userDateOfBirth, "userEmail" => $this->userEmail,
-			"userFirstName" => $this->userFirstName, "userHash" => $this->userHash, "userLastName" => $this->userLastName, "userSalt" => $this->userSalt, "userUsername => $this->userUsername"];
+		$dob = $this->userDateOfBirth->format("Y-m-d");
+		$parameters = ["userBreweryId" => $this->userBreweryId,  "userAccessLevel" =>$this->userAccessLevel, "userActivationToken" => $this->userActivationToken,
+							"userDateOfBirth" => $dob, "userEmail" => $this->userEmail,
+							"userFirstName" => $this->userFirstName, "userHash" => $this->userHash,
+							"userLastName" => $this->userLastName, "userSalt" => $this->userSalt,
+							"userUsername" => $this->userUsername, "userId" => $this->userId];
+
 		$statement->execute($parameters);
 	}
 

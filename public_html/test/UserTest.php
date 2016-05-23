@@ -47,7 +47,7 @@ class UserTest extends BrewCrewTest {
 	/**
 	 * @var string $newUserEmail string containing user email
 	 */
-	protected $VALID_EMAIL2 = "email2@email.com ";
+	protected $VALID_EMAIL2 = "email2@email.com";
 	/**
 	 * Invalid Email string
 	 * @var string
@@ -145,7 +145,7 @@ class UserTest extends BrewCrewTest {
 
 		$this->assertEquals($pdoUser->getUserAccessLevel(), $this->VALID_ACCESSLEVEL);
 		$this->assertEquals($pdoUser->getUserActivationToken(),$this->VALID_ACTIVATIONTOKEN);
-		$this->assertEquals($pdoUser->getUserDateOfBirth(),$this->VALID_DATEOFBIRTH);
+		$this->assertEquals($pdoUser->getUserDateOfBirth()->format("Y-m-d"),$this->VALID_DATEOFBIRTH);
 		$this->assertEquals($pdoUser->getUserEmail(), $this->VALID_EMAIL2);
 		$this->assertEquals($pdoUser->getUserFirstName(), $this->VALID_FIRSTNAME);
 		$this->assertEquals($pdoUser->getUserHash(), $this->hash);
@@ -190,18 +190,19 @@ class UserTest extends BrewCrewTest {
 		$numRows = $this->getConnection()->getRowCount("user");
 		// create a new user and insert to into mySQL
 		$user = new User(null,$this->brewery->getBreweryId(), $this->VALID_ACCESSLEVEL,$this->VALID_ACTIVATIONTOKEN,$this->VALID_DATEOFBIRTH, $this->VALID_EMAIL, $this->VALID_FIRSTNAME, $this->hash, $this->VALID_LASTNAME, $this->salt, $this->VALID_USERUSERNAME);
+
 		$user->insert($this->getPDO());
+
 		// grab the data from mySQL and enforce the fields match our expectations
-		$results = User::getUserByUserId($this->getPDO(), $user->getUserId());
+		$pdoUser = User::getUserByUserId($this->getPDO(), $user->getUserId());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("user"));
-		$this->assertCount(1, $results);
-		$this->asserContainsOnlyInstancesOf("Edu\\Cnm\\BrewCrew\\User", $results);
+//		$this->asserContainsOnlyInstancesOf("Edu\\Cnm\\BrewCrew\\User", $pdoUser);
 		// grab the result from the array and validate it
-		$pdoUser = $results[0];
+
 		$this->assertEquals($pdoUser->getUserBreweryId(),$this->brewery->getBreweryId());
 		$this->assertEquals($pdoUser->getUserAccessLevel(), $this->VALID_ACCESSLEVEL);
 		$this->assertEquals($pdoUser->getUserActivationToken(),$this->VALID_ACTIVATIONTOKEN);
-		$this->assertEquals($pdoUser->getUserDateOfBirth(),$this->VALID_DATEOFBIRTH);
+		$this->assertEquals($pdoUser->getUserDateOfBirth()->format("Y-m-d"),$this->VALID_DATEOFBIRTH);
 		$this->assertEquals($pdoUser->getUserEmail(), $this->VALID_EMAIL);
 		$this->assertEquals($pdoUser->getUserFirstName(), $this->VALID_FIRSTNAME);
 		$this->assertEquals($pdoUser->getUserHash(), $this->hash);
@@ -228,17 +229,16 @@ class UserTest extends BrewCrewTest {
 		$user->insert($this->getPDO());
 
 		/// grab the data from mySQL and enforce the fields match our expectations
-		$results = User::getUserByUserEmail($this->getPDO(), $user->getUserEmail());
+		$pdoUser = User::getUserByUserEmail($this->getPDO(), $user->getUserEmail());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("user"));
-		$this->assertCount(1, $results);
-		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\BrewCrew\\User", $results);
+
+	//	$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\BrewCrew\\User", $results);
 
 		//grab the result from the array and validate it
-		$pdoUser = $results[0];
 		$this->assertEquals($pdoUser->getUserBreweryId(),$this->brewery->getBreweryId());
 		$this->assertEquals($pdoUser->getUserAccessLevel(), $this->VALID_ACCESSLEVEL);
 		$this->assertEquals($pdoUser->getUserActivationToken(),$this->VALID_ACTIVATIONTOKEN);
-		$this->assertEquals($pdoUser->getUserDateOfBirth(),$this->VALID_DATEOFBIRTH);
+		$this->assertEquals($pdoUser->getUserDateOfBirth()->format("Y-m-d"),$this->VALID_DATEOFBIRTH);
 		$this->assertEquals($pdoUser->getUserEmail(), $this->VALID_EMAIL);
 		$this->assertEquals($pdoUser->getUserFirstName(), $this->VALID_FIRSTNAME);
 		$this->assertEquals($pdoUser->getUserHash(), $this->hash);
