@@ -745,7 +745,7 @@ class User implements \JsonSerializable {
 			throw(new \PDOException("username is invalid"));
 		}
 		// create query template
-		$query = "SELECT userId, userBreweryId, userAccessLevel, userActivationToken, userDateOfBirth, userEmail, userFirstName, userHash, userLastName, userSalt FROM user WHERE userUsername = :userUsername";
+		$query = "SELECT userId, userBreweryId, userAccessLevel, userActivationToken, userDateOfBirth, userEmail, userFirstName, userHash, userLastName, userSalt, userUsername FROM user WHERE userUsername = :userUsername";
 		$statement = $pdo->prepare($query);
 
 		//bind the username to the place holder in the template
@@ -773,8 +773,8 @@ class User implements \JsonSerializable {
 	 */
 	public function jsonSerialize() {
 		$fields = get_object_vars($this);
-		Unset($fields["userSalt"]);
 		Unset ($fields["userHash"]);
+		Unset($fields["userSalt"]);
 		return ($fields);
 	}
 }
