@@ -122,7 +122,7 @@ class TagTest extends BrewCrewTest {
 		$tag->insert($this->getPDO());
 
 		// Grab the data from mySQL and enforce the fields match our expectations
-		$results = Tag::getTagByTagLabel($this->getPDO(), $tag->getTagLabel());
+		$results = Tag::getTagByTagLabel($this->getPDO(), $tag->getTagId());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("tag"));
 		$this->assertCount(1, $results);
 		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\Brewcrew\\Tag", $results);
