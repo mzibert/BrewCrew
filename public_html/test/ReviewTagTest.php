@@ -98,8 +98,13 @@ class ReviewTagTest extends BrewCrewTest {
 		$reviewTag->insert($this->getPDO());
 
 		//grab the data from mySQL and enforce that the fields match our expectations
-		$pdoReviewTag = ReviewTag::getReviewTagByReviewId($this->getPDO(), $reviewTag->getReviewTagReviewId());
+		$results = ReviewTag::getReviewTagByReviewId($this->getPDO(), $reviewTag->getReviewTagReviewId());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("reviewTag"));
+		$this->assertCount(1, $results);
+		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\BrewCrew\\ReviewTag", $results);
+
+		//grab the results from the array and validate them
+		$pdoReviewTag = $results[0];
 		$this->assertEquals($pdoReviewTag->getReviewTagReviewId(), $this->review->getReviewId());
 		$this->assertEquals($pdoReviewTag->getReviewTagTagId(), $this->tag->getTagId());
 	}
@@ -114,15 +119,6 @@ class ReviewTagTest extends BrewCrewTest {
 		$reviewTag->insert($this->getPDO());
 	}
 
-	//UPDATE
-	/**
-	 * test updating a review that already exists
-	 */
-	public function testUpdateInvalidReviewTag() {
-		//create a reviewTag with a non-null id and watch it fail
-		$reviewTag = new ReviewTag($this->review->getReviewId(), $this->tag->getTagId());
-		$reviewTag->update($this->getPDO());
-	}
 
 	//DELETE
 	/**
@@ -172,7 +168,7 @@ class ReviewTagTest extends BrewCrewTest {
 		//grab the data from mySQL and enforce that the fields match our expectations
 		$results = ReviewTag::getReviewTagByReviewId($this->getPDO(), $reviewTag->getReviewTagReviewId());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("reviewTag"));
-		$this->assertCout(1, $results);
+		$this->assertCount(1, $results);
 		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\BrewCrew\\ReviewTag", $results);
 
 		//grab the results from the array and validate them
@@ -207,7 +203,7 @@ class ReviewTagTest extends BrewCrewTest {
 		//grab the data from mySQL and enforce that the fields match our expectations
 		$results = ReviewTag::getReviewTagByTagId($this->getPDO(), $reviewTag->getReviewTagTagId());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("reviewTag"));
-		$this->assertCout(1, $results);
+		$this->assertCount(1, $results);
 		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\BrewCrew\\ReviewTag", $results);
 
 		//grab the results from the array and validate them
@@ -241,7 +237,7 @@ class ReviewTagTest extends BrewCrewTest {
 		//grab the data from mySQL and enforce that the fields match our expectations
 		$results = ReviewTag::getReviewTagByReviewIdAndTagId($this->getPDO(), $reviewTag->getReviewTagReviewId(), $reviewTag->getReviewTagTagId());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("reviewTag"));
-		$this->assertCout(1, $results);
+		$this->assertCount(1, $results);
 		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\BrewCrew\\ReviewTag", $results);
 
 		//grab the results from the array and validate them
