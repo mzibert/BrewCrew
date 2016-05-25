@@ -30,10 +30,10 @@ try {
 	$method = array_key_exists("HTTP_X_HTTP_METHOD",$_SERVER) ? $_SERVER["HTTP_X_HTTP_METHOD"] : $_SERVER["REQUEST_METHOD"];
 
 	//sanitize input
-	$id = filter_input(INPUT_GET, "id", FILTER_VALIDATE_INT);
+	$reviewId = filter_input(INPUT_GET, "reviewId", FILTER_VALIDATE_INT);
 
 	//make sure the id is valid for methods that require it
-	if(($method === "DELETE") && (empty($id) === true || $id < 0)) {
+	if(($method === "DELETE") && (empty($reviewId) === true || $reviewId < 0)) {
 		throw(new \InvalidArgumentException("id cannot be empty or negative", 405));
 	}
 
@@ -41,10 +41,6 @@ try {
 	if($method == "GET") {
 		//set XSRF cookie
 		setXsrfCookie();
-
-
-	}
-
 
 
 
