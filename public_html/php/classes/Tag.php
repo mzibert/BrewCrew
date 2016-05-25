@@ -115,15 +115,15 @@ class Tag implements \JsonSerializable {
 	 **/
 	public function insert(\PDO $pdo) {
 		// Make sure this is a new tag
-		if($this->tagId === null) {
+		if($this->tagId !== null) {
 			throw(new \PDOException("Not a valid tag"));
 		}
 		// Crete query template
-		$query = "INSERT INTO tag(tagId, tagLabel) VALUES (:tagId, :tagLabel)";
+		$query = "INSERT INTO tag(tagLabel) VALUES (:tagLabel)";
 		$statement = $pdo->prepare($query);
 		
 		// Bind the member variables to the place holders in the template
-		$parameters = ["tagId" => $this->tagId, "tagLabel" => $this->tagLabel];
+		$parameters = ["tagLabel" => $this->tagLabel];
 		$statement->execute($parameters);
 	}
 
