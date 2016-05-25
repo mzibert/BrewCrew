@@ -338,5 +338,4 @@ class ReviewTest extends BrewCrewTest {
 	}
 
 
-
 }
