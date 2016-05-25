@@ -123,7 +123,7 @@ class Tag implements \JsonSerializable {
 		$statement = $pdo->prepare($query);
 		
 		// Bind the member variables to the place holders in the template
-		$parameters = ["tagLabel" => $this->getTagLabel];
+		$parameters = ["tagLabel" => $this->getTagLabel()];
 		$statement->execute($parameters);
 
 		// Update the null tag id with what mySQL generated
