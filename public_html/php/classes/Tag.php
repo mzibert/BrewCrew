@@ -244,7 +244,7 @@ class Tag implements \JsonSerializable {
 			try {
 				$tag = new Tag($row["tagId"], $row["tagLabel"]);
 				$tags[$tags->key()] = $tag;
-				$tag->next();
+				$tags->next();
 			} catch(\Exception $exception) {
 				// If the row couldn't be converted, rethrow it
 				throw (new \PDOException($exception->getMessage(), 0, $exception));
