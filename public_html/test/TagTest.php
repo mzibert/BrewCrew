@@ -53,6 +53,28 @@ class TagTest extends BrewCrewTest {
 		$tag = new Tag(BrewCrewTest::INVALID_KEY, $this->VALID_TAG_LABEL);
 		$tag->insert($this->getPDO());
 	}
+
+	/**
+	 * Test inserting a tag, editing it, and then updating it
+	 */
+	public function testUpdateValidTag() {
+		// Count the number of rows and save it for later
+		$numRows = $this->getConnection()->getRowCount("tag");
+
+		// Create a new tag and insert it into mySQL
+		$tag = new Tag(null, $this->VALID_TAG_LABEL);
+		$tag->insert($this->getPDO());
+
+		// Edit the tag and update it in mySQL
+		$tag->setTagLabel($this->VALID_TAG_LABEL);
+		$tag->update($this->getPDO());
+
+		// Grab the data from mySQL and enforce the fields match our expectations
+		$pdoTag = Tag::getTagByTagLabel($this->getPDO(), $tag->getTagId());
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("tag"));
+		$this->assertEquals($pdoTag->getTagLabel(), $this->VALID_TAG_LABEL);
+	}
+
 	/**
 	 * Test creating a tag and then deleting it
 	 */
