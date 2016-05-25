@@ -2,6 +2,7 @@
 namespace Edu\Cnm\BrewCrew\Test;
 // Grab the project test parameters
 use Edu\Cnm\BrewCrew\Tag;
+use PDOException;
 
 require_once ("BrewCrewTest.php");
 
@@ -45,7 +46,7 @@ class TagTest extends BrewCrewTest {
 
 	/**
 	 * Test inserting a tag that already exists
-	 * @expectedException \PDOException
+	 * @expectedException PDOException
 	 */
 	public function testInsertInvalidTag() {
 		// Create a tag with a non null tag id and watch it fail
@@ -122,7 +123,7 @@ class TagTest extends BrewCrewTest {
 		$tag->insert($this->getPDO());
 
 		// Grab the data from mySQL and enforce the fields match our expectations
-		$results = Tag::getTagByTagLabel($this->getPDO(), $tag->getTagId());
+		$results = Tag::getTagByTagLabel($this->getPDO(), $tag->getTag());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("tag"));
 		$this->assertCount(1, $results);
 		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\Brewcrew\\Tag", $results);
