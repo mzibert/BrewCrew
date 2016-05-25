@@ -72,12 +72,12 @@ class ReviewTagTest extends BrewCrewTest {
 		$this->user->insert($this->getPDO());
 
 		//create and insert a beer that is being reviewed
-		$this->beer = new Beer(null, $this->brewery->getBreweryId, 10.5, "available whenever we like it to be", "lots of awards we don't care to name", .5, "something something about the taste.", "50", "Teh Awesome Beer", "Lager");
+		$this->beer = new Beer(null, $this->brewery->getBreweryId(), 10.5, "available whenever we like it to be", "lots of awards we don't care to name", .5, "something something about the taste.", "50", "Teh Awesome Beer", "Lager");
 		$this->beer->insert($this->getPDO());
 
 
 		//create a review for the tags to be associated with
-		$this->review = new Review(null, $this->beer->getBeerId, $this->user->getUserId, new \DateTime(), 5, "this beer was really good. I liked it a lot.");
+		$this->review = new Review(null, $this->beer->getBeerId(), $this->user->getUserId(), new \DateTime(), 5, "this beer was really good. I liked it a lot.");
 		$this->review->insert($this->getPDO());
 
 		//create a tag to be linked to the review
