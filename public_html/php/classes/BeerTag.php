@@ -66,7 +66,7 @@ class BeerTag implements \JsonSerializable {
 	 * @throws \RangeException if $newBeerTagBeerId is not positive
 	 * @throws \TypeError if $newBeerTagBeerId is not an integer
 	 **/
-	public function setBeerTagBeerId($newBeerTagBeerId) {
+	public function setBeerTagBeerId(int $newBeerTagBeerId) {
 		//verify the beer tag beer id content is positive
 		if($newBeerTagBeerId <= 0) {
 			throw (new \RangeException("beer tag beer id is not positive"));
