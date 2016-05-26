@@ -215,7 +215,7 @@ class BeerTagTest extends BrewCrewTest {
 
 		//grab a tag id that exceeds maximum allowed
 		$beerTag = BeerTag::getBeerTagByTagId($this->getPDO(), BrewCrewTest::INVALID_KEY);
-		$this->assertNull($beerTag);
+		$this->assertCount(0, $beerTag);
 	}
 
 	/**
