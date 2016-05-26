@@ -181,11 +181,11 @@ class ReviewTagTest extends BrewCrewTest {
 	/**
 	 * testing get reviewTag by invalid review id
 	 */
-	public function testGetReviewTagByInvalidReviewTagReviewId() {
+	public function testGetInvalidReviewTagByReviewTagReviewId() {
 
 		//grab a review id that exceeds maximum allowed
 		$reviewTag = ReviewTag::getReviewTagByReviewId($this->getPDO(), BrewCrewTest::INVALID_KEY);
-		$this->assertNull($reviewTag);
+		$this->assertCount(0, $reviewTag);
 	}
 
 
@@ -219,7 +219,7 @@ class ReviewTagTest extends BrewCrewTest {
 
 		//grab a tag id that exceeds maximum allowed
 		$reviewTag = ReviewTag::getReviewTagByTagId($this->getPDO(), BrewCrewTest::INVALID_KEY);
-		$this->assertNull($reviewTag);
+		$this->assertCount(0, $reviewTag);
 	}
 
 
@@ -247,7 +247,7 @@ class ReviewTagTest extends BrewCrewTest {
 	public function testGetReviewTagByReviewIdAndTagId() {
 
 		//grab a review id that exceeds maximum allowed
-		$reviewTag = ReviewTag::getReviewTagByReviewIdAndTagId($this->getPDO(), BrewCrewTest::INVALID_KEY);
+		$reviewTag = ReviewTag::getReviewTagByReviewIdAndTagId($this->getPDO(), BrewCrewTest::INVALID_KEY, BrewCrewTest::INVALID_KEY);
 		$this->assertNull($reviewTag);
 	}
 
