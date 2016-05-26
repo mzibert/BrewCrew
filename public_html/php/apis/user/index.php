@@ -71,7 +71,7 @@ try {
 		if($method === "PUT") {
 
 			// retrieve the user to update
-			$user = DataDesign\User::getUserByUserId($pdo, $id);
+			$user = BrewCrew\User::getUserByUserId($pdo, $id);
 			if($user === null) {
 				throw(new RuntimeException("User does not exist", 404));
 			}
@@ -91,7 +91,7 @@ try {
 			}
 
 			// create new user and insert into the database
-			$user = new DataDesign\User(null, $requestObject->profileId, $requestObject->userContent, null);
+			$user = new BrewCrew\User(null, $requestObject->profileId, $requestObject->userContent, null);
 			$user->insert($pdo);
 
 			// update reply
@@ -102,7 +102,7 @@ try {
 		verifyXsrf();
 
 		// retrieve the User to be deleted
-		$user = DataDesign\User::getUserByUserId($pdo, $id);
+		$user = BrewCrew\User::getUserByUserId($pdo, $id);
 		if($user === null) {
 			throw(new RuntimeException("User does not exist", 404));
 		}
