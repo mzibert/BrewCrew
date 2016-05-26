@@ -10,7 +10,7 @@ require_once("autoload.php");
  *
  * @author Alicia Broadhurst <abroadhurst@cnm.edu>
  *
- */
+ **/
 class Review implements \JsonSerializable {
 	use ValidateDate;
 
@@ -18,7 +18,7 @@ class Review implements \JsonSerializable {
 	 * review id; the primary key
 	 * @var int $reviewId
 	 *
-	 */
+	 **/
 	private $reviewId;
 
 	/**
@@ -64,7 +64,7 @@ class Review implements \JsonSerializable {
 	 * @throws \RangeException if the data values are out of bounds (e.g., strings are too long, integers are negative or out of range, etc)
 	 * @throws \TypeError if data types violate type hints
 	 * @throws \Exception if some other exception occurs
-	 */
+	 **/
 	public function __construct(int $newReviewId = null, int $newReviewBeerId, int $newReviewUserId, $newReviewDate = null, int $newReviewPintRating, string $newReviewText) {
 		try {
 			$this->setReviewId($newReviewId);
@@ -128,7 +128,7 @@ class Review implements \JsonSerializable {
 	 * accessor method for review beer id
 	 *
 	 * @return int value of review beer id, a foreign key
-	 */
+	 **/
 	public function getReviewBeerId() {
 		return ($this->reviewBeerId);
 	}
@@ -138,7 +138,7 @@ class Review implements \JsonSerializable {
 	 * @param int $newReviewBeerId creates new value for beer id
 	 * @throws \RangeException if $newReviewBeerId is not positive
 	 * @throws \TypeError is $newReviewBeerId is not an integer
-	 */
+	 **/
 	public function setReviewBeerId(int $newReviewBeerId) {
 		//verify that the review beer id is positive
 		if($newReviewBeerId <= 0) {
@@ -152,7 +152,7 @@ class Review implements \JsonSerializable {
 	 * accessor method for review user id
 	 *
 	 * @return int value of review user id, a foreign key
-	 */
+	 **/
 	public function getReviewUserId() {
 		return ($this->reviewUserId);
 	}
@@ -162,7 +162,7 @@ class Review implements \JsonSerializable {
 	 * @param int $newReviewUserId creates a new value for user id
 	 * @throws \RangeException if $newReviewUserId is not positive
 	 * @throws \TypeError if $newReviewUserId is not an integer
-	 */
+	 **/
 
 	public function setReviewUserId(int $newReviewUserId) {
 		//verify that the review user id is a positive integer
@@ -179,7 +179,7 @@ class Review implements \JsonSerializable {
 	 * accessor method for review date
 	 *
 	 * @return \DateTime value for the review
-	 */
+	 **/
 
 	public function getReviewDate() {
 		return ($this->reviewDate);
@@ -191,7 +191,7 @@ class Review implements \JsonSerializable {
 	 * @param \DateTime|string|null $newReviewDate the date of the review as a DateTime object, or null to load the current time
 	 * @throws \InvalidArgumentException if $newReviewDate is not a valid object
 	 * @throws \RangeException if $newReviewDate is a date that does not exist
-	 */
+	 **/
 	public function setReviewDate($newReviewDate = null) {
 		//base case-- if the date is null, use the current date and time
 		if($newReviewDate === null) {
@@ -214,7 +214,7 @@ class Review implements \JsonSerializable {
 	 * accessor method for pint rating
 	 *
 	 * @return int value of the pint rating
-	 */
+	 **/
 	public function getReviewPintRating() {
 		return ($this->reviewPintRating);
 	}
@@ -225,7 +225,7 @@ class Review implements \JsonSerializable {
 	 * @param int $newReviewPintRating sets new value for the pint rating
 	 * @throws \RangeException if pint rating is not 1-5
 	 * @throws \TypeError if the pint rating is not an integer
-	 */
+	 **/
 	public function setReviewPintRating(int $newReviewPintRating) {
 		//check that the pint rating is 1-5
 		//or is either 'or' or '||'. || has higher precedence
@@ -240,7 +240,7 @@ class Review implements \JsonSerializable {
 	/**accessor method for review text
 	 *
 	 * @return string value for review text
-	 */
+	 **/
 	public function getReviewText() {
 		return ($this->reviewText);
 	}
@@ -252,7 +252,7 @@ class Review implements \JsonSerializable {
 	 * @throws \InvalidArgumentException if $newReviewText is not a string or contains insecure content
 	 * @throws \RangeException if $newReviewText is greater than 2000 characters
 	 * @throws \TypeError if $newReviewText is not a string
-	 */
+	 **/
 	public function setReviewText(string $newReviewText = null) {
 		//if user isn't leaving a text review, don't even bother
 		if($newReviewText === null) {
@@ -282,7 +282,7 @@ class Review implements \JsonSerializable {
 	 * @param \PDO $pdo PDO connection object
 	 * @throws \PDOException when mySQL related error occurs
 	 * @throws \TypeError when $pdo is not a PDO connection object
-	 */
+	 **/
 	public function insert(\PDO $pdo) {
 		//enforce that the review id is null (aka don't insert a review that already exists)
 		if($this->reviewId !== null) {
@@ -308,7 +308,7 @@ class Review implements \JsonSerializable {
 	 * @param \PDO $pdo PDO connection object
 	 * @throws \PDOException when mySQL related error occurs
 	 * @throws \TypeError when $pdo is not a PDO connection object
-	 */
+	 **/
 	public function delete(\PDO $pdo) {
 		//enforce that that reviewId is not null (aka doesn't exist, so cannot delete)
 		if($this->reviewId === null) {
@@ -330,7 +330,7 @@ class Review implements \JsonSerializable {
 	 * @param \PDO $pdo PDO connection object
 	 * @throws \PDOException when mySQL related error occurs
 	 * @throws \TypeError when $pdo is not a PDO connection object
-	 */
+	 **/
 	public function update(\PDO $pdo) {
 		//enforce that the review id is not null (aka don't update a review that doesn't exist)
 		if($this->reviewId === null) {
@@ -355,7 +355,7 @@ class Review implements \JsonSerializable {
 	 * @return Review|null either the review, or null if not found
 	 * @throws \PDOException when mySQL related errors are found
 	 * @throws \TypeError when variables are not the correct data type
-	 */
+	 **/
 	public static function getReviewByReviewId(\PDO $pdo, int $reviewId) {
 		//sanitize the reviewId before searching
 		if($reviewId <= 0) {
@@ -393,7 +393,7 @@ class Review implements \JsonSerializable {
 	 * @return \SplFixedArray SplFixedArray of reviews or null if not found
 	 * @throws \PDOException when mySQL related errors are found
 	 * @throws \TypeError when variables are not the correct data type
-	 */
+	 **/
 	public static function getReviewByBeerId(\PDO $pdo, int $reviewBeerId) {
 		//sanitize the beerId before searching
 		if($reviewBeerId <= 0) {
@@ -432,7 +432,7 @@ class Review implements \JsonSerializable {
 	 * @return \SplFixedArray SplFixedArray of reviews or null if not found
 	 * @throws \PDOException when mySQL related errors are found
 	 * @throws \TypeError when variables are not the correct data type
-	 */
+	 **/
 	public static function getReviewByUserId(\PDO $pdo, int $reviewUserId) {
 		//sanitize the userId before searching
 		if($reviewUserId <= 0) {
@@ -471,7 +471,7 @@ class Review implements \JsonSerializable {
 	 * @return \SplFixedArray SplFixedArray of reviews or null if not found
 	 * @throws \PDOException when mySQL related errors are found
 	 * @throws \TypeError when variables are not the correct data type
-	 */
+	 **/
 	public static function getReviewByBreweryId(\PDO $pdo, int $breweryId) {
 		//sanitize the breweryId before searching
 		if($breweryId <= 0) {
@@ -513,7 +513,7 @@ WHERE breweryId = :breweryId";
 	 * @return \SplFixedArray SplFixedArray of reviews that are found
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when variables are not the correct data type
-	 */
+	 **/
 	public function getReviewByReviewPintRating(\PDO $pdo, int $reviewPintRating) {
 		//check that the pint rating is 1-5
 		if($reviewPintRating < 1 || $reviewPintRating > 5) {

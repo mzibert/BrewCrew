@@ -18,54 +18,54 @@ require_once(dirname(__DIR__) . "/php/classes/autoload.php");
  *
  * @see \Edu\Cnm\BrewCrew\Review
  * @author Alicia Broadhurst <abroadhurst@cnm.edu>
- */
+ **/
 class ReviewTest extends BrewCrewTest {
 	/**
 	 * content generated for review text
 	 * @var string $VALID_REVIEWCONTENT
-	 */
+	 **/
 	protected $VALID_REVIEWCONTENT = "Some review text! So PHP test has passed! FTW!";
 
 	/**
 	 * updated content for review text
 	 * @var string $VALID_REVIEWCONTENT2
-	 */
+	 **/
 	protected $VALID_REVIEWCONTENT2 = "This has changed! PHP test still passes! FTW!";
 
 	/**
 	 * timestamp for the review; this starts as null and is assigned later
 	 * @var DateTime $VALID_REVIEWDATE
-	 */
+	 **/
 	protected $VALID_REVIEWDATE = null;
 
 	/**
 	 * 5-pint rating associated with the review
 	 * @var int $VALID_REVIEWPINTRATING
-	 */
+	 **/
 	protected $VALID_REVIEWPINTRATING = 5;
 
 	/**
 	 * Brewery associated with beer being reviewed
 	 * @var Brewery brewery
-	 */
+	 **/
 	protected $brewery = null;
 
 	/**
 	 * User that wrote the review; this is for foreign key relations
 	 * @var User user
-	 */
+	 **/
 	protected $user = null;
 
 	/**
 	 * Beer that is being reviewed; this is for foreign key relations
 	 * @var Beer beer
-	 */
+	 **/
 	protected $beer = null;
 
 
 	/**
 	 * Create dependent objects before running each test AKA foreign objects(keys)
-	 */
+	 **/
 	public final function setUp() {
 		//run the default setUp method first
 		parent::setUp();
@@ -93,7 +93,7 @@ class ReviewTest extends BrewCrewTest {
 
 	/**
 	 * test that inserts a valid review and then verifies that the mySQL data matches; also good for getReviewByReviewId check
-	 */
+	 **/
 	public function testInsertValidReview() {
 		//count the number of rows and save this for later
 		$numRows = $this->getConnection()->getRowCount("review");
@@ -116,7 +116,7 @@ class ReviewTest extends BrewCrewTest {
 	 * test that inserts a review that already exists
 	 *
 	 * @expectedException PDOException
-	 */
+	 **/
 	//create a review that has a non-null primary key (review id) and watch it fail
 	public function testInsertInvalidReview() {
 		$review = new Review(BrewCrewTest::INVALID_KEY, $this->beer->getBeerId(), $this->user->getUserId(), $this->VALID_REVIEWDATE, $this->VALID_REVIEWPINTRATING, $this->VALID_REVIEWCONTENT);
@@ -125,7 +125,7 @@ class ReviewTest extends BrewCrewTest {
 
 	/**
 	 * Test that inserts a review, edits and then updates the review
-	 */
+	 **/
 	public function testUpdateValidReview() {
 		//count the number of rows and save for later
 		$numRows = $this->getConnection()->getRowCount("review");
@@ -151,7 +151,7 @@ class ReviewTest extends BrewCrewTest {
 	 * test that tries updating a review that already exists
 	 *
 	 * @expectedException PDOException
-	 */
+	 **/
 	public function testUpdateInvalidReview() {
 		//create a review with a non-null id and watch it fail
 		$review = new Review(null, $this->beer->getBeerId(), $this->user->getUserId(), $this->VALID_REVIEWDATE, $this->VALID_REVIEWPINTRATING, $this->VALID_REVIEWCONTENT);
@@ -160,7 +160,7 @@ class ReviewTest extends BrewCrewTest {
 
 	/**
 	 * test that creates a review and then deletes it
-	 */
+	 **/
 	public function testDeleteValidReview() {
 		//count the number of rows and save for later
 		$numRows = $this->getConnection()->getRowCount("review");
@@ -183,7 +183,7 @@ class ReviewTest extends BrewCrewTest {
 	 * test deleting a review that does not exist
 	 *
 	 * @expectedException PDOException
-	 */
+	 **/
 	public function testDeleteInvalidReview() {
 		//create a review and then try to delete it without actually inserting it in database
 		$review = new Review(null, $this->beer->getBeerId(), $this->user->getUserId(), $this->VALID_REVIEWDATE, $this->VALID_REVIEWPINTRATING, $this->VALID_REVIEWCONTENT);
@@ -202,7 +202,7 @@ class ReviewTest extends BrewCrewTest {
 
 	/**
 	 * test grabbing a review by beerId
-	 */
+	 **/
 	public function testGetReviewByBeerId() {
 		//count the number of rows and save this for later
 		$numRows = $this->getConnection()->getRowCount("review");
@@ -227,7 +227,7 @@ class ReviewTest extends BrewCrewTest {
 	}
 	/**
 	 * test an invalid beerId
-	 */
+	 **/
 	public function testGetInvalidReviewByBeerId() {
 		//grab a beer id that exceeds maximum allowable id limit
 		$review = Review::getReviewByBeerId($this->getPDO(), BrewCrewTest::INVALID_KEY);
@@ -236,7 +236,7 @@ class ReviewTest extends BrewCrewTest {
 
 	/**
 	 * test grabbing a review by userId
-	 */
+	 **/
 	public function testGetReviewByUserId() {
 		//count the number of rows and save this for later
 		$numRows = $this->getConnection()->getRowCount("review");
@@ -261,7 +261,7 @@ class ReviewTest extends BrewCrewTest {
 	}
 	/**
 	 * test an invalid userId
-	 */
+	 **/
 	public function testGetInvalidReviewByUserId() {
 		//grab a user id that exceeds maximum allowable id limit
 		$review = Review::getReviewByUserId($this->getPDO(), BrewCrewTest::INVALID_KEY);
@@ -271,7 +271,7 @@ class ReviewTest extends BrewCrewTest {
 
 	/**
 	 * test grabbing a review by breweryId
-	 */
+	 **/
 	public function testGetReviewByBreweryId() {
 		//count the number of rows and save this for later
 		$numRows = $this->getConnection()->getRowCount("review");
@@ -296,7 +296,7 @@ class ReviewTest extends BrewCrewTest {
 	}
 	/**
 	 * test an invalid breweryId
-	 */
+	 **/
 	public function testGetInvalidReviewByBreweryId() {
 		//grab a brewery id that exceeds maximum allowable id limit
 		$review = Review::getReviewByBreweryId($this->getPDO(), BrewCrewTest::INVALID_KEY);
@@ -304,7 +304,7 @@ class ReviewTest extends BrewCrewTest {
 	}
 	/**
 	 * test grabbing a review by pint rating
-	 */
+	 **/
 	public function testGetReviewByReviewPintRating() {
 		//count the number of rows and save this for later
 		$numRows = $this->getConnection()->getRowCount("review");
@@ -330,7 +330,7 @@ class ReviewTest extends BrewCrewTest {
 
 	/**
 	 * test grabbing a review by pint rating that doesn't exist
-	 */
+	 **/
 	public function testGetInvalidReviewByPintRating() {
 		//grab a review by looking for reviews with no applicable pint ratings
 		$review = Review::getReviewByReviewPintRating($this->getPDO(), 1);
