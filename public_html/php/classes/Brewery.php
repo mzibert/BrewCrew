@@ -390,7 +390,6 @@ class Brewery implements \JsonSerializable {
 		$statement = $pdo->prepare($query);
 
 		//Bind the member variables to the placeholders in the templates
-		//How to format EstDate as YYYY?
 		$parameters = ["breweryId" => $this->getBreweryId(), "breweryDescription" => $this->getBreweryDescription(), "breweryEstDate" => $this->getBreweryEstDate(), "breweryHours" => $this->getBreweryHours(), "breweryLocation" => $this->getBreweryLocation(), "breweryName" => $this->getBreweryName(), "breweryPhone" => $this->getBreweryPhone(), "breweryUrl" => $this->getBreweryUrl()];
 		$statement->execute($parameters);
 	}
