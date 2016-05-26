@@ -137,7 +137,7 @@ class ReviewTagTest extends BrewCrewTest {
 		$reviewTag->delete($this->getPDO());
 
 		//grab the data from mySQL and verify that it doesn't exist
-		$pdoReviewTag = ReviewTag::getReviewTagByReviewId($this->getPDO(), $reviewTag->getReviewTagReviewId());
+		$pdoReviewTag = ReviewTag::getReviewTagByReviewIdAndTagId($this->getPDO(), $reviewTag->getReviewTagReviewId(), $reviewTag->getReviewTagTagId());
 		$this->assertNull($pdoReviewTag);
 		$this->assertEquals($numRows, $this->getConnection()->getRowCount("reviewTag"));
 	}
@@ -157,7 +157,7 @@ class ReviewTagTest extends BrewCrewTest {
 	/**
 	 *testing get reviewTag by valid review id
 	 */
-	public function getValidReviewTagByReviewTagReviewId() {
+	public function testGetValidReviewTagByReviewTagReviewId() {
 		//count the number of rows and save it for later
 		$numRows = $this->getConnection()->getRowCount("reviewTag");
 
@@ -181,7 +181,7 @@ class ReviewTagTest extends BrewCrewTest {
 	/**
 	 * testing get reviewTag by invalid review id
 	 */
-	public function getReviewTagByInvalidReviewTagReviewId() {
+	public function testGetReviewTagByInvalidReviewTagReviewId() {
 
 		//grab a review id that exceeds maximum allowed
 		$reviewTag = ReviewTag::getReviewTagByReviewId($this->getPDO(), BrewCrewTest::INVALID_KEY);
@@ -192,12 +192,12 @@ class ReviewTagTest extends BrewCrewTest {
 	/**
 	 *testing get reviewTag by valid tag id
 	 */
-	public function getValidReviewTagByReviewTagTagId() {
+	public function testGetValidReviewTagByReviewTagTagId() {
 		//count the number of rows and save it for later
 		$numRows = $this->getConnection()->getRowCount("reviewTag");
 
 		//create a new reviewTag and insert it into mySQL
-		$reviewTag = new ReviewTag($this->review->getReviewTag(), $this->tag->getTagId());
+		$reviewTag = new ReviewTag($this->review->getReviewId(), $this->tag->getTagId());
 		$reviewTag->insert($this->getPDO());
 
 		//grab the data from mySQL and enforce that the fields match our expectations
@@ -215,7 +215,7 @@ class ReviewTagTest extends BrewCrewTest {
 	/**
 	 * testing get reviewTag by invalid tag id
 	 */
-	public function getReviewTagByInvalidReviewTagTagId() {
+	public function testGetInvalidReviewTagByReviewTagTagId() {
 
 		//grab a tag id that exceeds maximum allowed
 		$reviewTag = ReviewTag::getReviewTagByTagId($this->getPDO(), BrewCrewTest::INVALID_KEY);
@@ -226,22 +226,17 @@ class ReviewTagTest extends BrewCrewTest {
 	/**
 	 *testing get reviewTag by valid review id, tag id
 	 */
-	public function getValidReviewTagByReviewIdAndTagId() {
+	public function testGetValidReviewTagByReviewIdAndTagId() {
 		//count the number of rows and save it for later
 		$numRows = $this->getConnection()->getRowCount("reviewTag");
 
 		//create a new reviewTag and insert it into mySQL
 		$reviewTag = new ReviewTag($this->review->getReviewId(), $this->tag->getTagId());
 		$reviewTag->insert($this->getPDO());
-
+		
 		//grab the data from mySQL and enforce that the fields match our expectations
-		$results = ReviewTag::getReviewTagByReviewIdAndTagId($this->getPDO(), $reviewTag->getReviewTagReviewId(), $reviewTag->getReviewTagTagId());
+		$pdoReviewTag = ReviewTag::getReviewTagByReviewIdAndTagId($this->getPDO(), $reviewTag->getReviewTagReviewId(), $reviewTag->getReviewTagTagId());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("reviewTag"));
-		$this->assertCount(1, $results);
-		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\BrewCrew\\ReviewTag", $results);
-
-		//grab the results from the array and validate them
-		$pdoReviewTag = $results[0];
 		$this->assertEquals($pdoReviewTag->getReviewTagReviewId(), $this->review->getReviewId());
 		$this->assertEquals($pdoReviewTag->getReviewTagTagId(), $this->tag->getTagId());
 	}
@@ -249,7 +244,7 @@ class ReviewTagTest extends BrewCrewTest {
 	/**
 	 * testing get reviewTag by invalid review id, tag id
 	 */
-	public function getReviewTagByBothIds() {
+	public function testGetReviewTagByReviewIdAndTagId() {
 
 		//grab a review id that exceeds maximum allowed
 		$reviewTag = ReviewTag::getReviewTagByReviewIdAndTagId($this->getPDO(), BrewCrewTest::INVALID_KEY);
