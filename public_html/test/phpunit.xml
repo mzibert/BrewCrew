@@ -2,12 +2,12 @@
 	<testsuites>
 		<testsuite name="brewcrew">
 			<file>BeerTagTest.php</file>
-			<!--<file>BeerTest.php</file>-->
-			<!--<file>BreweryTest.php</file>-->
-			<!--<file>ReviewTagTest.php</file>-->
-			<!--<file>ReviewTest.php</file>-->
-			<!--<file>TagTest.php</file>-->
-			<!--<file>UserTest.php</file>-->
+			<file>BeerTest.php</file>
+			<file>BreweryTest.php</file>
+			<file>ReviewTagTest.php</file>
+			<file>ReviewTest.php</file>
+			<file>TagTest.php</file>
+			<file>UserTest.php</file>
 		</testsuite>
 	</testsuites>
 	<filter>
