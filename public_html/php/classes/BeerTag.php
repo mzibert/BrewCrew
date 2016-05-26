@@ -54,15 +54,15 @@ class BeerTag implements \JsonSerializable {
 	 */
 	/**
 	 * accessor method for beerTagBeerId
-	 * @return int value of beerTag BeerId, foreign key
+	 * @return int value of beerTag beer Id, foreign key
 	 **/
 	public function getBeerTagBeerId() {
 		return ($this->beerTagBeerId);
 	}
 
 	/**
-	 * mutator method for beerTagBeerId
-	 * @param int $newBeerTagBeerId new value of beerTag beerId
+	 * mutator method for beerTag beerId
+	 * @param int $newBeerTagBeerId 
 	 * @throws \RangeException if $newBeerTagBeerId is not positive
 	 * @throws \TypeError if $newBeerTagBeerId is not an integer
 	 **/
@@ -76,22 +76,22 @@ class BeerTag implements \JsonSerializable {
 	}
 
 	/**
-	 * accessor method for beerTagTagId
-	 * @return int value of beerTag tagId, foreign key
+	 * accessor method for beerTag TagId
+	 * @return int value of beerTag tag Id, foreign key
 	 **/
 	public function getBeerTagTagId() {
 		return ($this->beerTagTagId);
 	}
 
 	/**
-	 * mutator method for beerTag tagId
+	 * mutator method for beerTag tag Id
 	 * @param int $newBeerTagTagId new value of the tag id assigned to this beer
 	 * @throws \RangeException if $newBeerTagTagId is not positive
 	 * @throws \TypeError if $newBeerTagTagId is not an integer
 	 **/
-	public function setBeerTagTagId($newBeerTagTagId) {
+	public function setBeerTagTagId(int $newBeerTagTagId) {
 		//verify the beer tag tag Id content is positive
-		if($newBeerTagTagId <= 0) {
+		if($newBeerTagTagId < 0) {
 			throw (new \RangeException("beer tag tag Id is not positive"));
 		}
 		//convert and store the beer tag tag Id
@@ -99,7 +99,7 @@ class BeerTag implements \JsonSerializable {
 	}
 
 	/**
-	 * inserts this beer tag into mySQL
+	 * inserts this beerTag into mySQL
 	 * @param \PDO $pdo PDO connection object
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError if $pdo is not a PDO connection object
