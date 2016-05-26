@@ -2,7 +2,7 @@
 namespace Edu\Cnm\BrewCrew\Test;
 
 use Edu\Cnm\BrewCrew\{
-	Beer, BeerTag, Brewery, Tag, User
+	Brewery, User, Beer, Review, Tag, 
 };
 
 //Grab the project test parameters
