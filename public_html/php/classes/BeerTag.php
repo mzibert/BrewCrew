@@ -139,51 +139,52 @@ class BeerTag implements \JsonSerializable {
 	}
 
 	/**
-	 * gets the Beer Tag by beerTag ID
+	 * gets the beerTag by beer Id
 	 *
 	 * @param \PDO $pdo PDO connection object
 	 * @param int $beerTagBeerId the beerId to search for
-	 * @return \int beer tags found or null if not found
+	 * @return \SplFixedArray of BeerTags found or null if not found
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when variables are not the correct data type
 	 **/
 	public static function getBeerTagByBeerId(\PDO $pdo, int $beerTagBeerId) {
 		//sanitize the beer id
 		if($beerTagBeerId < 0) {
-			throw (new\PDOException("beer id is not positive"));
+			throw (new \PDOException("beer id is not positive"));
 		}
 		//create query template
 		$query = "SELECT beerTagBeerId, beerTagTagId FROM beerTag WHERE beerTagBeerId = :beerTagBeerId";
 		$statement = $pdo->prepare($query);
 
 		//bind the beer id to the place holder in the template
-		$parameters = ["beerTagBeerId"=> $beerTagBeerId];
+		$parameters = ["beerTagBeerId" => $beerTagBeerId];
 		$statement->execute($parameters);
 
 		//build an array of beerTags
+		$beerTags = new \SplFixedArray($statement->rowCount());
+		$statement->setFetchMode(\PDO::FETCH_ASSOC);
+		while(($row = $statement->fetch()) !== false) {
 			try {
-				$beerTag = null;
-				$statement->setFetchMode(\PDO::FETCH_ASSOC);
-				$row = $statement->fetch();
-				if($row !== false){
-				}
 				$beerTag = new BeerTag($row["beerTagBeerId"], $row["beerTagTagId"]);
+				$beerTags[$beerTags->key()] = $beerTag;
+				$beerTags->next();
 			} catch(\Exception $exception) {
 				//if the row cant be converted rethrow it
-				throw (new \PDOException($exception->getMessage(), 0, $exception));
+				throw(new \PDOException($exception->getMessage(), 0, $exception));
 			}
-		return ($beerTag);
+		}
+		return ($beerTags);
 	}
 
 	/**
 	 * gets the beer tag by tag Id
 	 *
 	 * @param \PDO $pdo PDO connection object
-	 * @param int $beerTagTagID tag Id to search for
+	 * @param int $beerTagTagId tag Id to search for
 	 * @return \SplFixedArray of BeerTags found or null if nothing is found
 	 * @throws \PDOException when mySQL related errors are found
 	 * @throws \TypeError when variables are not the correct data type
-	 */
+	 **/
 	public static function getBeerTagByTagId(\PDO $pdo, int $beerTagTagId) {
 		// sanitize the tag id
 		if($beerTagTagId < 0) {
