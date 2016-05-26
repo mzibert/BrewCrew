@@ -203,7 +203,7 @@ class BeerTag implements \JsonSerializable {
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 		while(($row = $statement->fetch()) !== false) {
 			try {
-				$beerTag = new BeerTag($row["beerTagBeerid"], $row["beerTagTagId"]);
+				$beerTag = new BeerTag($row["beerTagBeerId"], $row["beerTagTagId"]);
 				$beerTags[$beerTags->key()] = $beerTag;
 				$beerTags->next();
 			} catch(\Exception $exception) {
