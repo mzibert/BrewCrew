@@ -220,7 +220,7 @@ class User implements \JsonSerializable {
 		}
 //make sure user activation token=128
 		if(strlen($newUserActivationToken) !== 32) {
-			throw(new\RangeException("user activation token has to be 128"));
+			throw(new\RangeException("user activation token has to be 32"));
 		}
 
 		$this->userActivationToken = $newUserActivationToken;
