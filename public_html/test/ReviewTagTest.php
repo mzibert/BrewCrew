@@ -145,7 +145,6 @@ class ReviewTagTest extends BrewCrewTest {
 	/**
 	 * test deleting a reviewTag that doesn't exist
 	 *
-	 * @expectedException PDOException
 	 **/
 	public function testDeleteInvalidReviewTag() {
 		//create a reviewTag and try to delete it without actually inserting it
