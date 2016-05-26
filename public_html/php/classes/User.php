@@ -4,14 +4,14 @@ namespace Edu\Cnm\BrewCrew;
 use Edu\Cnm\BrewCrew\ValidateDate;
 
 require_once("autoload.php");
-require_once ("ValidateDate.php");
+
 
 class User implements \JsonSerializable {
 	use ValidateDate;
 	/**
 	 * id for the User is the primary key
 	 * @var int $userId
-	 */
+	 **/
 	private $userId;
 	/**
 	 * id for this userBreweryId; this is the foreign key
@@ -21,47 +21,47 @@ class User implements \JsonSerializable {
 	/**
 	 * user access level of 1 or 2
 	 * @var int $userAccessLevel
-	 */
+	 **/
 	private $userAccessLevel;
 	/**
 	 *
 	 * @var string $userActivationToken
-	 */
+	 **/
 	private $userActivationToken;
 	/**
 	 * birth date of user
-	 * @var \DateInterval |\DateTime | null $userDateOfBirth
-	 */
+	 * @var \DateTime $userDateOfBirth
+	 **/
 	private $userDateOfBirth;
 	/**
 	 * email of user
 	 * @var string $userEmail
-	 */
+	 **/
 	private $userEmail;
 	/**
 	 * first name of user
 	 * @var string $userFirstName
-	 */
+	 **/
 	private $userFirstName;
 	/**
 	 * name of userHash
 	 * @var string $userHash
-	 */
+	 **/
 	private $userHash;
 	/**
 	 * last name of user
 	 * @var string $userLastName
-	 */
+	 **/
 	private $userLastName;
 	/**
 	 * name of userSalt
 	 * @var string $userSalt
-	 */
+	 **/
 	private $userSalt;
 	/**
 	 * username of user
 	 * @var string $userUsername
-	 */
+	 **/
 	private $userUsername;
 
 	/**
@@ -70,7 +70,7 @@ class User implements \JsonSerializable {
 	 * @param int $newUserBreweryId int id of the Brewery
 	 * @param int $newUserAccessLevel
 	 * @param string $newUserActivationToken string with user token
-	 * @param \DateInterval |\DateTime null $newUserDateOfBirth date User was sent or set to current date and time
+	 * @param \DateTime  $newUserDateOfBirth date User was sent or set to current date and time
 	 * @param string $newUserEmail string containing user email
 	 * @param string $newUserFirstName string containing actual user first name
 	 * @param string $newUserHash string containing actual user password hash
@@ -79,7 +79,7 @@ class User implements \JsonSerializable {
 	 * @param string $newUserUsername string containing actual user name
 	 * @throws \Exception if some other exception occurs
 	 * @throws \TypeError if data types violate type hints
-	 */
+	 **/
 	public function __construct (int $newUserId = null, int $newUserBreweryId = null, int $newUserAccessLevel, string $newUserActivationToken, $newUserDateOfBirth, string $newUserEmail, string $newUserFirstName, string $newUserHash, string $newUserLastName, string $newUserSalt, string $newUserUsername) {
 		try {
 			$this->setUserId($newUserId);
@@ -196,7 +196,7 @@ class User implements \JsonSerializable {
 	/**
 	 * accessor method for user activation token
 	 * @return string value of activation token
-	 */
+	 **/
 	public function getUserActivationToken() {
 		return ($this->userActivationToken);
 	}
@@ -220,7 +220,7 @@ class User implements \JsonSerializable {
 		/**
 	 * accessor method for userDateOfBirth date
 	 *
-	 * @return \DateInterval | \DateTime  | null value of userDateOfBirth date
+	 * @return  \DateTime  value of userDateOfBirth date
 	 **/
 	public function getUserDateOfBirth () {
 		return ($this->userDateOfBirth);
@@ -229,7 +229,7 @@ class User implements \JsonSerializable {
 	/**
 	 * mutator method for userDateOfBirth date
 	 *
-	 * @param \DateInterval | \DateTime  | null $newUserDateOfBirth user DateOfBirth date as a DateTime object o
+	 * @param  \DateTime  $newUserDateOfBirth user DateOfBirth date as a DateTime object o
 	 * @throws \OutOfRangeException if $newUserDateOfBirth is < 21
 	 **/
 	public function setUserDateOfBirth ($newUserDateOfBirth = null) {
@@ -267,7 +267,7 @@ class User implements \JsonSerializable {
 	public function setUserEmail (string $newUserEmail) {
 		// verify the User's email content is secure
 		$newUserEmail = trim($newUserEmail);
-		$newUserEmail = filter_var($newUserEmail, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		$newUserEmail = filter_var($newUserEmail, FILTER_SANITIZE_EMAIL, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($newUserEmail) === true) {
 			throw(new \InvalidArgumentException("User's email content is empty or insecure"));
 		}
@@ -318,7 +318,7 @@ class User implements \JsonSerializable {
 	 * accessor method for user hash
 	 *
 	 * @return int|null for $newUserHash
-	 */
+	 **/
 	public function getUserHash() {
 		return ($this->userHash);
 	}
@@ -328,7 +328,7 @@ class User implements \JsonSerializable {
 	 * @param \InvalidArgumentException if $newUserHash is not a string
 	 * @param \RangeException if $newUserHash = 128
 	 * @param \TypeError if $newUserHash is not a string
-	 */
+	 **/
 	public function setUserHash(string $newUserHash) {
 		//verification that $userHash is secure
 		$newUserHash = strtolower(trim($newUserHash));
@@ -485,7 +485,7 @@ class User implements \JsonSerializable {
 	 * @param \PDO $pdo PDO connection object
 	 * @param \PDOException when mySQL related errors occur
 	 * @param \TypeError if $pdo is not a PDO connection object
-	 */
+	 **/
 	public function delete(\PDO $pdo) {
 		//enforce the the userId is not null (tldr don't delete a user that is not yet inserted)
 		if($this->userId === null) {
@@ -505,7 +505,7 @@ class User implements \JsonSerializable {
 	 * @param \PDO $pdo PDO connection object
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError if $pdo is not a PDO connection object
-*/
+**/
 	public function update(\PDO $pdo) {
 // enforce the userId is not null (i.e., don't update a user that hasn't been inserted)
 		if($this->userId === null) {
@@ -547,7 +547,7 @@ class User implements \JsonSerializable {
 		$query = "SELECT userId, userBreweryId, userAccessLevel, userActivationToken, userDateOfBirth,userEmail, userFirstName, userHash, userLastName, userSalt, userUsername
 			FROM user
 			WHERE userId
-			LIKE :userId";
+			= :userId";
 
 		$statement = $pdo->prepare($query);
 
@@ -581,7 +581,7 @@ class User implements \JsonSerializable {
 	public static function getUserByUserBreweryId (\PDO $pdo, int $userBreweryId) {
 		// sanitize the description before searching
 		$userBreweryId = trim($userBreweryId);
-		$userBreweryId = filter_var($userBreweryId, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		$userBreweryId = filter_var($userBreweryId, FILTER_VALIDATE_INT, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($userBreweryId) === true) {
 			throw(new \PDOException("user brewery id is invalid"));
 		}
@@ -621,7 +621,7 @@ class User implements \JsonSerializable {
 	public static function getUserByUserAccessLevel (\PDO $pdo, int $userAccessLevel) {
 		// sanitize the description before searching
 		$userAccessLevel = trim($userAccessLevel);
-		$userAccessLevel = filter_var($userAccessLevel, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		$userAccessLevel = filter_var($userAccessLevel, FILTER_VALIDATE_INT, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($userAccessLevel) === true) {
 			throw(new \PDOException("user access level is invalid"));
 		}
@@ -770,7 +770,7 @@ class User implements \JsonSerializable {
 
 	/**
 	 * @return array
-	 */
+	 **/
 	public function jsonSerialize() {
 		$fields = get_object_vars($this);
 		Unset ($fields["userHash"]);

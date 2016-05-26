@@ -219,6 +219,32 @@ class UserTest extends BrewCrewTest {
 		$this->assertNull($user);
 	}
 	/**
+	//	 * test grabbing a User UserActivationToken
+	//	 **/
+	public function testGetValidUserByUserActivationToken() {
+		// count the number of rows and save it for later
+		$numRows = $this->getConnection()->getRowCount("user");
+		// get user by user by UserActivationToken and  insert to into mySQL
+		$user = new User(null, $this->brewery->getBreweryId(), $this->VALID_ACCESSLEVEL,$this->VALID_ACTIVATIONTOKEN,$this->VALID_DATEOFBIRTH,$this->VALID_EMAIL, $this->VALID_FIRSTNAME, $this->hash, $this->VALID_LASTNAME, $this->salt, $this->VALID_USERUSERNAME);
+		$user->insert($this->getPDO());
+
+		/// grab the data from mySQL and enforce the fields match our expectations
+		$pdoUser = User::getUserByUserActivationToken($this->getPDO(), $user->getUserActivationToken());
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("user"));
+
+
+		$this->assertEquals($pdoUser->getUserBreweryId(), $this->brewery->getBreweryId());
+		$this->assertEquals($pdoUser->getUserAccessLevel(), $this->VALID_ACCESSLEVEL);
+		$this->assertEquals($pdoUser->getUserActivationToken(),$this->VALID_ACTIVATIONTOKEN);
+		$this->assertEquals($pdoUser->getUserDateOfBirth()->format("Y-m-d"),$this->VALID_DATEOFBIRTH);
+		$this->assertEquals($pdoUser->getUserEmail(), $this->VALID_EMAIL);
+		$this->assertEquals($pdoUser->getUserFirstName(), $this->VALID_FIRSTNAME);
+		$this->assertEquals($pdoUser->getUserHash(), $this->hash);
+		$this->assertEquals($pdoUser->getUserLastName(), $this->VALID_LASTNAME);
+		$this->assertEquals($pdoUser->getUserSalt(), $this->salt);
+		$this->assertEquals($pdoUser->getUserUsername(), $this->VALID_USERUSERNAME);
+	}
+	/**
 	//	 * test grabbing a User by email
 	//	 **/
 	public function testGetValidUserByUserEmail() {
