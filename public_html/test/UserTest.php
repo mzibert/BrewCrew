@@ -31,7 +31,7 @@ class UserTest extends BrewCrewTest {
 	/**
 	 * @var int $userAccessLevel
 	 */
-	protected $VALID_ACCESSLEVEL = "1";
+	protected $VALID_ACCESSLEVEL = 1;
 	/**
 	 * @var string $newUserActivationToken string with user token
 	**/
