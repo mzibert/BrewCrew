@@ -203,7 +203,9 @@ class User implements \JsonSerializable {
 		//convert and store  user access level
 		$this->userAccessLevel = $newUserAccessLevel;
 	}
-
+	public function getUserActivationToken(){
+		return($this->userActivationToken);
+	}
 	/**
 	 * mutator method for userActivationToken
 	 *
