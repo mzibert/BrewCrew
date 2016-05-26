@@ -189,19 +189,13 @@ class User implements \JsonSerializable {
 	 * @throws \InvalidArgumentException if $userAccessLevel cannot be null
 	 **/
 	public function setUserAccessLevel (int $userAccessLevel) {
-
-		$newUserAccessLevel = strtolower(trim($userAccessLevel));
-
-		if(ctype_xdigit($newUserAccessLevel) === false) {
-			throw(new\RangeException("user access level cannot be null"));
-		}
-
-	//make sure user access level= 1 or 0
-		if(($newUserAccessLevel !== 0) && ($newUserAccessLevel !== 1)) {
+		
+		//make sure user access level= 1 or 0
+		if(($userAccessLevel !== 0) && ($userAccessLevel !== 1)) {
 			throw(new\RangeException("user access level has to be 0 or 1"));
 		}
 		//convert and store  user access level
-		$this->userAccessLevel = $newUserAccessLevel;
+		$this->userAccessLevel = $userAccessLevel;
 	}
 	public function getUserActivationToken(){
 		return($this->userActivationToken);
@@ -213,10 +207,15 @@ class User implements \JsonSerializable {
 	 * @throws \InvalidArgumentException if $newUserActivationToken is not a string or insecure
 	 * @throws \TypeError if $newUserActivationToken is not a string
 	 **/
-	public function setUserActivationToken (string $newUserActivationToken) {
+	public function setUserActivationToken (string $newUserActivationToken = null) {
 		// verify the User's Activation Token is secure
-		$newUserActivationToken = strtolower(trim($newUserActivationToken));
 
+		if($newUserActivationToken === null){
+			$this->userActivationToken = null;
+			return;
+		}
+
+		$newUserActivationToken = strtolower(trim($newUserActivationToken));
 		if(ctype_xdigit($newUserActivationToken) === false) {
 			throw(new\RangeException("user activation token cannot be null"));
 		}
