@@ -35,7 +35,7 @@ class UserTest extends BrewCrewTest {
 	/**
 	 * @var string $newUserActivationToken string with user token
 	**/
-	protected $VALID_ACTIVATIONTOKEN = "ceegb";
+	protected $VALID_ACTIVATIONTOKEN = null;
 	/**
 	 * @var \DateInterval |\DateTime|null $newUserDateOfBirth date User was sent or null if set to current date and time
 	 */
@@ -89,7 +89,8 @@ class UserTest extends BrewCrewTest {
 		//run the default setUp() method first
 		parent::setUp();
 		//create salt and hash for user
-;
+
+		$this->VALID_ACTIVATIONTOKEN = bin2hex(random_bytes(16));
 		$password = "421245";
 		$this->salt = bin2hex(random_bytes(32));
 		$this->hash = hash_pbkdf2("sha512", $password, $this->salt, 262144);

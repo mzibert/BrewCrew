@@ -219,7 +219,7 @@ class User implements \JsonSerializable {
 		if(ctype_xdigit($newUserActivationToken) === false) {
 			throw(new\RangeException("user activation token cannot be null"));
 		}
-//make sure user activation token=128
+//make sure user activation token=32
 		if(strlen($newUserActivationToken) !== 32) {
 			throw(new\RangeException("user activation token has to be 32"));
 		}
