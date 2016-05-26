@@ -18,42 +18,42 @@ require_once(dirname(__DIR__) . "/php/classes/autoload.php");
  *
  * @see \Edu\Cnm\BrewCrew\ReviewTag
  * @author Alicia Broadhurst <abroadhurst@cnm.edu>
- */
+ **/
 class ReviewTagTest extends BrewCrewTest {
 
 	/**
 	 * Brewery associated with beer being reviewed
 	 * @var Brewery brewery
-	 */
+	 **/
 	protected $brewery = null;
 
 	/**
 	 * User that wrote the review; this is for foreign key relations
 	 * @var User user
-	 */
+	 **/
 	protected $user = null;
 
 	/**
 	 * Beer that is being reviewed; this is for foreign key relations
 	 * @var Beer beer
-	 */
+	 **/
 	protected $beer = null;
 
 
 	/**
 	 * Review that contains the associated tags
 	 * @var Review review
-	 */
+	 **/
 	protected $review = null;
 	/**
 	 * Tags that are linked to the review
 	 * @var Tag tag
-	 */
+	 **/
 	protected $tag = null;
 
 	/**
 	 * Create dependent objects before running each test AKA foreign objects(keys)
-	 */
+	 **/
 	public final function setUp() {
 		//run the default setUp method first
 		parent::setUp();
@@ -88,7 +88,7 @@ class ReviewTagTest extends BrewCrewTest {
 	//INSERT
 	/**
 	 * Test inserting a valid reviewTag and verifying that the mySQL data matches
-	 */
+	 **/
 	public function testInsertValidReviewTag() {
 		//count the number of rows and save it for later
 		$numRows = $this->getConnection()->getRowCount("reviewTag");
@@ -112,7 +112,7 @@ class ReviewTagTest extends BrewCrewTest {
 	/**
 	 * test inserting a reviewTag that already exists
 	 * @expectedException PDOException
-	 */
+	 **/
 	public function testInsertInvalidReviewTag() {
 		//create a reviewTag with a non-null id and watch it fail
 		$reviewTag = new ReviewTag(BrewCrewTest::INVALID_KEY, $this->tag->getTagId());
@@ -123,7 +123,7 @@ class ReviewTagTest extends BrewCrewTest {
 	//DELETE
 	/**
 	 * test that creates a reviewTag and then deletes it
-	 */
+	 **/
 	public function testDeleteValidReviewTag() {
 		//count the number of rows and save it for later
 		$numRows = $this->getConnection()->getRowCount("reviewTag");
@@ -146,7 +146,7 @@ class ReviewTagTest extends BrewCrewTest {
 	 * test deleting a reviewTag that doesn't exist
 	 *
 	 * @expectedException PDOException
-	 */
+	 **/
 	public function testDeleteInvalidReviewTag() {
 		//create a reviewTag and try to delete it without actually inserting it
 		$reviewTag = new ReviewTag($this->review->getReviewId(), $this->tag->getTagId());
@@ -156,7 +156,7 @@ class ReviewTagTest extends BrewCrewTest {
 	//GET FOObyBARs
 	/**
 	 *testing get reviewTag by valid review id
-	 */
+	 **/
 	public function testGetValidReviewTagByReviewTagReviewId() {
 		//count the number of rows and save it for later
 		$numRows = $this->getConnection()->getRowCount("reviewTag");
@@ -180,7 +180,7 @@ class ReviewTagTest extends BrewCrewTest {
 
 	/**
 	 * testing get reviewTag by invalid review id
-	 */
+	 **/
 	public function testGetInvalidReviewTagByReviewTagReviewId() {
 
 		//grab a review id that exceeds maximum allowed
@@ -191,7 +191,7 @@ class ReviewTagTest extends BrewCrewTest {
 
 	/**
 	 *testing get reviewTag by valid tag id
-	 */
+	 **/
 	public function testGetValidReviewTagByReviewTagTagId() {
 		//count the number of rows and save it for later
 		$numRows = $this->getConnection()->getRowCount("reviewTag");
@@ -214,7 +214,7 @@ class ReviewTagTest extends BrewCrewTest {
 
 	/**
 	 * testing get reviewTag by invalid tag id
-	 */
+	 **/
 	public function testGetInvalidReviewTagByReviewTagTagId() {
 
 		//grab a tag id that exceeds maximum allowed
@@ -225,7 +225,7 @@ class ReviewTagTest extends BrewCrewTest {
 
 	/**
 	 *testing get reviewTag by valid review id, tag id
-	 */
+	 **/
 	public function testGetValidReviewTagByReviewIdAndTagId() {
 		//count the number of rows and save it for later
 		$numRows = $this->getConnection()->getRowCount("reviewTag");
@@ -243,7 +243,7 @@ class ReviewTagTest extends BrewCrewTest {
 
 	/**
 	 * testing get reviewTag by invalid review id, tag id
-	 */
+	 **/
 	public function testGetReviewTagByReviewIdAndTagId() {
 
 		//grab a review id that exceeds maximum allowed

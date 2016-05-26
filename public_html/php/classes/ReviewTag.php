@@ -10,17 +10,17 @@ require_once("autoload.php");
  *
  * @author Alicia Broadhurst <abroadhurst@cnm.edu>
  *
- */
+ **/
 class ReviewTag implements \JsonSerializable {
 	/**
 	 * review id for the review being linked with tags, a foreign key
 	 * @var int $reviewTagReviewId
-	 */
+	 **/
 	private $reviewTagReviewId;
 	/**
 	 * tag id for the tag being linked to the review, a foreign key
 	 * @var int $reviewTagReviewId
-	 */
+	 **/
 	private $reviewTagTagId;
 
 	//CONSTRUCTOR
@@ -33,7 +33,7 @@ class ReviewTag implements \JsonSerializable {
 	 * @throws \RangeException if the data values are out of bound (e.g. negative integers)
 	 * @throws \TypeError if data types violate type hints
 	 * @throws \Exception if some other exception occurs
-	 */
+	 **/
 	public function __construct(int $newReviewTagReviewId, int $newReviewTagTagId) {
 		try {
 			$this->setReviewTagReviewId($newReviewTagReviewId);
@@ -59,7 +59,7 @@ class ReviewTag implements \JsonSerializable {
 	 * accessor method for reviewTag reviewId
 	 *
 	 * @return int value of reviewTag review id, a foreign key
-	 */
+	 **/
 	public function getReviewTagReviewId() {
 		return ($this->reviewTagReviewId);
 	}
@@ -70,7 +70,7 @@ class ReviewTag implements \JsonSerializable {
 	 * @param int $newReviewTagReviewId
 	 * @throws \RangeException if $newReviewTagReviewId id is not postitive
 	 * @throws \TypeError if $newReviewTagReviewId is not an integer
-	 */
+	 **/
 	public function setReviewTagReviewId(int $newReviewTagReviewId) {
 		//verify that the id is positive
 		if($newReviewTagReviewId < 0) {
@@ -84,7 +84,7 @@ class ReviewTag implements \JsonSerializable {
 	 * accessor method for reviewTag TagId
 	 *
 	 * @return int value of reviewTag tag id, a foreign key
-	 */
+	 **/
 	public function getReviewTagTagId() {
 		return ($this->reviewTagTagId);
 	}
@@ -95,7 +95,7 @@ class ReviewTag implements \JsonSerializable {
 	 * @param int $newReviewTagTagId
 	 * @throws \RangeException if $newReviewTagTagId is not positive
 	 * @throws \TypeError if $newReviewTagTagId is not an integer
-	 */
+	 **/
 	public function setReviewTagTagId(int $newReviewTagTagId) {
 		//verify that the id is positive
 		if($newReviewTagTagId < 0) {
@@ -113,7 +113,7 @@ class ReviewTag implements \JsonSerializable {
 	 * @param \PDO $pdo PDO connection object
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError if $pdo is not a PDO connection object
-	 */
+	 **/
 	public function insert(\PDO $pdo) {
 		//check that that reviewTag exists before inserting
 		if($this->reviewTagReviewId === null || $this->reviewTagTagId === null) {
@@ -134,14 +134,14 @@ class ReviewTag implements \JsonSerializable {
 	 * @param \PDO $pdo PDO connection object
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError if $pdo is not a PDO connection object
-	 */
+	 **/
 	public function delete(\PDO $pdo) {
 		//check that object exists before deleting
 		if($this->reviewTagReviewId === null || $this->reviewTagTagId === null) {
 			throw(new \PDOException("Review or Tag are not valid, not a valid reviewTag"));
 		}
 		//create a query template
-		$query = "DELETE FROM reviewTag WHERE reviewTagReviewId = :reviewTagReviewId AND reviewTagTagId = :reviewTagTagId";
+		$query = "DELETE FROM reviewTag WHERE (reviewTagReviewId = :reviewTagReviewId AND reviewTagTagId = :reviewTagTagId)";
 		$statement = $pdo->prepare($query);
 
 		//bind the variables to the place holders in the template
@@ -157,7 +157,7 @@ class ReviewTag implements \JsonSerializable {
 	 * @return \SplFixedArray of ReviewTags found or null if not found
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when variables are not the correct data types
-	 */
+	 **/
 	public static function getReviewTagByReviewId(\PDO $pdo, int $reviewTagReviewId) {
 		//sanitize the review id
 		if($reviewTagReviewId < 0) {
@@ -196,7 +196,7 @@ class ReviewTag implements \JsonSerializable {
 	 * @return \SplFixedArray of ReviewTags found or null if not found
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when variables are not the correct data types
-	 */
+	 **/
 	public static function getReviewTagByTagId(\PDO $pdo, int $reviewTagTagId) {
 		//sanitize the review id
 		if($reviewTagTagId < 0) {
@@ -236,7 +236,7 @@ class ReviewTag implements \JsonSerializable {
 	 * @return ReviewTag|null reviewTag if found or null if not
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when variables are not of the correct data type
-	 */
+	 **/
 	public static function getReviewTagByReviewIdAndTagId(\PDO $pdo, int $reviewTagReviewId, int $reviewTagTagId) {
 		//sanitize the review id and tag id before searching
 		if($reviewTagReviewId < 0) {
