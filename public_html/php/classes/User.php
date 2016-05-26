@@ -1,6 +1,7 @@
 <?php
 
 namespace Edu\Cnm\BrewCrew;
+
 use Edu\Cnm\BrewCrew\ValidateDate;
 
 require_once("autoload.php");
@@ -24,7 +25,7 @@ class User implements \JsonSerializable {
 	 **/
 	private $userAccessLevel;
 	/**
-	 *
+	 *user activation token hex
 	 * @var string $userActivationToken
 	 **/
 	private $userActivationToken;
@@ -70,7 +71,7 @@ class User implements \JsonSerializable {
 	 * @param int $newUserBreweryId int id of the Brewery
 	 * @param int $newUserAccessLevel
 	 * @param string $newUserActivationToken string with user token
-	 * @param \DateTime  $newUserDateOfBirth date User was sent or set to current date and time
+	 * @param \DateTime $newUserDateOfBirth date User was sent or set to current date and time
 	 * @param string $newUserEmail string containing user email
 	 * @param string $newUserFirstName string containing actual user first name
 	 * @param string $newUserHash string containing actual user password hash
@@ -107,6 +108,7 @@ class User implements \JsonSerializable {
 			throw(new \Exception($exception->getMessage(), 0, $exception));
 		}
 	}
+
 	/**
 	 * accessor method for user id
 	 *
@@ -188,18 +190,20 @@ class User implements \JsonSerializable {
 	 **/
 	public function setUserAccessLevel (int $userAccessLevel) {
 
-		if($userAccessLevel === null) {
-			throw(new \InvalidArgumentException("User Access Level cannot be null"));
+		$newUserAccessLevel = strtolower(trim($userAccessLevel));
+
+		if(ctype_xdigit($newUserAccessLevel) === false) {
+			throw(new\RangeException("user access level cannot be null"));
 		}
-		$this->userAccessLevel=$userAccessLevel;
+
+	//make sure user access level= 1 or 0
+		if(($newUserAccessLevel !== 0) && ($newUserAccessLevel !== 1)) {
+			throw(new\RangeException("user access level has to be 0 or 1"));
+		}
+		//convert and store  user access level
+		$this->userAccessLevel = $newUserAccessLevel;
 	}
-	/**
-	 * accessor method for user activation token
-	 * @return string value of activation token
-	 **/
-	public function getUserActivationToken() {
-		return ($this->userActivationToken);
-	}
+
 	/**
 	 * mutator method for userActivationToken
 	 *
@@ -209,15 +213,20 @@ class User implements \JsonSerializable {
 	 **/
 	public function setUserActivationToken (string $newUserActivationToken) {
 		// verify the User's Activation Token is secure
-		$newUserActivationToken = trim($newUserActivationToken);
-		$newUserActivationToken = filter_var($newUserActivationToken, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-		if(empty($newUserActivationToken) === true) {
-			throw(new \InvalidArgumentException("ActivationToken content is empty or insecure"));
+		$newUserActivationToken = strtolower(trim($newUserActivationToken));
+
+		if(ctype_xdigit($newUserActivationToken) === false) {
+			throw(new\RangeException("user activation token cannot be null"));
 		}
-		// store the ActivationToken
+//make sure user activation token=128
+		if(strlen($newUserActivationToken) !== 32) {
+			throw(new\RangeException("user activation token has to be 128"));
+		}
+
 		$this->userActivationToken = $newUserActivationToken;
 	}
-		/**
+
+	/**
 	 * accessor method for userDateOfBirth date
 	 *
 	 * @return  \DateTime  value of userDateOfBirth date
@@ -229,7 +238,7 @@ class User implements \JsonSerializable {
 	/**
 	 * mutator method for userDateOfBirth date
 	 *
-	 * @param  \DateTime  $newUserDateOfBirth user DateOfBirth date as a DateTime object o
+	 * @param  \DateTime $newUserDateOfBirth user DateOfBirth date as a DateTime object o
 	 * @throws \OutOfRangeException if $newUserDateOfBirth is < 21
 	 **/
 	public function setUserDateOfBirth ($newUserDateOfBirth = null) {
@@ -248,6 +257,7 @@ class User implements \JsonSerializable {
 		$this->userDateOfBirth = $newUserDateOfBirth;
 
 	}
+
 	/**
 	 * accessor method for UserEmail
 	 * @return string value of UserEmail
@@ -267,7 +277,7 @@ class User implements \JsonSerializable {
 	public function setUserEmail (string $newUserEmail) {
 		// verify the User's email content is secure
 		$newUserEmail = trim($newUserEmail);
-		$newUserEmail = filter_var($newUserEmail, FILTER_SANITIZE_EMAIL, FILTER_FLAG_NO_ENCODE_QUOTES);
+		$newUserEmail = filter_var($newUserEmail, FILTER_SANITIZE_EMAIL);
 		if(empty($newUserEmail) === true) {
 			throw(new \InvalidArgumentException("User's email content is empty or insecure"));
 		}
@@ -314,14 +324,16 @@ class User implements \JsonSerializable {
 		// store the user's first name
 		$this->userFirstName = $newUserFirstName;
 	}
+
 	/**
 	 * accessor method for user hash
 	 *
 	 * @return int|null for $newUserHash
 	 **/
-	public function getUserHash() {
+	public function getUserHash () {
 		return ($this->userHash);
 	}
+
 	/**
 	 * mutator method for user hash
 	 * @param string $newUserHash string of user hash
@@ -329,7 +341,7 @@ class User implements \JsonSerializable {
 	 * @param \RangeException if $newUserHash = 128
 	 * @param \TypeError if $newUserHash is not a string
 	 **/
-	public function setUserHash(string $newUserHash) {
+	public function setUserHash (string $newUserHash) {
 		//verification that $userHash is secure
 		$newUserHash = strtolower(trim($newUserHash));
 		//make sure that user hash cannot be null
@@ -376,6 +388,7 @@ class User implements \JsonSerializable {
 		// store the user's last name
 		$this->userLastName = $newUserLastName;
 	}
+
 	/**
 	 * accessor method for userSalt
 	 * @return string value of userSalt
@@ -393,21 +406,19 @@ class User implements \JsonSerializable {
 	 * @throws \TypeError if $newUserSalt is not a string
 	 **/
 	public function setUserSalt (string $newUserSalt) {
-		// verify the User's password salt is secure
-		$newUserSalt = trim($newUserSalt);
-		$newUserSalt = filter_var($newUserSalt, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-		if(empty($newUserSalt) === true) {
-			throw(new \InvalidArgumentException("User's password salt is empty or insecure"));
+		$newUserSalt = strtolower(trim($newUserSalt));
+//verification that $userSalt is secure
+		if(ctype_xdigit($newUserSalt) === false) {
+			throw(new\RangeException("user salt cannot be null"));
 		}
-
-		// verify the salt will fit in the database
-		if(strlen($newUserSalt) > 64) {
-			throw(new \RangeException("Salt too large"));
+//make sure user salt=64
+		if(strlen($newUserSalt) !== 64) {
+			throw(new\RangeException("user hash has to be 64"));
 		}
-
-		// store the userSalt
+//convert and store user salt
 		$this->userSalt = $newUserSalt;
 	}
+
 
 	/**
 	 * accessor method for username
@@ -450,7 +461,7 @@ class User implements \JsonSerializable {
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError if $pdo is not a PDO connection object
 	 **/
-	public function insert(\PDO $pdo) {
+	public function insert (\PDO $pdo) {
 // enforce the userId is null (i.e., don't insert a user that already exists)
 		if($this->userId !== null) {
 			throw(new \PDOException("not a new user"));
@@ -465,13 +476,13 @@ class User implements \JsonSerializable {
 		$parameters = ["userBreweryId" => $this->userBreweryId,
 			"userAccessLevel" => $this->userAccessLevel,
 			"userActivationToken" => $this->userActivationToken,
-			"userDateOfBirth"=>$this->userDateOfBirth->format("Y-m-d"),
+			"userDateOfBirth" => $this->userDateOfBirth->format("Y-m-d"),
 			"userEmail" => $this->userEmail,
 			"userFirstName" => $this->userFirstName,
 			"userHash" => $this->userHash,
 			"userLastName" => $this->userLastName,
 			"userSalt" => $this->userSalt,
-			"userUsername"=>$this->userUsername];
+			"userUsername" => $this->userUsername];
 		$statement->execute($parameters);
 
 // update the null userId with what mySQL just gave us
@@ -486,7 +497,7 @@ class User implements \JsonSerializable {
 	 * @param \PDOException when mySQL related errors occur
 	 * @param \TypeError if $pdo is not a PDO connection object
 	 **/
-	public function delete(\PDO $pdo) {
+	public function delete (\PDO $pdo) {
 		//enforce the the userId is not null (tldr don't delete a user that is not yet inserted)
 		if($this->userId === null) {
 			throw(new \PDOException("unable to delete a user that does not exist"));
@@ -505,8 +516,8 @@ class User implements \JsonSerializable {
 	 * @param \PDO $pdo PDO connection object
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError if $pdo is not a PDO connection object
-**/
-	public function update(\PDO $pdo) {
+	 **/
+	public function update (\PDO $pdo) {
 // enforce the userId is not null (i.e., don't update a user that hasn't been inserted)
 		if($this->userId === null) {
 			throw(new \PDOException("unable to update a user that does not exist"));
@@ -520,11 +531,11 @@ class User implements \JsonSerializable {
 		$statement = $pdo->prepare($query);
 
 		$dob = $this->userDateOfBirth->format("Y-m-d");
-		$parameters = ["userBreweryId" => $this->userBreweryId,  "userAccessLevel" =>$this->userAccessLevel, "userActivationToken" => $this->userActivationToken,
-							"userDateOfBirth" => $dob, "userEmail" => $this->userEmail,
-							"userFirstName" => $this->userFirstName, "userHash" => $this->userHash,
-							"userLastName" => $this->userLastName, "userSalt" => $this->userSalt,
-							"userUsername" => $this->userUsername, "userId" => $this->userId];
+		$parameters = ["userBreweryId" => $this->userBreweryId, "userAccessLevel" => $this->userAccessLevel, "userActivationToken" => $this->userActivationToken,
+			"userDateOfBirth" => $dob, "userEmail" => $this->userEmail,
+			"userFirstName" => $this->userFirstName, "userHash" => $this->userHash,
+			"userLastName" => $this->userLastName, "userSalt" => $this->userSalt,
+			"userUsername" => $this->userUsername, "userId" => $this->userId];
 
 		$statement->execute($parameters);
 	}
@@ -559,15 +570,15 @@ class User implements \JsonSerializable {
 		// grab the user from mySQL
 		try {
 			$user = null;
-			$statement->setFetchMode (\PDO::FETCH_ASSOC);
+			$statement->setFetchMode(\PDO::FETCH_ASSOC);
 			$row = $statement->fetch();
 			if($row !== false)
-				$user = new User($row["userId"], $row["userBreweryId"], $row["userAccessLevel"], $row["userActivationToken"], $row["userDateOfBirth"],$row["userEmail"], $row["userFirstName"], $row["userHash"],$row["userLastName"], $row["userSalt"], $row["userUsername"] );
+				$user = new User($row["userId"], $row["userBreweryId"], $row["userAccessLevel"], $row["userActivationToken"], $row["userDateOfBirth"], $row["userEmail"], $row["userFirstName"], $row["userHash"], $row["userLastName"], $row["userSalt"], $row["userUsername"]);
 		} catch(\Exception $exception) {
 			//if the row couldn't be converted, rethrow it
 			throw(new \PDOException($exception->getMessage(), 0, $exception));
 		}
-		return($user);
+		return ($user);
 	}
 
 	/**
@@ -598,7 +609,7 @@ class User implements \JsonSerializable {
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 		while(($row = $statement->fetch()) !== false) {
 			try {
-				$user = new User($row["userId"], $row["userBreweryId"], $row["userAccessLevel"], $row["userActivationToken"], $row["userDateOfBirth"],$row["userEmail"], $row["userFirstName"], $row["userHash"],$row["userLastName"], $row["userSalt"], $row["userUsername"] );
+				$user = new User($row["userId"], $row["userBreweryId"], $row["userAccessLevel"], $row["userActivationToken"], $row["userDateOfBirth"], $row["userEmail"], $row["userFirstName"], $row["userHash"], $row["userLastName"], $row["userSalt"], $row["userUsername"]);
 				$users[$users->key()] = $user;
 				$users->next();
 			} catch(\Exception $exception) {
@@ -621,7 +632,7 @@ class User implements \JsonSerializable {
 	public static function getUserByUserAccessLevel (\PDO $pdo, int $userAccessLevel) {
 		// sanitize the description before searching
 		$userAccessLevel = trim($userAccessLevel);
-		$userAccessLevel = filter_var($userAccessLevel, FILTER_VALIDATE_INT, FILTER_FLAG_NO_ENCODE_QUOTES);
+		$userAccessLevel = filter_var($userAccessLevel, FILTER_VALIDATE_INT);
 		if(empty($userAccessLevel) === true) {
 			throw(new \PDOException("user access level is invalid"));
 		}
@@ -638,7 +649,7 @@ class User implements \JsonSerializable {
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 		while(($row = $statement->fetch()) !== false) {
 			try {
-				$user = new User($row["userId"],$row["userBreweryId"], $row["userAccessLevel"], $row["userActivationToken"], $row["userDateOfBirth"],$row["userEmail"], $row["userFirstName"], $row["userHash"],$row["userLastName"], $row["userSalt"], $row["userUsername"] );
+				$user = new User($row["userId"], $row["userBreweryId"], $row["userAccessLevel"], $row["userActivationToken"], $row["userDateOfBirth"], $row["userEmail"], $row["userFirstName"], $row["userHash"], $row["userLastName"], $row["userSalt"], $row["userUsername"]);
 				$users[$users->key()] = $user;
 				$users->next();
 			} catch(\Exception $exception) {
@@ -658,7 +669,7 @@ class User implements \JsonSerializable {
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when variables are not the correct data type
 	 **/
-	public static function getUserByUserActivationToken (\PDO $pdo, string $userActivationToken){
+	public static function getUserByUserActivationToken (\PDO $pdo, string $userActivationToken) {
 
 		// sanitize the description before searching
 		$userActivationToken = trim($userActivationToken);
@@ -673,19 +684,19 @@ class User implements \JsonSerializable {
 		//bind the user ActivationToken to the place holder in the template
 		$parameters = array("userActivationToken" => $userActivationToken);
 		$statement->execute($parameters);
-		if($statement === false){
+		if($statement === false) {
 			throw(new \PDOException("user activation token does not exist"));
 		}
 
 		// get single user
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 		$row = $statement->fetch();
-			try {
-				$user = new User($row["userId"], $row["userBreweryId"], $row["userAccessLevel"], $row["userActivationToken"], $row["userDateOfBirth"],$row["userEmail"], $row["userFirstName"], $row["userHash"],$row["userLastName"], $row["userSalt"], $row["userUsername"] );
-			} catch(\Exception $exception) {
-				// if the row couldn't be converted, rethrow it
-				throw(new \PDOException($exception->getMessage(), 0, $exception));
-			}
+		try {
+			$user = new User($row["userId"], $row["userBreweryId"], $row["userAccessLevel"], $row["userActivationToken"], $row["userDateOfBirth"], $row["userEmail"], $row["userFirstName"], $row["userHash"], $row["userLastName"], $row["userSalt"], $row["userUsername"]);
+		} catch(\Exception $exception) {
+			// if the row couldn't be converted, rethrow it
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
+		}
 
 		return ($user);
 	}
@@ -773,7 +784,7 @@ class User implements \JsonSerializable {
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when variables are not the correct data type
 	 **/
-	public static function getAllUsers(\PDO $pdo) {
+	public static function getAllUsers (\PDO $pdo) {
 		//create query template
 		$query = "SELECT userId, userBreweryId, userAccessLevel, userActivationToken, userDateOfBirth, userEmail, userFirstName, userHash, userLastName, userSalt, userUsername FROM user";
 		$statement = $pdo->prepare($query);
@@ -797,10 +808,10 @@ class User implements \JsonSerializable {
 	/**
 	 * @return array
 	 **/
-	public function jsonSerialize() {
+	public function jsonSerialize () {
 		$fields = get_object_vars($this);
-		Unset ($fields["userHash"]);
-		Unset($fields["userSalt"]);
+		unset ($fields["userHash"]);
+		unset($fields["userSalt"]);
 		return ($fields);
 	}
 }
