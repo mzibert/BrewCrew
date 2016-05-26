@@ -76,6 +76,17 @@ class TagTest extends BrewCrewTest {
 	}
 
 	/**
+	 * Test updating a Tag that does not exist
+	 *
+	 * @expectedException PDOException
+	 */
+	public function testUpdateInvalidTag() {
+		// Create a tag and try to update it without actually inserting it
+		$tag = new Tag(null, $this->VALID_TAG_LABEL);
+		$tag->update($this->getPDO());
+	}
+
+	/**
 	 * Test creating a tag and then deleting it
 	 */
 	public function testDeleteValidTag() {
