@@ -2,7 +2,7 @@
 
 require_once "autoload.php";
 require_once "/lib/xsrf.php";
-require_once("/etc/apache2/mlbscout-mysql/encrypted-config.php");
+require_once("/etc/apache2/brewcrew-mysql/encrypted-config.php");
 
 use Edu\Cnm\BrewCrew;
 
