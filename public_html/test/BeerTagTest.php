@@ -2,7 +2,7 @@
 namespace Edu\Cnm\BrewCrew\Test;
 
 use Edu\Cnm\BrewCrew\{
-	Brewery, User, Beer, Review, Tag, 
+	Brewery, User, Beer, Review, Tag, BeerTag
 };
 
 //Grab the project test parameters
@@ -47,7 +47,7 @@ class BeerTagTest extends BrewCrewTest {
 	 * Tag that is linked to the beer
 	 * @var Tag tag
 	 **/
-	protected $tag = null;
+	protected $TAG = null;
 	
 	/**
 	 * Valid beertag
@@ -93,7 +93,7 @@ class BeerTagTest extends BrewCrewTest {
 	}
 
 	/**
-	 * Test inserting a valid reviewTag and verifying that the mySQL data matches
+	 * Test inserting a valid beerTag and verifying that the mySQL data matches
 	 **/
 	public function testInsertValidBeerTag() {
 		//count the number of rows and save it for later
@@ -105,9 +105,9 @@ class BeerTagTest extends BrewCrewTest {
 
 		//grab the data from mySQL and enforce that the fields match our expectations
 		$pdoBeerTag = BeerTag::getBeerTagByBeerId($this->getPDO(), $beerTag->getBeerTagBeerId());
-		$this->assertequals($numrows + 1, $this->getConnection()->getRowCount("beerTag"));
-		$this->assertequals($pdoBeerTag->getBeerTagBeerId(), $this->beer->getBeerId());
-		$this->assertequals($pdoBeerTag->getBeerTagTagId(), $this->tag->getTagId());
+		$this->assertEquals($numrows + 1, $this->getConnection()->getRowCount("beerTag"));
+		$this->assertEquals($pdoBeerTag->getBeerTagBeerId(), $this->beer->getBeerId());
+		$this->assertEquals($pdoBeerTag->getBeerTagTagId(), $this->tag->getTagId());
 	}
 
 	/**
@@ -121,50 +121,41 @@ class BeerTagTest extends BrewCrewTest {
 	}
 	
 	/**
-	 * tests updating a beer that already exists
-	 **/
-	public function testUpdateInvalidBeerTag(){
-		//create a beer tag with a non null id and watch it fail
-		$beertag = new BeerTag($this->beer->getBeerId(), $this->tag->getTagId());
-		$beertag->update($this->getPDO());
-	}
-	/**
 	 * test that creates a beerTag and then deletes it
 	 **/
 	
 	public function testDeleteValidBeerTag(){
 		//count the numbet of rows and save it for later
-		$numRows = $this->getconnection()->getRowCount("beerTag");
+		$numRows = $this->getConnection()->getRowCount("beerTag");
 		
 		//create a new beerTag and insert into mySQL
 		$beerTag = new BeerTag($this->beer->getBeerId(), $this->tag->getTagId());
 		$beerTag->insert($this->getPDO());
 		
 		//delete the beerTag from mySQL
-		$this->assertequals($numRows + 1, $this->getConnection()->getRowCount("beerTag"));
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("beerTag"));
 		$beerTag->delete($this->getPDO());
 
 		//grab the data from mySQL and verify that it doesn't exist
 		$pdoBeerTag = BeerTag::getBeerTagByBeerId($this->getPDO(), $beerTag->getBeerTagByBeerId());
 		$this->assertNull($pdoBeerTag);
-		$this->assertequals($numRows, $this->getConnection()->getRowCount("beerTag"));
+		$this->assertEquals($numRows, $this->getConnection()->getRowCount("beerTag"));
 	}
 
 	/**
 	 * test deleting a beerTag that doesn't exist
 	 *
-	 * @expectedException PDOException
 	 **/
 	public function testDeleteInvalidBeerTag(){
 		//create a beerTag and try deleting it without actually inserting it
 		$beerTag = new BeerTag($this->beer->getBeerId(), $this->tag->getTagId());
-		$beerTag->insert($this->getPDO());
+		$beerTag->delete($this->getPDO());
 	}
 
 	/**
 	 *testing get beerTag by valid beer id
 	 **/
-	public function getValidBeerTagByBeerTagBeerId() {
+	public function testGetValidBeerTagByBeerTagBeerId() {
 		//count the number of rows and save it for later
 		$numRows = $this->getConnection()->getRowCount("beerTag");
 
@@ -187,7 +178,7 @@ class BeerTagTest extends BrewCrewTest {
 	/**
 	 * testing get beerTag by invalid beer id
 	 **/
-	public function getBeerTagByInvalidBeerTagBeerId(){
+	public function testGetBeerTagByInvalidBeerTagBeerId(){
 		//grab a review id that exceeds maximum allowed
 		$beerTag = BeerTag::getBeerTagByBeerId($this->getPDO(), BrewCrewTest::INVALID_KEY);
 		$this->assertNull($beerTag);
@@ -196,7 +187,7 @@ class BeerTagTest extends BrewCrewTest {
 	/**
 	 *testing get beerTag by valid tag id
 	 **/
-	public function getValidBeerTagByBeerTagTagId(){
+	public function testGetValidBeerTagByBeerTagTagId(){
 		//count the number of rows and save it for later
 		$numRows=$this->getConnection()->getRowCount("beerTag");
 
@@ -220,7 +211,7 @@ class BeerTagTest extends BrewCrewTest {
 	 * testing get beerTag by invalid tag id
 	 **/
 
-	public function getBeerTagByInvalidBeerTagTagId(){
+	public function testGetBeerTagByInvalidBeerTagTagId(){
 
 		//grab a tag id that exceeds maximum allowed
 		$beerTag = BeerTag::getBeerTagByTagId($this->getPDO(), BrewCrewTest::INVALID_KEY);
@@ -231,7 +222,7 @@ class BeerTagTest extends BrewCrewTest {
 	 *test get beerTag by valid beer id, tag id
 	 **/
 
-	public function getValidBeerTagByBeerIdAndTagId(){
+	public function testGetValidBeerTagByBeerIdAndTagId(){
 		//count the number of rows and save it for later
 		$numRows = $this->getConnection()->getRowCount("beerTag");
 
@@ -254,7 +245,7 @@ class BeerTagTest extends BrewCrewTest {
 	/**
 	 * testing get beerTag by invalid beer id, tag id
 	 **/
-	public function getBeerTagByBothIds() {
+	public function testGetBeerTagByBothIds() {
 
 		//grab a review id that exceeds maximum allowed
 		$beerTag = BeerTag::getBeerTagByBeerIdAndTagId($this->getPDO(), BrewCrewTest::INVALID_KEY);
