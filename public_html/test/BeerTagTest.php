@@ -2,7 +2,7 @@
 namespace Edu\Cnm\BrewCrew\Test;
 
 use Edu\Cnm\BrewCrew\{
-	Beer, BeerTag, Brewery, Tag
+	Beer, BeerTag, Brewery, Tag, User
 };
 
 //Grab the project test parameters
@@ -22,31 +22,43 @@ require_once(dirname(__DIR__) . "/php/classes/autoload.php");
  **/
 class BeerTagTest extends BrewCrewTest {
 
-
-	/**
-	 * Valid ID to use; this starts as null and is assigned later
-	 * @var int $VALID_BEERID
-	 **/
-	protected $VALID_BEERID = null;
-
-	/**
-	 * BeerTag Id that associates the beer with the tag
-	 * @var int $VALID_BEERTAG
-	 **/
-	protected $VALID_BEERTAG = null;
-
 	/**
 	 * Brewery that made the beer being tagged
-	 * @var int $VALID_BREWERYID
+	 * @var Brewery brewery
 	 **/
-	protected $VALID_BREWERYID = null;
-
+	protected $BREWERY = null;
+	/**
+	 * user that will tag the beers
+	 * @var User user
+	 **/
+	protected $USER = null;
+	/**
+	 * Valid ID to use; this starts as null and is assigned later
+	 * @var Beer beer
+	 **/
+	protected $BEER = null;
+	
+	/**
+	 * reviews that will use the beer tags
+	 **/
+	protected $REVIEW = null;
+	
 	/**
 	 * Tag that is linked to the beer
-	 * @var int VALID_TAGID
-	 *
+	 * @var Tag tag
 	 **/
-	protected $VAILID_TAGID = null;
+	protected $tag = null;
+	
+	/**
+	 * Valid beertag
+	 * @var BeerTag beerTag
+	 **/
+	protected $BEERTAG = null;
+	
+	/**
+	 * review tag that will include the beer tag
+	 **/
+	protected $REVIEWTAG = null;
 
 	/**
 	 * Create dependent objects for each foreign key before running the test
@@ -55,14 +67,26 @@ class BeerTagTest extends BrewCrewTest {
 		//run the default setUp method first
 		parent::setUp();
 
-		//create and insert a beer that is being tagged
-		$this->beer = new Beer(null, $this->brewery->getBreweryId, 4.2, "year-round", "Best of Albuquerque 2015", .5, "A nice, light, airy ale with a hint of orange", "so many IBU's its serverd with a spoon!", "Ivanna Beer", "Pale Ale");
-		$this->beer->insert($this->getPDO());
-
 		//create and insert a brewery to own the tagged beer
 		$this->brewery = new Brewery(null, "Describe this test brewery in full", "2010", "24/7/365 unless its raining, then we are closed", "transylvania", "Nerdfighteria", "5057771212", "test@phpunit.de");
 		$this->brewery->insert($this->getPDO());
 
+		//salt and hash generation
+		$password = "hunter2";
+		$salt = bin2hex(random_bytes(16));
+		$hash = hash_pbkdf2("sha512", $password, $salt, 262144);
+		
+		//create and insert a user that uses the beer tag
+		$this->user = new User(null, $this->brewery->getBreweryId(), 0, "token", '1980-01-01', "anon@test.com", "John", $hash, "Smith", $salt, "beerislife");
+		$this->user->insert($this->getPDO());
+
+		//create and insert a beer that is being tagged
+		$this->beer = new Beer(null, $this->brewery->getBreweryId(), 4.2, "year-round", "Best of Albuquerque 2015", .5, "A nice, light, airy ale with a hint of orange", "so many IBU's its serverd with a spoon!", "Ivanna Beer", "Pale Ale");
+		$this->beer->insert($this->getPDO());
+		
+		//create a review for the beer tag to be associated with
+		$this->review = new Review (null, $this->beer->getBeerId(), $this->user->getUserId(), new \DateTime(), 5, "This is the best beer I have ever had!  I will definitely drink this again.");
+		
 		//create a tag to be linked with the beer
 		$this->tag = new Tag(null, "fruity");
 		$this->tag->insert($this->getPDO());
