@@ -130,7 +130,7 @@ DELIMITER $$
 			SET scoreDistanceIbu = ABS ((ibuMean-cIbu)/ibuStdDev); -- ibuDrift
 
 
-			SET beerDrift = SQRT ((POW scoreDistanceIbu, 2) + (POW scoreDistanceColor, 2));
+			SET beerDrift = SQRT ((POW (scoreDistanceIbu, 2)) + (POW (scoreDistanceColor, 2)));
 
 		END LOOP mathLoop; -- stops mad looping behavior
 		CLOSE mathCursor; -- closes cursor
