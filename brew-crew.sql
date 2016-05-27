@@ -99,3 +99,122 @@ CREATE TABLE reviewTag (
 	FOREIGN KEY(reviewTagTagId) REFERENCES tag(tagId),
 	PRIMARY KEY (reviewTagReviewId, reviewTagTagId)
 );
+
+
+
+
+DELIMITER $$
+	CREATE PROCEDURE maths(cColor DECIMAL, cIbu DECIMAL, colorStdDev DECIMAL, colorMean DECIMAL, ibuStdDev DECIMAL, ibuMean DECIMAL)
+		BEGIN
+
+			-- declare variables
+			DECLARE scoreDistanceColor DECIMAL;
+			DECLARE scoreDistanceIbu DECIMAL;
+			DECLARE beerDrift DECIMAL;
+
+			-- variables for cursor and loop control
+			DECLARE done BOOLEAN DEFAULT FALSE; -- exit flag
+			DECLARE mathCursor CURSOR FOR
+				SELECT color, ibu FROM beer; -- cursor
+			DECLARE CONTINUE HANDLER FOR NOT FOUND
+			SET done = TRUE; -- exit when no more rows
+
+			OPEN mathCursor; -- open cursor
+			mathLoop : LOOP -- start LOOP
+
+			FETCH mathCursor INTO cColor, cIbu; -- gets rows
+			IF done THEN LEAVE mathLoop; -- leaves rows
+				END IF;
+
+			SET scoreDistanceColor = ABS ((colorMean-cColor)/colorStdDev); -- colorDrift
+			SET scoreDistanceIbu = ABS ((ibuMean-cIbu)/ibuStdDev); -- ibuDrift
+
+
+			SET beerDrift = SQRT ((POW scoreDistanceIbu, 2) + (POW scoreDistanceColor, 2));
+
+		END LOOP mathLoop; -- stops mad looping behavior
+		CLOSE mathCursor; -- closes cursor
+
+		SELECT beerDrift;
+
+		END $$
+DELIMITER ;
+
+
+
+
+
+DELIMITER $$
+	CREATE PROCEDURE recommendation(IN userId INT UNSIGNED)
+
+		BEGIN
+			-- declare variables
+			DECLARE beerId INT UNSIGNED;
+			DECLARE beerBreweryId INT UNSIGNED;
+			DECLARE beerAbv DECIMAL(5, 2);
+			DECLARE beerAvailability VARCHAR(100);
+			DECLARE beerAwards VARCHAR(1000);
+			DECLARE beerColor DECIMAL(6, 5);
+			DECLARE beerDescription VARCHAR(2000);
+			DECLARE beerIbu VARCHAR(50);
+			DECLARE beerName VARCHAR(64);
+			DECLARE beerStyle VARCHAR (32);
+			DECLARE beerDrift DECIMAL;
+
+			DECLARE cColor DECIMAL;
+			DECLARE cIbu DECIMAL;
+			DECLARE colorStdDev DECIMAL;
+			DECLARE colorMean DECIMAL;
+			DECLARE ibuStdDev DECIMAL;
+			DECLARE ibuMean DECIMAL;
+
+
+			-- variables for cursor and loop control
+			DECLARE done BOOLEAN DEFAULT FALSE; -- exit flag
+			DECLARE compassCursor CURSOR FOR
+				SELECT (beerId, beerBreweryId, beerAbv, beerAvailability, beerAwards, beerColor, beerDescription, beerIbu, beerName, beerStyle) FROM beer; -- cursor
+			DECLARE CONTINUE HANDLER FOR NOT FOUND
+			SET done = TRUE; -- exit when no more rows
+
+		-- create a temporary table to contain the recommended beers, empty at first; also has the drift variable
+			DROP TEMPORARY TABLE IF EXISTS selectedBeer;
+			CREATE TEMPORARY TABLE selectedBeer(
+				beerId INT UNSIGNED NOT NULL,
+				beerBreweryId INT UNSIGNED NOT NULL,
+				beerAbv DECIMAL(5, 2),
+				beerAvailability VARCHAR(100),
+				beerAwards VARCHAR(1000),
+				beerColor DECIMAL(6, 5),
+				beerDescription VARCHAR(2000),
+				beerIbu VARCHAR(50) NOT NULL,
+				beerName VARCHAR(64) NOT NULL,
+				beerStyle VARCHAR (32),
+				beerDrift DECIMAL
+			);
+
+			OPEN compassCursor; -- open cursor
+			compassLoop : LOOP -- start LOOP
+
+			FETCH compassCursor INTO  selectedBeer; -- gets rows
+
+			IF cIbu IS string CONVERT (cIbu AS DECIMAL);
+			ELSE SET cIbu = 120;
+				END IF;
+
+			SELECT STDDEV(cColor), AVG (cColor) INTO colorStdDev, colorMean FROM beer;
+			SELECT STDDEV(cIbu), AVG(cIbu) INTO ibuStdDev, ibuMean FROM beer;
+
+			CALL maths(beerDrift)
+			FETCH drift INTO selectedBeer WHERE beerId = :beerId;
+
+			IF done THEN LEAVE compassLoop; -- leaves rows
+			END IF;
+
+			END LOOP compassLoop; -- stops mad looping behavior
+			CLOSE compassCursor; -- closes cursor
+
+			SELECT (beerId, beerBreweryId, beerAbv, beerAvailability, beerAwards, beerColor, beerDescription, beerIbu, beerName, beerStyle, beerDrift) FROM selectedBeer WHERE beerDrift <= 1.5 -- the recommendation to return
+			ORDER BY drift;
+
+		END $$
+DELIMITER ;
