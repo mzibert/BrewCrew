@@ -26,7 +26,7 @@ use Edu\Cnm\BrewCrew\Beer;
  */
 
 //verify the session, start if not active
-if(session_status() !== PHP_SESSION_ACTIVE){
+if(session_status() !== PHP_SESSION_ACTIVE) {
 	session_start();
 }
 //prepare an empty reply
@@ -34,12 +34,12 @@ $reply = new stdClass();
 $reply->status = 200;
 $reply->data = null;
 
-try{
+try {
 	//grab the mySQL connection
 	$pdo = ConnectToEncryptedMySQL("/etc/apache2/capstone-mysql/brewcrew.ini");
 
 	//determine which HTTP method was used
-	$method = array_key_exists("HTTP_X_HTTP_METHOD", $_SERVER) ? $_SERVER["HTTP_X_HTTP_METHOD"] : $_SERVER["REQUEST_METHOD"];
+	$method = array_key_exists("HTTP_X_HTTP_METHOD", $_SERVER) ? $_SERVER["HTTP_X_HTTP_METHOD"] :$_SERVER["REQUEST_METHOD"];
 
 	//Sanitize input
 	$id = filter_input(INPUT_GET, "id", FILTER_VALIDATE_INT);
@@ -53,6 +53,13 @@ try{
 		//set XSRF cookie
 		setXsrfCookie();
 
+		$beerBreweryId = filter_input(INPUT_GET, "beerBreweryId", FILTER_VALIDATE_INT);
+		$beerBeerColor = filter_input(INPUT_GET, "beerBeerColor", FILTER_SANITIZE_NUMBER_FLOAT);
+		$beerBeerIbu = filter_input(INPUT_GET, "beerBeerIbu", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		$beerBeerName = filter_input(INPUT_GET, "beerBeerName", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		$beerBeerStyle = filter_input(INPUT_GET, "beerBeerStyle", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+
+
 		//get a specific beer or all beers and update reply
 		if(empty($id) === false) {
 			$beer = Beer::getBeerByBeerId($pdo, $id);
@@ -60,35 +67,43 @@ try{
 				$reply->data = $beer;
 			}
 
-		}  else if(empty($beerBreweryId) === false) {
-		$beer = Beer::getBeerByBeerBreweryId($pdo, $beerBreweryId);
-		if($beer !== null){
-			$reply->$beer;
-		}
-		}else if(empty($beerBeerIbu)=== false){
+		} else if(empty($beerBreweryId) === false) {
+			$beer = Beer::getBeerByBeerBreweryId($pdo, $beerBreweryId);
+			if($beer !== null) {
+				$reply->$beer;
+			}
+		} else if(empty($beerBeerIbu) === false) {
 			$beer = Beer::getBeerByBeerIbu($pdo, $beerBeerIbu);
-			if($beer !== null){
+			if($beer !== null) {
 				$reply->$beer;
 			}
-		}else if(empty($beerByBeerColor) === false){
+		} else if(empty($beerByBeerColor) === false) {
 			$beer = Beer::getBeerByBeerColor($pdo, $beerBeerColor);
-			if($beer !== null){
+			if($beer !== null) {
 				$reply->$beer;
 			}
-		}else if(empty($beerByBeerName) === false){
+		} else if(empty($beerByBeerName) === false) {
 			$beer = Beer::getBeerByBeerName($pdo, $beerByBeerName);
-			if($beer !== null){
+			if($beer !== null) {
 				$reply->$beer;
 			}
-		}else if(empty($beerByBeerStyle) === false){
+		} else if(empty($beerByBeerStyle) === false) {
 			$beer = Beer::getBeerByBeerStyle($pdo, $beerByBeerStyle);
-			if($beer !== null){
+			if($beer !== null) {
 				$reply->$beer;
 			}
-		}else {
+		} else {
 			$beer = Beer::getAllBeers($pdo);
 			$reply->data = $beers;
 		}
+	}
+	}else if($method === "PUT" || $method === "POST") {
+	verifyXsrf();
+	$requestContent = file_get_contents("php://input");
+	$requestObject = json_decode($requestContent);
+	//make sure tweet content is available
+	if(empty($requestObject->beerBreweryId) === true) {
+		throw(new \InvalidArgumentException ("No content for brewery.", 405));
 	}
 
 
@@ -101,10 +116,7 @@ try{
 
 
 
-
-
-
-} catch(Exception $exception) {
+ catch(Exception $exception) {
 
 	$reply->status = $exception->getCode();
 	$reply->message = $exception->getMessage();
