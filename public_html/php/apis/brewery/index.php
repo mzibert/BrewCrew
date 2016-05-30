@@ -78,16 +78,14 @@ try {
 		}
 		// PUT and POST
 	} else if($method === "PUT" || $method === "POST") {
-
 		verifyXsrf();
-		$requestContent = file_get_contents("php://input"); 
+		$requestObject = file_get_contents("php://input"); 
 		$requestObject = json_decode($requestContent);
 
-		// Make sure brewery content is available
-		if(empty($requestObject->breweryContent) === true) {
+		// Make sure all fields are present in order to prevent database issues
+		if(empty($requestObject->breweryId) === true) {
 			throw(new \InvalidArgumentException ("No content for Brewery.", 405));
 		}
-
 
 		// Perform the actual put or post
 		if($method === "PUT") {

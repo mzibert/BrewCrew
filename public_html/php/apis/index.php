@@ -93,8 +93,8 @@ try {
 		$requestContent = file_get_contents("php://input");
 		$requestObject = json_decode($requestContent);
 
-		// Make sure all fields are present, in order to prevent database issues
-		if(empty($requestObject->userBreweryId) === true) { //Make this like lines 104-108
+		// Make sure all fields are present in order to prevent database issues
+		if(empty($requestObject->userBreweryId) === true) { 
 			throw(new InvalidArgumentException ("userBreweryId cannot be empty", 405));
 		}
 		$requestObject->userEmail = (filter_var($requestObject->userEmail, FILTER_SANITIZE_EMAIL));
@@ -108,7 +108,7 @@ try {
 				throw(new RuntimeException("User does not exist.", 404));
 			}
 
-			// If there's a password hash it and set it
+			// If there's a password, hash it and set it
 			if(isset($requestObject->userPassword) === true && isset($requestObject->confirmPassword) === true) {
 				if($requestObject->userPassword !== $requestObject->confirmPassword) {
 					throw (new \RangeException("Passwords do not match."));
