@@ -102,6 +102,9 @@ try {
 		$requestBeerObject = json_decode($requestBeerContent);
 
 		//perform the actual put or post
+		if(empty($requestBeerObject->beerAvailabilty) === true) {
+			throw(new \InvalidArgumentException ("Beer not available.", 405));
+		}
 		if($method === "PUT") {
 // retrieve the beer by availability
 			$beer = Beer::getBeerByBeerAvailability($pdo, $id);
