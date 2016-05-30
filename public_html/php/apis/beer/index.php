@@ -54,10 +54,10 @@ try {
 		setXsrfCookie();
 
 		$beerBreweryId = filter_input(INPUT_GET, "beerBreweryId", FILTER_VALIDATE_INT);
-		$beerBeerColor = filter_input(INPUT_GET, "beerBeerColor", FILTER_SANITIZE_NUMBER_FLOAT);
-		$beerBeerIbu = filter_input(INPUT_GET, "beerBeerIbu", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-		$beerBeerName = filter_input(INPUT_GET, "beerBeerName", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-		$beerBeerStyle = filter_input(INPUT_GET, "beerBeerStyle", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		$beerColor = filter_input(INPUT_GET, "beerColor", FILTER_SANITIZE_NUMBER_FLOAT);
+		$beerIbu = filter_input(INPUT_GET, "beerIbu", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		$beerName = filter_input(INPUT_GET, "beerName", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		$beerStyle = filter_input(INPUT_GET, "beerStyle", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 
 
 		//get a specific beer or all beers and update reply
@@ -72,23 +72,23 @@ try {
 			if($beer !== null) {
 				$reply->$beer;
 			}
-		} else if(empty($beerBeerIbu) === false) {
-			$beer = Beer::getBeerByBeerIbu($pdo, $beerBeerIbu);
+		} else if(empty($beerIbu) === false) {
+			$beer = Beer::getBeerByBeerIbu($pdo, $beerIbu);
 			if($beer !== null) {
 				$reply->$beer;
 			}
-		} else if(empty($beerByBeerColor) === false) {
-			$beer = Beer::getBeerByBeerColor($pdo, $beerBeerColor);
+		} else if(empty($beerColor) === false) {
+			$beer = Beer::getBeerByBeerColor($pdo, $beerColor);
 			if($beer !== null) {
 				$reply->$beer;
 			}
-		} else if(empty($beerByBeerName) === false) {
-			$beer = Beer::getBeerByBeerName($pdo, $beerByBeerName);
+		} else if(empty($beerName) === false) {
+			$beer = Beer::getBeerByBeerName($pdo, $beerName);
 			if($beer !== null) {
 				$reply->$beer;
 			}
-		} else if(empty($beerByBeerStyle) === false) {
-			$beer = Beer::getBeerByBeerStyle($pdo, $beerByBeerStyle);
+		} else if(empty($beerStyle) === false) {
+			$beer = Beer::getBeerByBeerStyle($pdo, $beerStyle);
 			if($beer !== null) {
 				$reply->$beer;
 			}
@@ -96,27 +96,59 @@ try {
 			$beer = Beer::getAllBeers($pdo);
 			$reply->data = $beers;
 		}
+	} else if($method === "PUT" || $method === "POST") {
+		verifyXsrf();
+		$requestBeerContent = file_get_contents("php://input");
+		$requestBeerObject = json_decode($requestBeerContent);
+
+		//perform the actual put or post
+		if($method === "PUT") {
+// retrieve the beer by availability
+			$beer = Beer::getBeerByBeerAvailability($pdo, $id);
+			if($beer === null) {
+				throw(new RuntimeException("Beer is not available", 404));
+			}
+// update beer by availability
+			$beer->setBeerAvailabilty($requestObject->beerAvailability);
+			$beer->update($pdo);
+// update reply
+			$reply->message = "Beer updated successfully";
+
+			//perform the actual put or post
+			if($method === "PUT") {
+// retrieve the beer by award
+				$beer = Beer::getBeerByBeerAwards($pdo, $id);
+				if($beer === null) {
+					throw(new RuntimeException("Beer is not available for award update.", 404));
+				}
+// update beer by award
+				$beer->($requestObject->beerAwards);
+				$beer->update($pdo);
+// update reply
+				$reply->message = "Beer updated successfully";
+
+
+				//make sure beer description is available
+		if(empty($requestBeerObject->beerDescription) === true) {
+			throw(new \InvalidArgumentException ("No content for brewery.", 405));
+		}
+//perform the actual put or post
+		if($method === "PUT") {
+// retrieve the beer to update
+			$beer = Beer::getBeerByBeerDescription($pdo, $id);
+			if($beer === null) {
+				throw(new RuntimeException("Beer does not exist", 404));
+			}
+// put the new beer  into beer and update
+			$beer->setBeerByBeerDescription($requestBeerObject->beerDescription);
+			$beer->update($pdo);
+// update reply
+			$reply->message = "Beer updated successfully";
+
+		}
 	}
-	}else if($method === "PUT" || $method === "POST") {
-	verifyXsrf();
-	$requestContent = file_get_contents("php://input");
-	$requestObject = json_decode($requestContent);
-	//make sure tweet content is available
-	if(empty($requestObject->beerBreweryId) === true) {
-		throw(new \InvalidArgumentException ("No content for brewery.", 405));
-	}
-
-
-
-
-
-
-
-
-
-
-
- catch(Exception $exception) {
+}
+catch(Exception $exception) {
 
 	$reply->status = $exception->getCode();
 	$reply->message = $exception->getMessage();
