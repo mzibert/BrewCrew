@@ -4,7 +4,6 @@ require_once "autoloader.php";
 require_once
 require_once "/lib/xsrf.php";
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
-// Do I have to be more specific in my file paths?
 
 use Edu\Cnm\BrewCrew;
 

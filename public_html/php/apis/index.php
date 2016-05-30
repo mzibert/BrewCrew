@@ -4,40 +4,36 @@ require_once dirname(dirname(__DIR__)) . "/lib/xsrf.php";
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 require_once dirname(dirname(__DIR__)) . "/lib/sendEmail.php";
 
-use Edu\Cnm\BrewCrew\ValidateDate;
-
 /**
- * api for user class
+ * API for user class
  *
  * @author Kate McGaughey therealmcgaughey@gmail.com
+ *
  * @see https://github.com/CreativeCorrie/time-crunchers/blob/master/public_html/php/api/user/index.php for api I copied
  */
-//verify xsrf challenge
+
+// Verify xsrf challenge
 if(session_status() !== PHP_SESSION_ACTIVE) {
 	session_start();
 }
-//prepare a empty reply
+// Prepare a empty reply
 $reply = new stdClass();
 $reply->status = 200;
 $reply->data = null;
 try {
-	//grab the sql connection
+	// Grab the sql connection
 	$pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/brewcrew.ini");
-//	//if the user session is empty, user is not logged in, throw an exception
-//	if(empty($_session["user"]) === true)
-//		verifyXsrf();
-//		throw(new RuntimeException("please login and set up", 401));
-//
-	//determine which http has used
+
+	// Determine which http has used
 	$method = array_key_exists("HTTP_X_HTTP_METHOD", $_SERVER) ? $_SERVER["HTTP_X_HTTP_METHOD"] : $_SERVER["REQUEST_METHOD"];
 	$reply->method=$method;
-	//sanitize inputs
+	// Sanitize inputs
 	$id = filter_input(INPUT_GET, "id", FILTER_VALIDATE_INT);
-	//make sure the id is valid for methods that require it
+	// Make sure the id is valid for methods that require it
 	if(($method === "DELETE" || $method === "PUT") && (empty($id) === true || $id < 0)) {
 		throw(new InvalidArgumentException("id cannot be negative or empty", 405));
 	}
-	//sanitize and trim other fields
+	// Sanitize and trim other fields
 	$userId = filter_input(INPUT_GET, "userId", FILTER_VALIDATE_INT);
 	$userBreweryId = filter_input(INPUT_GET, "userBreweryId", FILTER_VALIDATE_INT);
 	$userAccessLevel = filter_input(INPUT_GET, "userAccessLevel", FILTER_VALIDATE_INT);
@@ -45,14 +41,14 @@ try {
 	$userEmail = filter_input(INPUT_GET, "userEmail", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 	$userUsername = filter_input(INPUT_GET, "userUsername", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 
-	//handle rest calls, while only allowing admins to access database-modifying methods
+	// Handle rest calls, while only allowing admins to access database-modifying methods
 	if($method === "GET") {
-		//set xsrf-cookie
+		// Set xsrf-cookie
 		setXsrfCookie("/");
-		//get the user based on the given
+		// Get the user based on the given
 		if(empty($id) === false) {
 			$user = User::getUserByUserId($pdo, $id);
-			if($user !== null) { //&& $user->getUserId() === $_SESSION["user"]->getUserId()) {
+			if($user !== null) {
 				$reply->data = $user;
 			}
 		} else if(empty($userBreweryId) === false) {
@@ -88,7 +84,7 @@ try {
 		verifyXsrf();
 		$requestContent = file_get_contents("php://input");
 		$requestObject = json_decode($requestContent);
-		//make sure all fields are present, in order to prevent database issues
+		// Make sure all fields are present, in order to prevent database issues
 		if(empty($requestObject->userBreweryId) === true) { //Make this like lines 104-108
 			throw(new InvalidArgumentException ("userBreweryId cannot be empty", 405));
 		}
@@ -97,14 +93,13 @@ try {
 		$requestObject->userLastName = (filter_var($requestObject->userLastName, FILTER_SANITIZE_STRING));
 		$requestObject->userUsername = (filter_var($requestObject->userUsername, FILTER_SANITIZE_STRING));
 
-		//perform the actual put or post
-		if($method === "PUT") {
+		// Perform the actual put or post
 			$user = User::getUserByUserId($pdo, $id);
 			if($user === null) {
 				throw(new RuntimeException("User does not exist.", 404));
 			}
 
-			//if there's a password hash it and set it
+			// If there's a password hash it and set it
 			if(isset($requestObject->userPassword) === true && isset($requestObject->confirmPassword) === true) {
 				if($requestObject->userPassword !== $requestObject->confirmPassword) {
 					throw (new \RangeException("Passwords do not match."));
@@ -113,14 +108,14 @@ try {
 					$user->setUserHash($hash);
 				}
 			}
-			$user->setUserEmail() = $requestObject->userEmail;
-			$user->setUserFirstName() = $requestObject->userFirstName;
-			$user->setUserLastName() = $requestObject->userLastName;
-			$user->setUserUsername() = $requestObject->userUsername;
+			$user->setUserEmail($requestObject->userEmail);
+			$user->setUserFirstName($requestObject->userFirstName);
+			$user->setUserLastName($requestObject->userLastName);
+			$user->setUserUsername($requestObject->userUsername);
 			$user->update($pdo);
 			$reply->message="User updated successfully.";
 
-		}else if ($method === "DELETE") {
+		} else if ($method === "DELETE") {
 			$reply->debug="Delete started.";
 			$user = User::getUserByUserId($pdo, $id);
 			if($user === null) {
@@ -128,27 +123,23 @@ try {
 			}
 			$user->delete($pdo);
 			$deletedObject = new stdClass();
-			// $deletedObject->crewId = $id;
-			// $reply->message = "Crew deleted OK";
-		}
-		else {
-			//if not an admin, and attempting a method other than get, throw an exception
-			if((empty($method) === false) && ($method !== "GET")) {
-				throw(new RuntimeException ("Only brewmasters can change database entries.", 401));
-			}
 		}
 
-
-	}
+	header("Content-type: application/json");
+	json_encode($reply);
+	unset($reply->salt);
+	unset($reply->hash);
+	echo $reply;
+	
 } catch(Exception $exception) {
 	$reply->status = $exception->getCode();
 	$reply->message = $exception->getMessage();
+	header("Content-type: application/json");
+	echo (json_encode($reply));
+	
 } catch(\TypeError $typeError) {
 	$reply->status = $typeError->getCode();
 	$reply->message = $typeError->getMessage();
+	header("Content-type: application/json");
+	echo (json_encode($reply));
 }
-header("Content-type: application/json");
-if($reply->data === null) {
-	unset($reply->data);
-}
-echo json_encode($reply);
