@@ -13,9 +13,11 @@ use Edu\Cnm\BrewCrew;
  * @author Merri J Zibert <mjzibert2@gmail.com>
  **/
 
-app.controller('logoutController', ["$scope", "$window", "logoutService", function($scope, $window, logoutService){			logoutService.logout()
-		.then(function() {
-			$window.location = ".";
-	});
-}]);
+if($method === "GET"){
+	if(session_status() !== PHP_SESSION_ACTIVE) {
+		session_start();
+	}
+	$_SESSION = [];
+	//ToDo send user somewhere
+}
 
