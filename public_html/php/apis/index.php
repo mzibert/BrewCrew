@@ -49,7 +49,7 @@ try {
 
 	// Handle rest calls, while only allowing admins to access database-modifying methods
 	if($method === "GET") {
-		// Set xsrf-cookie
+		// Set XSRF cookie
 		setXsrfCookie("/");
 
 		// Get the user based on the given

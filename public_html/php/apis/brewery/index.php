@@ -30,15 +30,16 @@ try {
 
 	// Determine which HTTP method was used
 	$method = array_key_exists("HTTP_X_HTTP_METHOD", $_SERVER) ? $_SERVER["HTTP_X_HTTP_METHOD"] : $_SERVER["REQUEST_METHOD"];
+	$reply->method=$method;
 
-	// Sanitize input
+	// Sanitize inputs
 	$id = filter_input(INPUT_GET, "id", FILTER_VALIDATE_INT);
 
 	// Make sure the id is valid for methods that require it
 	if(($method === "DELETE" || $method === "PUT") && (empty($id) === true || $id < 0)) {
 		throw(new InvalidArgumentException("id cannot be empty or negative", 405));
-		// This is checking to make sure we have the Primary Keys for the DELETE and PUT requests.
 	}
+	
 	// Sanitize and trim the rest of the inputs
 	$breweryId = filter_input(INPUT_GET, "breweryId", FILTER_VALIDATE_INT);
 	$breweryDescription = filter_input(INPUT_GET, "breweryDescription", FILTER_VALIDATE_INT);
@@ -50,24 +51,28 @@ try {
 	$breweryUrl = filter_input(INPUT_GET, "breweryUrl", FILTER_VALIDATE_INT);
 
 	// Handle all restful calls
-	// GET some of all breweries
 	if($method === "GET") {
-		//set XSRF cookie
+		// Set XSRF cookie
 		setXsrfCookie("/");
 
-		// Determine if a Key was sent by checking $id. If so, pull the requested brewery and update reply
+		// Get the brewery based on the given
 		if(empty($id) === false) {
-
-			// George has this thing about segments... No clue...
-
-			// ???
-			$brewery = Edu\Cnm\BrewCrew\Brewery::getBreweryByBreweryId($pdo, $breweryId);
+			$brewery = Brewery::getBreweryByBreweryId($pdo, $id);
 			if($brewery !== null) {
 				$reply->data = $brewery;
 			}
-		}  else {
-			$breweries = Edu\Cnm\BrewCrew\Brewery::getAllBreweries($pdo);
-			if($breweries !== null) {
+			else if(empty($breweryLocation) === false) {
+				$brewery = Brewery::getBreweryByBreweryLocation($pdo, $breweryLocation);
+				if($brewery !== null) {
+					$reply->data = $brewery;
+				}
+			} else if(empty($breweryName) === false) {
+				$brewery = Brewery::getBreweryByBreweryName($pdo, $breweryName);
+				if($brewery !== null) {
+					$reply->data = $brewery;
+				}
+			} else {
+				$brewery = Brewery::getAllBreweries($pdo);
 				$reply->data = $breweries;
 			}
 		}
@@ -75,7 +80,7 @@ try {
 	} else if($method === "PUT" || $method === "POST") {
 
 		verifyXsrf();
-		$requestContent = file_get_contents("php://input"); // Is this the correct file path?
+		$requestContent = file_get_contents("php://input"); 
 		$requestObject = json_decode($requestContent);
 
 		// Make sure brewery content is available
