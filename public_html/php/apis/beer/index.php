@@ -59,11 +59,35 @@ try{
 			if($beer !== null) {
 				$reply->data = $beer;
 			}
-		}  else {
-			$beers = Beer::getAllBeers($pdo);
-			if($beers !== null) {
-				$reply->data = $beers;
+
+		}  else if(empty($beerBreweryId) === false) {
+		$beer = Beer::getBeerByBeerBreweryId($pdo, $beerBreweryId);
+		if($beer !== null){
+			$reply->$beer;
+		}
+		}else if(empty($beerBeerIbu)=== false){
+			$beer = Beer::getBeerByBeerIbu($pdo, $beerBeerIbu);
+			if($beer !== null){
+				$reply->$beer;
 			}
+		}else if(empty($beerByBeerColor) === false){
+			$beer = Beer::getBeerByBeerColor($pdo, $beerBeerColor);
+			if($beer !== null){
+				$reply->$beer;
+			}
+		}else if(empty($beerByBeerName) === false){
+			$beer = Beer::getBeerByBeerName($pdo, $beerByBeerName);
+			if($beer !== null){
+				$reply->$beer;
+			}
+		}else if(empty($beerByBeerStyle) === false){
+			$beer = Beer::getBeerByBeerStyle($pdo, $beerByBeerStyle);
+			if($beer !== null){
+				$reply->$beer;
+			}
+		}else {
+			$beer = Beer::getAllBeers($pdo);
+			$reply->data = $beers;
 		}
 	}
 
