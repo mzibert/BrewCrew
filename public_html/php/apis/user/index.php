@@ -87,7 +87,7 @@ try {
 
 			//  make sure userId is available
 			if(empty($requestObject->userId) === true) {
-				throw(new \InvalidArgumentException ("No Pofile ID.", 405));
+				throw(new \InvalidArgumentException ("No User ID.", 405));
 			}
 
 			// create new user and insert into the database
