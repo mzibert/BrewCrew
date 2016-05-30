@@ -4,6 +4,8 @@ require_once dirname(dirname(__DIR__)) . "/lib/xsrf.php";
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 require_once dirname(dirname(__DIR__)) . "/lib/sendEmail.php";
 
+use Edu\Cnm\BrewCrew;
+
 /**
  * API for user class
  *
@@ -89,7 +91,7 @@ try {
 		verifyXsrf();
 		$requestContent = file_get_contents("php://input");
 		$requestObject = json_decode($requestContent);
-		
+
 		// Make sure all fields are present, in order to prevent database issues
 		if(empty($requestObject->userBreweryId) === true) { //Make this like lines 104-108
 			throw(new InvalidArgumentException ("userBreweryId cannot be empty", 405));
