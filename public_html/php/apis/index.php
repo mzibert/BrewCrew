@@ -20,6 +20,7 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 $reply = new stdClass();
 $reply->status = 200;
 $reply->data = null;
+
 try {
 	// Grab the sql connection
 	$pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/brewcrew.ini");
@@ -27,12 +28,14 @@ try {
 	// Determine which http has used
 	$method = array_key_exists("HTTP_X_HTTP_METHOD", $_SERVER) ? $_SERVER["HTTP_X_HTTP_METHOD"] : $_SERVER["REQUEST_METHOD"];
 	$reply->method=$method;
+
 	// Sanitize inputs
 	$id = filter_input(INPUT_GET, "id", FILTER_VALIDATE_INT);
 	// Make sure the id is valid for methods that require it
 	if(($method === "DELETE" || $method === "PUT") && (empty($id) === true || $id < 0)) {
 		throw(new InvalidArgumentException("id cannot be negative or empty", 405));
 	}
+
 	// Sanitize and trim other fields
 	$userId = filter_input(INPUT_GET, "userId", FILTER_VALIDATE_INT);
 	$userBreweryId = filter_input(INPUT_GET, "userBreweryId", FILTER_VALIDATE_INT);
@@ -45,6 +48,7 @@ try {
 	if($method === "GET") {
 		// Set xsrf-cookie
 		setXsrfCookie("/");
+
 		// Get the user based on the given
 		if(empty($id) === false) {
 			$user = User::getUserByUserId($pdo, $id);
@@ -80,10 +84,12 @@ try {
 			$users = User::getAllUsers($pdo);
 			$reply->data = $users;
 		}
+
 	} else if($method === "PUT") {
 		verifyXsrf();
 		$requestContent = file_get_contents("php://input");
 		$requestObject = json_decode($requestContent);
+		
 		// Make sure all fields are present, in order to prevent database issues
 		if(empty($requestObject->userBreweryId) === true) { //Make this like lines 104-108
 			throw(new InvalidArgumentException ("userBreweryId cannot be empty", 405));
