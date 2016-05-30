@@ -94,7 +94,7 @@ try {
 		$requestObject = json_decode($requestContent);
 
 		// Make sure all fields are present in order to prevent database issues
-		if(empty($requestObject->userBreweryId) === true) { 
+		if(empty($requestObject->userBreweryId) === true) {
 			throw(new InvalidArgumentException ("userBreweryId cannot be empty", 405));
 		}
 		$requestObject->userEmail = (filter_var($requestObject->userEmail, FILTER_SANITIZE_EMAIL));
@@ -102,7 +102,7 @@ try {
 		$requestObject->userLastName = (filter_var($requestObject->userLastName, FILTER_SANITIZE_STRING));
 		$requestObject->userUsername = (filter_var($requestObject->userUsername, FILTER_SANITIZE_STRING));
 
-		// Perform the actual put or post
+		// Perform the actual put 
 			$user = User::getUserByUserId($pdo, $id);
 			if($user === null) {
 				throw(new RuntimeException("User does not exist.", 404));

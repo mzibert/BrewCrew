@@ -79,13 +79,14 @@ try {
 		// PUT and POST
 	} else if($method === "PUT" || $method === "POST") {
 		verifyXsrf();
-		$requestObject = file_get_contents("php://input"); 
+		$requestContent = file_get_contents("php://input");
 		$requestObject = json_decode($requestContent);
 
 		// Make sure all fields are present in order to prevent database issues
 		if(empty($requestObject->breweryId) === true) {
-			throw(new \InvalidArgumentException ("No content for Brewery.", 405));
+			throw(new InvalidArgumentException ("BreweryId cannot be empty", 405));
 		}
+		// I don't think anything in brewery class can be updated except through brewery.db
 
 		// Perform the actual put or post
 		if($method === "PUT") {
