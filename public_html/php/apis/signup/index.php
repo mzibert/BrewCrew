@@ -42,11 +42,11 @@ try {
 			$userFirstName = filter_var($requestObject->userFirstName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		}
 
-	if(empty($requestObject->userLastName) === true) {
+		if(empty($requestObject->userLastName) === true) {
 			throw(new \InvalidArgumentException ("Must fill in valid last name", 405));
 		} else {
-		$userLastName = filter_var($requestObject->userLastName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-	}
+			$userLastName = filter_var($requestObject->userLastName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		}
 
 		if(empty($requestObject->userUserName) === true) {
 			throw(new \InvalidArgumentException ("Must input valid user name", 405));
@@ -59,7 +59,7 @@ try {
 		} else {
 			$password = filter_var($requestObject->password, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		}
-		
+
 		if(empty($requestObject->userDateOfBirth) === true) {
 			throw(new \InvalidArgumentException ("Must fill in valid Date of Birth", 405));
 		} else {
@@ -74,43 +74,36 @@ try {
 		$salt = bin2hex(random_bytes(32));
 		$hash = hash_pbkdf2("sha512", $password, $salt, 262144);
 		$userAccessLevel = 0;
-		$userActivationToken = bin2hex (random_bytes (16));
+		$userActivationToken = bin2hex(random_bytes(16));
 
 		$user = new BrewCrew\User(null, null, $userAccessLevel, $userActivationToken, $userDateofBirth, $userEmail,
-											$userFirstName, $hash, $userLastName, $salt, $userUserName);
+			$userFirstName, $hash, $userLastName, $salt, $userUserName);
 
 		$user->insert($pdo);
 
+		$messageSubject = "ABQ Brew Crew Welcomes You! -- Account Activation";
 
+		//building the activation link that can travel to another server and still work. This is the link that will be clicked to confirm the account.
+		// FIXME: make sure URL is /public_html/activation/$activation
+		$basePath = dirname($_SERVER["SCRIPT_NAME"], 4);
+		$urlglue = $basePath . "/activation/" . $activation;
+		$confirmLink = "https://" . $_SERVER["SERVER_NAME"] . $urlglue;
+		$message = <<< EOF
+<h2>Welcome to the ABQ Brew Crew application.</h2>
+<p>In order to start rating your favorite local breweries please visit the following URL to set a new password and complete the registration process: </p>
+<p><a href="$confirmLink">$userActivationToken</a></p>
+EOF;
 
-
-
-
-
-
-
+		$response = sendEmail($userEmail, $userFirstName, $userLastName, $messageSubject, $message);
+		if($response === "Email sent.") {
+			$reply->message = "Sign up was successful, please check your email for activation message.";
+		} else {
+			throw(new InvalidArgumentException("Error sending email."));
+		}
+	} else{
+		throw (new InvalidArgumentException("invalid http request"));
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	
 }catch(\Exception $exception) {
 	$reply->status = $exception->getCode();
 	$reply->message = $exception->getMessage();
