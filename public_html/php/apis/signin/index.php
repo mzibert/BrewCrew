@@ -30,21 +30,65 @@ try {
 	//determine which HTTP method was used
 	$method = array_key_exists("HTTP_X_HTTP_METHOD", $_SERVER) ? $_SERVER["HTTP_X_HTTP_METHOD"] : $_SERVER["REQUEST_METHOD"];
 
+	verifyXsrf();
+
 	//perform the actual POST
 	if($method === "POST") {
+
 
 		// convert JSON to an object
 		$requestContent = file_get_contents("php://input");
 		$requestObject = json_decode($requestContent);
 
-		//sanitize the email & search for user by email
-		$userEmail = filter_var($requestObject->userEmail, FILTER_SANITIZE_EMAIL);
-		$user = User::getUserbyUserEmail($pdo, $userEmail);
-		
+		//check that username and password fields have been filled, and sanitize
+		if(empty($requestObject->userName) === true) {
+			throw(new \InvalidArgumentException("Must enter a username", 405));
+		} else {
+			$userName = filter_var($requestObject->userName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		}
 
+		if (empty($requestObject->userPassword) === true) {
+			throw(new \InvalidArgumentException ("Must enter a password", 405));
+		} else {
+			$password = filter_var($requestObject->userPassword, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		}
 
+		//create the user
+		$user = User::getUserbyUserName($pdo, $userName);
 
+		//if the user doesn't exist, throw an exception
+		if(empty($user)) {
+			throw (new \InvalidArgumentException("Username does not exist"));
+		}
+
+		//get the Activation Token
+		$userActivationToken = User::getUserActivationToken();
+
+		//if they have an activation token, the account is not activated yet
+		if($userActivationToken !== null) {
+			throw(new \InvalidArgumentException("Account has not been activated yet, please activate"));
+		}
+
+		//get the hash
+		$hash =  hash_pbkdf2("sha512", $password, $user->getUserSalt(), 262144);
+
+		//check the hash against inputted data-- no match, throw exception
+		if($hash !== $user->getUserHash()) {
+			throw(new \InvalidArgumentException("Username or password is incorrect"));
+		}
+
+		$_SESSION["user"] = $foundUser;
+		$reply->message = "Successfully logged in!";
+
+	} else {
+		throw (new \InvalidArgumentException("Invalid HTTP method request"));
 	}
 
-
+} catch(Exception $exception) {
+	$reply->status = $exception->getCode();
+	$reply->message = $exception->getMessage();
+	$reply->trace = $exception->getTraceAsString();
+} catch(TypeError $typeError) {
+	$reply->status = $typeError->getCode();
+	$reply->message = $typeError->getMessage();
 }
