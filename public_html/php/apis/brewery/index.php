@@ -29,7 +29,6 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 try {
 	// Grab the mySQL connection
 	$pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/brewcrew.ini");
-	// Is that the correct file path?
 
 	// Determine which HTTP method was used
 	$method = array_key_exists("HTTP_X_HTTP_METHOD", $_SERVER) ? $_SERVER["HTTP_X_HTTP_METHOD"] : $_SERVER["REQUEST_METHOD"];
@@ -37,7 +36,7 @@ try {
 
 	// Sanitize input
 	$id = filter_input(INPUT_GET, "id", FILTER_VALIDATE_INT);
-	// NOT breweryId here or ever in the API. This use of id is where the GET, DELETE, and PUT methods store their Primary Keys. If no key is present, $id will remain empty.
+	// ??? This use of id is where the GET, DELETE, and PUT methods store their Primary Keys. If no key is present, $id will remain empty.
 
 	// Make sure the id is valid for methods that require it
 	if(($method === "DELETE" || $method === "PUT") && (empty($id) === true || $id < 0)) {
@@ -59,11 +58,13 @@ try {
 	if($method === "GET") {
 		//set XSRF cookie
 		setXsrfCookie("/");
+
 		// Determine if a Key was sent by checking $id. If so, pull the requested brewery and update reply
 		if(empty($id) === false) {
 
+			// George has this thing about segments... No clue...
 
-			
+			// ???
 			$brewery = Edu\Cnm\BrewCrew\Brewery::getBreweryByBreweryId($pdo, $breweryId);
 			if($brewery !== null) {
 				$reply->data = $brewery;
@@ -78,8 +79,7 @@ try {
 	} else if($method === "PUT" || $method === "POST") {
 
 		verifyXsrf();
-		$requestContent = file_get_contents("php://input");
-		// Is this the correct file path?
+		$requestContent = file_get_contents("php://input"); // Is this the correct file path?
 		$requestObject = json_decode($requestContent);
 
 		// Make sure brewery content is available
