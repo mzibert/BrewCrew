@@ -101,9 +101,12 @@ try {
 		$requestBeerContent = file_get_contents("php://input");
 		$requestBeerObject = json_decode($requestBeerContent);
 
+
+
 		//perform the actual put or post
 
 		if($method === "PUT") {
+
 // retrieve the beer by availability
 			$beer = Beer::getBeerByBeerAvailability($pdo, $id);
 			if($beer === null) {
@@ -130,11 +133,12 @@ try {
 
 
 				//make sure beer description is available
-		if(empty($requestBeerObject->beerDescription) === true) {
-			throw(new \InvalidArgumentException ("No content for brewery.", 405));
-		}
-//perform the actual put or post
-		if($method === "PUT") {
+				if(empty($requestBeerObject->beerDescription) === true) {
+					throw(new \InvalidArgumentException ("No content for brewery.", 405));
+				}
+			}
+
+		if($method === "POST") {
 // retrieve the beer to update
 			$beer = Beer::getBeerByBeerDescription($pdo, $id);
 			if($beer === null) {
