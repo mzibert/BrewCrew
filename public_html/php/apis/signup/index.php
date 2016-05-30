@@ -41,7 +41,6 @@ try {
 			$userFirstName = filter_var($requestObject->userFirstName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		}
 
-
 	if(empty($requestObject->userLastName) === true) {
 			throw(new \InvalidArgumentException ("Must fill in valid last name", 405));
 		} else {
@@ -65,7 +64,23 @@ try {
 		} else {
 			$userDateofBirth = filter_var($requestObject->userDateOfBirth, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		}
+		if(empty($requestObject->userEmail) === true) {
+			throw(new \InvalidArgumentException ("Must enter a valid email address", 405));
+		} else {
+			$userEmail = filter_var($requestObject->userEmail, FILTER_SANITIZE_EMAIL);
+		}
 
+		$salt = bin2hex(random_bytes(32));
+		$hash = hash_pbkdf2("sha512", $password, $salt, 262144);
+		$userAccessLevel = 0;
+		$userActivationToken = bin2hex (random_bytes (16));
+
+		$user = new BrewCrew\User(null, null, $userAccessLevel, $userActivationToken, $userDateofBirth, $userEmail,
+											$userFirstName, $hash, $userLastName, $salt, $userUserName);
+
+		$user->insert($pdo);
+
+		
 
 
 
