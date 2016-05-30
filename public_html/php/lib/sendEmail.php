@@ -4,7 +4,8 @@
  * while this is convenient, this may load too much if your composer configuration grows to many classes
  * if this is a concern, load "/vendor/swiftmailer/autoload.php" instead to load just SwiftMailer
  **/
-require_once(dirname(__DIR__, 3) . "/vendor/autoload.php");
+
+
 
 /*
  * function to send email
