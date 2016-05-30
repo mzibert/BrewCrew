@@ -85,13 +85,13 @@ try {
 
 		} else if($method === "POST") {
 
-			//  make sure profileId is available
-			if(empty($requestObject->profileId) === true) {
+			//  make sure userId is available
+			if(empty($requestObject->userId) === true) {
 				throw(new \InvalidArgumentException ("No Pofile ID.", 405));
 			}
 
 			// create new user and insert into the database
-			$user = new BrewCrew\User(null, $requestObject->profileId, $requestObject->userContent, null);
+			$user = new BrewCrew\User(null, $requestObject->userId, $requestObject->userContent, null);
 			$user->insert($pdo);
 
 			// update reply
