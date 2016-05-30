@@ -110,7 +110,7 @@ class Beer implements \JsonSerializable {
 	 **/
 
 	/**
-	 * accessor method for beer id
+	 * accessor method for beer idbeer
 	 *
 	 * @return int value of beer id
 	 **/

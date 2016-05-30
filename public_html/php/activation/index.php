@@ -58,9 +58,8 @@ try {
 		$user->setUserActivationToken(null);
 		$user->update($pdo);
 
-		header("Location: ../../../");
+		// ToDo header("Location: ../../../");  send t5o login
 	} else {
-
 		throw(new \Exception("Invalid HTTP method"));
 	}
 
