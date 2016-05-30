@@ -102,54 +102,44 @@ try {
 		$requestBeerObject = json_decode($requestBeerContent);
 
 
-
 		//perform the actual put or post
 
 		if($method === "PUT") {
 
-// retrieve the beer by availability
-			$beer = Beer::getBeerByBeerAvailability($pdo, $id);
+			$beer = Beer::getBeerByBeerId($pdo, $id);
+
 			if($beer === null) {
 				throw(new RuntimeException("Beer is not available", 404));
 			}
-// update beer by availability
-			$beer->setBeerAvailabilty($requestObject->beerAvailability);
-			$beer->update($pdo);
-// update reply
-			$reply->message = "Beer updated successfully";
 
-			//perform the actual put or post
-			if($method === "PUT") {
-// retrieve the beer by award
-				$beer = Beer::getBeerByBeerAwards($pdo, $id);
-				if($beer === null) {
-					throw(new RuntimeException("Beer is not available for award update.", 404));
-				}
-// update beer by award
-				$beer->($requestObject->beerAwards);
+			if($_SESSION["user"]->getUserAccessLevel() === 1 && $_SESSION["user"]->getUserBreweryId() === $beer->getBeerBreweryId()) {
+// retrieve the beer by availability
+
+// update beer by availability
+				$beer->setBeerAvailabilty($requestObject->beerAvailability);
+				$beer->setBeerDescription($requestObject->beerDescription);
+				$beer->setBeerAwards($requestObject->beerAwards);
 				$beer->update($pdo);
 // update reply
 				$reply->message = "Beer updated successfully";
 
+				//perform the actual put or post
 
-				//make sure beer description is available
-				if(empty($requestBeerObject->beerDescription) === true) {
-					throw(new \InvalidArgumentException ("No content for brewery.", 405));
+
+				if($method === "POST") {
+// retrieve the beer to update
+					$beer = Beer::getBeerByBeerDescription($pdo, $id);
+					if($beer === null) {
+						throw(new RuntimeException("Beer does not exist", 404));
+					}
+// put the new beer  into beer and update
+					$beer->setBeerByBeerDescription($requestBeerObject->beerDescription);
+					$beer->update($pdo);
+// update reply
+					$reply->message = "Beer updated successfully";
+
 				}
 			}
-
-		if($method === "POST") {
-// retrieve the beer to update
-			$beer = Beer::getBeerByBeerDescription($pdo, $id);
-			if($beer === null) {
-				throw(new RuntimeException("Beer does not exist", 404));
-			}
-// put the new beer  into beer and update
-			$beer->setBeerByBeerDescription($requestBeerObject->beerDescription);
-			$beer->update($pdo);
-// update reply
-			$reply->message = "Beer updated successfully";
-
 		}
 	}
 }
