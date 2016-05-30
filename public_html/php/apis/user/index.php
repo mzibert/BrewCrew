@@ -117,6 +117,7 @@ try {
 				$user->setUserHash($hash);
 			}
 		}
+		// Put the new user content into the user and update
 		$user->setUserEmail($requestObject->userEmail);
 		$user->setUserFirstName($requestObject->userFirstName);
 		$user->setUserLastName($requestObject->userLastName);
