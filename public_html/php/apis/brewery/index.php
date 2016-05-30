@@ -6,12 +6,16 @@ require_once dirname(dirname(__DIR__)) . "/lib/sendEmail.php";
 
 use Edu\Cnm\BrewCrew;
 
-
 /**
  * API for the Brewery class
  *
  * @author Kate McGaughey <therealmcgaughey@gmail.com>
  **/
+
+// Verify the session, start if not active
+if(session_status() !== PHP_SESSION_ACTIVE) {
+	session_start();
+}
 
 // Prepare an empty reply
 $reply = new stdClass();
@@ -19,10 +23,6 @@ $reply->status = 200;
 $reply->data = null;
 // This $reply is an empty bucket we store the results of our calls in
 
-// Verify the session, start if not active
-if(session_status() !== PHP_SESSION_ACTIVE) {
-	session_start();
-}
 
 try {
 	// Grab the mySQL connection
@@ -30,11 +30,9 @@ try {
 
 	// Determine which HTTP method was used
 	$method = array_key_exists("HTTP_X_HTTP_METHOD", $_SERVER) ? $_SERVER["HTTP_X_HTTP_METHOD"] : $_SERVER["REQUEST_METHOD"];
-	// Stores the result in $method
 
 	// Sanitize input
 	$id = filter_input(INPUT_GET, "id", FILTER_VALIDATE_INT);
-	// ??? This use of id is where the GET, DELETE, and PUT methods store their Primary Keys. If no key is present, $id will remain empty.
 
 	// Make sure the id is valid for methods that require it
 	if(($method === "DELETE" || $method === "PUT") && (empty($id) === true || $id < 0)) {

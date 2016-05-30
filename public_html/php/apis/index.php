@@ -24,15 +24,16 @@ $reply->status = 200;
 $reply->data = null;
 
 try {
-	// Grab the sql connection
+	// Grab the MySQL connection
 	$pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/brewcrew.ini");
 
-	// Determine which http has used
+	// Determine which HTTP method was used
 	$method = array_key_exists("HTTP_X_HTTP_METHOD", $_SERVER) ? $_SERVER["HTTP_X_HTTP_METHOD"] : $_SERVER["REQUEST_METHOD"];
 	$reply->method=$method;
 
 	// Sanitize inputs
 	$id = filter_input(INPUT_GET, "id", FILTER_VALIDATE_INT);
+	
 	// Make sure the id is valid for methods that require it
 	if(($method === "DELETE" || $method === "PUT") && (empty($id) === true || $id < 0)) {
 		throw(new InvalidArgumentException("id cannot be negative or empty", 405));
