@@ -1,4 +1,5 @@
-<?php>
+<?php
+
 /**
  * GET all beers
  * GET a specific beer by primary key
@@ -52,14 +53,14 @@ try{
 		//set XSRF cookie
 		setXsrfCookie();
 
-		//get a specific tweet or all tweets and update reply
+		//get a specific beer or all beers and update reply
 		if(empty($id) === false) {
-			$beer = BrewCrew\Beer::getBeerByBeerId($pdo, $id);
+			$beer = Beer::getBeerByBeerId($pdo, $id);
 			if($beer !== null) {
 				$reply->data = $beer;
 			}
 		}  else {
-			$beers = BrewCrew\Beer::getAllBeers($pdo);
+			$beers = Beer::getAllBeers($pdo);
 			if($beers !== null) {
 				$reply->data = $beers;
 			}
