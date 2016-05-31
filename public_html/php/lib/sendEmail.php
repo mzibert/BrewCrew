@@ -5,7 +5,7 @@
  * if this is a concern, load "/vendor/swiftmailer/autoload.php" instead to load just SwiftMailer
  **/
 
-
+require_once(dirname(__DIR__, 3) . "/vendor/autoload.php");
 
 /*
  * function to send email
@@ -21,7 +21,7 @@ function sendEmail ($receiverEmail, $firstName, $lastName, $subject, $message) {
 
 		// attach the sender to the message
 		// this takes the form of an associative array where the Email is the key for the real name
-		$swiftMessage->setFrom(["el41net@el41net.com" => "Time Crunch"]);
+		$swiftMessage->setFrom(["mjzibert@yahoo.com" => "Brew Crew"]);
 
 		/**
 		 * attach the recipients to the message

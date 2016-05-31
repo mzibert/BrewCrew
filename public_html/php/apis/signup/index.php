@@ -24,14 +24,17 @@ $reply = new stdClass();
 $reply->status = 200;
 $reply->data = null;
 
+
 try {
 	//grab the mySQL connection
 	$pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/brewcrew.ini");
 
 	//determine which HTTP method was used
 	$method = array_key_exists("HTTP_X_HTTP_METHOD", $_SERVER) ? $_SERVER["HTTP_X_HTTP_METHOD"] : $_SERVER["REQUEST_METHOD"];
+	$reply->method = $method;
 
 	if($method === "POST") {
+
 
 		$requestContent = file_get_contents("php://input");
 		$requestObject = json_decode($requestContent);
@@ -86,14 +89,15 @@ try {
 		//building the activation link that can travel to another server and still work. This is the link that will be clicked to confirm the account.
 		// FIXME: make sure URL is /public_html/activation/$activation
 		$basePath = dirname($_SERVER["SCRIPT_NAME"], 4);
-		$urlglue = $basePath . "/activation/" . $activation;
+		$urlglue = $basePath . "/activation/" . $userActivationToken;
 		$confirmLink = "https://" . $_SERVER["SERVER_NAME"] . $urlglue;
 		$message = <<< EOF
 <h2>Welcome to the ABQ Brew Crew application.</h2>
 <p>In order to start rating your favorite local breweries please visit the following URL to set a new password and complete the registration process: </p>
 <p><a href="$confirmLink">$userActivationToken</a></p>
 EOF;
-
+		$reply->userEmail = $userEmail;
+		$reply->userFirstName = $userFirstName;
 		$response = sendEmail($userEmail, $userFirstName, $userLastName, $messageSubject, $message);
 		if($response === "Email sent.") {
 			$reply->message = "Sign up was successful, please check your email for activation message.";
@@ -103,7 +107,9 @@ EOF;
 	} else{
 		throw (new InvalidArgumentException("invalid http request"));
 	}
+
 	
+
 }catch(\Exception $exception) {
 	$reply->status = $exception->getCode();
 	$reply->message = $exception->getMessage();
@@ -111,3 +117,7 @@ EOF;
 	$reply->status = $typeError->getCode();
 	$reply->message = $typeError->getMessage();
 }
+
+
+header("Content-type: application/json");
+echo json_encode($reply);
