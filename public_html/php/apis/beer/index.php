@@ -100,6 +100,10 @@ try {
 		verifyXsrf();
 		$requestBeerContent = file_get_contents("php://input");
 		$requestBeerObject = json_decode($requestBeerContent);
+		
+		$beerAvailability = filter_var($requestBeerObject->beerAvailability, FILTER_SANITIZE_STRING);
+		$beerDescription = filter_var($requestBeerObject->beerDescription,FILTER_SANITIZE_STRING );
+		$beerAwards =  filter_var($requestBeerObject->beerAwards, FILTER_SANITIZE_STRING);
 
 
 		//perform the actual put or post
@@ -116,9 +120,9 @@ try {
 // retrieve the beer by availability
 
 // update beer by availability
-				$beer->setBeerAvailabilty($requestObject->beerAvailability);
-				$beer->setBeerDescription($requestObject->beerDescription);
-				$beer->setBeerAwards($requestObject->beerAwards);
+				$beer->setBeerAvailability($beerAvailability);
+				$beer->setBeerDescription($beerDescription);
+				$beer->setBeerAwards($beerAwards);
 				$beer->update($pdo);
 // update reply
 				$reply->message = "Beer updated successfully";
@@ -127,42 +131,41 @@ try {
 
 
 				if($method === "POST") {
-// retrieve the beer to update
-					$beer = Beer::getBeerByBeerBreweryId($pdo, $id);
-					if($beer === null) {
-						throw(new RuntimeException("Beer does not exist", 404));
-					}
+					
 // put the new beer  into beer and update
-					$beer->setBeerAvailability($requestBeerObject->beerAvailability);
-					$beer->update($pdo);
+					$beerBreweryId = filter_var($requestBeerObject->beerBreweryId, FILTER_VALIDATE_INT);
+					$beerAbv = filter_input($requestBeerObject->beerAbv, FILTER_SANITIZE_NUMBER_FLOAT);
+					$beerColor = filter_input($requestBeerObject->beerColor, FILTER_SANITIZE_NUMBER_FLOAT);
+					$beerIbu = filter_input($requestBeerObject->beerIbu, FILTER_SANITIZE_STRING);
+					$beerName = filter_input($requestBeerObject->beerName, FILTER_SANITIZE_STRING);
+					$beerStyle = filter_input($requestBeerObject->beerStyle, FILTER_SANITIZE_STRING);
+
+					$beer = new Beer(null, $beerBreweryId, $beerAbv, $beerColor, $beerIbu, $beerName, $beerStyle);
+
+
+					
+					
+					
 // update reply
 					$reply->message = "Beer updated successfully";
 
 				}
 			}
-
-
+			
 		} else if($method === "DELETE") {
 			verifyXsrf();
 
-			$crew = Beer::getBeerByBeerId($pdo, $id);
+			$beer = Beer::getBeerByBeerId($pdo, $id);
 
 			if($beer === null) {
 
 				throw(new RuntimeException("Beer does not exist", 404));
-
 			}
-
-			$crew->delete($pdo);
-
-			$deletedObject = new stdClass();
-
-			$deletedObject->beerId = $id;
-
+			$beer->delete($pdo);
+			$deletedBeerObject = new stdClass();
+			$deletedBeerObject->beerId = $id;
 			$reply->message = "Beer deleted OK";
-
 		}
-
 	} else {
 
 //if not an admin, and attempting a method other than get, throw an exception
