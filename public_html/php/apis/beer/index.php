@@ -94,17 +94,21 @@ try {
 			}
 		} else {
 			$beer = Beer::getAllBeers($pdo);
-			$reply->data = $beers;
+			$reply->data = $beer;
 		}
 	} else if($method === "PUT" || $method === "POST") {
 		verifyXsrf();
 		$requestBeerContent = file_get_contents("php://input");
 		$requestBeerObject = json_decode($requestBeerContent);
-		
-		$beerAvailability = filter_var($requestBeerObject->beerAvailability, FILTER_SANITIZE_STRING);
-		$beerDescription = filter_var($requestBeerObject->beerDescription,FILTER_SANITIZE_STRING );
-		$beerAwards =  filter_var($requestBeerObject->beerAwards, FILTER_SANITIZE_STRING);
 
+		$beerAvailability = filter_var($requestBeerObject->beerAvailability, FILTER_SANITIZE_STRING);
+		$beerDescription = filter_var($requestBeerObject->beerDescription, FILTER_SANITIZE_STRING);
+		$beerAwards = filter_var($requestBeerObject->beerAwards, FILTER_SANITIZE_STRING);
+
+		/*
+		 * sets access level for user 0 if brewery 1 of not brewery
+		 */
+		if($_SESSION["user"]->getUserAccessLevel() === 1 && $_SESSION["user"]->getUserBreweryId() === $beer->getBeerBreweryId()) {
 
 		//perform the actual put or post
 
@@ -116,7 +120,7 @@ try {
 				throw(new RuntimeException("Beer is not available", 404));
 			}
 
-			if($_SESSION["user"]->getUserAccessLevel() === 1 && $_SESSION["user"]->getUserBreweryId() === $beer->getBeerBreweryId()) {
+
 // retrieve the beer by availability
 
 // update beer by availability
@@ -131,7 +135,7 @@ try {
 
 
 				if($method === "POST") {
-					
+
 // put the new beer  into beer and update
 					$beerBreweryId = filter_var($requestBeerObject->beerBreweryId, FILTER_VALIDATE_INT);
 					$beerAbv = filter_input($requestBeerObject->beerAbv, FILTER_SANITIZE_NUMBER_FLOAT);
@@ -140,15 +144,15 @@ try {
 					$beerName = filter_input($requestBeerObject->beerName, FILTER_SANITIZE_STRING);
 					$beerStyle = filter_input($requestBeerObject->beerStyle, FILTER_SANITIZE_STRING);
 
-					$beer = new Beer(null, $beerBreweryId, $beerAbv, $beerAvailability, $beerAwards,$beerColor,$beerDescription, $beerIbu, $beerName, $beerStyle);
+					$beer = new Beer(null, $beerBreweryId, $beerAbv, $beerAvailability, $beerAwards, $beerColor, $beerDescription, $beerIbu, $beerName, $beerStyle);
 
-					$beer -> insert($pdo);
-// update reply
+					$beer->insert($pdo);
+					// update reply
 					$reply->message = "Beer updated successfully";
 
 				}
 			}
-			
+
 		} else if($method === "DELETE") {
 			verifyXsrf();
 
@@ -164,13 +168,9 @@ try {
 			$reply->message = "Beer deleted OK";
 		}
 	} else {
-
-//if not an admin, and attempting a method other than get, throw an exception
-
+		//if not an admin, and attempting a method other than get, throw an exception
 		if((empty($method) === false) && ($method !== "GET")) {
-
 			throw(new RuntimeException("Only administrators are allowed to modify entries", 401));
-
 		}
 	}
 } catch(Exception $exception) {
