@@ -140,7 +140,7 @@ try {
 					$beerName = filter_input($requestBeerObject->beerName, FILTER_SANITIZE_STRING);
 					$beerStyle = filter_input($requestBeerObject->beerStyle, FILTER_SANITIZE_STRING);
 
-					$beer = new Beer(null, $beerBreweryId, $beerAbv, $beerColor, $beerIbu, $beerName, $beerStyle);
+					$beer = new Beer(null, $beerBreweryId, $beerAbv, $beerAvailability, $beerAwards,$beerColor,$beerDescription, $beerIbu, $beerName, $beerStyle);
 
 
 					
