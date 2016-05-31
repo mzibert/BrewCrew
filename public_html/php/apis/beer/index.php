@@ -12,8 +12,8 @@
  * PUT update beer
  * DELETE a beer
  **/
-require_once dirname(dirname(_DIR_)) . "/classes/autoload.php";
-require_once dirname(dirname(_DIR_)) . "/lib/xsrf.php";
+require_once dirname(dirname(__DIR__)) . "/classes/autoload.php";
+require_once dirname(dirname(__DIR__)) . "/lib/xsrf.php";
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 
 use Edu\Cnm\BrewCrew\Beer;
