@@ -148,7 +148,7 @@ try {
 
 					$beer->insert($pdo);
 					// update reply
-					$reply->message = "Beer updated successfully";
+					$reply->message = "Beer inserted successfully";
 
 				}
 			}
