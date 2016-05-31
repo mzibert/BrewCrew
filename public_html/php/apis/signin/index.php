@@ -1,7 +1,7 @@
 <?php
 
-require_once "autoloader.php";
-require_once "/lib/xsrf.php";
+require_once dirname(__DIR__, 2) . "/classes/autoload.php";
+require_once dirname(__DIR__, 2) . "/lib/xsrf.php";
 require_once "/etc/apache2/capstone-mysql/encrypted-config.php";
 
 use Edu\Cnm\BrewCrew;
@@ -25,16 +25,19 @@ $reply->data = null;
 
 try {
 	//grab the mySQL connection
-	$pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/signin.api");
+	$pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/brewcrew.ini");
 
 	//determine which HTTP method was used
 	$method = array_key_exists("HTTP_X_HTTP_METHOD", $_SERVER) ? $_SERVER["HTTP_X_HTTP_METHOD"] : $_SERVER["REQUEST_METHOD"];
 
-	verifyXsrf();
-
+	if($method === "GET") {
+		setXsrfCookie();
+	}
+	
 	//perform the actual POST
-	if($method === "POST") {
+	else if($method === "POST") {
 
+		verifyXsrf();
 
 		// convert JSON to an object
 		$requestContent = file_get_contents("php://input");
@@ -77,7 +80,7 @@ try {
 			throw(new \InvalidArgumentException("Username or password is incorrect"));
 		}
 
-		$_SESSION["user"] = $foundUser;
+		$_SESSION["user"] = $user;
 		$reply->message = "Successfully logged in!";
 
 	} else {
@@ -91,3 +94,6 @@ try {
 	$reply->status = $typeError->getCode();
 	$reply->message = $typeError->getMessage();
 }
+
+header("Content-type: application/json");
+echo json_encode($reply);
