@@ -128,12 +128,12 @@ try {
 
 				if($method === "POST") {
 // retrieve the beer to update
-					$beer = Beer::getBeerByBeerDescription($pdo, $id);
+					$beer = Beer::getBeerByBeerBreweryId($pdo, $id);
 					if($beer === null) {
 						throw(new RuntimeException("Beer does not exist", 404));
 					}
 // put the new beer  into beer and update
-					$beer->setBeerByBeerDescription($requestBeerObject->beerDescription);
+					$beer->setBeerAvailability($requestBeerObject->beerAvailability);
 					$beer->update($pdo);
 // update reply
 					$reply->message = "Beer updated successfully";
