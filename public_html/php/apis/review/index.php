@@ -35,12 +35,12 @@ try {
 	$method = array_key_exists("HTTP_X_HTTP_METHOD", $_SERVER) ? $_SERVER["HTTP_X_HTTP_METHOD"] : $_SERVER["REQUEST_METHOD"];
 
 	//sanitize input
-	$reviewId = filter_input(INPUT_GET, "reviewId", FILTER_VALIDATE_INT);
+	$id = filter_input(INPUT_GET, "reviewId", FILTER_VALIDATE_INT);
 	$breweryId = filter_input(INPUT_GET, "breweryId", FILTER_VALIDATE_INT);
 	$userId = filter_input(INPUT_GET, "userId", FILTER_VALIDATE_INT);
 	$beerId = filter_input(INPUT_GET, "beerId", FILTER_VALIDATE_INT);
 	$reviewPintRating = filter_input(INPUT_GET, "reviewPintRating", FILTER_VALIDATE_INT);
-	$reviewText = filter_input(INPUT_GET, "reviewText", FILTER_SANITIZE_STRING);
+	$reviewText = filter_input(INPUT_GET, "reviewText", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 
 
 	//handle GET request - if id is present, then the review is returned, otherwise all reviews are returned
@@ -49,8 +49,8 @@ try {
 		setXsrfCookie();
 
 		//get methods:get a specific review by reviewId, get reviews by beerId, by userId, by breweryId, and by pintRating
-		if(empty($reviewId) === false) {
-			$review = BrewCrew\Review::getReviewByReviewId($pdo, $reviewId);
+		if(empty($id) === false) {
+			$review = BrewCrew\Review::getReviewByReviewId($pdo, $id);
 			if($review !== null) {
 				$reply->data = $review;
 			}
@@ -119,7 +119,6 @@ try {
 } catch(Exception $exception) {
 	$reply->status = $exception->getCode();
 	$reply->message = $exception->getMessage();
-	$reply->trace = $exception->getTraceAsString();
 } catch(TypeError $typeError) {
 	$reply->status = $typeError->getCode();
 	$reply->message = $typeError->getMessage();
