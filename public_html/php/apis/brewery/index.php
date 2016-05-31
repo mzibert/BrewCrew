@@ -84,14 +84,8 @@ try {
 		$requestObject = json_decode($requestContent);
 
 		// Make sure all fields are present, in order, to prevent database issues
-		if(empty($requestObject->breweryId) === true) {
-			throw(new InvalidArgumentException ("breweryId cannot be empty", 405));
-		}
 		if(empty($requestObject->breweryDescription) === true) {
 			throw(new InvalidArgumentException ("breweryDescription cannot be empty", 405));
-		}
-		if(empty($requestObject->breweryEstDate) === true) {
-			throw(new InvalidArgumentException ("breweryEstDate cannot be empty", 405));
 		}
 		if(empty($requestObject->breweryHours) === true) {
 			throw(new InvalidArgumentException ("breweryHours cannot be empty", 405));
@@ -121,10 +115,14 @@ try {
 			if($brewery === null) {
 				throw(new RuntimeException("Brewery does not exist", 404));
 			}
-			$brewery->setBrewery???What can be updated???
+			$brewery->setBreweryDescription($requestObject->breweryDescription);
+			$brewery->setBreweryHours($requestObject->breweryHours);
+			$brewery->setBreweryLocation($requestObject->breweryLocation);
+			$brewery->setBreweryName($requestObject->breweryName);
+			$brewery->setBreweryPhone($requestObject->breweryPhone);
+			$brewery->setBreweryUrl($requestObject->breweryUrl);
 
 			// Put the new brewery content into the brewery and update
-			$brewery->setBreweryContent($requestObject->breweryContent);
 			$brewery->update($pdo);
 			$reply->message = "Brewery updated";
 
@@ -134,10 +132,12 @@ try {
 			if(empty($requestObject->breweryId) === true) {
 				throw(new \InvalidArgumentException ("No brewery id", 405));
 			}
+			if(empty($requestObject->breweryEstDate) === true) {
+				throw(new InvalidArgumentException ("breweryEstDate cannot be empty", 405));
+			}
 
 			// Create new brewery and insert into the database
-			$brewery = new BrewCrew\Brewery(null, $requestObject->breweryId, $requestObject->breweryContent, null);
-			// Is that right?
+			$brewery = new BrewCrew\Brewery(null, $requestObject->breweryDescription, $requestObject->breweryEstDate, $requestObject->breweryHours, $requestObject->breweryLocation, $requestObject->breweryName, $requestObject->breweryPhone, $requestObject->breweryUrl);
 			$brewery->insert($pdo);
 
 			// Update reply
@@ -180,14 +180,3 @@ if($reply->data === null) {
 
 // Encode and return reply to front end caller
 echo json_encode($reply);
-
-
-
-
-
-
-
-
-
-
-
