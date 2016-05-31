@@ -142,10 +142,7 @@ try {
 
 					$beer = new Beer(null, $beerBreweryId, $beerAbv, $beerAvailability, $beerAwards,$beerColor,$beerDescription, $beerIbu, $beerName, $beerStyle);
 
-
-					
-					
-					
+					$beer -> insert($pdo);
 // update reply
 					$reply->message = "Beer updated successfully";
 
