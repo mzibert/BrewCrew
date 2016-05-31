@@ -1,7 +1,7 @@
 <?php
 
-require_once "autoloader.php";
-require_once "/lib/xsrf.php";
+require_once dirname(dirname(__DIR__)) . "/classes/autoloader.php";
+require_once dirname(dirname(__DIR__)) . "/lib/xsrf.php";
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 
 use Edu\Cnm\BrewCrew;
@@ -31,20 +31,24 @@ try {
 	$method = array_key_exists("HTTP_X_HTTP_METHOD", $_SERVER) ? $_SERVER["HTTP_X_HTTP_METHOD"] : $_SERVER["REQUEST_METHOD"];
 
 	// Sanitize input
-	$tagId = filter_input(INPUT_GET, "tagId", FILTER_VALIDATE_INT);
+	$id = filter_input(INPUT_GET, "id", FILTER_VALIDATE_INT);
 
 	// Make sure the id is valid for methods that require it
-	if(($method === "DELETE" || $method === "PUT") && (empty($tagId) === true || $tagId < 0)) {
-		throw(new InvalidArgumentException("Tag id cannot be empty or negative", 405));
+	if(($method === "DELETE" || $method === "PUT") && (empty($id) === true || $id < 0)) {
+		throw(new InvalidArgumentException("id cannot be empty or negative", 405));
 	}
-	// Handle GET request - if tagId is present, that tag is returned, otherwise all tags are returned
+
+	// Sanitize and trim the other input
+	$tagLabel = filter_input(INPUT_GET, "tagLabel", FILTER_SANITIZE_STRING);
+
+	// Handle all restful calls
 	if($method === "GET") {
-		//set XSRF cookie
-		setXsrfCookie();
+		// Set XSRF cookie
+		setXsrfCookie("/");
 
 		// Get a specific tag or all tags and update reply
-		if(empty($tagId) === false) {
-			$tag = Edu\Cnm\BrewCrew\Tag::getTagByTagId($pdo, $tagId);
+		if(empty($id) === false) {
+			$tag = Edu\Cnm\BrewCrew\Tag::getTagByTagId($pdo, $id);
 			if($tag !== null) {
 				$reply->data = $tag;
 			}
@@ -55,28 +59,30 @@ try {
 			}
 		}
 
+		// PUT and POST
 	} else if($method === "PUT" || $method === "POST") {
 
+		// Set XSRF cookie
 		verifyXsrf();
 		$requestContent = file_get_contents("php://input");
 		$requestObject = json_decode($requestContent);
 
 		// Make sure tag content is available
-		if(empty($requestObject->tagContent) === true) {
-			throw(new \InvalidArgumentException ("No content for Tag.", 405));
+		if(empty($requestObject->tagLabel) === true) {
+			throw(new InvalidArgumentException ("Tag label cannot be empty", 405));
 		}
 
 		// Perform the actual put or post
 		if($method === "PUT") {
 
 			// Retrieve the tag to update
-			$tag = Edu\Cnm\BrewCrew\Tag::getTagByTagId($pdo, $tagId);
+			$tag = BrewCrew\Tag::getTagByTagId($pdo, $tagId);
 			if($tag === null) {
 				throw(new RuntimeException("Tag does not exist", 404));
 			}
 
 			// Put the new tag content into the tag and update
-			$tag->setTagContent($requestObject->tagContent);
+			$tag->setTagLabel($requestObject->tagLabel);
 			$tag->update($pdo);
 
 			// Update reply

@@ -105,7 +105,6 @@ try {
 
 	// Need to create permission for brewmasters to change what's on tap
 		if($_SESSION["user"]->getUserAccessLevel() === 1 && $_SESSION["user"]->getUserBreweryId() === $beer->getBeerBreweryId()) {
-	// ???
 
 		// Perform the actual put or post
 		if($method === "PUT") {
@@ -115,14 +114,14 @@ try {
 			if($brewery === null) {
 				throw(new RuntimeException("Brewery does not exist", 404));
 			}
+			
+			// Put the new brewery content into the brewery and update
 			$brewery->setBreweryDescription($requestObject->breweryDescription);
 			$brewery->setBreweryHours($requestObject->breweryHours);
 			$brewery->setBreweryLocation($requestObject->breweryLocation);
 			$brewery->setBreweryName($requestObject->breweryName);
 			$brewery->setBreweryPhone($requestObject->breweryPhone);
 			$brewery->setBreweryUrl($requestObject->breweryUrl);
-
-			// Put the new brewery content into the brewery and update
 			$brewery->update($pdo);
 			$reply->message = "Brewery updated";
 
