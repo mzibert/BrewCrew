@@ -197,15 +197,16 @@ DELIMITER $$
 
 			FETCH compassCursor INTO  selectedBeer; -- gets rows
 
-			IF cIbu IS string CONVERT (cIbu AS DECIMAL);
-			ELSE SET cIbu = 120;
+			SELECT CONVERT(cIbu, DECIMAL);
+			IF cIbu = 0 THEN SET cIbu = 120;
 				END IF;
 
 			SELECT STDDEV(cColor), AVG (cColor) INTO colorStdDev, colorMean FROM beer;
 			SELECT STDDEV(cIbu), AVG(cIbu) INTO ibuStdDev, ibuMean FROM beer;
 
-			CALL maths(beerDrift)
-			FETCH drift INTO selectedBeer WHERE beerId = :beerId;
+			CALL maths(beerDrift);
+			FETCH drift INTO selectedBeer;
+				-- will this match up okay? in terms of id/primary key
 
 			IF done THEN LEAVE compassLoop; -- leaves rows
 			END IF;
