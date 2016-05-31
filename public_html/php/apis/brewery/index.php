@@ -155,7 +155,6 @@ try {
 		// Delete Brewery
 		$brewery->delete($pdo);
 			$deletedObject = new stdClass();
-			$deletedObject->breweryId = $id;
 
 		// Update reply
 		$reply->message = "Brewery deleted";

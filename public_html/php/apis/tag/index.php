@@ -76,7 +76,7 @@ try {
 		if($method === "PUT") {
 
 			// Retrieve the tag to update
-			$tag = BrewCrew\Tag::getTagByTagId($pdo, $tagId);
+			$tag = BrewCrew\Tag::getTagByTagId($pdo, $id);
 			if($tag === null) {
 				throw(new RuntimeException("Tag does not exist", 404));
 			}
@@ -86,34 +86,36 @@ try {
 			$tag->update($pdo);
 
 			// Update reply
-			$reply->message = "Tag updated OK";
+			$reply->message = "Tag updated";
 
 		} else if($method === "POST") {
 
 			//  Make sure tagId is available
 			if(empty($requestObject->tagId) === true) {
-				throw(new \InvalidArgumentException ("No Tag ID.", 405));
+				throw(new \InvalidArgumentException ("No tag id", 405));
 			}
 
 			// Create new tag and insert into the database
-			$tag = new Edu\Cnm\BrewCrew\Tag(null, $requestObject->tagId, $requestObject->tagContent, null);
+			$tag = new BrewCrew\Tag(null, $requestObject->tagLabel);
 			$tag->insert($pdo);
 
 			// Update reply
-			$reply->message = "Tag created OK";
+			$reply->message = "Tag created";
 		}
 
 	} else if($method === "DELETE") {
 		verifyXsrf();
 
-		// Retrieve the Tag to be deleted
-		$tag = Edu\Cnm\BrewCrew\Tag::getTagByTagId($pdo, $tagId);
+		// Retrieve the tag to be deleted
+		$tag = BrewCrew\Tag::getTagByTagId($pdo, $id);
 		if($tag === null) {
 			throw(new RuntimeException("Tag does not exist", 404));
 		}
 
 		// Delete tag
 		$tag->delete($pdo);
+		$deletedObject = new stdClass();
+
 
 		// Update reply
 		$reply->message = "Tag deleted OK";
@@ -125,7 +127,6 @@ try {
 } catch(Exception $exception) {
 	$reply->status = $exception->getCode();
 	$reply->message = $exception->getMessage();
-	$reply->trace = $exception->getTraceAsString();
 } catch(TypeError $typeError) {
 	$reply->status = $typeError->getCode();
 	$reply->message = $typeError->getMessage();
