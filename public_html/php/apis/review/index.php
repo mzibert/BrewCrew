@@ -70,7 +70,7 @@ try {
 				$reply->data = $review;
 			}
 		} else if(empty($reviewPintRating) === false) {
-			$review = BrewCrew\Review:: getReviewByReviewPintRating($pdo, $reviewPintRating);
+			$review = BrewCrew\Review::getReviewByReviewPintRating($pdo, $reviewPintRating);
 			if($review !== null) {
 				$reply->data = $review;
 			}
@@ -104,19 +104,18 @@ try {
 		if($method === "POST") {
 			//create new review and insert it into the database
 			$review = new BrewCrew\Review(null, $requestObject->beerId, $_SESSION["user"]->getUserId, $requestObject->reviewDate, $requestObject->reviewPintRating, $requestObject->reviewText);
-		}
-		$review->insert($pdo);
-		$reply->message = "Review has been created";
-		if($method === "POST") {
+			$review->insert($pdo);
+			$reply->message = "Review has been created";
+
 			//add tags
 			foreach($tagIds as $tagId) {
 				$reviewTag = new ReviewTag($reviewId, $tagId);
 				$reviewTag->insert($pdo);
 			}
+		} else {
+			throw (new InvalidArgumentException("Invalid HTTP method request"));
 		}
-
 	}
-
 } catch(Exception $exception) {
 	$reply->status = $exception->getCode();
 	$reply->message = $exception->getMessage();
