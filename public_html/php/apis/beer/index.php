@@ -140,10 +140,40 @@ try {
 
 				}
 			}
+
+
+		} else if($method === "DELETE") {
+			verifyXsrf();
+
+			$crew = Beer::getBeerByBeerId($pdo, $id);
+
+			if($beer === null) {
+
+				throw(new RuntimeException("Beer does not exist", 404));
+
+			}
+
+			$crew->delete($pdo);
+
+			$deletedObject = new stdClass();
+
+			$deletedObject->beerId = $id;
+
+			$reply->message = "Beer deleted OK";
+
+		}
+
+	} else {
+
+//if not an admin, and attempting a method other than get, throw an exception
+
+		if((empty($method) === false) && ($method !== "GET")) {
+
+			throw(new RuntimeException("Only administrators are allowed to modify entries", 401));
+
 		}
 	}
-}
-catch(Exception $exception) {
+} catch(Exception $exception) {
 
 	$reply->status = $exception->getCode();
 	$reply->message = $exception->getMessage();
