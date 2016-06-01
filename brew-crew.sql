@@ -215,7 +215,7 @@ DELIMITER $$
 			CLOSE compassCursor; -- closes cursor
 
 			SELECT (beerId, beerBreweryId, beerAbv, beerAvailability, beerAwards, beerColor, beerDescription, beerIbu, beerName, beerStyle, beerDrift) FROM selectedBeer WHERE beerDrift <= 1.5 -- the recommendation to return
-			ORDER BY drift;
+			ORDER BY beerDrift;
 
 		END $$
 DELIMITER ;
