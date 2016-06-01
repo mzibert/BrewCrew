@@ -186,19 +186,14 @@ try {
 	$reply->message = $exception->getMessage();
 	$reply->trace = $exception->getTraceAsString();
 
-	header("Content-type: application/json");
-
-	echo json_encode($reply);
-
 } catch(\TypeError $typeError) {
 
 	$reply->status = $typeError->getCode();
 	$reply->message = $typeError->getMessage();
 	$reply->trace = $typeError->getTraceAsString();
 
-	header("Content-type: application/json");
-
-	echo json_encode($reply);
 }
 
+header("Content-type: application/json");
+echo json_encode($reply);
 
