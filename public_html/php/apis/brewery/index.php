@@ -70,7 +70,7 @@ try {
 					$reply->data = $brewery;
 				}
 			} else {
-				$brewery = BrewCrew\Brewery::getAllBreweries($pdo);
+				$breweries = BrewCrew\Brewery::getAllBreweries($pdo);
 				$reply->data = $breweries;
 			}
 		}
@@ -106,44 +106,41 @@ try {
 	// Need to create permission for brewmasters to change what's on tap
 		if($_SESSION["user"]->getUserAccessLevel() === 1 && $_SESSION["user"]->getUserBreweryId() === $beer->getBeerBreweryId()) {
 
-		// Perform the actual put or post
-		if($method === "PUT") {
+			// Perform the actual put or post
+			if($method === "PUT") {
 
-			// Retrieve the brewery to update
-			$brewery = BrewCrew\Brewery::getBreweryByBreweryId($pdo, $breweryId);
-			if($brewery === null) {
-				throw(new RuntimeException("Brewery does not exist", 404));
-			}
-			
-			// Put the new brewery content into the brewery and update
-			$brewery->setBreweryDescription($requestObject->breweryDescription);
-			$brewery->setBreweryHours($requestObject->breweryHours);
-			$brewery->setBreweryLocation($requestObject->breweryLocation);
-			$brewery->setBreweryName($requestObject->breweryName);
-			$brewery->setBreweryPhone($requestObject->breweryPhone);
-			$brewery->setBreweryUrl($requestObject->breweryUrl);
-			$brewery->update($pdo);
-			$reply->message = "Brewery updated";
+				// Retrieve the brewery to update
+				$brewery = BrewCrew\Brewery::getBreweryByBreweryId($pdo, $id);
+				if($brewery === null) {
+					throw(new RuntimeException("Brewery does not exist", 404));
+				}
 
-		} else if($method === "POST") {
+				// Put the new brewery content into the brewery and update
+				$brewery->setBreweryDescription($requestObject->breweryDescription);
+				$brewery->setBreweryHours($requestObject->breweryHours);
+				$brewery->setBreweryLocation($requestObject->breweryLocation);
+				$brewery->setBreweryName($requestObject->breweryName);
+				$brewery->setBreweryPhone($requestObject->breweryPhone);
+				$brewery->setBreweryUrl($requestObject->breweryUrl);
+				$brewery->update($pdo);
+				$reply->message = "Brewery updated";
 
-			//  Make sure breweryId is available
-			if(empty($requestObject->breweryId) === true) {
-				throw(new \InvalidArgumentException ("No brewery id", 405));
-			}
-			if(empty($requestObject->breweryEstDate) === true) {
-				throw(new InvalidArgumentException ("breweryEstDate cannot be empty", 405));
-			}
+			} else if($method === "POST") {
 
-			// Create new brewery and insert into the database
-			$brewery = new BrewCrew\Brewery(null, $requestObject->breweryDescription, $requestObject->breweryEstDate, $requestObject->breweryHours, $requestObject->breweryLocation, $requestObject->breweryName, $requestObject->breweryPhone, $requestObject->breweryUrl);
-			$brewery->insert($pdo);
+				//  Make sure breweryEstDate is available
+				if(empty($requestObject->breweryEstDate) === true) {
+					throw(new InvalidArgumentException ("breweryEstDate cannot be empty", 405));
+				}
 
-			// Update reply
-			$reply->message = "Brewery created";
-		}
+				// Create new brewery and insert into the database
+				$brewery = new BrewCrew\Brewery(null, $requestObject->breweryDescription, $requestObject->breweryEstDate, $requestObject->breweryHours, $requestObject->breweryLocation, $requestObject->breweryName, $requestObject->breweryPhone, $requestObject->breweryUrl);
+				$brewery->insert($pdo);
 
-	} else if($method === "DELETE") {
+				// Update reply
+				$reply->message = "Brewery created";
+
+
+		} else if($method === "DELETE") {
 		verifyXsrf();
 
 		// Retrieve the brewery to be deleted
