@@ -28,7 +28,7 @@ try {
 
 	// Determine which HTTP method was used
 	$method = array_key_exists("HTTP_X_HTTP_METHOD", $_SERVER) ? $_SERVER["HTTP_X_HTTP_METHOD"] : $_SERVER["REQUEST_METHOD"];
-	$reply->method=$method;
+	$reply->method = $method;
 
 	// Sanitize inputs
 	$id = filter_input(INPUT_GET, "id", FILTER_VALIDATE_INT);
@@ -39,19 +39,18 @@ try {
 	}
 
 	// Sanitize and trim the rest of the inputs
-	$breweryId = filter_input(INPUT_GET, "breweryId", FILTER_VALIDATE_INT);
-	$breweryDescription = filter_input(INPUT_GET, "breweryDescription", FILTER_VALIDATE_INT);
-	$breweryEstDate = filter_input(INPUT_GET, "breweryEstDate", FILTER_VALIDATE_INT);
-	$breweryHours = filter_input(INPUT_GET, "breweryHours", FILTER_VALIDATE_INT);
-	$breweryLocation = filter_input(INPUT_GET, "breweryLocation", FILTER_VALIDATE_INT);
-	$breweryName = filter_input(INPUT_GET, "breweryName", FILTER_VALIDATE_INT);
-	$breweryPhone = filter_input(INPUT_GET, "breweryPhone", FILTER_VALIDATE_INT);
-	$breweryUrl = filter_input(INPUT_GET, "breweryUrl", FILTER_VALIDATE_INT);
+	$breweryDescription = filter_input(INPUT_GET, "breweryDescription", FILTER_SANITIZE_STRING);
+	$breweryEstDate = filter_input(INPUT_GET, "breweryEstDate", FILTER_SANITIZE_STRING);
+	$breweryHours = filter_input(INPUT_GET, "breweryHours", FILTER_SANITIZE_STRING);
+	$breweryLocation = filter_input(INPUT_GET, "breweryLocation", FILTER_SANITIZE_STRING);
+	$breweryName = filter_input(INPUT_GET, "breweryName", FILTER_SANITIZE_STRING);
+	$breweryPhone = filter_input(INPUT_GET, "breweryPhone", FILTER_SANITIZE_STRING);
+	$breweryUrl = filter_input(INPUT_GET, "breweryUrl", FILTER_SANITIZE_STRING);
 
 	// Handle all restful calls
 	if($method === "GET") {
 		// Set XSRF cookie
-		setXsrfCookie("/");
+//		setXsrfCookie("/");
 
 		// Get the brewery based on the given
 		if(empty($id) === false) {
@@ -59,27 +58,29 @@ try {
 			if($brewery !== null) {
 				$reply->data = $brewery;
 			}
-			else if(empty($breweryLocation) === false) {
-				$brewery = BrewCrew\Brewery::getBreweryByBreweryLocation($pdo, $breweryLocation);
-				if($brewery !== null) {
-					$reply->data = $brewery;
-				}
-			} else if(empty($breweryName) === false) {
-				$brewery = BrewCrew\Brewery::getBreweryByBreweryName($pdo, $breweryName);
-				if($brewery !== null) {
-					$reply->data = $brewery;
-				}
-			} else {
-				$breweries = BrewCrew\Brewery::getAllBreweries($pdo);
-				$reply->data = $breweries;
+		} else if(empty($breweryLocation) === false) {
+			$reply->otherMessage = "inside get by location";
+			$brewery = BrewCrew\Brewery::getBrewerybyBreweryLocation($pdo, $breweryLocation);
+			if($brewery !== null) {
+				$reply->data = $brewery;
 			}
+		} else if(empty($breweryName) === false) {
+			$brewery = BrewCrew\Brewery::getBreweryByBreweryName($pdo, $breweryName);
+			if($brewery !== null) {
+				$reply->data = $brewery;
+			}
+		} else {
+			$reply->otherMessage = "inside get all";
+			$breweries = BrewCrew\Brewery::getAllBreweries($pdo);
+			$reply->data = $breweries;
 		}
 
-		// PUT and POST
+
+	// PUT and POST
 	} else if($method === "PUT" || $method === "POST") {
-	}
+
 		// Set XSRF cookie
-		verifyXsrf();
+//		verifyXsrf();
 		$requestContent = file_get_contents("php://input");
 		$requestObject = json_decode($requestContent);
 
@@ -103,7 +104,7 @@ try {
 			throw(new InvalidArgumentException ("breweryUrl cannot be empty", 405));
 		}
 
-	// Need to create permission for brewmasters to change what's on tap
+		// Need to create permission for brewmasters to change what's on tap
 		if($_SESSION["user"]->getUserAccessLevel() === 1 && $_SESSION["user"]->getUserBreweryId() === $beer->getBeerBreweryId()) {
 
 			// Perform the actual put or post
@@ -127,37 +128,38 @@ try {
 
 			} else if($method === "POST") {
 
-				//  Make sure breweryEstDate is available
-				if(empty($requestObject->breweryEstDate) === true) {
-					throw(new InvalidArgumentException ("breweryEstDate cannot be empty", 405));
+					//  Make sure breweryEstDate is available
+					if(empty($requestObject->breweryEstDate) === true) {
+						throw(new InvalidArgumentException ("breweryEstDate cannot be empty", 405));
+					}
+
+					// Create new brewery and insert into the database
+					$brewery = new BrewCrew\Brewery(null, $requestObject->breweryDescription, $requestObject->breweryEstDate, $requestObject->breweryHours, $requestObject->breweryLocation, $requestObject->breweryName, $requestObject->breweryPhone, $requestObject->breweryUrl);
+					$brewery->insert($pdo);
+
+					// Update reply
+					$reply->message = "Brewery created";
+					}
+				}
+			} else if($method === "DELETE") {
+//				verifyXsrf();
+
+				// Retrieve the brewery to be deleted
+				$brewery = BrewCrew\Brewery::getBreweryByBreweryId($pdo, $id);
+				if($brewery === null) {
+					throw(new RuntimeException("Brewery does not exist", 404));
 				}
 
-				// Create new brewery and insert into the database
-				$brewery = new BrewCrew\Brewery(null, $requestObject->breweryDescription, $requestObject->breweryEstDate, $requestObject->breweryHours, $requestObject->breweryLocation, $requestObject->breweryName, $requestObject->breweryPhone, $requestObject->breweryUrl);
-				$brewery->insert($pdo);
+				// Delete Brewery
+				$brewery->delete($pdo);
+				$deletedObject = new stdClass();
 
 				// Update reply
-				$reply->message = "Brewery created";
+				$reply->message = "Brewery deleted";
+			} else {
+				throw (new InvalidArgumentException("Invalid HTTP method request"));
+			}
 
-
-		} else if($method === "DELETE") {
-		verifyXsrf();
-
-		// Retrieve the brewery to be deleted
-		$brewery = BrewCrew\Brewery::getBreweryByBreweryId($pdo, $id);
-		if($brewery === null) {
-			throw(new RuntimeException("Brewery does not exist", 404));
-		}
-
-		// Delete Brewery
-		$brewery->delete($pdo);
-			$deletedObject = new stdClass();
-
-		// Update reply
-		$reply->message = "Brewery deleted";
-	} else {
-		throw (new InvalidArgumentException("Invalid HTTP method request"));
-	}
 
 	// Update reply with exception information
 } catch(Exception $exception) {

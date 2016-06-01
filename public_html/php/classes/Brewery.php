@@ -444,6 +444,7 @@ class Brewery implements \JsonSerializable {
 	 **/
 	public static function getBrewerybyBreweryLocation(\PDO $pdo, $breweryLocation) {
 		// sanitize the brewery location before searching
+		
 		$breweryLocation = trim($breweryLocation);
 		$breweryLocation = filter_var($breweryLocation, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($breweryLocation) === true) {
@@ -454,7 +455,7 @@ class Brewery implements \JsonSerializable {
 		$statement = $pdo->prepare($query);
 
 		// Bind the placeholder in the template
-		$breweryLocation = "%$breweryLocation%";
+		$breweryLocation = "%" . $breweryLocation . "%";
 		$parameters = array("breweryLocation" => $breweryLocation);
 		$statement->execute($parameters);
 
