@@ -72,38 +72,45 @@ try {
 			if($beer !== null) {
 				$reply->$beer;
 			}
-		} else if(empty($beerIbu) === false) {
-			$beer = Beer::getBeerByBeerIbu($pdo, $beerIbu);
-			if($beer !== null) {
-				$reply->$beer;
-			}
+
 		} else if(empty($beerColor) === false) {
 			$beer = Beer::getBeerByBeerColor($pdo, $beerColor);
 			if($beer !== null) {
 				$reply->$beer;
 			}
+
+		} else if(empty($beerIbu) === false) {
+			$beer = Beer::getBeerByBeerIbu($pdo, $beerIbu);
+			if($beer !== null) {
+				$reply->$beer;
+			}
+
 		} else if(empty($beerName) === false) {
 			$beer = Beer::getBeerByBeerName($pdo, $beerName);
 			if($beer !== null) {
 				$reply->$beer;
 			}
+
 		} else if(empty($beerStyle) === false) {
 			$beer = Beer::getBeerByBeerStyle($pdo, $beerStyle);
 			if($beer !== null) {
 				$reply->$beer;
 			}
+
 		} else {
 			$beer = Beer::getAllBeers($pdo);
 			$reply->data = $beer;
 		}
+
 	} else if($method === "PUT" || $method === "POST") {
 		verifyXsrf();
 		$requestBeerContent = file_get_contents("php://input");
 		$requestBeerObject = json_decode($requestBeerContent);
 
 		$beerAvailability = filter_var($requestBeerObject->beerAvailability, FILTER_SANITIZE_STRING);
-		$beerDescription = filter_var($requestBeerObject->beerDescription, FILTER_SANITIZE_STRING);
 		$beerAwards = filter_var($requestBeerObject->beerAwards, FILTER_SANITIZE_STRING);
+		$beerDescription = filter_var($requestBeerObject->beerDescription, FILTER_SANITIZE_STRING);
+
 
 		/*
 		 * sets access level for user 0 if brewery 1 of not brewery
@@ -125,8 +132,8 @@ try {
 
 // update beer by availability
 				$beer->setBeerAvailability($beerAvailability);
-				$beer->setBeerDescription($beerDescription);
 				$beer->setBeerAwards($beerAwards);
+				$beer->setBeerDescription($beerDescription);
 				$beer->update($pdo);
 // update reply
 				$reply->message = "Beer updated successfully";
