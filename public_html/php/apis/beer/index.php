@@ -70,31 +70,31 @@ try {
 		} else if(empty($beerBreweryId) === false) {
 			$beer = Beer::getBeerByBeerBreweryId($pdo, $beerBreweryId);
 			if($beer !== null) {
-				$reply->$beer;
+				$reply->data = $beer;
 			}
 
 		} else if(empty($beerColor) === false) {
 			$beer = Beer::getBeerByBeerColor($pdo, $beerColor);
 			if($beer !== null) {
-				$reply->$beer;
+				$reply->data = $beer;
 			}
 
 		} else if(empty($beerIbu) === false) {
 			$beer = Beer::getBeerByBeerIbu($pdo, $beerIbu);
 			if($beer !== null) {
-				$reply->$beer;
+				$reply->data = $beer;
 			}
 
 		} else if(empty($beerName) === false) {
 			$beer = Beer::getBeerByBeerName($pdo, $beerName);
 			if($beer !== null) {
-				$reply->$beer;
+				$reply->data = $beer;
 			}
 
 		} else if(empty($beerStyle) === false) {
 			$beer = Beer::getBeerByBeerStyle($pdo, $beerStyle);
 			if($beer !== null) {
-				$reply->$beer;
+				$reply->data = $beer;
 			}
 
 		} else {
