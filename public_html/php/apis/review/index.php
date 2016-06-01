@@ -56,34 +56,48 @@ try {
 				$storage = new JsonObjectStorage();
 				$storage->attach($review, $reviewTags->toArray());
 				$reply->data = $storage;
-//				$reply->data = $review;
-//				$reply->data->reviewTags = BrewCrew\ReviewTag::getReviewTagByReviewId($pdo, $review->getReviewId());
 			}
 		} else if(empty($beerId) === false) {
 			$review = BrewCrew\Review::getReviewByBeerId($pdo, $beerId);
 			if($review !== null) {
-				$reply->data = $review;
+				$reviewTags = BrewCrew\ReviewTag::getReviewTagByReviewId($pdo, $review->getReviewId());
+				$storage = new JsonObjectStorage();
+				$storage->attach($review, $reviewTags->toArray());
+				$reply->data = $storage;
 			}
 		} else if(empty($userId) === false) {
 			$review = BrewCrew\Review::getReviewByUserId($pdo, $userId);
 			if($review !== null) {
-				$reply->data = $review;
+				$reviewTags = BrewCrew\ReviewTag::getReviewTagByReviewId($pdo, $review->getReviewId());
+				$storage = new JsonObjectStorage();
+				$storage->attach($review, $reviewTags->toArray());
+				$reply->data = $storage;
 			}
 		} else if(empty($breweryId) === false) {
 			$review = BrewCrew\Review::getReviewByBreweryId($pdo, $breweryId);
 			if($review !== null) {
-				$reply->data = $review;
+				$reviewTags = BrewCrew\ReviewTag::getReviewTagByReviewId($pdo, $review->getReviewId());
+				$storage = new JsonObjectStorage();
+				$storage->attach($review, $reviewTags->toArray());
+				$reply->data = $storage;
 			}
 		} else if(empty($reviewPintRating) === false) {
 			$review = BrewCrew\Review::getReviewByReviewPintRating($pdo, $reviewPintRating);
 			if($review !== null) {
-				$reply->data = $review;
+				$reviewTags = BrewCrew\ReviewTag::getReviewTagByReviewId($pdo, $review->getReviewId());
+				$storage = new JsonObjectStorage();
+				$storage->attach($review, $reviewTags->toArray());
+				$reply->data = $storage;
 			}
 		}
 	}
-	else if(empty ($_SESSION["user"]) !== false) {
+	else if($method === "POST") {
 
-		if($method === "POST") {
+		if(empty($_SESSION["user"]) === true) {
+		setXsrfCookie("/");
+		throw(new \RuntimeException("Not logged in. Please log-in or sign-up."));
+		}
+		else if(empty ($_SESSION["user"]) !== false) {
 			verifyXsrf();
 			// convert JSON to an object
 			$requestContent = file_get_contents("php://input");
