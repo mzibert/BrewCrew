@@ -64,12 +64,10 @@ try {
 		if(empty($user)) {
 			throw (new \InvalidArgumentException("Username does not exist"));
 		}
-
-		//get the Activation Token
-		$userActivationToken = User::getUserByUserActivationToken($pdo, $userActivationToken);
+		
 
 		//if they have an activation token, the account is not activated yet
-		if($userActivationToken !== null) {
+		if($user->getUserActivationToken() !== null) {
 			throw(new \InvalidArgumentException("Account has not been activated yet, please activate"));
 		}
 

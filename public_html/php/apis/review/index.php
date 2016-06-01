@@ -26,16 +26,16 @@ $reply->data = null;
 try {
 	//grab the mySQL connection
 	$pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/brewcrew.ini");
-	if(empty($_SESSION["user"]) === true) {
-		setXsrfCookie("/");
-		throw(new \RuntimeException("Not logged in. Please log-in or sign-up."));
-	}
+//	if(empty($_SESSION["user"]) === true) {
+//		setXsrfCookie("/");
+//		throw(new \RuntimeException("Not logged in. Please log-in or sign-up."));
+//	}
 
 	//determine which HTTP method was used
 	$method = array_key_exists("HTTP_X_HTTP_METHOD", $_SERVER) ? $_SERVER["HTTP_X_HTTP_METHOD"] : $_SERVER["REQUEST_METHOD"];
 
 	//sanitize input
-	$id = filter_input(INPUT_GET, "reviewId", FILTER_VALIDATE_INT);
+	$id = filter_input(INPUT_GET, "id", FILTER_VALIDATE_INT);
 	$breweryId = filter_input(INPUT_GET, "breweryId", FILTER_VALIDATE_INT);
 	$userId = filter_input(INPUT_GET, "userId", FILTER_VALIDATE_INT);
 	$beerId = filter_input(INPUT_GET, "beerId", FILTER_VALIDATE_INT);
@@ -52,7 +52,12 @@ try {
 		if(empty($id) === false) {
 			$review = BrewCrew\Review::getReviewByReviewId($pdo, $id);
 			if($review !== null) {
-				$reply->data = $review;
+				$reviewTags = BrewCrew\ReviewTag::getReviewTagByReviewId($pdo, $review->getReviewId());
+				$storage = new JsonObjectStorage();
+				$storage->attach($review, $reviewTags->toArray());
+				$reply->data = $storage;
+//				$reply->data = $review;
+//				$reply->data->reviewTags = BrewCrew\ReviewTag::getReviewTagByReviewId($pdo, $review->getReviewId());
 			}
 		} else if(empty($beerId) === false) {
 			$review = BrewCrew\Review::getReviewByBeerId($pdo, $beerId);
@@ -76,7 +81,7 @@ try {
 			}
 		}
 	}
-	if(empty ($_SESSION["user"]) !== false) {
+	else if(empty ($_SESSION["user"]) !== false) {
 
 		if($method === "POST") {
 			verifyXsrf();
