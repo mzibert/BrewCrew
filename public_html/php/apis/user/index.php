@@ -103,7 +103,7 @@ try {
 		$requestObject->userUsername = (filter_var($requestObject->userUsername, FILTER_SANITIZE_STRING));
 
 		// Perform the actual put
-		$user = User::getUserByUserId($pdo, $id);
+		$user = BrewCrew\User::getUserByUserId($pdo, $id);
 		if($user === null) {
 			throw(new RuntimeException("User does not exist.", 404));
 		}
@@ -127,7 +127,7 @@ try {
 
 	} else if ($method === "DELETE") {
 		$reply->debug="Delete started.";
-		$user = User::getUserByUserId($pdo, $id);
+		$user = BrewCrew\User::getUserByUserId($pdo, $id);
 		if($user === null) {
 			throw(new RuntimeException("User does not exist.", 404));
 		}
