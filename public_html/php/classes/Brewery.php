@@ -369,7 +369,7 @@ class Brewery implements \JsonSerializable {
 		$statement = $pdo->prepare($query);
 
 		// Bind the member variables to the placeholders in the templates
-		$parameters = ["breweryId" => $this->getBreweryId(),];
+		$parameters = ["breweryId" => $this->getBreweryId()];
 		$statement->execute($parameters);
 	}
 

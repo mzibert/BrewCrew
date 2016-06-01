@@ -136,7 +136,7 @@ try {
 	}
 
 	header("Content-type: application/json");
-	json_encode($reply);
+	$reply = json_encode($reply);
 	unset($reply->salt);
 	unset($reply->hash);
 	echo $reply;
