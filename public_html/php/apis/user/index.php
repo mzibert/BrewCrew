@@ -54,37 +54,37 @@ try {
 
 		// Get the user based on the given
 		if(empty($id) === false) {
-			$user = User::getUserByUserId($pdo, $id);
+			$user = BrewCrew\User::getUserByUserId($pdo, $id);
 			if($user !== null) {
 				$reply->data = $user;
 			}
 		} else if(empty($userBreweryId) === false) {
-			$user = User::getUserByUserBreweryId($pdo, $userBreweryId);
+			$user = BrewCrew\User::getUserByUserBreweryId($pdo, $userBreweryId);
 			if($user !== null) {
 				$reply->data = $user;
 			}
 		} else if(empty($userAccessLevel) === false) {
-			$user = User::getUserByUserAccessLevel($pdo, $userAccessLevel);
+			$user = BrewCrew\User::getUserByUserAccessLevel($pdo, $userAccessLevel);
 			if($user !== null) {
 				$reply->data = $user;
 			}
 		} else if(empty($userActivationToken) === false) {
-			$user = User::getUserByUserActivation($pdo, $userActivationToken);
+			$user = BrewCrew\User::getUserByUserActivationToken($pdo, $userActivationToken);
 			if($user !== null) {
 				$reply->data = $user;
 			}
 		} else if(empty($userEmail) === false) {
-			$user = User::getUserByUserEmail($pdo, $userEmail);
+			$user = BrewCrew\User::getUserByUserEmail($pdo, $userEmail);
 			if($user !== null) {
 				$reply->data = $user;
 			}
 		} else if(empty($userUsername) === false) {
-			$user = User::getUserByUserUsername($pdo, $userUsername);
+			$user = BrewCrew\User::getUserByUserUsername($pdo, $userUsername);
 			if($user !== null) {
 				$reply->data = $user;
 			}
 		} else {
-			$users = User::getAllUsers($pdo);
+			$users = BrewCrew\User::getAllUsers($pdo);
 			$reply->data = $users;
 		}
 
