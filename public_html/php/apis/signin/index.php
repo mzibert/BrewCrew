@@ -4,7 +4,7 @@ require_once dirname(__DIR__, 2) . "/classes/autoload.php";
 require_once dirname(__DIR__, 2) . "/lib/xsrf.php";
 require_once "/etc/apache2/capstone-mysql/encrypted-config.php";
 
-use Edu\Cnm\BrewCrew;
+use Edu\Cnm\BrewCrew\User;
 
 /**
  * api for signing in
@@ -31,6 +31,7 @@ try {
 	$method = array_key_exists("HTTP_X_HTTP_METHOD", $_SERVER) ? $_SERVER["HTTP_X_HTTP_METHOD"] : $_SERVER["REQUEST_METHOD"];
 
 	if($method === "GET") {
+		//set xsrf cookie
 		setXsrfCookie();
 	}
 	
@@ -57,7 +58,7 @@ try {
 		}
 
 		//create the user
-		$user = User::getUserbyUserName($pdo, $userName);
+		$user = User::getUserByUserUsername($pdo, $userName);
 
 		//if the user doesn't exist, throw an exception
 		if(empty($user)) {
@@ -65,7 +66,7 @@ try {
 		}
 
 		//get the Activation Token
-		$userActivationToken = User::getUserActivationToken();
+		$userActivationToken = User::getUserByUserActivationToken($pdo, $userActivationToken);
 
 		//if they have an activation token, the account is not activated yet
 		if($userActivationToken !== null) {
@@ -96,4 +97,6 @@ try {
 }
 
 header("Content-type: application/json");
+
+// encode and return reply to front end caller
 echo json_encode($reply);
