@@ -206,7 +206,7 @@ DELIMITER $$
 
 			CALL maths(beerDrift);
 			FETCH drift INTO selectedBeer;
-				-- will this match up okay? in terms of id/primary key
+				-- QUESTION will this match up okay? in terms of id/primary key
 
 			IF done THEN LEAVE compassLoop; -- leaves rows
 			END IF;

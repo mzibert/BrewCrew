@@ -80,6 +80,7 @@ try {
 
 		if($method === "POST") {
 			verifyXsrf();
+			// convert JSON to an object
 			$requestContent = file_get_contents("php://input");
 			$requestObject = json_decode($requestContent);
 
