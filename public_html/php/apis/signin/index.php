@@ -4,7 +4,7 @@ require_once dirname(__DIR__, 2) . "/classes/autoload.php";
 require_once dirname(__DIR__, 2) . "/lib/xsrf.php";
 require_once "/etc/apache2/capstone-mysql/encrypted-config.php";
 
-use Edu\Cnm\BrewCrew\User;
+use Edu\Cnm\BrewCrew\{Brewery, User};
 
 /**
  * api for signing in
@@ -80,6 +80,9 @@ try {
 		}
 
 		$_SESSION["user"] = $user;
+		if ($user->getUserBreweryId() !== null) {
+			$_SESSION["brewery"] = Brewery::getBreweryByBreweryId($pdo, $user->getUserBreweryId());
+		}
 		$reply->message = "Successfully logged in!";
 
 	} else {
