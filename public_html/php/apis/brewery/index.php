@@ -75,38 +75,37 @@ try {
 			$reply->data = $breweries;
 		}
 
-
 		// PUT and POST
 	}
 
-	// Need to create permission for brewmasters to change what's on tap
-//	if($_SESSION["user"]->getUserAccessLevel() === 1 && $_SESSION["user"]->getUserBreweryId() === $id) {
+	// Need to create permission for brewmasters (1's) 
+	if($_SESSION["user"]->getUserAccessLevel() === 1 && $_SESSION["user"]->getUserBreweryId() === $id) {
 
 		if($method === "PUT" || $method === "POST") {
 
 			// Set XSRF cookie
-			//		verifyXsrf();
+			// verifyXsrf();
 			$requestContent = file_get_contents("php://input");
 			$requestObject = json_decode($requestContent);
 
 			// Make sure all fields are present, in order, to prevent database issues
 			if(empty($requestObject->breweryDescription) === true) {
-				throw(new InvalidArgumentException ("breweryDescription cannot be empty", 405));
+				$requestObject->breweryDescription = null;
 			}
 			if(empty($requestObject->breweryHours) === true) {
-				throw(new InvalidArgumentException ("breweryHours cannot be empty", 405));
+				$requestObject->breweryHours = null;
 			}
 			if(empty($requestObject->breweryLocation) === true) {
-				throw(new InvalidArgumentException ("breweryLocation cannot be empty", 405));
+				$requestObject->breweryLocation = null;
 			}
 			if(empty($requestObject->breweryName) === true) {
 				throw(new InvalidArgumentException ("breweryName cannot be empty", 405));
 			}
 			if(empty($requestObject->breweryPhone) === true) {
-				throw(new InvalidArgumentException ("breweryPhone cannot be empty", 405));
+				$requestObject->breweryPhone = null;
 			}
 			if(empty($requestObject->breweryUrl) === true) {
-				throw(new InvalidArgumentException ("breweryUrl cannot be empty", 405));
+				$requestObject->breweryUrl = null;
 			}
 
 			// Perform the actual put or post
@@ -158,13 +157,12 @@ try {
 
 			// Update reply
 			$reply->message = "Brewery deleted";
+		} //	}
+		else {
+			throw (new InvalidArgumentException("Invalid HTTP method request"));
 		}
-//	}
-	else {
-		throw (new InvalidArgumentException("Invalid HTTP method request"));
+
 	}
-
-
 	// Update reply with exception information
 } catch(Exception $exception) {
 	$reply->status = $exception->getCode();
