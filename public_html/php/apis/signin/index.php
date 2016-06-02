@@ -62,13 +62,13 @@ try {
 
 		//if the user doesn't exist, throw an exception
 		if(empty($user)) {
-			throw (new \InvalidArgumentException("Username does not exist"));
+			throw (new \InvalidArgumentException("Username or password is incorrect", 401));
 		}
 		
 
 		//if they have an activation token, the account is not activated yet
 		if($user->getUserActivationToken() !== null) {
-			throw(new \InvalidArgumentException("Account has not been activated yet, please activate"));
+			throw(new \InvalidArgumentException("Account has not been activated yet, please activate", 401));
 		}
 
 		//get the hash
@@ -76,7 +76,7 @@ try {
 
 		//check the hash against inputted data-- no match, throw exception
 		if($hash !== $user->getUserHash()) {
-			throw(new \InvalidArgumentException("Username or password is incorrect"));
+			throw(new \InvalidArgumentException("Username or password is incorrect", 401));
 		}
 
 		$_SESSION["user"] = $user;
