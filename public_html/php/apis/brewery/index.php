@@ -79,7 +79,7 @@ try {
 	}
 
 	// Need to create permission for brewmasters (1's) 
-	if(empty($_SESSION["user"]) === false && $_SESSION["user"]->getUserByUserAccessLevel() === 1) {
+	if(empty($_SESSION["user"]) === false && $_SESSION["user"]->getUserAccessLevel() === 1) {
 		if($method === "PUT" || $method === "POST") {
 
 			// Set XSRF cookie
