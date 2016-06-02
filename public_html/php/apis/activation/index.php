@@ -59,7 +59,7 @@ try {
 		$user->setUserActivationToken(null);
 		$user->update($pdo);
 
-		// ToDo header("Location: ../../../");  send t5o login
+		// ToDo header("Location: ../../../");  send t5o login add generic message Angular will handle this
 	} else {
 		throw(new \Exception("Invalid HTTP method"));
 	}

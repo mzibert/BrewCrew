@@ -40,6 +40,7 @@ try {
 
 	//determine which HTTP method was used
 	$method = array_key_exists("HTTP_X_HTTP_METHOD", $_SERVER) ? $_SERVER["HTTP_X_HTTP_METHOD"] :$_SERVER["REQUEST_METHOD"];
+	$reply->methoed = $method;
 
 	//Sanitize input
 	$id = filter_input(INPUT_GET, "id", FILTER_VALIDATE_INT);
@@ -117,15 +118,15 @@ try {
 		 */
 		if($_SESSION["user"]->getUserAccessLevel() === 1 && $_SESSION["user"]->getUserBreweryId() === $beer->getBeerBreweryId()) {
 
-		//perform the actual put or post
+			//perform the actual put or post
 
-		if($method === "PUT") {
+			if($method === "PUT") {
 
-			$beer = Beer::getBeerByBeerId($pdo, $id);
+				$beer = Beer::getBeerByBeerId($pdo, $id);
 
-			if($beer === null) {
-				throw(new RuntimeException("Beer is not available", 404));
-			}
+				if($beer === null) {
+					throw(new RuntimeException("Beer is not available", 404));
+				}
 
 
 // retrieve the beer by availability
@@ -139,60 +140,61 @@ try {
 				$reply->message = "Beer updated successfully";
 
 				//perform the actual put or post
+			} else if($method === "POST") {
 
-
-				if($method === "POST") {
 
 // put the new beer  into beer and update
-					$beerBreweryId = filter_var($requestBeerObject->beerBreweryId, FILTER_VALIDATE_INT);
-					$beerAbv = filter_input($requestBeerObject->beerAbv, FILTER_SANITIZE_NUMBER_FLOAT);
-					$beerColor = filter_input($requestBeerObject->beerColor, FILTER_SANITIZE_NUMBER_FLOAT);
-					$beerIbu = filter_input($requestBeerObject->beerIbu, FILTER_SANITIZE_STRING);
-					$beerName = filter_input($requestBeerObject->beerName, FILTER_SANITIZE_STRING);
-					$beerStyle = filter_input($requestBeerObject->beerStyle, FILTER_SANITIZE_STRING);
+				$beerBreweryId = filter_var($requestBeerObject->beerBreweryId, FILTER_VALIDATE_INT);
+				$beerAbv = filter_var($requestBeerObject->beerAbv, FILTER_SANITIZE_NUMBER_FLOAT);
+				$beerColor = filter_var($requestBeerObject->beerColor, FILTER_SANITIZE_NUMBER_FLOAT);
+				$beerIbu = filter_var($requestBeerObject->beerIbu, FILTER_SANITIZE_STRING);
+				$beerName = filter_var($requestBeerObject->beerName, FILTER_SANITIZE_STRING);
+				$beerStyle = filter_var($requestBeerObject->beerStyle, FILTER_SANITIZE_STRING);
 
-					$beer = new Beer(null, $beerBreweryId, $beerAbv, $beerAvailability, $beerAwards, $beerColor, $beerDescription, $beerIbu, $beerName, $beerStyle);
+				$beer = new Beer(null, $beerBreweryId, $beerAbv, $beerAvailability, $beerAwards, $beerColor, $beerDescription, $beerIbu, $beerName, $beerStyle);
 
-					$beer->insert($pdo);
-					// update reply
-					$reply->message = "Beer inserted successfully";
+				$beer->insert($pdo);
+				// update reply
+				$reply->message = "Beer inserted successfully";
+				$reply->data = $beer;
 
+			} else {
+				//if not an admin, and attempting a method other than get, throw an exception
+				if((empty($method) === false) && ($method !== "GET")) {
+					throw(new RuntimeException("Only administrators are allowed to modify entries", 401));
 				}
 			}
-
 		} else if($method === "DELETE") {
 			verifyXsrf();
 
 			$beer = Beer::getBeerByBeerId($pdo, $id);
 
-			if($beer === null) {
-
+			if(empty($beer) === true) {
 				throw(new RuntimeException("Beer does not exist", 404));
 			}
+
 			$beer->delete($pdo);
 			$deletedBeerObject = new stdClass();
 			$deletedBeerObject->beerId = $id;
 			$reply->message = "Beer deleted OK";
 		}
-	} else {
-		//if not an admin, and attempting a method other than get, throw an exception
-		if((empty($method) === false) && ($method !== "GET")) {
-			throw(new RuntimeException("Only administrators are allowed to modify entries", 401));
-		}
 	}
-} catch(Exception $exception) {
 
-	$reply->status = $exception->getCode();
-	$reply->message = $exception->getMessage();
-	$reply->trace = $exception->getTraceAsString();
+	}
+catch
+	(Exception $exception) {
 
-} catch(\TypeError $typeError) {
+		$reply->status = $exception->getCode();
+		$reply->message = $exception->getMessage();
+		$reply->trace = $exception->getTraceAsString();
 
-	$reply->status = $typeError->getCode();
-	$reply->message = $typeError->getMessage();
-	$reply->trace = $typeError->getTraceAsString();
+	} catch(\TypeError $typeError) {
 
-}
+		$reply->status = $typeError->getCode();
+		$reply->message = $typeError->getMessage();
+		$reply->trace = $typeError->getTraceAsString();
+
+	}
 
 header("Content-type: application/json");
 echo json_encode($reply);
