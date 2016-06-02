@@ -50,7 +50,7 @@ try {
 	// Handle all restful calls
 	if($method === "GET") {
 		// Set XSRF cookie
-//		setXsrfCookie("/");
+		setXsrfCookie("/");
 
 		// Get the brewery based on the given
 		if(empty($id) === false) {
@@ -79,12 +79,11 @@ try {
 	}
 
 	// Need to create permission for brewmasters (1's) 
-	if($_SESSION["user"]->getUserAccessLevel() === 1 && $_SESSION["user"]->getUserBreweryId() === $id) {
-
+	if(empty($_SESSION["user"]) === false && $_SESSION["user"]->getUserByUserAccessLevel() === 1) {
 		if($method === "PUT" || $method === "POST") {
 
 			// Set XSRF cookie
-			// verifyXsrf();
+			 verifyXsrf();
 			$requestContent = file_get_contents("php://input");
 			$requestObject = json_decode($requestContent);
 
@@ -142,11 +141,11 @@ try {
 				$reply->message = "Brewery created";
 			}
 		} else if($method === "DELETE") {
-//				verifyXsrf();
+				verifyXsrf();
 
 			// Retrieve the brewery to be deleted
 			$brewery = BrewCrew\Brewery::getBreweryByBreweryId($pdo, $id);
-//			var_dump($brewery);
+			var_dump($brewery);
 			if($brewery === null) {
 				throw(new RuntimeException("Brewery does not exist", 404));
 			}
@@ -161,8 +160,8 @@ try {
 		else {
 			throw (new InvalidArgumentException("Invalid HTTP method request"));
 		}
-
-	}
+		
+		}
 	// Update reply with exception information
 } catch(Exception $exception) {
 	$reply->status = $exception->getCode();

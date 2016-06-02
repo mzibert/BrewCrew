@@ -126,7 +126,7 @@ try {
 		$reply->message="User updated successfully.";
 
 	} else if ($method === "DELETE") {
-		$reply->debug="Delete started.";
+		//$reply->debug="Delete started.";
 		$user = BrewCrew\User::getUserByUserId($pdo, $id);
 		if($user === null) {
 			throw(new RuntimeException("User does not exist.", 404));
