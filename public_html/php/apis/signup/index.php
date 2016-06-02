@@ -31,7 +31,6 @@ try {
 
 	//determine which HTTP method was used
 	$method = array_key_exists("HTTP_X_HTTP_METHOD", $_SERVER) ? $_SERVER["HTTP_X_HTTP_METHOD"] : $_SERVER["REQUEST_METHOD"];
-	$reply->method = $method;
 
 	if($method === "POST") {
 
@@ -96,8 +95,7 @@ try {
 <p>In order to start rating your favorite local breweries please visit the following URL to set a new password and complete the registration process: </p>
 <p><a href="$confirmLink">$userActivationToken</a></p>
 EOF;
-		$reply->userEmail = $userEmail;
-		$reply->userFirstName = $userFirstName;
+
 		$response = sendEmail($userEmail, $userFirstName, $userLastName, $messageSubject, $message);
 		if($response === "Email sent.") {
 			$reply->message = "Sign up was successful, please check your email for activation message.";

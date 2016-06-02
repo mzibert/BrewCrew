@@ -21,16 +21,16 @@ function sendEmail ($receiverEmail, $firstName, $lastName, $subject, $message) {
 
 		// attach the sender to the message
 		// this takes the form of an associative array where the Email is the key for the real name
-		$swiftMessage->setFrom(["mjzibert@yahoo.com" => "Brew Crew"]);
+		$swiftMessage->setFrom(["brewcrew@bootcamp-coders.cnm.edu" => "Brew Crew"]);
 
 		/**
 		 * attach the recipients to the message
-		 * notice this an array that can include or omit the the recipient's real name
+		 * notice this is an array that can include or omit the the recipient's real name
 		 * use the recipients' real name where possible; this reduces the probability of the Email being marked as spam
 		 **/
 		$recipients = [$receiverEmail => $firstName . " " . $lastName,
 			"mjzibert2@gmail.com" => "Merri Zibert",
-			"abroadhurst@cnm.edu" => "Alicia Broadhurst",
+ 			"abroadhurst@cnm.edu" => "Alicia Broadhurst",
 			"kmcgaughey@cnm.edu" => "Kate McGaughey",
 			"agraham14@cnm.edu" => "Arlene Graham"];
 
