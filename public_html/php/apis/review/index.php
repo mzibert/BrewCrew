@@ -37,8 +37,8 @@ try {
 	//sanitize input
 	$id = filter_input(INPUT_GET, "id", FILTER_VALIDATE_INT);
 	$breweryId = filter_input(INPUT_GET, "breweryId", FILTER_VALIDATE_INT);
-	$userId = filter_input(INPUT_GET, "userId", FILTER_VALIDATE_INT);
-	$beerId = filter_input(INPUT_GET, "beerId", FILTER_VALIDATE_INT);
+	$reviewUserId = filter_input(INPUT_GET, "reviewUserId", FILTER_VALIDATE_INT);
+	$reviewBeerId = filter_input(INPUT_GET, "reviewBeerId", FILTER_VALIDATE_INT);
 	$reviewPintRating = filter_input(INPUT_GET, "reviewPintRating", FILTER_VALIDATE_INT);
 	$reviewText = filter_input(INPUT_GET, "reviewText", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 
@@ -57,7 +57,7 @@ try {
 				$storage->attach($review, $reviewTags->toArray());
 				$reply->data = $storage;
 			}
-		} else if(empty($beerId) === false) {
+		} else if(empty($reviewBeerId) === false) {
 			$review = BrewCrew\Review::getReviewByBeerId($pdo, $reviewBeerId);
 			if($review !== null) {
 				$reviewTags = BrewCrew\ReviewTag::getReviewTagByReviewId($pdo, $review->getReviewId());
@@ -65,8 +65,8 @@ try {
 				$storage->attach($review, $reviewTags->toArray());
 				$reply->data = $storage;
 			}
-		} else if(empty($userId) === false) {
-			$review = BrewCrew\Review::getReviewByUserId($pdo, $userId);
+		} else if(empty($reviewUserId) === false) {
+			$review = BrewCrew\Review::getReviewByUserId($pdo, $reviewUserId);
 			if($review !== null) {
 				$reviewTags = BrewCrew\ReviewTag::getReviewTagByReviewId($pdo, $review->getReviewId());
 				$storage = new BrewCrew\JsonObjectStorage();

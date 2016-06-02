@@ -1,7 +1,7 @@
 <?php
 
-require_once dirname(dirname(_DIR_)) . "/classes/autoloader.php";
-require_once dirname(dirname(_DIR_)) . "/lib/xsrf.php";
+require_once dirname(dirname(__DIR__)) . "/classes/autoload.php";
+require_once dirname(dirname(__DIR__)) . "/lib/xsrf.php";
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 
 /**
@@ -43,7 +43,7 @@ try {
 
 //get the Sign Up based on the given field
 
-		$emailActivationToken = filter_input(INPUT_GET, "emailActivationToken", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		$emailActivationToken = filter_input(INPUT_GET, "id", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 
 		if(empty($emailActivationToken)) {
 			throw(new \RangeException ("No ActivationToken Code"));
