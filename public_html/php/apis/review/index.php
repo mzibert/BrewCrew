@@ -53,15 +53,15 @@ try {
 			$review = BrewCrew\Review::getReviewByReviewId($pdo, $id);
 			if($review !== null) {
 				$reviewTags = BrewCrew\ReviewTag::getReviewTagByReviewId($pdo, $review->getReviewId());
-				$storage = new JsonObjectStorage();
+				$storage = new BrewCrew\JsonObjectStorage();
 				$storage->attach($review, $reviewTags->toArray());
 				$reply->data = $storage;
 			}
 		} else if(empty($beerId) === false) {
-			$review = BrewCrew\Review::getReviewByBeerId($pdo, $beerId);
+			$review = BrewCrew\Review::getReviewByBeerId($pdo, $reviewBeerId);
 			if($review !== null) {
 				$reviewTags = BrewCrew\ReviewTag::getReviewTagByReviewId($pdo, $review->getReviewId());
-				$storage = new JsonObjectStorage();
+				$storage = new BrewCrew\JsonObjectStorage();
 				$storage->attach($review, $reviewTags->toArray());
 				$reply->data = $storage;
 			}
@@ -69,7 +69,7 @@ try {
 			$review = BrewCrew\Review::getReviewByUserId($pdo, $userId);
 			if($review !== null) {
 				$reviewTags = BrewCrew\ReviewTag::getReviewTagByReviewId($pdo, $review->getReviewId());
-				$storage = new JsonObjectStorage();
+				$storage = new BrewCrew\JsonObjectStorage();
 				$storage->attach($review, $reviewTags->toArray());
 				$reply->data = $storage;
 			}
@@ -77,7 +77,7 @@ try {
 			$review = BrewCrew\Review::getReviewByBreweryId($pdo, $breweryId);
 			if($review !== null) {
 				$reviewTags = BrewCrew\ReviewTag::getReviewTagByReviewId($pdo, $review->getReviewId());
-				$storage = new JsonObjectStorage();
+				$storage = new BrewCrew\JsonObjectStorage();
 				$storage->attach($review, $reviewTags->toArray());
 				$reply->data = $storage;
 			}
@@ -85,7 +85,7 @@ try {
 			$review = BrewCrew\Review::getReviewByReviewPintRating($pdo, $reviewPintRating);
 			if($review !== null) {
 				$reviewTags = BrewCrew\ReviewTag::getReviewTagByReviewId($pdo, $review->getReviewId());
-				$storage = new JsonObjectStorage();
+				$storage = new BrewCrew\JsonObjectStorage();
 				$storage->attach($review, $reviewTags->toArray());
 				$reply->data = $storage;
 			}

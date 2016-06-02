@@ -12,7 +12,7 @@ require_once("autoload.php");
  *
  **/
 
-class JsonObjectStorage extends SplObjectStorage implements JsonSerializable {
+class JsonObjectStorage extends \SplObjectStorage implements \JsonSerializable {
 	public function jsonSerialize() {
 		$fields = [];
 
