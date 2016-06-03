@@ -53,31 +53,6 @@ try {
 		setXsrfCookie("/");
 
 		// Get the user based on the given
-		if(empty($id) === false) {
-			$user = BrewCrew\User::getUserByUserId($pdo, $id);
-			if($user !== null) {
-				$reply->data = $user;
-			}
-		} else if(empty($userBreweryId) === false) {
-			$user = BrewCrew\User::getUserByUserBreweryId($pdo, $userBreweryId);
-			if($user !== null) {
-				$reply->data = $user;
-			}
-		} else if(empty($userAccessLevel) === false) {
-			$user = BrewCrew\User::getUserByUserAccessLevel($pdo, $userAccessLevel);
-			if($user !== null) {
-				$reply->data = $user;
-			}
-		} else if(empty($userActivationToken) === false) {
-			$user = BrewCrew\User::getUserByUserActivationToken($pdo, $userActivationToken);
-			if($user !== null) {
-				$reply->data = $user;
-			}
-		} else if(empty($userEmail) === false) {
-			$user = BrewCrew\User::getUserByUserEmail($pdo, $userEmail);
-			if($user !== null) {
-				$reply->data = $user;
-			}
 		} else if(empty($userUsername) === false) {
 			$user = BrewCrew\User::getUserByUserUsername($pdo, $userUsername);
 			if($user !== null) {
