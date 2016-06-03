@@ -74,16 +74,14 @@ try {
 			$breweries = BrewCrew\Brewery::getAllBreweries($pdo);
 			$reply->data = $breweries;
 		}
-
-		// PUT and POST
 	}
-
-	// Need to create permission for brewmasters (1's) 
+		// PUT and POST
+		// Need to create permission for brewmasters (1's)
 	if(empty($_SESSION["user"]) === false && $_SESSION["user"]->getUserAccessLevel() === 1) {
 		if($method === "PUT" || $method === "POST") {
 
 			// Set XSRF cookie
-			 verifyXsrf();
+			verifyXsrf();
 			$requestContent = file_get_contents("php://input");
 			$requestObject = json_decode($requestContent);
 
@@ -143,7 +141,7 @@ try {
 				$reply->message = "Brewery created";
 			}
 		} else if($method === "DELETE") {
-				verifyXsrf();
+			verifyXsrf();
 
 			// Retrieve the brewery to be deleted
 			$brewery = BrewCrew\Brewery::getBreweryByBreweryId($pdo, $id);
@@ -154,16 +152,14 @@ try {
 
 			// Delete Brewery
 			$brewery->delete($pdo);
-//			$deletedObject = new stdClass();
 
 			// Update reply
 			$reply->message = "Brewery deleted";
-		} //	}
-		else {
+		} else {
 			throw (new InvalidArgumentException("Invalid HTTP method request"));
 		}
-		
-		}
+
+	}
 	// Update reply with exception information
 } catch(Exception $exception) {
 	$reply->status = $exception->getCode();
