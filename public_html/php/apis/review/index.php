@@ -58,36 +58,44 @@ try {
 				$reply->data = $storage;
 			}
 		} else if(empty($reviewBeerId) === false) {
-			$review = BrewCrew\Review::getReviewByBeerId($pdo, $reviewBeerId);
-			if($review !== null) {
-				$reviewTags = BrewCrew\ReviewTag::getReviewTagByReviewId($pdo, $review->getReviewId());
+			$reviews = BrewCrew\Review::getReviewByBeerId($pdo, $reviewBeerId);
+			if($reviews !== null) {
 				$storage = new BrewCrew\JsonObjectStorage();
-				$storage->attach($review, $reviewTags->toArray());
-				$reply->data = $storage;
+				foreach($reviews as $review) {
+					$reviewTags = BrewCrew\ReviewTag::getReviewTagByReviewId($pdo, $review->getReviewId());
+					$storage->attach($review, $reviewTags->toArray());
+					$reply->data = $storage;
+				}
 			}
 		} else if(empty($reviewUserId) === false) {
-			$review = BrewCrew\Review::getReviewByUserId($pdo, $reviewUserId);
-			if($review !== null) {
-				$reviewTags = BrewCrew\ReviewTag::getReviewTagByReviewId($pdo, $review->getReviewId());
+			$reviews = BrewCrew\Review::getReviewByUserId($pdo, $reviewUserId);
+			if($reviews !== null) {
 				$storage = new BrewCrew\JsonObjectStorage();
-				$storage->attach($review, $reviewTags->toArray());
-				$reply->data = $storage;
+				foreach($reviews as $review) {
+					$reviewTags = BrewCrew\ReviewTag::getReviewTagByReviewId($pdo, $review->getReviewId());
+					$storage->attach($review, $reviewTags->toArray());
+					$reply->data = $storage;
+				}
 			}
 		} else if(empty($breweryId) === false) {
-			$review = BrewCrew\Review::getReviewByBreweryId($pdo, $breweryId);
-			if($review !== null) {
-				$reviewTags = BrewCrew\ReviewTag::getReviewTagByReviewId($pdo, $review->getReviewId());
+			$reviews = BrewCrew\Review::getReviewByBreweryId($pdo, $breweryId);
+			if($reviews !== null) {
 				$storage = new BrewCrew\JsonObjectStorage();
-				$storage->attach($review, $reviewTags->toArray());
-				$reply->data = $storage;
+				foreach($reviews as $review) {
+					$reviewTags = BrewCrew\ReviewTag::getReviewTagByReviewId($pdo, $review->getReviewId());
+					$storage->attach($review, $reviewTags->toArray());
+					$reply->data = $storage;
+				}
 			}
 		} else if(empty($reviewPintRating) === false) {
-			$review = BrewCrew\Review::getReviewByReviewPintRating($pdo, $reviewPintRating);
-			if($review !== null) {
-				$reviewTags = BrewCrew\ReviewTag::getReviewTagByReviewId($pdo, $review->getReviewId());
+			$reviews = BrewCrew\Review::getReviewByReviewPintRating($pdo, $reviewPintRating)->toArray();
+			if($reviews !== null) {
 				$storage = new BrewCrew\JsonObjectStorage();
-				$storage->attach($review, $reviewTags->toArray());
-				$reply->data = $storage;
+				foreach($reviews as $review) {
+					$reviewTags = BrewCrew\ReviewTag::getReviewTagByReviewId($pdo, $review->getReviewId());
+					$storage->attach($review, $reviewTags->toArray());
+					$reply->data = $storage;
+				}
 			}
 		}
 	}
