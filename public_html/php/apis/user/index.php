@@ -59,8 +59,10 @@ try {
 				$reply->data = $user;
 			}
 		} else {
-			$users = BrewCrew\User::getAllUsers($pdo);
-			$reply->data = $users;
+			if(empty($_SESSION["user"]) === false) {
+				$reply->data = $_SESSION["user"];
+			} else {
+				$reply->data = new stdClass();
 		}
 
 	} else if($method === "PUT") {
