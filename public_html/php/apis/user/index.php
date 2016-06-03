@@ -53,7 +53,7 @@ try {
 		setXsrfCookie("/");
 
 		// Get the user based on the given
-		} else if(empty($userUsername) === false) {
+		 if(empty($userUsername) === false) {
 			$user = BrewCrew\User::getUserByUserUsername($pdo, $userUsername);
 			if($user !== null) {
 				$reply->data = $user;
