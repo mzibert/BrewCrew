@@ -811,6 +811,7 @@ class User implements \JsonSerializable {
 	 **/
 	public function jsonSerialize () {
 		$fields = get_object_vars($this);
+		$fields["userDateOfBirth"] = $this->userDateOfBirth->getTimestamp() * 1000;
 		unset ($fields["userHash"]);
 		unset($fields["userSalt"]);
 		return ($fields);
