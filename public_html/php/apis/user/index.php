@@ -63,6 +63,7 @@ try {
 				$reply->data = $_SESSION["user"];
 			} else {
 				$reply->data = new stdClass();
+			}
 		}
 
 	} else if($method === "PUT") {
