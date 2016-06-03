@@ -113,11 +113,6 @@ try {
 		$beerDescription = filter_var($requestBeerObject->beerDescription, FILTER_SANITIZE_STRING);
 
 
-		/*
-		 * sets access level for user 0 if brewery 1 of not brewery
-		 */
-		if($_SESSION["user"]->getUserAccessLevel() === 1 && $_SESSION["user"]->getUserBreweryId() === $beer->getBeerBreweryId()) {
-
 			//perform the actual put or post
 
 			if($method === "PUT") {
@@ -178,7 +173,7 @@ try {
 			$deletedBeerObject->beerId = $id;
 			$reply->message = "Beer deleted OK";
 		}
-	}
+
 
 	}
 catch
