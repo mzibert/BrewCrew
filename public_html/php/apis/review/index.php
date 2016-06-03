@@ -131,7 +131,7 @@ try {
 		//perform the actual POST
 		if($method === "POST") {
 			//create new review and insert it into the database
-			$review = new BrewCrew\Review(null, $requestObject->beerId, $_SESSION["user"]->getUserId, $requestObject->reviewDate, $requestObject->reviewPintRating, $requestObject->reviewText);
+			$review = new BrewCrew\Review(null, $requestObject->reviewBeerId, $_SESSION["user"]->getUserId, $requestObject->reviewDate, $requestObject->reviewPintRating, $requestObject->reviewText);
 			$review->insert($pdo);
 			$reply->message = "Review has been created";
 
