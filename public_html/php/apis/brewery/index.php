@@ -59,17 +59,17 @@ try {
 				$reply->data = $brewery;
 			}
 		} else if(empty($breweryLocation) === false) {
-			$brewery = BrewCrew\Brewery::getBrewerybyBreweryLocation($pdo, $breweryLocation);
+			$brewery = BrewCrew\Brewery::getBrewerybyBreweryLocation($pdo, $breweryLocation)->toArray();
 			if($brewery !== null) {
 				$reply->data = $brewery;
 			}
 		} else if(empty($breweryName) === false) {
-			$brewery = BrewCrew\Brewery::getBreweryByBreweryName($pdo, $breweryName);
+			$brewery = BrewCrew\Brewery::getBreweryByBreweryName($pdo, $breweryName)->toArray();
 			if($brewery !== null) {
 				$reply->data = $brewery;
 			}
 		} else {
-			$breweries = BrewCrew\Brewery::getAllBreweries($pdo);
+			$breweries = BrewCrew\Brewery::getAllBreweries($pdo)->toArray();
 			$reply->data = $breweries;
 		}
 	}
