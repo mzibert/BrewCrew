@@ -365,7 +365,7 @@ class Brewery implements \JsonSerializable {
 			throw (new \PDOException("Unable to delete a brewery that does not exist"));
 		}
 		// Create query template
-		$query = "DELETE FROM brewery WHERE breweryId = :breweryId";
+		$query = "DELETE FROM brewery WHERE breweryId = :breweryId"; 
 		$statement = $pdo->prepare($query);
 
 		// Bind the member variables to the placeholders in the templates

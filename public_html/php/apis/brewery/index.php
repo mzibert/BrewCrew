@@ -59,7 +59,6 @@ try {
 				$reply->data = $brewery;
 			}
 		} else if(empty($breweryLocation) === false) {
-			$reply->otherMessage = "inside get by location";
 			$brewery = BrewCrew\Brewery::getBrewerybyBreweryLocation($pdo, $breweryLocation);
 			if($brewery !== null) {
 				$reply->data = $brewery;
@@ -70,7 +69,6 @@ try {
 				$reply->data = $brewery;
 			}
 		} else {
-			$reply->otherMessage = "inside get all";
 			$breweries = BrewCrew\Brewery::getAllBreweries($pdo);
 			$reply->data = $breweries;
 		}
