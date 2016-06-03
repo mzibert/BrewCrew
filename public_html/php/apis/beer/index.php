@@ -36,7 +36,7 @@ $reply->data = null;
 
 try {
 	//grab the mySQL connection
-	$pdo = ConnectToEncryptedMySQL("/etc/apache2/capstone-mysql/brewcrew.ini");
+	$pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/brewcrew.ini");
 
 	//determine which HTTP method was used
 	$method = array_key_exists("HTTP_X_HTTP_METHOD", $_SERVER) ? $_SERVER["HTTP_X_HTTP_METHOD"] :$_SERVER["REQUEST_METHOD"];
@@ -69,37 +69,37 @@ try {
 			}
 
 		} else if(empty($beerBreweryId) === false) {
-			$beer = Beer::getBeerByBeerBreweryId($pdo, $beerBreweryId);
+			$beer = Beer::getBeerByBeerBreweryId($pdo, $beerBreweryId)->toArray();
 			if($beer !== null) {
 				$reply->data = $beer;
 			}
 
 		} else if(empty($beerColor) === false) {
-			$beer = Beer::getBeerByBeerColor($pdo, $beerColor);
+			$beer = Beer::getBeerByBeerColor($pdo, $beerColor)->toArray();
 			if($beer !== null) {
 				$reply->data = $beer;
 			}
 
 		} else if(empty($beerIbu) === false) {
-			$beer = Beer::getBeerByBeerIbu($pdo, $beerIbu);
+			$beer = Beer::getBeerByBeerIbu($pdo, $beerIbu)->toArray();
 			if($beer !== null) {
 				$reply->data = $beer;
 			}
 
 		} else if(empty($beerName) === false) {
-			$beer = Beer::getBeerByBeerName($pdo, $beerName);
+			$beer = Beer::getBeerByBeerName($pdo, $beerName)->toArray();
 			if($beer !== null) {
 				$reply->data = $beer;
 			}
 
 		} else if(empty($beerStyle) === false) {
-			$beer = Beer::getBeerByBeerStyle($pdo, $beerStyle);
+			$beer = Beer::getBeerByBeerStyle($pdo, $beerStyle)->toArray();
 			if($beer !== null) {
 				$reply->data = $beer;
 			}
 
 		} else {
-			$beer = Beer::getAllBeers($pdo);
+			$beer = Beer::getAllBeers($pdo)->toArray();
 			$reply->data = $beer;
 		}
 
@@ -111,6 +111,12 @@ try {
 		$beerAvailability = filter_var($requestBeerObject->beerAvailability, FILTER_SANITIZE_STRING);
 		$beerAwards = filter_var($requestBeerObject->beerAwards, FILTER_SANITIZE_STRING);
 		$beerDescription = filter_var($requestBeerObject->beerDescription, FILTER_SANITIZE_STRING);
+		$beerBreweryId = filter_var($requestBeerObject->beerBreweryId, FILTER_VALIDATE_INT);
+		$beerAbv = filter_var($requestBeerObject->beerAbv, FILTER_SANITIZE_NUMBER_FLOAT);
+		$beerColor = filter_var($requestBeerObject->beerColor, FILTER_SANITIZE_NUMBER_FLOAT);
+		$beerIbu = filter_var($requestBeerObject->beerIbu, FILTER_SANITIZE_STRING);
+		$beerName = filter_var($requestBeerObject->beerName, FILTER_SANITIZE_STRING);
+		$beerStyle = filter_var($requestBeerObject->beerStyle, FILTER_SANITIZE_STRING);
 
 
 			//perform the actual put or post
@@ -127,9 +133,15 @@ try {
 // retrieve the beer by availability
 
 // update beer by availability
+				// FIXME: use *ALL* the mutators here
+				$beer->setBeerAbv($beerAbv);
 				$beer->setBeerAvailability($beerAvailability);
 				$beer->setBeerAwards($beerAwards);
+				$beer->setBeerColor($beerColor);
 				$beer->setBeerDescription($beerDescription);
+				$beer->setBeerIbu($beerIbu);
+				$beer->setBeerName($beerName);
+				$beer->setBeerStyle($beerStyle);
 				$beer->update($pdo);
 // update reply
 				$reply->message = "Beer updated successfully";
@@ -137,14 +149,6 @@ try {
 				//perform the actual put or post
 			} else if($method === "POST") {
 
-
-// put the new beer  into beer and update
-				$beerBreweryId = filter_var($requestBeerObject->beerBreweryId, FILTER_VALIDATE_INT);
-				$beerAbv = filter_var($requestBeerObject->beerAbv, FILTER_SANITIZE_NUMBER_FLOAT);
-				$beerColor = filter_var($requestBeerObject->beerColor, FILTER_SANITIZE_NUMBER_FLOAT);
-				$beerIbu = filter_var($requestBeerObject->beerIbu, FILTER_SANITIZE_STRING);
-				$beerName = filter_var($requestBeerObject->beerName, FILTER_SANITIZE_STRING);
-				$beerStyle = filter_var($requestBeerObject->beerStyle, FILTER_SANITIZE_STRING);
 
 				$beer = new Beer(null, $beerBreweryId, $beerAbv, $beerAvailability, $beerAwards, $beerColor, $beerDescription, $beerIbu, $beerName, $beerStyle);
 
