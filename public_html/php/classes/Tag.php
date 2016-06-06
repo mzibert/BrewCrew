@@ -146,7 +146,7 @@ class Tag implements \JsonSerializable {
 		$query = "DELETE FROM tag WHERE tagId = :tagId";
 		$statement = $pdo->prepare($query);
 
-		// Bind the member variables to the placeholders in the templates
+		// Bind the member variables to the placeholders in the partials
 		$parameters = ["tagId" => $this->getTagId(),];
 		$statement->execute($parameters);
 	}
@@ -167,7 +167,7 @@ class Tag implements \JsonSerializable {
 		$query = "UPDATE tag SET tagLabel = :tagLabel WHERE tagId = :tagId";
 		$statement = $pdo->prepare($query);
 
-		//Bind the member variables to the placeholders in the templates
+		//Bind the member variables to the placeholders in the partials
 		$parameters = ["tagId" => $this->getTagId(), "tagLabel" => $this->getTagLabel()];
 		$statement->execute($parameters);
 	}

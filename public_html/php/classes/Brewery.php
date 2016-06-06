@@ -368,7 +368,7 @@ class Brewery implements \JsonSerializable {
 		$query = "DELETE FROM brewery WHERE breweryId = :breweryId"; 
 		$statement = $pdo->prepare($query);
 
-		// Bind the member variables to the placeholders in the templates
+		// Bind the member variables to the placeholders in the partials
 		$parameters = ["breweryId" => $this->getBreweryId()];
 		$statement->execute($parameters);
 	}
@@ -389,7 +389,7 @@ class Brewery implements \JsonSerializable {
 		$query = "UPDATE brewery SET breweryDescription = :breweryDescription, breweryEstDate = :breweryEstDate, breweryHours = :breweryHours, breweryLocation = :breweryLocation, breweryName = :breweryName, breweryPhone = :breweryPhone, breweryUrl = :breweryUrl WHERE breweryId = :breweryId";
 		$statement = $pdo->prepare($query);
 
-		//Bind the member variables to the placeholders in the templates
+		//Bind the member variables to the placeholders in the partials
 		$parameters = ["breweryId" => $this->getBreweryId(), "breweryDescription" => $this->getBreweryDescription(), "breweryEstDate" => $this->getBreweryEstDate(), "breweryHours" => $this->getBreweryHours(), "breweryLocation" => $this->getBreweryLocation(), "breweryName" => $this->getBreweryName(), "breweryPhone" => $this->getBreweryPhone(), "breweryUrl" => $this->getBreweryUrl()];
 		$statement->execute($parameters);
 	}
