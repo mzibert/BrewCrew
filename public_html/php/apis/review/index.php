@@ -26,10 +26,7 @@ $reply->data = null;
 try {
 	//grab the mySQL connection
 	$pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/brewcrew.ini");
-//	if(empty($_SESSION["user"]) === true) {
-//		setXsrfCookie("/");
-//		throw(new \RuntimeException("Not logged in. Please log-in or sign-up."));
-//	}
+
 
 	//determine which HTTP method was used
 	$method = array_key_exists("HTTP_X_HTTP_METHOD", $_SERVER) ? $_SERVER["HTTP_X_HTTP_METHOD"] : $_SERVER["REQUEST_METHOD"];
@@ -98,14 +95,12 @@ try {
 				}
 			}
 		}
-	}
-	else if($method === "POST") {
+	} else if($method === "POST") {
 
 		if(empty($_SESSION["user"]) === true) {
-		setXsrfCookie("/");
-		throw(new \RuntimeException("Not logged in. Please log-in or sign-up."));
-		}
-		else if(empty ($_SESSION["user"]) !== false) {
+			setXsrfCookie("/");
+			throw(new \RuntimeException("Not logged in. Please log-in or sign-up."));
+		} else if(empty ($_SESSION["user"]) !== false) {
 			verifyXsrf();
 			// convert JSON to an object
 			$requestContent = file_get_contents("php://input");
@@ -127,9 +122,7 @@ try {
 			if(empty($requestObject->reviewText) === true) {
 				$requestObject->reviewText = null;
 			}
-		}
-		//perform the actual POST
-		if($method === "POST") {
+			//perform the actual POST
 			//create new review and insert it into the database
 			$review = new BrewCrew\Review(null, $requestObject->reviewBeerId, $_SESSION["user"]->getUserId(), $requestObject->reviewDate, $requestObject->reviewPintRating, $requestObject->reviewText);
 			$review->insert($pdo);
@@ -140,9 +133,11 @@ try {
 				$reviewTag = new ReviewTag($review->getReviewId(), $tagId);
 				$reviewTag->insert($pdo);
 			}
-		} else {
-			throw (new InvalidArgumentException("Invalid HTTP method request"));
 		}
+		var_dump($_SESSION["user"]);
+		var_dump($review);
+	} else {
+		throw (new InvalidArgumentException("Invalid HTTP method request"));
 	}
 } catch(Exception $exception) {
 	$reply->status = $exception->getCode();
