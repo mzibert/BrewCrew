@@ -1,12 +1,12 @@
 <!doctype html>
 <html>
+	<?php
 
-/*grab current directory*/
 $CURRENT_DIR = __DIR__;
-/*set page title here*/
+
 $PAGE_TITLE = "ABQ Brew Crew - Home";
-/*load the HTML head tag: head-utils.php*/
-<?php require_once("php/partials/head-utils.php");?>
+
+ require_once("php/partials/head-utils.php");?>
 
 	<body class="sfooter">
 		<div class="sfooter-content">
