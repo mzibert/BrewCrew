@@ -1,5 +1,4 @@
-<!doctype html>
-<html>
+
 	<?php
 
 $CURRENT_DIR = __DIR__;
