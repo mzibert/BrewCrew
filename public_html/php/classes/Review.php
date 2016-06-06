@@ -514,7 +514,7 @@ WHERE breweryId = :breweryId";
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when variables are not the correct data type
 	 **/
-	public function getReviewByReviewPintRating(\PDO $pdo, int $reviewPintRating) {
+	public static function getReviewByReviewPintRating(\PDO $pdo, int $reviewPintRating) {
 		//check that the pint rating is 1-5
 		if($reviewPintRating < 1 || $reviewPintRating > 5) {
 			throw(new \RangeException("Pint Rating must be between 1 and 5"));

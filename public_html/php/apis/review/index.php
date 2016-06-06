@@ -131,13 +131,13 @@ try {
 		//perform the actual POST
 		if($method === "POST") {
 			//create new review and insert it into the database
-			$review = new BrewCrew\Review(null, $requestObject->reviewBeerId, $_SESSION["user"]->getUserId, $requestObject->reviewDate, $requestObject->reviewPintRating, $requestObject->reviewText);
+			$review = new BrewCrew\Review(null, $requestObject->reviewBeerId, $_SESSION["user"]->getUserId(), $requestObject->reviewDate, $requestObject->reviewPintRating, $requestObject->reviewText);
 			$review->insert($pdo);
 			$reply->message = "Review has been created";
 
 			//add tags
-			foreach($tagIds as $tagId) {
-				$reviewTag = new ReviewTag($reviewId, $tagId);
+			foreach($requestObject->reviewTagIds as $tagId) {
+				$reviewTag = new ReviewTag($review->getReviewId(), $tagId);
 				$reviewTag->insert($pdo);
 			}
 		} else {
