@@ -128,7 +128,7 @@
 					</div>
 					<br>
 					<div class="row">
-						<div class="col-lg-4 col-lg-offset-4 col-sm-4 col-sm-offset-4 col-xs-8 col-xs-offset-2">
+						<div class="col-lg-4 col-lg-offset-4 col-sm-4 col-sm-offset-4 col-xs-8 text-center">
 							<a href="#">Start Today</a>
 						</div>
 					</div>
@@ -139,7 +139,7 @@
 
 					<div class="col-md-12">
 
-						<p>&copy; The Design Shop 2016 &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+						<p>&copy; The ABQ Brew Crew 2016 &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
 					</div>
 
 				</footer>
