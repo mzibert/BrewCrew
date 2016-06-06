@@ -100,7 +100,7 @@ try {
 		if(empty($_SESSION["user"]) === true) {
 			setXsrfCookie("/");
 			throw(new \RuntimeException("Not logged in. Please log-in or sign-up."));
-		} else if(empty ($_SESSION["user"]) !== false) {
+		} else if(empty ($_SESSION["user"]) !== true) {
 			verifyXsrf();
 			// convert JSON to an object
 			$requestContent = file_get_contents("php://input");
@@ -110,7 +110,7 @@ try {
 			if(empty($requestObject->reviewBeerId) === true) {
 				throw(new \InvalidArgumentException ("Review must have an associated beer", 405));
 			}
-			if(empty($requestObject->reviewUserId) === true) {
+			if(empty($_SESSION["user"]->getUserId()) === true) {
 				throw(new \InvalidArgumentException("Review must be linked to a user", 405));
 			}
 			if(empty($requestObject->reviewPintRating) === true) {
@@ -128,14 +128,13 @@ try {
 			$review->insert($pdo);
 			$reply->message = "Review has been created";
 
+
 			//add tags
 			foreach($requestObject->reviewTagIds as $tagId) {
-				$reviewTag = new ReviewTag($review->getReviewId(), $tagId);
+				$reviewTag = new BrewCrew\ReviewTag($review->getReviewId(), $tagId);
 				$reviewTag->insert($pdo);
 			}
 		}
-		var_dump($_SESSION["user"]);
-		var_dump($review);
 	} else {
 		throw (new InvalidArgumentException("Invalid HTTP method request"));
 	}
