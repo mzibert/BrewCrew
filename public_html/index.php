@@ -63,7 +63,7 @@
 								<li role="presentation"><a href="#">Breweries</a></li>
 								<li role="presentation"><a href="#">Sign Up</a></li>
 								<li role="presentation"><a href="#">Login</a></li>
-								<<li role="presentation"><a href="#">Contact</a></li>
+								<li role="presentation"><a href="#">Contact</a></li>
 							</ul>
 						</nav>
 						<h3 class="text-muted">Project name</h3>
