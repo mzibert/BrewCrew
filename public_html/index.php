@@ -129,7 +129,7 @@
 					<br>
 					<div class="row">
 						<div class="col-lg-4 col-lg-offset-4 col-sm-4 col-sm-offset-4 col-xs-8 col-xs-offset-2">
-							<a href="/subscribe/46573752_calmbox?gift=False" data-barley="content_cta_main" data-barley-editor="linkedit" class="btn btn-primary fullsize mb-15">Start Today</a>
+							<a href="#">Start Today</a>
 						</div>
 					</div>
 				</div>
