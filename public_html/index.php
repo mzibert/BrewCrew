@@ -49,7 +49,7 @@ $PAGE_TITLE = "ABQ Brew Crew - Home";
 					<div class="container well-lg" id="beercompass">
 						<p>BEER COMPASS</p>
 						</div>
-
+</div>
 				</main>
 			<br><br><hr><br>
 			<h2 class="heading h-section text-center" data-barley="index_hiw_heading" data-barley-editor="simple">Here’s how it works</h2>
