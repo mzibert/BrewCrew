@@ -3,7 +3,7 @@
 $CURRENT_DIR = __DIR__;
 
 /*set page title here*/
-$PAGE_TITLE = "Search Breweries";
+$PAGE_TITLE = "The Beer Compass";
 
 /*load the HTML head tag: head-utils.php*/
 require_once(dirname(__DIR__) . "/php/partials/head-utils.php");
