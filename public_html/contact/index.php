@@ -12,7 +12,7 @@ require_once(dirname(__DIR__) . "/php/partials/head-utils.php");
 	<div class="sfooter-content">
 
 		<!-- insert header and navbar -->
-		<?php require_once(dirname(__DIR__) . "php/partials/header.php");?>
+		<?php require_once(dirname(__DIR__) . "/php/partials/header.php");?>
 
 		<!-- begin main content page layout -->
 		<main class="container p-t-nav">
