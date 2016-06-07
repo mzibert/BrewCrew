@@ -12,7 +12,7 @@ require_once(dirname(__DIR__) . "/php/partials/head-utils.php");
 	<div class="sfooter-content">
 
 		<!-- insert header and navbar -->
-		<?php require_once(dirname(__DIR__) . "/php/partials/header.php");?>
+		<?php require_once(dirname(__DIR__) . "php/partials/header.php");?>
 
 		<!-- begin main content page layout -->
 		<main class="container p-t-nav">
@@ -65,7 +65,7 @@ require_once(dirname(__DIR__) . "/php/partials/head-utils.php");
 							</div>
 
 							<!-- reCAPTCHA -->
-							<div class="g-recaptcha" data-sitekey="6Lc7ox8TAAAAAN9sf714pyF4Kjp1CkOHg3AUMVYr"></div>
+							<div class="g-recaptcha" data-sitekey="6LdMxSETAAAAAEAiDzIYAxHPaE4DZ2IixM296d3d"></div>
 
 							<button class="btn btn-info" type="submit"><i class="fa fa-paper-plane"></i> Send</button>
 							<button class="btn btn-default" type="reset"><i class="fa fa-ban"></i> Reset</button>
