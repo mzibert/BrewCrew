@@ -12,6 +12,10 @@ $PAGE_TITLE = "ABQ Brew Crew - Home";
 			<!-- header partial gets inserted -->
 			<?php require_once("php/partials/header.php");?>
 			<main>
+				<!-- angular view directive -->
+				<div ng-view></div>
+
+		</div>
 				<!-- Main jumbotron for a primary marketing message or call to action -->
 				<div class="jumbotron">
 					<div class="container">

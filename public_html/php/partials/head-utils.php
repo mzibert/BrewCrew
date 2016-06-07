@@ -18,7 +18,7 @@ $PREFIX = str_repeat("../", $DEPTH_DIFFERENCE);
 
 
 <!doctype html>
-<html>
+<html ng-app="BrewCrew">
 
 <head>
 	<meta charset="utf-8">
