@@ -3,7 +3,7 @@
 $CURRENT_DIR = __DIR__;
 
 /*set page title here*/
-$PAGE_TITLE = "Search Breweries";
+$PAGE_TITLE = "Breweries";
 
 /*load the HTML head tag: head-utils.php*/
 require_once(dirname(__DIR__) . "/php/partials/head-utils.php");
@@ -12,6 +12,7 @@ require_once(dirname(__DIR__) . "/php/partials/head-utils.php");
 	<div class="sfooter-content">
 
 		<!-- insert header and navbar -->
+
 		<?php require_once(dirname(__DIR__) . "/php/partials/header.php");?>
 
 		<!-- begin main content page layout -->
@@ -26,10 +27,11 @@ require_once(dirname(__DIR__) . "/php/partials/head-utils.php");
 				<!-- page content -->
 				<div class="col-sm-9 col-sm-push-3 content-panel">
 					<div>
-						<h2>#</h2>
+						<h2>#!</h2>
 
 					</div>
 				</div>
+
 
 
 			</div><!--/.row-flex-->
