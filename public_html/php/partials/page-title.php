@@ -4,7 +4,7 @@
 	</div>
 	<div class="col-sm-6 hidden-xs">
 		<ol class="breadcrumb pull-right">
-			<li><a href="/~rlewis37/simple-template/public_html">Home</a></li>
+			<li><a href="index.php">Home</a></li>
 			<li><?php echo $PAGE_TITLE;?></li>
 		</ol>
 	</div>
