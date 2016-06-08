@@ -13,6 +13,6 @@
 					<li role="presentation"><a href="https://bootcamp-coders.cnm.edu/~agraham14/BrewCrew/public_html/contact/">Contact</a></li>
 				</ul>
 			</nav>
-			<h3 class="text-muted">Project name</h3>
+			<h3 class="text-muted">ABQ Brew Crew</h3>
 		</div>
 </header>
