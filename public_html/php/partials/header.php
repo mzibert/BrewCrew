@@ -4,7 +4,7 @@
 		<div class="header clearfix">
 			<nav>
 				<ul class="nav nav-pills pull-right">
-					<li role="presentation" class="active"><a href="#">Home</a></li>
+					<li role="presentation" class="active"><a href="https://bootcamp-coders.cnm.edu/~agraham14/BrewCrew/public_html/public_html/">Home</a></li>
 					<li role="presentation"><a href="https://bootcamp-coders.cnm.edu/~agraham14/BrewCrew/public_html/thecompass/">The Compass</a></li>
 					<li role="presentation"><a href="https://bootcamp-coders.cnm.edu/~agraham14/BrewCrew/public_html/beer/">Beer</a></li>
 					<li role="presentation"><a href="https://bootcamp-coders.cnm.edu/~agraham14/BrewCrew/public_html/breweries/">Breweries</a></li>
