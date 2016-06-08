@@ -8,7 +8,7 @@
 					<li role="presentation"><a href="https://bootcamp-coders.cnm.edu/~agraham14/BrewCrew/public_html/thecompass/">The Compass</a></li>
 					<li role="presentation"><a href="https://bootcamp-coders.cnm.edu/~agraham14/BrewCrew/public_html/beer/">Beer</a></li>
 					<li role="presentation"><a href="https://bootcamp-coders.cnm.edu/~agraham14/BrewCrew/public_html/breweries/">Breweries</a></li>
-					<li role="presentation"><a href="#">Sign Up</a></li>
+					<li role="presentation"><a href="https://bootcamp-coders.cnm.edu/~agraham14/BrewCrew/public_html/signup/">Sign Up</a></li>
 					<li role="presentation"><a href="https://bootcamp-coders.cnm.edu/~agraham14/BrewCrew/public_html/signin/">Sign In</a></li>
 					<li role="presentation"><a href="https://bootcamp-coders.cnm.edu/~agraham14/BrewCrew/public_html/contact/">Contact</a></li>
 				</ul>
