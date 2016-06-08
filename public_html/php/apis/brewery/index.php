@@ -84,7 +84,7 @@ try {
 
 			// Make sure all fields are present, in order, to prevent database issues
 			if(empty($requestObject->breweryDescription) === true) {
-				$requestObject->breweryDescription = null;
+				throw(new InvalidArgumentException ("breweryDescription cannot be empty", 405));
 			}
 			if(empty($requestObject->breweryHours) === true) {
 				$requestObject->breweryHours = null;

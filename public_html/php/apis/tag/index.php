@@ -69,7 +69,7 @@ try {
 
 		// Make sure tag content is available
 		if(empty($requestObject->tagLabel) === true) {
-			throw(new InvalidArgumentException ("Tag label cannot be empty", 405));
+			throw(new InvalidArgumentException ("here is my tag", 405));
 		}
 
 		// Perform the actual put or post
@@ -89,11 +89,6 @@ try {
 			$reply->message = "Tag updated";
 
 		} else if($method === "POST") {
-
-			//  Make sure tagId is available
-			if(empty($requestObject->tagId) === true) {
-				throw(new \InvalidArgumentException ("No tag id", 405));
-			}
 
 			// Create new tag and insert into the database
 			$tag = new BrewCrew\Tag(null, $requestObject->tagLabel);

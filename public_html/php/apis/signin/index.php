@@ -79,6 +79,8 @@ try {
 			throw(new \InvalidArgumentException("Username or password is incorrect", 401));
 		}
 
+		
+		//adds information needed to the session to make sure breweries are only editing their own information
 		$_SESSION["user"] = $user;
 		if ($user->getUserBreweryId() !== null) {
 			$_SESSION["brewery"] = Brewery::getBreweryByBreweryId($pdo, $user->getUserBreweryId());

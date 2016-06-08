@@ -52,7 +52,7 @@ try {
 		setXsrfCookie("/");
 
 		// Get the user based on the given
-		 if(empty($userUsername) === false) {
+		if(empty($userUsername) === false) {
 			$user = BrewCrew\User::getUserByUserUsername($pdo, $userUsername);
 			if($user !== null) {
 				$reply->data = $user;
@@ -79,7 +79,7 @@ try {
 			throw(new InvalidArgumentException ("Email cannot be empty", 405));
 		}
 		if(empty($requestObject->userFirstName) === true) {
-			throw(new InvalidArgumentException ("First ame cannot be empty", 405));
+			throw(new InvalidArgumentException ("First name cannot be empty", 405));
 		}
 		if(empty($requestObject->userLastName) === true) {
 			throw(new InvalidArgumentException ("Last name cannot be empty", 405));
@@ -109,16 +109,18 @@ try {
 		$user->setUserLastName($requestObject->userLastName);
 		$user->setUserUsername($requestObject->userUsername);
 		$user->update($pdo);
-		$reply->message="User updated successfully.";
+		$reply->message = "User updated successfully.";
 
-	} else if ($method === "DELETE") {
-		//$reply->debug="Delete started.";
+	} else if($method === "DELETE") {
 		$user = BrewCrew\User::getUserByUserId($pdo, $id);
 		if($user === null) {
 			throw(new RuntimeException("User does not exist.", 404));
 		}
 		$user->delete($pdo);
 		$deletedObject = new stdClass();
+		$reply->message = "User deleted successfully.";
+	} else {
+		throw (new InvalidArgumentException("Invalid HTTP method request"));
 	}
 
 	header("Content-type: application/json");
@@ -131,11 +133,11 @@ try {
 	$reply->status = $exception->getCode();
 	$reply->message = $exception->getMessage();
 	header("Content-type: application/json");
-	echo (json_encode($reply));
+	echo(json_encode($reply));
 
 } catch(\TypeError $typeError) {
 	$reply->status = $typeError->getCode();
 	$reply->message = $typeError->getMessage();
 	header("Content-type: application/json");
-	echo (json_encode($reply));
+	echo(json_encode($reply));
 }
