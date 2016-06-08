@@ -1,3 +1,26 @@
+<?php
+
+/**
+ * Get the relative path.
+ * @see https://raw.githubusercontent.com/kingscreations/farm-to-you/master/php/lib/_header.php FarmToYou Header
+ **/
+
+
+require_once(dirname(dirname(__DIR__)) . "/root-path.php");
+$CURRENT_DEPTH = substr_count($CURRENT_DIR, "/");
+$ROOT_DEPTH = substr_count($ROOT_PATH, "/");
+$DEPTH_DIFFERENCE = $CURRENT_DEPTH - $ROOT_DEPTH;
+$PREFIX = str_repeat("../", $DEPTH_DIFFERENCE);
+require_once(dirname(__DIR__) . "/classes/autoload.php");
+if(session_status() !== PHP_SESSION_ACTIVE) {
+	session_start();
+}
+?>
+
+
+
+
+
 <!doctype html>
 <html ng-app="BrewCrew">
 
@@ -20,7 +43,23 @@
 	<!-- jQuery (required for Bootstap's JS plugins) -->
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 
+	<!-- jQuery Form, Additional Methods, Validate -->
+	<script type="text/javascript"
+			  src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js"></script>
+	<script type="text/javascript"
+			  src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.15.0/jquery.validate.min.js"></script>
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
+			  integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
+			  crossorigin="anonymous"></script>
+	<script type="text/javascript"
+			  src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.15.0/additional-methods.min.js"></script>
 
+	<!-- Your JavaScript Form Validator -->
+	<script src="js/form-validate.js"></script>
+
+	<!-- Google reCAPTCHA -->
+	<script src='https://www.google.com/recaptcha/api.js'></script>
 
 	<!-- Latest compiled and minified JavaScript -->
 	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
