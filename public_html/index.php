@@ -101,7 +101,7 @@ require_once("php/partials/head-utils.php"); ?>
 			<br>
 			<div class="row">
 				<div class="col-lg-4 col-lg-offset-4 col-sm-4 col-sm-offset-4 col-xs-8 text-center">
-					<a href="#">Start Today</a>
+					<a href="https://bootcamp-coders.cnm.edu/~agraham14/BrewCrew/public_html/signup/">Start Today</a>
 				</div>
 			</div>
 		</div>
