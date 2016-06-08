@@ -43,11 +43,20 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 	<!-- jQuery (required for Bootstap's JS plugins) -->
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 
+	<!-- jQuery -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+
 	<!-- jQuery Form, Additional Methods, Validate -->
 	<script type="text/javascript"
 			  src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js"></script>
 	<script type="text/javascript"
 			  src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.15.0/jquery.validate.min.js"></script>
+	<script type="text/javascript"
+			  src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.15.0/additional-methods.min.js"></script>
+
+	<!-- Your JavaScript Form Validator -->
+	<script src="js/form-validate.js"></script>
+
 	<!-- Latest compiled and minified JavaScript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
 			  integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
@@ -55,16 +64,8 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 	<script type="text/javascript"
 			  src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.15.0/additional-methods.min.js"></script>
 
-	<!-- Your JavaScript Form Validator -->
-	<script src="js/form-validate.js"></script>
 
-	<!-- Google reCAPTCHA -->
-	<script src='https://www.google.com/recaptcha/api.js'></script>
 
-	<!-- Latest compiled and minified JavaScript -->
-	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
-			  integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
-			  crossorigin="anonymous"></script>
 	<!--font awesome -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css">
 	<link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro|Didact+Gothic|Bitter' rel='stylesheet'
