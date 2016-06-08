@@ -110,7 +110,7 @@ try {
 				if($brewery === null) {
 					throw(new RuntimeException("Brewery does not exist", 404));
 				}
-				if($_SESSION["user"]->getUserAccessLevel() === 1 && $_SESSION["brewery"]->getBreweryId() === $brewery->getBreweryId()) {
+				if($_SESSION["user"]->getUserAccessLevel() === 1 && $_SESSION["brewery"]->getBreweryId() !== $brewery->getBreweryId()) {
 					throw(new RuntimeException("you may only edit your own brewery", 418));
 				}
 				// Put the new brewery content into the brewery and update
