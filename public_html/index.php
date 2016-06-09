@@ -170,7 +170,7 @@ require_once("php/partials/head-utils.php");
 	<?php require_once("php/partials/footer.php"); ?>
 
 	<!-- /.container -->
-</div>
+
 
 </body>
-</html>
+
