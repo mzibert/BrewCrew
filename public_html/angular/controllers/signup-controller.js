@@ -1,4 +1,4 @@
-app.controller("SignupController", ["$scope", "SignupService", "$location", function($scope, SignupService, $location) {
+app.controller("signupController", ["$scope", "SignupService", "$location", function($scope, SignupService, $location) {
 	$scope.alerts = [];
 	$scope.activationData = {};
 
@@ -11,11 +11,9 @@ app.controller("SignupController", ["$scope", "SignupService", "$location", func
 
 	$scope.sendActivation = function(signUpData, validated) {
 		if(validated === true) {
-			console.log("line 14 controller");
 			SignupService.create(signUpData)
 				.then(function(result) {
 					if(result.data.status === 200) {
-						console.log("line 17 controller");
 						$scope.alerts[0] = {type: "success", msg: result.data.message};
 						$location.url("signup/index.php");
 					} else {

@@ -35,7 +35,7 @@ require_once(dirname(__DIR__) . "/php/partials/head-utils.php");
 
 				<div class="container">
 					<div class="row">
-						<form role="form">
+						<form role="form" name="signup" id="signup" ng-controller="SignupController" ng-submit="submit(formData, sampleForm, $valid)">
 							<div class="col-lg-6">
 								<div class="well well-sm"><strong><span class="glyphicon glyphicon-asterisk"></span>Required Field</strong></div>
 								<div class="form-group">
@@ -48,14 +48,28 @@ require_once(dirname(__DIR__) . "/php/partials/head-utils.php");
 								<div class="form-group">
 									<label for="InputEmail">Enter Email</label>
 									<div class="input-group">
-										<input type="email" class="form-control" id="InputEmailFirst" name="InputEmail" placeholder="Enter Email" required>
+										<input type="email" class="form-control" id="InputEmailFirst" name="InputEmailFirst" placeholder="Enter Email" required>
 										<span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
 									</div>
 								</div>
 								<div class="form-group">
 									<label for="InputEmail">Confirm Email</label>
 									<div class="input-group">
-										<input type="email" class="form-control" id="InputEmailSecond" name="InputEmail" placeholder="Confirm Email" required>
+										<input type="email" class="form-control" id="InputEmailSecond" name="InputEmailSecond" placeholder="Confirm Email" required>
+										<span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="InputPassword">Enter Password</label>
+									<div class="input-group">
+										<input type="password" class="form-control" id="InputPasswordFirst" name="InputPasswordFirst" placeholder="Enter Password" required>
+										<span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="InputPassword">Confirm Password</label>
+									<div class="input-group">
+										<input type="password" class="form-control" id="InputPasswordSecond" name="InputPasswordSecond" placeholder="Confirm Password" required>
 										<span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
 									</div>
 								</div>

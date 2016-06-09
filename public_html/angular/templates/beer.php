@@ -42,6 +42,6 @@ require_once(dirname(__DIR__) . "/php/partials/head-utils.php");
 
 </main>
 
-		<?php require_once(dirname(__DIR__) .  "/php/partials/footer.php"); ?>
+		<?php require_once(dirname(__DIR__) . "/php/partials/footer.php"); ?>
 
 </body>
