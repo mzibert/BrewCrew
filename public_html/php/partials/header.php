@@ -10,24 +10,24 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#">ABQ Brew Crew</a>
+				<a class="navbar-brand" href="index">ABQ Brew Crew</a>
 			</div>
 
 			<!-- Collect the nav links, forms, and other content for toggling -->
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav">
-					<li role="presentation" class="active"><a href="https://bootcamp-coders.cnm.edu/~agraham14/BrewCrew/public_html/public_html/">Home <span class="sr-only">(current)</span></a></li>
+					<li role="presentation" class="active"><a href="home">Home <span class="sr-only">(current)</span></a></li>
 
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">The Beer Compass<span class="caret"></span></a>
 						<ul class="dropdown-menu">
-							<li role="presentation"><a href="https://bootcamp-coders.cnm.edu/~agraham14/BrewCrew/public_html/beer/"> Search Beer</a></li>
-							<li role="presentation"><a href="https://bootcamp-coders.cnm.edu/~agraham14/BrewCrew/public_html/breweries/"> Search Breweries</a></li>
-							<li role="presentation"><a href="https://bootcamp-coders.cnm.edu/~agraham14/BrewCrew/public_html/signin/">Sign In</a></li>
-							<li role="presentation"><a href="https://bootcamp-coders.cnm.edu/~agraham14/BrewCrew/public_html/signup/">Join</a></li>
+							<li role="presentation"><a href="beer"> Search Beer</a></li>
+							<li role="presentation"><a href="breweries"> Search Breweries</a></li>
+							<li role="presentation"><a href="signin">Sign In</a></li>
+							<li role="presentation"><a href="signup">Join</a></li>
 							<li role="separator" class="divider"></li>
 
-							<li role="presentation"><a href="https://bootcamp-coders.cnm.edu/~agraham14/BrewCrew/public_html/contact/">Contact</a></li>
+							<li role="presentation"><a href="contact">Contact</a></li>
 
 						</ul>
 					</li>
