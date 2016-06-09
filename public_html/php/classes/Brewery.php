@@ -18,6 +18,12 @@ class Brewery implements \JsonSerializable {
 	private $breweryId;
 
 	/**
+	 * this is the primary key that breweryDB uses to identify breweries, we need this to get the data from the api for beers
+	 * @var string $breweryDbKey
+	 */
+	private $breweryDbKey;
+
+	/**
 	 * description of the brewery
 	 * @var string $breweryDescription
 	 **/
@@ -62,6 +68,7 @@ class Brewery implements \JsonSerializable {
 	/** Constructor for this Brewery
 	 *
 	 * @param int|null $newBreweryId id of this brewery or null if a new brewery
+	 * @param string $newBreweryDbKey string for the key from breweryDB
 	 * @param string $newBreweryDescription string of open text taken from the API used to describe the brewery
 	 * @param |Year $newBreweryEstDate date brewery was established
 	 * @param string $newBreweryHours an array of brewery's hours
@@ -74,9 +81,10 @@ class Brewery implements \JsonSerializable {
 	 * @throws \TypeError if data types violate type hints
 	 * @throws \Exception if some other exception occurs
 		 */
-	public function __construct(int $newBreweryId = null, string $newBreweryDescription, $newBreweryEstDate, string $newBreweryHours, string $newBreweryLocation, string $newBreweryName, string $newBreweryPhone, string $newBreweryUrl) {
+	public function __construct(int $newBreweryId = null, string $newBreweryDbKey, string $newBreweryDescription, $newBreweryEstDate, string $newBreweryHours, string $newBreweryLocation, string $newBreweryName, string $newBreweryPhone, string $newBreweryUrl) {
 		try {
 			$this->setBreweryId($newBreweryId);
+			$this->setBreweryDbKey($newBreweryDbKey);
 			$this->setBreweryDescription($newBreweryDescription);
 			$this->setBreweryEstDate($newBreweryEstDate);
 			$this->setBreweryHours($newBreweryHours);
@@ -84,15 +92,16 @@ class Brewery implements \JsonSerializable {
 			$this->setBreweryName($newBreweryName);
 			$this->setBreweryPhone($newBreweryPhone);
 			$this->setBreweryUrl($newBreweryUrl);
-		} catch(InvalidArgumentException $invalidArgument) {
+		} catch(\InvalidArgumentException $invalidArgument) {
 			// Rethrow exception to the caller
-			throw(new InvalidArgumentException($invalidArgument->getMessage(), 0, $invalidArgument));
-		} catch
-		(RangeException $range) {
+			throw(new \InvalidArgumentException($invalidArgument->getMessage(), 0, $invalidArgument));
+		} catch(\RangeException $range) {
 			// Rethrow exception to the caller
 			throw(new \RangeException($range->getMessage(), 0, $range));
-		} catch
-		(\Exception $exception) {
+		} catch(\TypeError $typeError) {
+			//rethrow the exception to the caller
+			throw (new \TypeError($typeError->getMessage(), 0, $typeError));
+		}catch(\Exception $exception) {
 			// Rethrow exception to the caller
 			throw(new \Exception($exception->getMessage(), 0, $exception));
 		}
@@ -124,6 +133,34 @@ class Brewery implements \JsonSerializable {
 		}
 		//convert and store the brewery id
 		$this->breweryId = $newBreweryId;
+	}
+
+	/** Accessor method for breweryDbKey
+	 *
+	 * @return string value of BreweryDbKey
+	 **/
+	public function getBreweryDbKey() {
+		return ($this->breweryDbKey);
+	}
+
+	/** Mutator method for breweryDbKey
+	 *
+	 * @param string $newBreweryDbKey new value for the breweryDbKey
+	 * @throws \RangeException if $newBreweryDbKey is longer than 6 characters
+	 * @throws \TypeError if $newBreweryDbKey is not a string
+	 */
+	public function setBreweryDbKey($newBreweryDbKey) {
+		//verify that the breweryDbKey is secure
+		$newBreweryDbKey = trim($newBreweryDbKey);
+		$newBreweryDbKey = filter_var($newBreweryDbKey, FILTER_SANITIZE_STRING);
+		if (empty($newBreweryDbKey) === true) {
+			throw(new \InvalidArgumentException("breweryDbKey is empty or insecure"));
+		}
+		if(strlen($newBreweryDbKey) > 6) {
+			throw(new \RangeException("breweryDbKey cannot be longer than 6 characters"));
+		}
+		//store the breweryDb key
+		$this->breweryDbKey = $newBreweryDbKey;
 	}
 
 	/** Acceesor method for breweryDescription
@@ -355,7 +392,7 @@ class Brewery implements \JsonSerializable {
 	/**
 	 * Deletes this brewery from mySQL
 	 *
-	 * @param PDO $pdo PDO connection object
+	 * @param \PDO $pdo PDO connection object
 	 * @throws \PDOException when mySQL-related errors occur
 	 * @throws \TypeError if $pdo is not a PDO connection object
 	 **/
@@ -435,11 +472,24 @@ class Brewery implements \JsonSerializable {
 		return ($brewery);
 	}
 
+
+	/**
+	 * Gets the brewery by breweryDbKey
+	 *
+	 * @param \Pdo $pdo PDO connection object
+	 * @param string $breweryDbKey brewery breweryDB key used to identify the brewery
+	 * @return Brewery|null returns either a brewery or null if not found
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError when variables are not the correct data type
+	 *
+	 **/
+
 	/** Gets the brewery by location
 	 *
 	 * @param \PDO $pdo PDO connection object
 	 * @param $breweryLocation location of brewery to search for
 	 * @param \SplFixedArray of breweries found
+	 * @return Brewery|null either brewery or null if not found
 	 * @throws \PDOException when mySQL-related errors occur
 	 **/
 	public static function getBrewerybyBreweryLocation(\PDO $pdo, $breweryLocation) {
@@ -518,8 +568,8 @@ class Brewery implements \JsonSerializable {
 	/**
 	 * Gets all breweries
 	 *
-	 * @param PDO $pdo PDO connection object
-	 * @return SplFixedArray of breweries found
+	 * @param \PDO $pdo PDO connection object
+	 * @return \SplFixedArray of breweries found
 	 * @throws \PDOException when mySQL related errors occur
 	 */
 	public static function getAllBreweries(\PDO $pdo) {
