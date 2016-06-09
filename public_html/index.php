@@ -101,11 +101,68 @@ require_once("php/partials/head-utils.php");
 	</div>
 
 			<br>
-			<div class="row">
-				<div class="col-lg-4 col-lg-offset-4 col-sm-4 col-sm-offset-4 col-xs-8 text-center">
-					<a href="#">Start Today</a>
+	<!-- page content -->
+	<div class="row">
+		<div class="col-md-12">
+			<h1>Let's get started!</h1>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-6">
+			<!-- sign up button -->
+			<h4>Sign Up to Create Your Flavor Profile</h4>
+			<br>
+			<div class="button-container">
+				<a href="signup/index.php" class="btn btn-lg btn-success">Sign Up</a>
+			</div>
+		</div>
+
+		<!-- Account Holder controls-->
+		<h4>Already Have an Account?</h4>
+		<div class="col-md-6">
+			<!-- Log in modal trigger button -->
+			<br>
+			<div class="button-container">
+				<a href="signin/index.php" class="btn btn-lg btn-success">
+					Log In
+				</a>
+			</div>
+		</div> <!-- end of column-->
+
+		<!--Log In Modal -->
+		<div class="modal fade" id="modal-lg" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel"
+			  aria-hidden="true" data-keyboard="true">
+			<!-- Modals have two optional sizes, available via class="modal-lg" or class="modal-sm" -->
+			<div class="modal-dialog modal-lg">
+				<!-- Begin modal content here -->
+				<div class="modal-content">
+					<div class="modal-header">
+						<!-- close button -->
+						<button type="button" class="close" data-dismiss="modal" aria-label="close">
+							<span aria-hidden="true">×</span>
+						</button>
+						<h3 class="modal-title">ABQ Brew Crew</h3>
+					</div>
+					<div class="modal-body">
+						<label for="modalLoginForm" class="control-label">Enter your email address and password
+							here</label>
+					</div>
 				</div>
 			</div>
+		</div> <!-- End of Log in modal-->
+
+
+	</div> <!--end of row-->
+
+
+	<div class="row">
+		<div class="col-md-12">
+			<a href="#">Forgot Password?</a>
+		</div>
+
+
+	</div>
 		</div>
 
 

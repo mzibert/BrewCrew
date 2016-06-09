@@ -17,6 +17,8 @@ require_once(dirname(__DIR__) . "/php/partials/head-utils.php");
 		<!-- begin main content page layout -->
 		<main class="container p-t-nav">
 
+
+
 			<!-- insert the page title up top -->
 			<?php require_once(dirname(__DIR__) . "/php/partials/page-title.php");?>
 
