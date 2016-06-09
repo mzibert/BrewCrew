@@ -1,11 +1,6 @@
 
-
-
-
-
-
-<!doctype html>
-<html ng-app="BrewCrew" xmlns="http://www.w3.org/1999/html">
+<!DOCTYPE html>
+<html ng-app="BrewCrew">
 
 <head>
 	<meta charset="utf-8">
@@ -70,12 +65,17 @@
 
 
 
-	<script type="text/javascript" src="angular/app.js"</script>
-	<script type="text/javascript" src=""</script>
-	<script type="text/javascript" src=""</script>
-	<script type="text/javascript" src=""</script>
-	<script type="text/javascript" src=""</script>
-	<script type="text/javascript" src=""</script>
+	<!-- Angular app files -->
+	<script type="text/javascript" src="angular/app.js"></script>
+	<script type="text/javascript" src="angular/route-config.js"></script>
+	<script type="text/javascript" src="angular/controllers/beer-controller.js"></script>
+	<script type="text/javascript" src="angular/controllers/breweries-controller.js"></script>
+	<script type="text/javascript" src="angular/controllers/contact-controller.js"></script>
+	<script type="text/javascript" src="angular/controllers/index-controller.js"></script>
+	<script type="text/javascript" src="angular/controllers/signin-controller.js"></script>
+	<script type="text/javascript" src="angular/controllers/signout-controller.js"></script>
+	<script type="text/javascript" src="angular/controllers/signup-controller.js"></script>
+	<script type="text/javascript" src="angular/controllers/thecompass-controller.js"></script>
 
 
 
