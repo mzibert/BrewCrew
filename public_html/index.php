@@ -10,7 +10,7 @@ require_once("php/partials/head-utils.php");
 ?>
 
 
-<body class="sfooter" xmlns="http://www.w3.org/1999/html">
+<body class="sfooter">
 	<div class="sfooter-content">
 
 		<!-- header partial gets inserted -->
