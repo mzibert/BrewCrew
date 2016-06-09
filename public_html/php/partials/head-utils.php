@@ -28,6 +28,9 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 	<meta charset="utf-8">
 	<title>ABQ Brew Crew</title>
 
+	<!-- set base for relative links - to enable pretty URLs -->
+	<base href="<?php echo dirname($_SERVER["PHP_SELF"]) . "/";?>">
+
 	<!--Angular JS Libraries-->
 	<?php $ANGULAR_VERSION = "1.5.5";?>
 	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/<?php echo $ANGULAR_VERSION;?>/angular.min.js"></script>
