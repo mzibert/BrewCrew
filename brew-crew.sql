@@ -219,3 +219,127 @@ DELIMITER $$
 
 		END $$
 DELIMITER ;
+
+INSERT INTO tag (tagLabel)
+VALUES
+	("Acidic");
+INSERT INTO tag (tagLabel)
+VALUES
+	("Balanced");
+INSERT INTO tag (tagLabel)
+VALUES
+	("Barrel-aged");
+INSERT INTO tag (tagLabel)
+VALUES
+	("Bitter");
+INSERT INTO tag (tagLabel)
+VALUES
+	("Carmelly");
+INSERT INTO tag (tagLabel)
+VALUES
+	("Citrusy");
+INSERT INTO tag (tagLabel)
+VALUES
+	("Cloudy");
+INSERT INTO tag (tagLabel)
+VALUES
+	("Choclatey");
+INSERT INTO tag (tagLabel)
+VALUES
+	("Crisp");
+INSERT INTO tag (tagLabel)
+VALUES
+	("Dry");
+INSERT INTO tag (tagLabel)
+VALUES
+	("Earthy");
+INSERT INTO tag (tagLabel)
+VALUES
+	("Floral");
+INSERT INTO tag (tagLabel)
+VALUES
+	("Full-bodied");
+INSERT INTO tag (tagLabel)
+VALUES
+	("Fruity");
+INSERT INTO tag (tagLabel)
+VALUES
+	("Heady");
+INSERT INTO tag (tagLabel)
+VALUES
+	("Heavy");
+INSERT INTO tag (tagLabel)
+VALUES
+	("Herbal");
+INSERT INTO tag (tagLabel)
+VALUES
+	("Coffee");
+INSERT INTO tag (tagLabel)
+VALUES
+	("Hoppy");
+INSERT INTO tag (tagLabel)
+VALUES
+	("Malty");
+INSERT INTO tag (tagLabel)
+VALUES
+	("Medium-bodied");
+INSERT INTO tag (tagLabel)
+VALUES
+	("Mild");
+INSERT INTO tag (tagLabel)
+VALUES
+	("Nutty");
+INSERT INTO tag (tagLabel)
+VALUES
+	("Piney");
+INSERT INTO tag (tagLabel)
+VALUES
+	("Rich");
+INSERT INTO tag (tagLabel)
+VALUES
+	("Refreshing");
+INSERT INTO tag (tagLabel)
+VALUES
+	("Robust");
+INSERT INTO tag (tagLabel)
+VALUES
+	("Roasty");
+INSERT INTO tag (tagLabel)
+VALUES
+	("Sessionable");
+INSERT INTO tag (tagLabel)
+VALUES
+	("Skunky");
+INSERT INTO tag (tagLabel)
+VALUES
+	("Sour");
+INSERT INTO tag (tagLabel)
+VALUES
+	("Smoky");
+INSERT INTO tag (tagLabel)
+VALUES
+	("Smooth");
+INSERT INTO tag (tagLabel)
+VALUES
+	("Spicy");
+INSERT INTO tag (tagLabel)
+VALUES
+	("Strong");
+INSERT INTO tag (tagLabel)
+VALUES
+	("Sweet");
+INSERT INTO tag (tagLabel)
+VALUES
+	("Tart");
+INSERT INTO tag (tagLabel)
+VALUES
+	("Toasty");
+INSERT INTO tag (tagLabel)
+VALUES
+	("Weak");
+INSERT INTO tag (tagLabel)
+VALUES
+	("Woody");
+INSERT INTO tag (tagLabel)
+VALUES
+	("Yeasty");

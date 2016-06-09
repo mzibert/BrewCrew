@@ -69,7 +69,7 @@ try {
 
 		// Make sure tag content is available
 		if(empty($requestObject->tagLabel) === true) {
-			throw(new InvalidArgumentException ("here is my tag", 405));
+			throw(new InvalidArgumentException ("tag label cannot be empty", 405));
 		}
 
 		// Perform the actual put or post
