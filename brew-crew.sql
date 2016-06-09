@@ -10,7 +10,7 @@ DROP TABLE IF EXISTS brewery;
 CREATE TABLE brewery (
 	breweryId INT UNSIGNED AUTO_INCREMENT NOT NULL,
 	breweryDescription VARCHAR(1000),
-	breweryEstDate YEAR,
+	breweryEstDate SMALLINT,
 	breweryHours VARCHAR(250),
 	breweryLocation VARCHAR (250),
 	breweryName VARCHAR(100) NOT NULL,

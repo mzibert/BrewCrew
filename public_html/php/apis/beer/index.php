@@ -55,11 +55,10 @@ try {
 		setXsrfCookie();
 
 		$beerBreweryId = filter_input(INPUT_GET, "beerBreweryId", FILTER_VALIDATE_INT);
-		$beerColor = filter_input(INPUT_GET, "beerColor", FILTER_SANITIZE_NUMBER_FLOAT);
+		$beerColor = filter_input(INPUT_GET, "beerColor", FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
 		$beerIbu = filter_input(INPUT_GET, "beerIbu", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		$beerName = filter_input(INPUT_GET, "beerName", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		$beerStyle = filter_input(INPUT_GET, "beerStyle", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-
 
 		//get a specific beer or all beers and update reply
 		if(empty($id) === false) {
@@ -137,7 +136,7 @@ try {
 		$beerDescription = filter_var($requestBeerObject->beerDescription, FILTER_SANITIZE_STRING);
 		$beerBreweryId = filter_var($requestBeerObject->beerBreweryId, FILTER_VALIDATE_INT);
 		$beerAbv = filter_var($requestBeerObject->beerAbv, FILTER_SANITIZE_NUMBER_FLOAT);
-		$beerColor = filter_var($requestBeerObject->beerColor, FILTER_SANITIZE_NUMBER_FLOAT);
+		$beerColor = filter_var($requestBeerObject->beerColor, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
 		$beerIbu = filter_var($requestBeerObject->beerIbu, FILTER_SANITIZE_STRING);
 		$beerName = filter_var($requestBeerObject->beerName, FILTER_SANITIZE_STRING);
 		$beerStyle = filter_var($requestBeerObject->beerStyle, FILTER_SANITIZE_STRING);
