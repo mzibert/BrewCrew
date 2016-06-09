@@ -1,11 +1,4 @@
-
-
 <?php
-/*grab current directory*/
-$CURRENT_DIR = __DIR__;
-/*set page title here*/
-$PAGE_TITLE = "ABQBrew Crew";
-
 /*load head-utils.php - edit path as needed*/
 require_once("php/partials/head-utils.php");
 ?>
@@ -18,13 +11,17 @@ require_once("php/partials/head-utils.php");
 		<?php require_once("php/partials/header.php"); ?>
 
 
-			<!-- angular view directive -->
-			<div ng-view></div>
+		<main class="p-y-4">
+			<div class="container">
 
-	</div>
+				<!-- Angular directive -->
+				<div ng-view></div>
+
+			</div>
+		</main>
 
 
-	<!-- footer gets inserted -->
+		<!-- footer gets inserted -->
 	<?php require_once("php/partials/footer.php"); ?>
 
 	<!-- /.container -->
