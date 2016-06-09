@@ -692,6 +692,48 @@ class Beer implements \JsonSerializable {
 		}
 		return ($beers);
 	}
+
+	/**
+	 * gets the beer by Alicia Awesome *mic drop*
+	 * @param \PDO $pdo PDO connection object
+	 * @param int $userId userId that is getting recommendation
+	 * @return JsonObjectStorage  an array of beers that can be JsonSerialized
+	 * @throws \PDOException when mySQL errors are found
+	 * @throws \TypeError when the variable returned is not an integer
+	 **/
+	public static function getBeerByAliciaAwesome(\PDO $pdo, int $userId){
+		//sanitize the brewery id before searching
+		if($userId <=0){
+			throw(new \PDOException("user Id is not positive"));
+		}
+		//create a query template
+		$query = "CALL recommendation(:userId)";
+		$statement = $pdo->prepare($query);
+
+		//bind the brewery id to the placeholder in the template
+		$parameters = array("userId" => $userId);
+		$statement->execute ($parameters);
+
+		//build an array of beers
+//		$beers = new \SplFixedArray($statement->rowCount());
+		$beerMap = new JsonObjectStorage();
+		$statement->setFetchMode(\PDO::FETCH_ASSOC);
+		while(($row = $statement->fetch()) !== false){
+			try {
+				$beer = new Beer($row["beerId"], $row["beerBreweryId"], $row["beerAbv"], $row["beerAvailability"], $row["beerAwards"], $row["beerColor"], $row["beerDescription"], $row["beerIbu"], $row["beerName"], $row["beerStyle"]);
+				$beerMap->attach($beer, $row["beerDrift"]);
+//				$beers[$beers->key()] = $beer;
+//				$beers->next();
+			}catch(\Exception $exception){
+
+				//If the row couldnt be converted, rethrow it
+				throw (new \PDOException($exception->getMessage(), 0, $exception));
+			}
+		}
+		return ($beerMap);
+	}
+
+
 	//jsonSerialize
 	public function jsonSerialize() {
 		$fields = get_object_vars($this);

@@ -133,6 +133,14 @@ try {
 			foreach($requestObject->reviewTagIds as $tagId) {
 				$reviewTag = new BrewCrew\ReviewTag($review->getReviewId(), $tagId);
 				$reviewTag->insert($pdo);
+				try {
+					$beerTag = new BrewCrew\BeerTag($review->getReviewBeerId(), $tagId );
+					$beerTag->insert($pdo);
+				}catch (\PDOException $exception) {
+					if($exception->getCode() != 23000) {
+						throw(new \Exception($exception->getMessage(), 0, $exception));
+					}
+				}
 			}
 		}
 	} else {

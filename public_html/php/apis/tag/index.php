@@ -53,7 +53,7 @@ try {
 				$reply->data = $tag;
 			}
 		}  else {
-			$tags = Edu\Cnm\BrewCrew\Tag::getAllTags($pdo);
+			$tags = Edu\Cnm\BrewCrew\Tag::getAllTags($pdo)->toArray();
 			if($tags !== null) {
 				$reply->data = $tags;
 			}

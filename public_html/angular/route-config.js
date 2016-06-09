@@ -4,43 +4,42 @@ app.config(function($routeProvider, $locationProvider) {
 
 	// route for the home page
 		.when('/', {
-			controller  : 'indexController',
-			templateUrl : 'angular/pages/index.php'
+			controller  : 'homeController',
+			templateUrl : 'angular/template/home.php'
 		})
 
 		// route for the sign in page
 		.when('/signin', {
 			controller  : 'signinController',
-			templateUrl : 'angular/pages/signin.php'
+			templateUrl : 'angular/template/signin.php'
 		})
 
 		// route for the sign up page
 		.when('/signup', {
 			controller  : 'signupController',
-			templateUrl : 'angular/pages/signup.php'
+			templateUrl : 'angular/template/signup.php'
+		})
+		// route for the sign up page
+		.when('/signout', {
+			controller  : 'signoutController',
+			templateUrl : 'angular/template/signout.php'
 		})
 		// route for the the compasss page
 		.when('/thecompass', {
 			controller  : 'thecompassController',
-			templateUrl : 'angular/pages/thecompass.php'
+			templateUrl : 'angular/template/thecompass.php'
 		})
 
 		// route for the breweries page
 		.when('/breweries', {
 			controller  : 'breweriesController',
-			templateUrl : 'angular/pages/breweries.php'
+			templateUrl : 'angular/template/breweries.php'
 		})
 
 		// route for the beer page
 		.when('/beer', {
 			controller  : 'beerController',
-			templateUrl : 'angular/pages/beer.php'
-		})
-
-		// route for the contact page
-		.when('/contact', {
-			controller  : 'contactController',
-			templateUrl : 'angular/pages/contact.php'
+			templateUrl : 'angular/template/beer.php'
 		})
 
 		// otherwise redirect to home

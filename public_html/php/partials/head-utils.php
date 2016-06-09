@@ -1,16 +1,3 @@
-<?php
-/**
- * Get the relative path.
- * @see https://raw.githubusercontent.com/kingscreations/farm-to-you/master/php/lib/_header.php FarmToYou Header
- **/
-// include the appropriate number of dirname() functions
-// on line 8 to correctly resolve your directory's path
-require_once(dirname(dirname(__DIR__)) . "/root-path.php");
-$CURRENT_DEPTH = substr_count($CURRENT_DIR, "/");
-$ROOT_DEPTH = substr_count($ROOT_PATH, "/");
-$DEPTH_DIFFERENCE = $CURRENT_DEPTH - $ROOT_DEPTH;
-$PREFIX = str_repeat("../", $DEPTH_DIFFERENCE);
-?>
 
 
 
@@ -18,11 +5,17 @@ $PREFIX = str_repeat("../", $DEPTH_DIFFERENCE);
 
 
 <!doctype html>
-<html ng-app="BrewCrew">
+<html ng-app="BrewCrew" xmlns="http://www.w3.org/1999/html">
 
 <head>
 	<meta charset="utf-8">
 	<title>ABQ Brew Crew</title>
+
+	<!-- set base for relative links - to enable pretty URLs -->
+	<base href="<?php echo dirname($_SERVER["PHP_SELF"]) . "/";?>">
+
+
+
 	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
 			integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
@@ -39,11 +32,20 @@ $PREFIX = str_repeat("../", $DEPTH_DIFFERENCE);
 	<!-- jQuery (required for Bootstap's JS plugins) -->
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 
+	<!-- jQuery -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+
 	<!-- jQuery Form, Additional Methods, Validate -->
 	<script type="text/javascript"
 			  src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js"></script>
 	<script type="text/javascript"
 			  src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.15.0/jquery.validate.min.js"></script>
+	<script type="text/javascript"
+			  src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.15.0/additional-methods.min.js"></script>
+
+	<!-- Your JavaScript Form Validator -->
+	<script src="js/form-validate.js"></script>
+
 	<!-- Latest compiled and minified JavaScript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
 			  integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
@@ -51,21 +53,30 @@ $PREFIX = str_repeat("../", $DEPTH_DIFFERENCE);
 	<script type="text/javascript"
 			  src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.15.0/additional-methods.min.js"></script>
 
-	<!-- Your JavaScript Form Validator -->
-	<script src="js/form-validate.js"></script>
 
-	<!-- Google reCAPTCHA -->
-	<script src='https://www.google.com/recaptcha/api.js'></script>
 
-	<!-- Latest compiled and minified JavaScript -->
-	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
-			  integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
-			  crossorigin="anonymous"></script>
 	<!--font awesome -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css">
 	<link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro|Didact+Gothic|Bitter' rel='stylesheet'
 			type='text/css'>
 	<link href="css/style.css" rel="stylesheet" type="text/css">
+
+	<!--Angular JS Libraries-->
+	<?php $ANGULAR_VERSION = "1.5.5";?>
+	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/<?php echo $ANGULAR_VERSION;?>/angular.min.js"></script>
+	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/<?php echo $ANGULAR_VERSION;?>/angular-messages.min.js"></script>
+	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/<?php echo $ANGULAR_VERSION;?>/angular-route.js"></script>
+	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/1.3.3/ui-bootstrap-tpls.min.js"></script>
+
+
+
+	<script type="text/javascript" src="angular/app.js"</script>
+	<script type="text/javascript" src=""</script>
+	<script type="text/javascript" src=""</script>
+	<script type="text/javascript" src=""</script>
+	<script type="text/javascript" src=""</script>
+	<script type="text/javascript" src=""</script>
+
 
 
 </head>
