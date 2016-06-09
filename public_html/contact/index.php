@@ -56,7 +56,15 @@ require_once(dirname(__DIR__) . "/php/partials/head-utils.php");
 									<input type="text" class="form-control" id="subject" name="subject" placeholder="Subject">
 								</div>
 							</div>
-
+							<div class="form-group">
+								<label for="message">Message <span class="text-danger">*</span></label>
+								<div class="input-group">
+									<div class="input-group-addon">
+										<i class="fa fa-comment" aria-hidden="true"></i>
+									</div>
+									<textarea class="form-control" rows="5" id="message" name="message" placeholder="Message (2000 characters max)"></textarea>
+								</div>
+							</div>
 
 
 
