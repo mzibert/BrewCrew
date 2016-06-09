@@ -5,6 +5,7 @@
 $CURRENT_DIR = __DIR__;
 /*set page title here*/
 $PAGE_TITLE = "ABq Brew Crew";
+
 /*load head-utils.php - edit path as needed*/
 require_once("php/partials/head-utils.php");
 ?>
