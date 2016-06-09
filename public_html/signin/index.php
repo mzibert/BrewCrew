@@ -24,13 +24,14 @@ require_once(dirname(__DIR__) . "/php/partials/head-utils.php");
 			<div class="row row-flex content-wrap">
 
 				<!-- page content -->
-				<div class="col-sm-9 col-sm-push-3 content-panel">
-					<div>
-						<h2>#</h2>
+				<<div class="jumbotron">
+					<div class="container">
+						<div class="col-sm-8 col-sm-offset-2">
 
+							<div ng-view></div>
+						</div>
 					</div>
 				</div>
-
 
 			</div><!--/.row-flex-->
 		</main>
