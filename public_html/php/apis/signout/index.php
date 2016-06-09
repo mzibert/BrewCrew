@@ -33,7 +33,6 @@ if($method === "GET"){
 	}
 	$_SESSION = [];
 	$reply->message = "You are now signed out";
-	//ToDo send user somewhere
 }
 else {
 	throw (new InvalidArgumentException("Invalid HTTP method request"));
