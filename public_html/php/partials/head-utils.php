@@ -1,28 +1,11 @@
-<?php
 
-/**
- * Get the relative path.
- * @see https://raw.githubusercontent.com/kingscreations/farm-to-you/master/php/lib/_header.php FarmToYou Header
- **/
-
-
-require_once(dirname(dirname(__DIR__)) . "/root-path.php");
-$CURRENT_DEPTH = substr_count($CURRENT_DIR, "/");
-$ROOT_DEPTH = substr_count($ROOT_PATH, "/");
-$DEPTH_DIFFERENCE = $CURRENT_DEPTH - $ROOT_DEPTH;
-$PREFIX = str_repeat("../", $DEPTH_DIFFERENCE);
-require_once(dirname(__DIR__) . "/classes/autoload.php");
-if(session_status() !== PHP_SESSION_ACTIVE) {
-	session_start();
-}
-?>
 
 
 
 
 
 <!doctype html>
-<html ng-app="BrewCrew">
+<html ng-app="BrewCrew" xmlns="http://www.w3.org/1999/html">
 
 <head>
 	<meta charset="utf-8">
@@ -31,12 +14,6 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 	<!-- set base for relative links - to enable pretty URLs -->
 	<base href="<?php echo dirname($_SERVER["PHP_SELF"]) . "/";?>">
 
-	<!--Angular JS Libraries-->
-	<?php $ANGULAR_VERSION = "1.5.5";?>
-	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/<?php echo $ANGULAR_VERSION;?>/angular.min.js"></script>
-	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/<?php echo $ANGULAR_VERSION;?>/angular-messages.min.js"></script>
-	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/<?php echo $ANGULAR_VERSION;?>/angular-route.js"></script>
-	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/1.3.3/ui-bootstrap-tpls.min.js"></script>
 
 
 	<!-- Latest compiled and minified CSS -->
@@ -83,6 +60,23 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 	<link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro|Didact+Gothic|Bitter' rel='stylesheet'
 			type='text/css'>
 	<link href="css/style.css" rel="stylesheet" type="text/css">
+
+	<!--Angular JS Libraries-->
+	<?php $ANGULAR_VERSION = "1.5.5";?>
+	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/<?php echo $ANGULAR_VERSION;?>/angular.min.js"></script>
+	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/<?php echo $ANGULAR_VERSION;?>/angular-messages.min.js"></script>
+	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/<?php echo $ANGULAR_VERSION;?>/angular-route.js"></script>
+	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/1.3.3/ui-bootstrap-tpls.min.js"></script>
+
+
+
+	<script type="text/javascript" src="angular/app.js"</script>
+	<script type="text/javascript" src=""</script>
+	<script type="text/javascript" src=""</script>
+	<script type="text/javascript" src=""</script>
+	<script type="text/javascript" src=""</script>
+	<script type="text/javascript" src=""</script>
+
 
 
 </head>

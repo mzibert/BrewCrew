@@ -19,6 +19,11 @@ app.config(function($routeProvider, $locationProvider) {
 			controller  : 'signupController',
 			templateUrl : 'angular/template/signup.php'
 		})
+		// route for the sign up page
+		.when('/signout', {
+			controller  : 'signoutController',
+			templateUrl : 'angular/template/signout.php'
+		})
 		// route for the the compasss page
 		.when('/thecompass', {
 			controller  : 'thecompassController',
