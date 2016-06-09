@@ -1,3 +1,7 @@
-/**
- * Created by chiwe_000 on 6/9/2016.
- */
+app.service('signoutService', function($http){
+	this.SIGNOUT_ENDPOINT = 'php/api/signout/';
+
+	this.logout = function() {
+		return($http.get(this.SIGNOUT_ENDPOINT));
+	};
+});
