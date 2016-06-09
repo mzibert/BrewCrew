@@ -26,7 +26,7 @@
 							<li role="presentation"><a href="https://bootcamp-coders.cnm.edu/~agraham14/BrewCrew/public_html/signin/">SignIn</a></li>
 							<li role="presentation"><a href="https://bootcamp-coders.cnm.edu/~agraham14/BrewCrew/public_html/signup/">Join</a></li>
 							<li role="separator" class="divider"></li>
-							<li role="presentation"><a href="https://bootcamp-coders.cnm.edu/~agraham14/BrewCrew/public_html/signup/">SignUp</a></li>
+
 							<li role="presentation"><a href="https://bootcamp-coders.cnm.edu/~agraham14/BrewCrew/public_html/contact/">Contact</a></li>
 
 						</ul>
