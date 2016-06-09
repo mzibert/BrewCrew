@@ -11,6 +11,7 @@ use Edu\Cnm\BrewCrew;
  * api for signout
  *
  * @author Merri J Zibert <mjzibert2@gmail.com>
+ * special thanks to Alicia Broadhurst
  **/
 
 //prepare default error message

@@ -9,6 +9,7 @@ DROP TABLE IF EXISTS brewery;
 
 CREATE TABLE brewery (
 	breweryId INT UNSIGNED AUTO_INCREMENT NOT NULL,
+	breweryDbKey VARCHAR (6) NOT NULL,
 	breweryDescription VARCHAR(1000),
 	breweryEstDate SMALLINT,
 	breweryHours VARCHAR(250),
@@ -17,6 +18,7 @@ CREATE TABLE brewery (
 	breweryPhone VARCHAR(20),
 	breweryUrl VARCHAR(250),
 	INDEX(breweryName),
+	INDEX(breweryDbKey),
 	PRIMARY KEY(breweryId)
 );
 
@@ -115,7 +117,7 @@ DELIMITER $$
 			-- variables for cursor and loop control
 			DECLARE done BOOLEAN DEFAULT FALSE; -- exit flag
 			DECLARE mathCursor CURSOR FOR
-				SELECT color, ibu FROM beer; -- cursor
+				SELECT beerColor, beerIbu FROM beer; -- cursor
 			DECLARE CONTINUE HANDLER FOR NOT FOUND
 			SET done = TRUE; -- exit when no more rows
 
@@ -205,7 +207,7 @@ DELIMITER $$
 			SELECT STDDEV(cIbu), AVG(cIbu) INTO ibuStdDev, ibuMean FROM beer;
 
 			CALL maths(beerDrift);
-			FETCH drift INTO selectedBeer;
+			FETCH beerDrift INTO selectedBeer;
 				-- QUESTION will this match up okay? in terms of id/primary key
 
 			IF done THEN LEAVE compassLoop; -- leaves rows
@@ -222,124 +224,124 @@ DELIMITER ;
 
 INSERT INTO tag (tagLabel)
 VALUES
-	("Acidic");
+	('Acidic');
 INSERT INTO tag (tagLabel)
 VALUES
-	("Balanced");
+	('Balanced');
 INSERT INTO tag (tagLabel)
 VALUES
-	("Barrel-aged");
+	('Barrel-aged');
 INSERT INTO tag (tagLabel)
 VALUES
-	("Bitter");
+	('Bitter');
 INSERT INTO tag (tagLabel)
 VALUES
-	("Carmelly");
+	('Carmelly');
 INSERT INTO tag (tagLabel)
 VALUES
-	("Citrusy");
+	('Citrusy');
 INSERT INTO tag (tagLabel)
 VALUES
-	("Cloudy");
+	('Cloudy');
 INSERT INTO tag (tagLabel)
 VALUES
-	("Choclatey");
+	('Choclatey');
 INSERT INTO tag (tagLabel)
 VALUES
-	("Crisp");
+	('Crisp');
 INSERT INTO tag (tagLabel)
 VALUES
-	("Dry");
+	('Dry');
 INSERT INTO tag (tagLabel)
 VALUES
-	("Earthy");
+	('Earthy');
 INSERT INTO tag (tagLabel)
 VALUES
-	("Floral");
+	('Floral');
 INSERT INTO tag (tagLabel)
 VALUES
-	("Full-bodied");
+	('Full-bodied');
 INSERT INTO tag (tagLabel)
 VALUES
-	("Fruity");
+	('Fruity');
 INSERT INTO tag (tagLabel)
 VALUES
-	("Heady");
+	('Heady');
 INSERT INTO tag (tagLabel)
 VALUES
-	("Heavy");
+	('Heavy');
 INSERT INTO tag (tagLabel)
 VALUES
-	("Herbal");
+	('Herbal');
 INSERT INTO tag (tagLabel)
 VALUES
-	("Coffee");
+	('Coffee');
 INSERT INTO tag (tagLabel)
 VALUES
-	("Hoppy");
+	('Hoppy');
 INSERT INTO tag (tagLabel)
 VALUES
-	("Malty");
+	('Malty');
 INSERT INTO tag (tagLabel)
 VALUES
-	("Medium-bodied");
+	('Medium-bodied');
 INSERT INTO tag (tagLabel)
 VALUES
-	("Mild");
+	('Mild');
 INSERT INTO tag (tagLabel)
 VALUES
-	("Nutty");
+	('Nutty');
 INSERT INTO tag (tagLabel)
 VALUES
-	("Piney");
+	('Piney');
 INSERT INTO tag (tagLabel)
 VALUES
-	("Rich");
+	('Rich');
 INSERT INTO tag (tagLabel)
 VALUES
-	("Refreshing");
+	('Refreshing');
 INSERT INTO tag (tagLabel)
 VALUES
-	("Robust");
+	('Robust');
 INSERT INTO tag (tagLabel)
 VALUES
-	("Roasty");
+	('Roasty');
 INSERT INTO tag (tagLabel)
 VALUES
-	("Sessionable");
+	('Sessionable');
 INSERT INTO tag (tagLabel)
 VALUES
-	("Skunky");
+	('Skunky');
 INSERT INTO tag (tagLabel)
 VALUES
-	("Sour");
+	('Sour');
 INSERT INTO tag (tagLabel)
 VALUES
-	("Smoky");
+	('Smoky');
 INSERT INTO tag (tagLabel)
 VALUES
-	("Smooth");
+	('Smooth');
 INSERT INTO tag (tagLabel)
 VALUES
-	("Spicy");
+	('Spicy');
 INSERT INTO tag (tagLabel)
 VALUES
-	("Strong");
+	('Strong');
 INSERT INTO tag (tagLabel)
 VALUES
-	("Sweet");
+	('Sweet');
 INSERT INTO tag (tagLabel)
 VALUES
-	("Tart");
+	('Tart');
 INSERT INTO tag (tagLabel)
 VALUES
-	("Toasty");
+	('Toasty');
 INSERT INTO tag (tagLabel)
 VALUES
-	("Weak");
+	('Weak');
 INSERT INTO tag (tagLabel)
 VALUES
-	("Woody");
+	('Woody');
 INSERT INTO tag (tagLabel)
 VALUES
-	("Yeasty");
+	('Yeasty');
