@@ -23,7 +23,7 @@
 						<ul class="dropdown-menu">
 							<li role="presentation"><a href="https://bootcamp-coders.cnm.edu/~agraham14/BrewCrew/public_html/beer/"> Search Beer</a></li>
 							<li role="presentation"><a href="https://bootcamp-coders.cnm.edu/~agraham14/BrewCrew/public_html/breweries/"> Search Breweries</a></li>
-							<li role="presentation"><a href="https://bootcamp-coders.cnm.edu/~agraham14/BrewCrew/public_html/signin/">SignIn</a></li>
+							<li role="presentation"><a href="https://bootcamp-coders.cnm.edu/~agraham14/BrewCrew/public_html/signin/">Sign In</a></li>
 							<li role="presentation"><a href="https://bootcamp-coders.cnm.edu/~agraham14/BrewCrew/public_html/signup/">Join</a></li>
 							<li role="separator" class="divider"></li>
 
