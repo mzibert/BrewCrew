@@ -16,7 +16,7 @@ require_once dirname(dirname(__DIR__)) . "/classes/autoload.php";
 require_once dirname(dirname(__DIR__)) . "/lib/xsrf.php";
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 
-use Edu\Cnm\BrewCrew\Beer;
+use Edu\Cnm\BrewCrew;
 
 
 /**
@@ -40,7 +40,7 @@ try {
 
 	//determine which HTTP method was used
 	$method = array_key_exists("HTTP_X_HTTP_METHOD", $_SERVER) ? $_SERVER["HTTP_X_HTTP_METHOD"] :$_SERVER["REQUEST_METHOD"];
-	$reply->methoed = $method;
+	$reply->method = $method;
 
 	//Sanitize input
 	$id = filter_input(INPUT_GET, "id", FILTER_VALIDATE_INT);
@@ -63,44 +63,68 @@ try {
 
 		//get a specific beer or all beers and update reply
 		if(empty($id) === false) {
-			$beer = Beer::getBeerByBeerId($pdo, $id);
+			$beer = BrewCrew\Beer::getBeerByBeerId($pdo, $id);
 			if($beer !== null) {
-				$reply->data = $beer;
+				$beerTags = BrewCrew\BeerTag::getBeerTagByBeerId($pdo, $beer->getBeerId());
+				$storage = new BrewCrew\JsonObjectStorage();
+				$storage->attach($beer, $beerTags->toArray());
+				$reply->data = $storage;
 			}
 
 		} else if(empty($beerBreweryId) === false) {
-			$beer = Beer::getBeerByBeerBreweryId($pdo, $beerBreweryId)->toArray();
-			if($beer !== null) {
-				$reply->data = $beer;
+			$beers = BrewCrew\Beer::getBeerByBeerBreweryId($pdo, $beerBreweryId)->toArray();
+			if($beers !== null) {
+				$storage = new BrewCrew\JsonObjectStorage();
+				foreach($beers as $beer) {
+					$beerTags = BrewCrew\BeerTag::getBeerTagByBeerId($pdo, $beer->getBeerId());
+					$storage->attach($beer, $beerTags->toArray());
+					$reply->data = $storage;
+				}
 			}
 
 		} else if(empty($beerColor) === false) {
-			$beer = Beer::getBeerByBeerColor($pdo, $beerColor)->toArray();
-			if($beer !== null) {
-				$reply->data = $beer;
+			$beers = BrewCrew\Beer::getBeerByBeerColor($pdo, $beerColor)->toArray();
+			if($beers !== null) {
+				$storage = new BrewCrew\JsonObjectStorage();
+				foreach($beers as $beer) {
+					$beerTags = BrewCrew\BeerTag::getBeerTagByBeerId($pdo, $beer->getBeerId());
+					$storage->attach($beer, $beerTags->toArray());
+					$reply->data = $storage;
+				}
 			}
 
 		} else if(empty($beerIbu) === false) {
-			$beer = Beer::getBeerByBeerIbu($pdo, $beerIbu)->toArray();
-			if($beer !== null) {
-				$reply->data = $beer;
+			$beers = BrewCrew\Beer::getBeerByBeerIbu($pdo, $beerIbu)->toArray();
+			if($beers !== null) {
+				$storage = new BrewCrew\JsonObjectStorage();
+				foreach($beers as $beer) {
+					$beerTags = BrewCrew\BeerTag::getBeerTagByBeerId($pdo, $beer->getBeerId());
+					$storage->attach($beer, $beerTags->toArray());
+					$reply->data = $storage;
+				}
 			}
 
 		} else if(empty($beerName) === false) {
-			$beer = Beer::getBeerByBeerName($pdo, $beerName)->toArray();
-			if($beer !== null) {
-				$reply->data = $beer;
+			$beers = BrewCrew\Beer::getBeerByBeerName($pdo, $beerName)->toArray();
+			if($beers !== null) {
+				$storage = new BrewCrew\JsonObjectStorage();
+				foreach($beers as $beer) {
+					$beerTags = BrewCrew\BeerTag::getBeerTagByBeerId($pdo, $beer->getBeerId());
+					$storage->attach($beer, $beerTags->toArray());
+					$reply->data = $storage;
+				}
 			}
 
 		} else if(empty($beerStyle) === false) {
-			$beer = Beer::getBeerByBeerStyle($pdo, $beerStyle)->toArray();
-			if($beer !== null) {
-				$reply->data = $beer;
+			$beers = BrewCrew\Beer::getBeerByBeerStyle($pdo, $beerStyle)->toArray();
+			if($beers !== null) {
+				$storage = new BrewCrew\JsonObjectStorage();
+				foreach($beers as $beer) {
+					$beerTags = BrewCrew\BeerTag::getBeerTagByBeerId($pdo, $beer->getBeerId());
+					$storage->attach($beer, $beerTags->toArray());
+					$reply->data = $storage;
+				}
 			}
-
-		} else {
-			$beer = Beer::getAllBeers($pdo)->toArray();
-			$reply->data = $beer;
 		}
 
 	} else if($method === "PUT" || $method === "POST") {
@@ -123,7 +147,7 @@ try {
 
 			if($method === "PUT") {
 
-				$beer = Beer::getBeerByBeerId($pdo, $id);
+				$beer = BrewCrew\Beer::getBeerByBeerId($pdo, $id);
 
 				if($beer === null) {
 					throw(new RuntimeException("Beer is not available", 404));
@@ -133,7 +157,6 @@ try {
 // retrieve the beer by availability
 
 // update beer by availability
-				// FIXME: use *ALL* the mutators here
 				$beer->setBeerAbv($beerAbv);
 				$beer->setBeerAvailability($beerAvailability);
 				$beer->setBeerAwards($beerAwards);
@@ -150,7 +173,7 @@ try {
 			} else if($method === "POST") {
 
 
-				$beer = new Beer(null, $beerBreweryId, $beerAbv, $beerAvailability, $beerAwards, $beerColor, $beerDescription, $beerIbu, $beerName, $beerStyle);
+				$beer = new BrewCrew\Beer(null, $beerBreweryId, $beerAbv, $beerAvailability, $beerAwards, $beerColor, $beerDescription, $beerIbu, $beerName, $beerStyle);
 
 				$beer->insert($pdo);
 				// update reply
@@ -166,7 +189,7 @@ try {
 		} else if($method === "DELETE") {
 			verifyXsrf();
 
-			$beer = Beer::getBeerByBeerId($pdo, $id);
+			$beer = BrewCrew\Beer::getBeerByBeerId($pdo, $id);
 
 			if(empty($beer) === true) {
 				throw(new RuntimeException("Beer does not exist", 404));
