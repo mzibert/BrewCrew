@@ -6,7 +6,15 @@
 				<p><a class="btn btn-primary btn-lg" href="#" role="button">Join Us! &raquo;</a></p>
 			</div>
 		</div>
-
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">We're tracking x beers from x craft breweries in Albuquerque!</h3>
+			</div>
+			<div class="panel-body">
+				Panel content
+			</div>
+		</div>
+		
 		<div class="container">
 			<!-- Example row of columns -->
 			<div class="row">
