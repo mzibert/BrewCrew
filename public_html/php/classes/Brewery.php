@@ -183,8 +183,9 @@ class Brewery implements \JsonSerializable {
 		if(empty($newBreweryDescription) === true) {
 			throw (new \InvalidArgumentException("brewery description is empty or insecure"));
 		}
-		if(strlen($newBreweryDescription) > 1000) {
-			throw (new \RangeException("brewery description is greater than 1000 characters"));
+		if(strlen($newBreweryDescription) > 5000) {
+//			throw (new \RangeException("brewery description is greater than 1000 characters"));
+			substr($newBreweryDescription, 0, 5000);
 		}
 		//store the brewery description content
 		$this->breweryDescription = $newBreweryDescription;
@@ -245,8 +246,9 @@ class Brewery implements \JsonSerializable {
 		if(empty($newBreweryHours) === true) {
 			throw (new \InvalidArgumentException("brewery hours field is empty or insecure"));
 		}
-		if(strlen($newBreweryHours) > 250) {
-			throw (new \RangeException("brewery hours field is greater than 250 characters"));
+		if(strlen($newBreweryHours) > 1000) {
+//			throw (new \RangeException("brewery hours field is greater than 250 characters"));
+			substr($newBreweryHours, 0, 1000);
 		}
 		//store the brewery hours content
 		$this->breweryHours = $newBreweryHours;
