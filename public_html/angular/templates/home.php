@@ -50,7 +50,7 @@
 		<h2 class="heading h-section text-center" data-barley="index_hiw_heading" data-barley-editor="simple">Start by Joining and Rating Beers</h2>
 		<div class="row">
 			<div class="col-xs-12">
-				<img src="image/beer1.jpg" alt="placeholder for snapshot of reviews">
+				<img src="image/reviews.png" alt="placeholder for snapshot of reviews">
 			</div>
 		</div>
 	</div>
@@ -68,7 +68,7 @@
 		<h2 class="heading h-section text-center" data-barley="index_hiw_heading" data-barley-editor="simple">Get the Best Recommendations</h2>
 		<div class="row">
 			<div class="col-xs-12">
-				<img src="image/reviews.png" alt="placeholder for snapshot of compass search results">
+				<img src="image/beer2.jpg" alt="placeholder for snapshot of compass search results">
 			</div>
 		</div>
 	</div>
