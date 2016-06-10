@@ -123,7 +123,7 @@ class BreweryTest extends BrewCrewTest {
 		$numRows = $this->getConnection()->getRowCount("brewery");
 
 		// Create a new brewery and insert it into mySQL
-		$brewery = new Brewery(null, $this->$this->VALID_BREWERY_DBKEY,$this->VALID_BREWERY_DESCRIPTION, $this->VALID_BREWERY_EST_DATE, $this->VALID_BREWERY_HOURS, $this->VALID_BREWERY_LOCATION, $this->VALID_BREWERY_NAME, $this->VALID_BREWERY_PHONE, $this->VALID_BREWERY_URL);
+		$brewery = new Brewery(null, $this->VALID_BREWERY_DBKEY,$this->VALID_BREWERY_DESCRIPTION, $this->VALID_BREWERY_EST_DATE, $this->VALID_BREWERY_HOURS, $this->VALID_BREWERY_LOCATION, $this->VALID_BREWERY_NAME, $this->VALID_BREWERY_PHONE, $this->VALID_BREWERY_URL);
 		$brewery->insert($this->getPDO());
 
 		// Edit the brewery and update it in mySQL
@@ -224,7 +224,7 @@ class BreweryTest extends BrewCrewTest {
 	/**
 	 * Test getting brewery by valid BreweryDB primary key (their breweryId)
 	 */
-	public function testGetBrewerybyBreweryDbKey() {
+	public function testGetBreweryByBreweryDbKey() {
 		// Count the number of rows and save this for later
 		$numRows = $this->getConnection()->getRowCount("brewery");
 

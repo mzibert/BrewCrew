@@ -493,8 +493,8 @@ class Brewery implements \JsonSerializable {
 		}
 
 		//create the query template
-		$query = "SELECT breweryId, breweryDbKey, breweryDescription, breweryHours, breweryLocation, breweryName, breweryPhone, breweryURL FROM brewery WHERE breweryDbKey = :breweryDbKey";
-		$statement = $pdo->prepare;
+		$query = "SELECT breweryId, breweryDbKey, breweryDescription, breweryEstDate, breweryHours, breweryLocation, breweryName, breweryPhone, breweryUrl FROM brewery WHERE breweryDbKey = :breweryDbKey";
+		$statement = $pdo->prepare($query);
 		
 		//bind the breweryDbKey to the placeholder in the template
 		$parameters = array("breweryDbKey" => $breweryDbKey);
