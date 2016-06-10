@@ -1,5 +1,5 @@
 
-
+<div class="col-xs-12">
 	<div class="jumbotron">
 		<div class="container">
 			<h1>ABQ Brew Crew!</h1>
@@ -139,4 +139,5 @@
 
 
 	</div>
+</div>
 </div>
