@@ -26,6 +26,12 @@ class BreweryTest extends BrewCrewTest {
 	protected $VALID_BREWERY_DESCRIPTION = "PHPUnit test passing";
 
 	/**
+	 * Content generated for description text
+	 * @var string $VALID_BREWERY_DBKEY
+	 */
+	protected $VALID_BREWERY_DBKEY = "KR4X6i";
+
+	/**
 	 * Updated content for description text
 	 * @var string $VALID_BREWERYEST_DESCRIPTION2
 	 */
@@ -213,6 +219,39 @@ class BreweryTest extends BrewCrewTest {
 	}
 
 	/**
+	 * Test getting brewery by valid BreweryDB primary key (their breweryId)
+	 */
+	public function testGetBrewerybyBreweryDbKey() {
+		// Count the number of rows and save this for later
+		$numRows = $this->getConnection()->getRowCount("brewery");
+
+		// Get a brewery and insert it into mySQL
+		$brewery = new Brewery(null, null, $this->VALID_BREWERY_DESCRIPTION, $this->VALID_BREWERY_EST_DATE, $this->VALID_BREWERY_HOURS, $this->VALID_BREWERY_LOCATION, $this->VALID_BREWERY_NAME, $this->VALID_BREWERY_PHONE, $this->VALID_BREWERY_URL);
+		$brewery->insert($this->getPDO());
+
+		// Grab the data from mySQL and check the fields against our expectations
+		$pdoBrewery = Brewery::getBreweryByBreweryDbKey($this->getPDO(), $brewery->getBreweryDbKey());
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("brewery"));
+		$this->assertLessThan($pdoBrewery->getBreweryId(), 0);
+		$this->assertEquals($pdoBrewery->getBreweryDbKey(), 0);
+		$this->assertEquals($pdoBrewery->getBreweryDescription(), $this->VALID_BREWERY_DESCRIPTION);
+		$this->assertEquals($pdoBrewery->getBreweryEstDate(), $this->VALID_BREWERY_EST_DATE);
+		$this->assertEquals($pdoBrewery->getBreweryLocation(), $this->VALID_BREWERY_LOCATION);
+		$this->assertEquals($pdoBrewery->getBreweryName(), $this->VALID_BREWERY_NAME);
+		$this->assertEquals($pdoBrewery->getBreweryPhone(), $this->VALID_BREWERY_PHONE);
+		$this->assertEquals($pdoBrewery->getBreweryUrl(), $this->VALID_BREWERY_URL);
+	}
+
+	/**
+	 * Test getting brewery by invalid BreweryDB primary key (their breweryId)
+	 */
+	public function testGetBreweryByInvalidBreweryDbKey() {
+		// Grab a brewery by invalid key
+		$brewery = Brewery::getBreweryByBreweryId($this->getPDO(), BrewCrewTest::INVALID_KEY);
+		$this->assertNull($brewery);
+	}
+
+	/**
 	 * Test getting brewery by location
 	 */
 	public function testGetBreweryByBreweryLocation() {
@@ -283,6 +322,8 @@ class BreweryTest extends BrewCrewTest {
 		$brewery = Brewery::getBrewerybyBreweryName($this->getPDO(), "WTF name");
 		$this->assertCount(0, $brewery);
 	}
+
+
 	/**
 	 * Test getting all breweries
 	 */
