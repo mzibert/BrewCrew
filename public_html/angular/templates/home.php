@@ -2,7 +2,7 @@
 	<div class="col-xs-12">
 		<div class="jumbotron">
 			<div class="container">
-				<p>We're tracking x beers from x craft breweries in Albuquerque!</p>
+				<p>We're tracking x beers from x craft breweries in New Mexico!</p>
 				<p><a class="btn btn-primary btn-lg" href="#" role="button">Join Us! &raquo;</a></p>
 			</div>
 		</div>
