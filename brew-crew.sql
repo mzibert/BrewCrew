@@ -12,7 +12,7 @@ CREATE TABLE brewery (
 	breweryDbKey VARCHAR (6) NOT NULL,
 	breweryDescription VARCHAR(5000),
 	breweryEstDate SMALLINT,
-	breweryHours VARCHAR(250),
+	breweryHours VARCHAR(1000),
 	breweryLocation VARCHAR (250),
 	breweryName VARCHAR(100) NOT NULL,
 	breweryPhone VARCHAR(20),
