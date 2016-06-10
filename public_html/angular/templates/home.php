@@ -1,5 +1,5 @@
 
-
+<div class="col-xs-12">
 	<div class="jumbotron">
 		<div class="container">
 			<p>We're tracking x beers from x craft breweries in Albuquerque!</p>
@@ -136,4 +136,5 @@
 
 
 	</div>
+</div>
 </div>
