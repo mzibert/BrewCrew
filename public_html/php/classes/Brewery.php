@@ -152,7 +152,7 @@ class Brewery implements \JsonSerializable {
 	public function setBreweryDbKey($newBreweryDbKey) {
 		//verify that the breweryDbKey is secure
 		$newBreweryDbKey = trim($newBreweryDbKey);
-		$newBreweryDbKey = filter_var($newBreweryDbKey, FILTER_SANITIZE_STRING);
+		$newBreweryDbKey = filter_var($newBreweryDbKey, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if (empty($newBreweryDbKey) === true) {
 			throw(new \InvalidArgumentException("breweryDbKey is empty or insecure"));
 		}
@@ -378,11 +378,11 @@ class Brewery implements \JsonSerializable {
 			throw(new \PDOException("Not a new brewery"));
 		}
 		// Crete query template
-		$query = "INSERT INTO brewery(breweryId, breweryDescription, breweryEstDate, breweryHours, breweryLocation, breweryName, breweryPhone, breweryUrl) VALUES(:breweryId, :breweryDescription, :breweryEstDate, :breweryHours, :breweryLocation, :breweryName, :breweryPhone, :breweryUrl)";
+		$query = "INSERT INTO brewery(breweryId, breweryDbKey, breweryDescription, breweryEstDate, breweryHours, breweryLocation, breweryName, breweryPhone, breweryUrl) VALUES(:breweryId, :breweryDbKey, :breweryDescription, :breweryEstDate, :breweryHours, :breweryLocation, :breweryName, :breweryPhone, :breweryUrl)";
 		$statement = $pdo->prepare($query);
 
 		// Bind the member variables to the place holders in the template
-		$parameters = ["breweryId" => $this->getBreweryId(), "breweryDescription" => $this->getBreweryDescription(), "breweryEstDate" => $this->getBreweryEstDate(), "breweryHours" => $this->getBreweryHours(), "breweryLocation" => $this->getBreweryLocation(), "breweryName" => $this->getBreweryName(), "breweryPhone" => $this->getBreweryPhone(), "breweryUrl" => $this->getBreweryUrl()];
+		$parameters = ["breweryId" => $this->getBreweryId(), "breweryDbKey" => $this->getBreweryDbKey(),  "breweryDescription" => $this->getBreweryDescription(), "breweryEstDate" => $this->getBreweryEstDate(), "breweryHours" => $this->getBreweryHours(), "breweryLocation" => $this->getBreweryLocation(), "breweryName" => $this->getBreweryName(), "breweryPhone" => $this->getBreweryPhone(), "breweryUrl" => $this->getBreweryUrl()];
 		$statement->execute($parameters);
 
 		// Update the null brewery id with what mySQL generated
@@ -423,11 +423,11 @@ class Brewery implements \JsonSerializable {
 			throw(new \PDOException("Unable to update a brewery that does not exist"));
 		}
 		// Create query template
-		$query = "UPDATE brewery SET breweryDescription = :breweryDescription, breweryEstDate = :breweryEstDate, breweryHours = :breweryHours, breweryLocation = :breweryLocation, breweryName = :breweryName, breweryPhone = :breweryPhone, breweryUrl = :breweryUrl WHERE breweryId = :breweryId";
+		$query = "UPDATE brewery SET breweryDbKey = :breweryDbKey, breweryDescription = :breweryDescription, breweryEstDate = :breweryEstDate, breweryHours = :breweryHours, breweryLocation = :breweryLocation, breweryName = :breweryName, breweryPhone = :breweryPhone, breweryUrl = :breweryUrl WHERE breweryId = :breweryId";
 		$statement = $pdo->prepare($query);
 
 		//Bind the member variables to the placeholders in the partials
-		$parameters = ["breweryId" => $this->getBreweryId(), "breweryDescription" => $this->getBreweryDescription(), "breweryEstDate" => $this->getBreweryEstDate(), "breweryHours" => $this->getBreweryHours(), "breweryLocation" => $this->getBreweryLocation(), "breweryName" => $this->getBreweryName(), "breweryPhone" => $this->getBreweryPhone(), "breweryUrl" => $this->getBreweryUrl()];
+		$parameters = ["breweryId" => $this->getBreweryId(), "breweryDbKey" => $this->getBreweryDbKey(), "breweryDescription" => $this->getBreweryDescription(), "breweryEstDate" => $this->getBreweryEstDate(), "breweryHours" => $this->getBreweryHours(), "breweryLocation" => $this->getBreweryLocation(), "breweryName" => $this->getBreweryName(), "breweryPhone" => $this->getBreweryPhone(), "breweryUrl" => $this->getBreweryUrl()];
 		$statement->execute($parameters);
 	}
 
@@ -450,7 +450,7 @@ class Brewery implements \JsonSerializable {
 			throw(new \PDOException('Brewery ID is not positive:'));
 		}
 		// Create query template
-		$query = "SELECT breweryId, breweryDescription, breweryEstDate, breweryHours, breweryLocation, breweryName, breweryPhone, breweryUrl FROM brewery WHERE breweryId = :breweryId";
+		$query = "SELECT breweryId, breweryDbKey, breweryDescription, breweryEstDate, breweryHours, breweryLocation, breweryName, breweryPhone, breweryUrl FROM brewery WHERE breweryId = :breweryId";
 		$statement = $pdo->prepare($query);
 
 		//Bind the breweryId to the place holder in the template
@@ -463,7 +463,7 @@ class Brewery implements \JsonSerializable {
 			$statement->setFetchMode(\PDO::FETCH_ASSOC);
 			$row = $statement->fetch();
 			if($row !== false) {
-				$brewery = new Brewery($row["breweryId"], $row["breweryDescription"], $row["breweryEstDate"], $row["breweryHours"], $row["breweryLocation"], $row["breweryName"], $row["breweryPhone"], $row["breweryUrl"]);
+				$brewery = new Brewery($row["breweryId"], $row["breweryDbKey"], $row["breweryDescription"], $row["breweryEstDate"], $row["breweryHours"], $row["breweryLocation"], $row["breweryName"], $row["breweryPhone"], $row["breweryUrl"]);
 			}
 		} catch(\Exception $exception) {
 			// If the row couldn't be converted, rethrow it
@@ -484,6 +484,37 @@ class Brewery implements \JsonSerializable {
 	 *
 	 **/
 
+	public static function getBreweryByBreweryDbKey(\PDO $pdo, $breweryDbKey) {
+		//sanitize the breweryDbKey before searching
+		$breweryDbKey = trim($breweryDbKey);
+		$breweryDbKey = filter_var($breweryDbKey, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if (empty($breweryDbKey) === true) {
+			throw(new \PDOException("breweryDbKey is invalid"));
+		}
+
+		//create the query template
+		$query = "SELECT breweryId, breweryDbKey, breweryDescription, breweryHours, breweryLocation, breweryName, breweryPhone, breweryURL FROM brewery WHERE breweryDbKey = :breweryDbKey";
+		$statement = $pdo->prepare;
+		
+		//bind the breweryDbKey to the placeholder in the template
+		$parameters = array("breweryDbKey" => $breweryDbKey);
+		$statement->execute($parameters);
+		
+		//grab the brewery from mySQL
+		try {
+			$brewery = null;
+			$statement->setFetchMode(\PDO::FETCH_ASSOC);
+			$row = $statement->fetch();
+			if ($row !== false) {
+				$brewery = new Brewery($row["breweryId"], $row["breweryDbKey"],$row["breweryDescription"], $row["breweryEstDate"], $row["breweryHours"], $row["breweryLocation"], $row["breweryName"], $row["breweryPhone"], $row["breweryUrl"]);
+			}
+		} catch(\Exception $exception) {
+			//if the row couldn't be converted, rethrow it
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
+		}
+		return($brewery);
+	}
+	
 	/** Gets the brewery by location
 	 *
 	 * @param \PDO $pdo PDO connection object
@@ -501,7 +532,7 @@ class Brewery implements \JsonSerializable {
 			throw (new \PDOException("Brewery location is invalid"));
 		}
 		// Create query template
-		$query = "SELECT breweryId, breweryDescription, breweryEstDate, breweryHours, breweryLocation, breweryName, breweryPhone, breweryUrl FROM brewery WHERE breweryLocation LIKE :breweryLocation";
+		$query = "SELECT breweryId, breweryDbKey, breweryDescription, breweryEstDate, breweryHours, breweryLocation, breweryName, breweryPhone, breweryUrl FROM brewery WHERE breweryLocation LIKE :breweryLocation";
 		$statement = $pdo->prepare($query);
 
 		// Bind the placeholder in the template
@@ -514,7 +545,7 @@ class Brewery implements \JsonSerializable {
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 		while(($row = $statement->fetch()) !== false) {
 			try {
-				$brewery = new Brewery($row["breweryId"], $row["breweryDescription"], $row["breweryEstDate"], $row["breweryHours"], $row["breweryLocation"], $row["breweryName"], $row["breweryPhone"], $row["breweryUrl"]);
+				$brewery = new Brewery($row["breweryId"], $row["breweryDbKey"], $row["breweryDescription"], $row["breweryEstDate"], $row["breweryHours"], $row["breweryLocation"], $row["breweryName"], $row["breweryPhone"], $row["breweryUrl"]);
 				$breweries[$breweries->key()] = $brewery;
 				$breweries->next();
 			} catch(\Exception $exception) {
@@ -541,7 +572,7 @@ class Brewery implements \JsonSerializable {
 			throw(new \PDOException("Brewery name is invalid"));
 		}
 		//Create query template
-		$query = "SELECT breweryId, breweryDescription, breweryEstDate, breweryHours, breweryLocation, breweryName, breweryPhone, breweryUrl FROM brewery WHERE breweryName LIKE :breweryName";
+		$query = "SELECT breweryId, breweryDbKey, breweryDescription, breweryEstDate, breweryHours, breweryLocation, breweryName, breweryPhone, breweryUrl FROM brewery WHERE breweryName LIKE :breweryName";
 		$statement = $pdo->prepare($query);
 
 		// Bind name to the placeholder in the template
@@ -554,7 +585,7 @@ class Brewery implements \JsonSerializable {
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 		while(($row = $statement->fetch()) !== false) {
 			try {
-				$brewery = new Brewery($row["breweryId"], $row["breweryDescription"], $row["breweryEstDate"], $row["breweryHours"], $row["breweryLocation"], $row["breweryName"], $row["breweryPhone"], $row["breweryUrl"]);
+				$brewery = new Brewery($row["breweryId"], $row["breweryDbKey"], $row["breweryDescription"], $row["breweryEstDate"], $row["breweryHours"], $row["breweryLocation"], $row["breweryName"], $row["breweryPhone"], $row["breweryUrl"]);
 				$breweries[$breweries->key()] = $brewery;
 				$breweries->next();
 			} catch(\Exception $exception) {
@@ -574,7 +605,7 @@ class Brewery implements \JsonSerializable {
 	 */
 	public static function getAllBreweries(\PDO $pdo) {
 		// Create query template
-		$query = "SELECT breweryId, breweryDescription, breweryEstDate, breweryHours, breweryLocation, breweryName, breweryPhone, breweryUrl FROM brewery";
+		$query = "SELECT breweryId, breweryDbKey, breweryDescription, breweryEstDate, breweryHours, breweryLocation, breweryName, breweryPhone, breweryUrl FROM brewery";
 		$statement = $pdo->prepare($query);
 		$statement->execute();
 
@@ -583,7 +614,7 @@ class Brewery implements \JsonSerializable {
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 		while(($row = $statement->fetch()) !== false) {
 			try {
-				$brewery = new Brewery($row["breweryId"], $row["breweryDescription"], $row["breweryEstDate"], $row["breweryHours"], $row["breweryLocation"], $row["breweryName"], $row["breweryPhone"], $row["breweryUrl"]);
+				$brewery = new Brewery($row["breweryId"], $row["breweryDbKey"], $row["breweryDescription"], $row["breweryEstDate"], $row["breweryHours"], $row["breweryLocation"], $row["breweryName"], $row["breweryPhone"], $row["breweryUrl"]);
 				$breweries[$breweries->key()] = $brewery;
 				$breweries->next();
 			} catch(\Exception $exception) {
