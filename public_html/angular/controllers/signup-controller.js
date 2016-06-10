@@ -15,7 +15,7 @@ app.controller("signupController", ["$scope", "SignupService", "$location", func
 				.then(function(result) {
 					if(result.data.status === 200) {
 						$scope.alerts[0] = {type: "success", msg: result.data.message};
-						$location.url("signup/home.php");
+						$location.url("signup/");
 					} else {
 						$scope.alerts[0] = {type: "danger", msg: result.data.message};
 					}
