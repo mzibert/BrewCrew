@@ -1,8 +1,6 @@
 
 
 
-		<!-- insert header and navbar -->
-		<?php require_once(dirname(dirname(__DIR__)) . "/php/partials/header.php");?>
 
 		<!-- begin main content page layout -->
 		<main class="container p-t-nav">
