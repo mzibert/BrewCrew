@@ -33,4 +33,3 @@ require_once(dirname(dirname(__DIR__)) . "/php/partials/head-utils.php");
 	<!-- insert footer -->
 	<?php require_once(dirname(dirname(__DIR__)) . "/php/partials/footer.php");?>
 
-</body>
