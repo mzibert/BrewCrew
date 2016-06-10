@@ -11,7 +11,7 @@ require_once("php/partials/head-utils.php");
 		<?php require_once("php/partials/header.php"); ?>
 
 
-		<main class="p-y-4">
+		<main>
 			<div class="container">
 
 				<!-- Angular directive -->
