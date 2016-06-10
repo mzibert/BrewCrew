@@ -26,9 +26,7 @@
 							<li><a href="breweries"> Search Breweries</a></li>
 							<li><a href="signin">Sign In</a></li>
 							<li><a href="signup">Join</a></li>
-							<li role="separator" class="divider"></li>
 
-							<li><a href="contact">Contact</a></li>
 
 						</ul>
 					</li>

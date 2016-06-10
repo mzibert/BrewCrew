@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="NgTemplate">
+<html lang="en" ng-app="BrewCrew">
 	<head>
 		<meta charset="UTF-8">
 		<!-- sets IE rendering to IE-EDGE -->
