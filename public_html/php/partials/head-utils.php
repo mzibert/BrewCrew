@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html ng-app="BrewCrew">
+<html ng-app="NgTemplate">
 
 <head>
 	<meta charset="utf-8">
