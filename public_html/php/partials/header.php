@@ -2,7 +2,7 @@
 
 	<bootstrap-breakpoint></bootstrap-breakpoint>
 
-	<div class="container">
+	<div class="container-fluid">
 		<nav class="navbar navbar-inverse">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false" ng-click="navCollapsed = !navCollapsed">
@@ -11,7 +11,7 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="index">ABQ Brew Crew</a>
+				<a class="navbar-brand" href="index">New Mexico Brew Crew</a>
 			</div>
 
 			<!-- Collect the nav links, forms, and other content for toggling -->
@@ -27,8 +27,8 @@
 					<li class="active"><a href="compass">The Compass <span class="sr-only"></span></a></li>
 					<li class="active"><a href="beer">Beers <span class="sr-only"></span></a></li>
 					<li class="active"><a href="breweries">Breweries <span class="sr-only"></span></a></li>
-					<li class="active"><a href="register">Register <span class="sr-only"></span></a></li>
-					<li class="active"><a href="breweries">Log In <span class="sr-only"></span></a></li>
+					<li class="active"><a href="signup">Sign Up <span class="sr-only"></span></a></li>
+					<li class="active"><a href="signin">Log In <span class="sr-only"></span></a></li>
 				</ul>
 			</div>
 		</nav>
