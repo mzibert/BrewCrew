@@ -9,31 +9,31 @@ app.config(function($routeProvider, $locationProvider) {
 		})
 
 		// route for the sign in page
-		.when('/signin', {
+		.when('/signin/', {
 			controller  : 'signinController',
 			templateUrl : 'angular/template/signin.php'
 		})
 
 		// route for the sign up page
-		.when('/signup', {
+		.when('/signup/', {
 			controller  : 'signupController',
 			templateUrl : 'angular/template/signup.php'
 		})
 
 		// route for the the compasss page
-		.when('/thecompass', {
+		.when('/thecompass/', {
 			controller  : 'thecompassController',
 			templateUrl : 'angular/template/thecompass.php'
 		})
 
 		// route for the breweries page
-		.when('/breweries', {
+		.when('/breweries/', {
 			controller  : 'breweriesController',
 			templateUrl : 'angular/template/breweries.php'
 		})
 
 		// route for the beer page
-		.when('/beer', {
+		.when('/beer/', {
 			controller  : 'beerController',
 			templateUrl : 'angular/template/beer.php'
 		})
