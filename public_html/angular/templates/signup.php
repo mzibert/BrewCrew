@@ -10,17 +10,6 @@ require_once(dirname(dirname(__DIR__)) . "/php/partials/head-utils.php");
 		<!-- insert header and navbar -->
 		<?php require_once(dirname(dirname(__DIR__)) . "/php/partials/header.php");?>
 
-		<!-- begin main content page layout -->
-		<main class="container p-t-nav">
-
-
-			<!-- begin main content area -->
-			<div class="row row-flex content-wrap">
-
-
-			<!-- begin main content page layout -->
-		<main class="container p-t-nav">
-
 
 			<!-- begin main content area -->
 			<div class="row row-flex content-wrap">
@@ -89,11 +78,10 @@ require_once(dirname(dirname(__DIR__)) . "/php/partials/head-utils.php");
 
 
 			</div><!--/.row-flex-->
-		</main>
+
 
 	</div><!--/.sfooter-content-->
 
 	<!-- insert footer -->
 	<?php require_once(dirname(dirname(__DIR__)) . "/php/partials/footer.php");?>
 
-</body>

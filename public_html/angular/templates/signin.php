@@ -3,8 +3,6 @@
 /*load the HTML head tag: head-utils.php*/
 require_once(dirname(dirname(__DIR__)) . "/php/partials/head-utils.php");
 ?>
-<body class="sfooter content-layout">
-	<div class="sfooter-content">
 
 		<!-- insert header and navbar -->
 		<?php require_once(dirname(dirname(__DIR__)) . "/php/partials/header.php");?>
@@ -33,25 +31,9 @@ require_once(dirname(dirname(__DIR__)) . "/php/partials/head-utils.php");
 
 
 
-			<!-- begin main content area -->
-			<div class="row row-flex content-wrap">
-
-				<!-- page content -->
-				<div class="jumbotron">
-					<div class="container">
-						<div class="col-sm-8 col-sm-offset-2">
-
-							<div ng-view></div>
-						</div>
-					</div>
-				</div>
-
-			</div><!--/.row-flex-->
-		</main>
-
+			<
 	</div><!--/.sfooter-content-->
 
 	<!-- insert footer -->
 	<?php require_once(dirname(dirname(__DIR__)) . "/php/partials/footer.php");?>
 
-</body>
