@@ -673,7 +673,7 @@ class Beer implements \JsonSerializable {
 		$statement = $pdo->prepare($query);
 
 		//bind the beer Ibu to the place holder in the template
-		$beerIbu = "%$beerStyle%";
+		$beerStyle = "%$beerStyle%";
 		$parameters = array("beerStyle" => $beerStyle);
 		$statement->execute($parameters);
 
