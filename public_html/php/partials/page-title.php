@@ -5,7 +5,7 @@
 	<div class="col-sm-6 hidden-xs">
 		<ol class="breadcrumb pull-right">
 			<li><a href="index.php">Home</a></li>
-			<li><?php echo $PAGE_TITLE;?></li>
+
 		</ol>
 	</div>
 </div>

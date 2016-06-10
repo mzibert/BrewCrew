@@ -40,5 +40,5 @@
 		<script type="text/javascript" src="angular/controllers/toys-controller.js"></script>
 		<script type="text/javascript" src="angular/controllers/treats-controller.js"></script>
 
-		<title>Meow Template!</title>
+		<title>ABQ Brew Crew</title>
 	</head>
