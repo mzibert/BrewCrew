@@ -22,11 +22,11 @@ require_once("php/partials/head-utils.php");
 
 
 		<!-- footer gets inserted -->
+
 	<?php require_once("php/partials/footer.php"); ?>
 
 	<!-- /.container -->
 
-
+</div>
 </body>
 
-</html>

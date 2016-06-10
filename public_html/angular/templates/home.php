@@ -1,5 +1,13 @@
+<?php
+
+/*load the HTML head tag: head-utils.php*/
+require_once(dirname(dirname(__DIR__)) . "/php/partials/head-utils.php");
+?>
+	<!-- insert header and navbar -->
+<?php require_once(dirname(dirname(__DIR__)) . "/php/partials/header.php");?>
 <!-- Main jumbotron for a primary marketing message or call to action -->
 <main>
+
 
 	<div class="jumbotron">
 		<div class="container">
@@ -141,3 +149,5 @@
 
 	</div>
 </div>
+	<!-- insert footer -->
+<?php require_once(dirname(dirname(__DIR__)) . "/php/partials/footer.php");?>
