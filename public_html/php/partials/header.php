@@ -1,6 +1,7 @@
 <header ng-controller="navController">
 
 	<bootstrap-breakpoint></bootstrap-breakpoint>
+
 	<div class="container">
 		<nav class="navbar navbar-inverse">
 			<div class="navbar-header">
@@ -16,18 +17,18 @@
 			<!-- Collect the nav links, forms, and other content for toggling -->
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav">
-					<li role="presentation" class="active"><a href="home">Home <span class="sr-only">(current)</span></a></li>
+					<li class="active"><a href="home">Home <span class="sr-only">(current)</span></a></li>
 
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">The Beer Compass<span class="caret"></span></a>
 						<ul class="dropdown-menu">
-							<li role="presentation"><a href="beer"> Search Beer</a></li>
-							<li role="presentation"><a href="breweries"> Search Breweries</a></li>
-							<li role="presentation"><a href="signin">Sign In</a></li>
-							<li role="presentation"><a href="signup">Join</a></li>
+							<li><a href="beer"> Search Beer</a></li>
+							<li><a href="breweries"> Search Breweries</a></li>
+							<li><a href="signin">Sign In</a></li>
+							<li><a href="signup">Join</a></li>
 							<li role="separator" class="divider"></li>
 
-							<li role="presentation"><a href="contact">Contact</a></li>
+							<li><a href="contact">Contact</a></li>
 
 						</ul>
 					</li>
