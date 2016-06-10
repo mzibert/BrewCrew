@@ -1,7 +1,5 @@
 
 
-
-
 		<!-- begin main content page layout -->
 		<main class="container p-t-nav">
 

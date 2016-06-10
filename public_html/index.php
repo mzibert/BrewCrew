@@ -16,7 +16,7 @@ require_once("php/partials/head-utils.php");
 
 				<!-- Angular directive -->
 				<div ng-view></div>
-				<?php require_once ("angular/templates/home.php"); ?>
+
 
 
 			</div>
