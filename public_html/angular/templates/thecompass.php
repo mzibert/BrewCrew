@@ -1,9 +1,4 @@
-<?php
 
-
-/*load the HTML head tag: head-utils.php*/
-require_once(dirname(dirname(__DIR__)) . "/php/partials/head-utils.php");
-?>
 
 
 		<!-- insert header and navbar -->
@@ -28,8 +23,4 @@ require_once(dirname(dirname(__DIR__)) . "/php/partials/head-utils.php");
 			</div><!--/.row-flex-->
 		</main>
 
-
-
-	<!-- insert footer -->
-	<?php require_once(dirname(dirname(__DIR__)) . "/php/partials/footer.php");?>
 

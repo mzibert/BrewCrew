@@ -1,14 +1,3 @@
-<?php
-
-
-/*load the HTML head tag: head-utils.php*/
-require_once(dirname(dirname(__DIR__)) . "/php/partials/head-utils.php");
-?>
-<body class="sfooter content-layout">
-	<div class="sfooter-content">
-
-		<!-- insert header and navbar -->
-		<?php require_once(dirname(dirname(__DIR__)) . "/php/partials/header.php");?>
 
 
 			<!-- begin main content area -->
@@ -78,10 +67,4 @@ require_once(dirname(dirname(__DIR__)) . "/php/partials/head-utils.php");
 
 
 			</div><!--/.row-flex-->
-
-
-	</div><!--/.sfooter-content-->
-
-	<!-- insert footer -->
-	<?php require_once(dirname(dirname(__DIR__)) . "/php/partials/footer.php");?>
 
