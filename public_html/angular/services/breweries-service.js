@@ -1,5 +1,5 @@
 /**
- * Created by chiwe_000 on 6/9/2016.
+ * 
  */
 
 app.constant("BREWERY_ENDPOINT", "php/apis/brewery/");
