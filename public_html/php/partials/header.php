@@ -24,7 +24,7 @@
 			</form>
 			<div class="collapse navbar-collapse" id="navbar-collapse-1">
 				<ul class="nav navbar-nav navbar-right">
-					<li class="active"><a href="compass">The Compass <span class="sr-only"></span></a></li>
+					<li class="active"><a href="thecompass">The Compass <span class="sr-only"></span></a></li>
 					<li class="active"><a href="beer">Beers <span class="sr-only"></span></a></li>
 					<li class="active"><a href="breweries">Breweries <span class="sr-only"></span></a></li>
 					<li class="active"><a href="signup">Sign Up <span class="sr-only"></span></a></li>
