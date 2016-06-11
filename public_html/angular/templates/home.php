@@ -1,4 +1,4 @@
-<div class="jumbotron">
+<div class="jumbotron jumbotron-bg" >
 	<div class="container text-center">
 		<p>We're tracking x beers from 50 craft breweries in New Mexico!</p>
 		<p><a class="btn btn-primary btn-lg" href="#" role="button">Join Us! &raquo;</a></p>

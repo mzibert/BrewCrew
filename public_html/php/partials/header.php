@@ -12,7 +12,7 @@
 					<span class="icon-bar"></span>
 				</button>
 				<a class="navbar-brand" href="home" >
-					<img src="image/placeholder-logo-beige.png" role="button" alt="Placeholder Logo"></a>
+					<img src="image/logo.png" role="button" alt="Placeholder Logo"></a>
 			</div>
 
 			<!-- Collect the nav links, forms, and other content for toggling -->
