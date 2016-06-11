@@ -72,11 +72,13 @@
 	</div>
 </div>
 
+<!-- join/sign in container -->
+
 <div class="container">
 	<div class="row">
 		<div class="col-md-4">
-	<h1>Join Us!</h1>
-	<p>Sign up in a single step, and cancel anytime.</p>
+			<h1>Join Us!</h1>
+			<p>Sign up in a single step, and cancel anytime.</p>
 			<!-- sign up button -->
 			<h4>Sign Up to Create Your Flavor Profile</h4>
 			<div class="button-container">
@@ -84,9 +86,10 @@
 			</div>
 		</div>
 	</div>
-	<div>
-		<!-- Account Holder controls-->
-		<h4>Already Have an Account?</h4>
+
+		<div class="row">
+			<!-- Account Holder controls-->
+			<h4>Already Have an Account?</h4>
 
 			<!-- Log in modal trigger button -->
 			<br>
@@ -94,36 +97,37 @@
 				<a href="signin.php" class="btn btn-lg btn-success">Log In</a>
 			</div>
 		</div> <!-- end of column-->
-	</div>
 
-		<!--Log In Modal -->
-		<div class="modal fade" id="modal-lg" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel"
-			  aria-hidden="true" data-keyboard="true">
-			<!-- Modals have two optional sizes, available via class="modal-lg" or class="modal-sm" -->
-			<div class="modal-dialog modal-lg">
-				<!-- Begin modal content here -->
-				<div class="modal-content">
-					<div class="modal-header">
-						<!-- close button -->
-						<button type="button" class="close" data-dismiss="modal" aria-label="close">
-							<span aria-hidden="true">×</span>
-						</button>
-						<h3 class="modal-title">ABQ Brew Crew</h3>
-					</div>
-					<div class="modal-body">
-						<label for="modalLoginForm" class="control-label">Enter your email address and password
-							here</label>
+		<div class="row">
+			<!--Log In Modal -->
+			<div class="modal fade" id="modal-lg" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel"
+				  aria-hidden="true" data-keyboard="true">
+				<!-- Modals have two optional sizes, available via class="modal-lg" or class="modal-sm" -->
+				<div class="modal-dialog modal-lg">
+					<!-- Begin modal content here -->
+					<div class="modal-content">
+						<div class="modal-header">
+							<!-- close button -->
+							<button type="button" class="close" data-dismiss="modal" aria-label="close">
+								<span aria-hidden="true">×</span>
+							</button>
+							<h3 class="modal-title">ABQ Brew Crew</h3>
+						</div>
+						<div class="modal-body">
+							<label for="modalLoginForm" class="control-label">Enter your email address and password
+								here</label>
+						</div>
 					</div>
 				</div>
+			</div> <!-- End of Log in modal-->
+
+
+		</div> <!--end of row-->
+
+
+		<div class="row">
+			<div class="col-md-12">
+				<a href="#">Forgot Password?</a>
 			</div>
-		</div> <!-- End of Log in modal-->
-
-
-	</div> <!--end of row-->
-
-
-	<div class="row">
-		<div class="col-md-12">
-			<a href="#">Forgot Password?</a>
 		</div>
 	</div>
