@@ -82,7 +82,6 @@ nav.navbar {
 	align-items: center;
 	min-height: 50px;
 	margin-bottom: 20px;
-
 }
 
 /* make the navbar links section take up the rest of the horiz space */
@@ -92,12 +91,8 @@ nav.navbar {
 }
 #navbar{
 	position: fixed;
-
 }
-.navbar-inverse{
 
-
-}
 
 /* make .navbar-header take up all the space when nav is collapsed */
 @media only screen and (max-width: 768px) {
