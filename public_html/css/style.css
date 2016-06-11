@@ -70,6 +70,21 @@ body {
 #main {
 	margin-top: 270px;
 }
+#signin{
+	margin-top: 75px;
+}
+#brewery{
+	margin-top: 100px;
+}
+#signup{
+	margin-top: 100px;
+}
+#thecompass{
+	margin-top: 100px;
+}
+#beer{
+	margin-top: 100px;
+}
 #navbar{
 	padding-right: 0.5%;
 

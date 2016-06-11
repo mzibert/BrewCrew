@@ -3,7 +3,7 @@
 			<!-- begin main content area -->
 			<div class="row row-flex content-wrap">
 
-				<div class="container">
+				<div class="container" id="signup">
 					<div class="row">
 						<form role="form" name="signup" id="signup" ng-controller="SignupController" ng-submit="submit(formData, sampleForm, $valid)">
 							<div class="col-md-6 col-md-offset-3">
@@ -61,10 +61,5 @@
 							</div>
 						</div>
 					</div>
-					</div>
 
-
-
-
-			</div><!--/.row-flex-->
 

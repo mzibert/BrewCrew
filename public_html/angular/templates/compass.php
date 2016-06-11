@@ -1,11 +1,11 @@
 <!-- begin main content page layout -->
-
-<div class="row">
+<div class="contaienr" id="thecompass">
+<div class="row" >
 	<div class="span9">
 		<h2 class="heading h-section text-center" data-barley="index_hiw_heading" data-barley-editor="simple">Search the Craft Beer Compass and Discover Your Flavor Profile</h2>
 	</div>
 </div>
-
+</div>
 <div class="container">
 	<div class="row">
 		<div class="col-md-9">
