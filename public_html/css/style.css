@@ -70,22 +70,28 @@ body {
 #main {
 	margin-top: 270px;
 }
-#signin{
+
+#signin {
 	margin-top: 75px;
 }
-#brewery{
+
+#brewery {
 	margin-top: 100px;
 }
-#signup{
+
+#signup {
 	margin-top: 100px;
 }
-#thecompass{
+
+#thecompass {
 	margin-top: 100px;
 }
-#beer{
+
+#beer {
 	margin-top: 100px;
 }
-#navbar{
+
+#navbar {
 	padding-right: 0.5%;
 
 	padding-left: 0.5%;
