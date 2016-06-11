@@ -2,7 +2,8 @@
 
 	<bootstrap-breakpoint></bootstrap-breakpoint>
 
-	<div class="container-fluid">
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+	<div class="container-fluid" id="navbar">
 		<nav class="navbar navbar-inverse">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false" ng-click="navCollapsed = !navCollapsed">

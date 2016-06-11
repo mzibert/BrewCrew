@@ -51,30 +51,14 @@ body {
 	flex: 1 0 auto;
 }
 
-.jumbotron-bg {
+#beerheroimage{
 	background: url("../image/jumbotron.jpg") no-repeat center center;
-	position: fixed;
 	width: 100%;
-	height: 350px; /*same height as jumbotron */
-	top:0;
-	left:0;
-	z-index: -1;
 }
-.jumbotron {
-	margin-bottom: 0px;
-	background-position: 0% 10%;
-	background-size: cover;
-	background-repeat: no-repeat;
-	color: white;
-	height: 20em;
+.beerhero{
 	width: 100%;
-	text-shadow: black 0.3em 0.3em 0.3em;
-	-webkit-box-shadow: 10px 10px 10px grey;
-	-moz-box-shadow:    10px 10px 10px grey;
-	/*I know I am supposed to end with known values here but the shadow looks wrong when I do*/
-	box-shadow:         10px 10px 10px grey;
+	margin: 70px;
 }
-
 /***
 * Nice Navbar Logo
 * author: rlewis37
@@ -96,6 +80,9 @@ body {
 nav.navbar {
 	display: flex;
 	align-items: center;
+	min-height: 50px;
+	margin-bottom: 20px;
+
 }
 
 /* make the navbar links section take up the rest of the horiz space */
@@ -103,13 +90,27 @@ nav.navbar {
 #navbar-collapse-1 {
 	flex: 1;
 }
+#navbar{
+	position: fixed;
+
+}
+.navbar-inverse{
+
+
+}
 
 /* make .navbar-header take up all the space when nav is collapsed */
 @media only screen and (max-width: 768px) {
 	.navbar-header {
 		flex: 1;
 	}
+	.beerhero{
+		padding-bottom: 48px;
+		padding-top: 48px;
+	}
 }
+
+
 
 /* the compass styles */
 
