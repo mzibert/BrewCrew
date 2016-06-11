@@ -110,3 +110,57 @@ nav.navbar {
 		flex: 1;
 	}
 }
+
+/* the compass styles */
+
+#compass-wrap > .compass .needle {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	-webkit-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+	-webkit-animation: needle 6s ease-in-out infinite;
+	animation: needle 6s ease-in-out infinite;
+}
+
+@-webkit-keyframes needle {
+	0%,100% {
+		-webkit-transform: translate(-50%, -50%) rotate(-15deg);
+		transform: translate(-50%, -50%) rotate(-15deg);
+	}
+	50% {
+		-webkit-transform: translate(-50%, -50%) rotate(360deg);
+		transform: translate(-50%, -50%) rotate(360deg);
+	}
+}
+
+@keyframes needle {
+	0%,100% {
+		-webkit-transform: translate(-50%, -50%) rotate(-360deg);
+		transform: translate(-50%, -50%) rotate(-360deg);
+	}
+	50% {
+		-webkit-transform: translate(-50%, -50%) rotate(360deg);
+		transform: translate(-50%, -50%) rotate(360deg);
+	}
+}
+@-webkit-keyframes needle2 {
+	0%,100% {
+		-webkit-transform: translate(-50%, -50%) rotate(360deg);
+		transform: translate(-50%, -50%) rotate(360deg);
+	}
+	50% {
+		-webkit-transform: translate(-50%, -50%) rotate(-360deg);
+		transform: translate(-50%, -50%) rotate(-360deg);
+	}
+}
+@keyframes needle2 {
+	0%,100% {
+		-webkit-transform: translate(-50%, -50%) rotate(360deg);
+		transform: translate(-50%, -50%) rotate(360deg);
+	}
+	50% {
+		-webkit-transform: translate(-50%, -50%) rotate(-360deg);
+		transform: translate(-50%, -50%) rotate(-360deg);
+	}
+}
