@@ -11,8 +11,8 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<
-				<a class="navbar-brand"><img src="image/placeholder-logo.png" class="img-thumbnail" alt="Placeholder Logo"></a>
+				<a class="navbar-brand" href="home" >
+					<img src="image/placeholder-logo.png" role="button" alt="Placeholder Logo"></a>
 			</div>
 
 			<!-- Collect the nav links, forms, and other content for toggling -->
