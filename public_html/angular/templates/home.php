@@ -1,10 +1,9 @@
-<div class="col-xs-12">
-	<div class="jumbotron">
-		<div class="container">
-			<p class="lead">We're tracking x beers from 50 craft breweries in New Mexico!</p>
-			<p><a class="btn btn-primary btn-lg" href="#" role="button">Join Us! &raquo;</a></p>
-		</div>
+<div class="jumbotron">
+	<div class="container text-center">
+		<p>We're tracking x beers from 50 craft breweries in New Mexico!</p>
+		<p><a class="btn btn-primary btn-lg" href="#" role="button">Join Us! &raquo;</a></p>
 	</div>
+</div>
 	<!-- Featured beers, breweries, and reviewers -->
 	<div class="container-fluid">
 		<div class="row">

@@ -11,7 +11,8 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="index">New Mexico Brew Crew</a>
+				<
+				<a class="navbar-brand"><img src="image/placeholder-logo.png" class="img-thumbnail" alt="Placeholder Logo"></a>
 			</div>
 
 			<!-- Collect the nav links, forms, and other content for toggling -->
@@ -21,7 +22,6 @@
 				</div>
 				<button type="submit" class="btn btn-default">Submit</button>
 			</form>
-
 			<div class="collapse navbar-collapse" id="navbar-collapse-1">
 				<ul class="nav navbar-nav navbar-right">
 					<li class="active"><a href="compass">The Compass <span class="sr-only"></span></a></li>

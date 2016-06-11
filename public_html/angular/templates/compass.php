@@ -2,7 +2,7 @@
 
 <div class="row">
 	<div class="span9">
-		<h2 class="heading h-section text-center" data-barley="index_hiw_heading" data-barley-editor="simple">Search for Craft Beers</h2>
+		<h2 class="heading h-section text-center" data-barley="index_hiw_heading" data-barley-editor="simple">Search the Craft Beer Compass and Discover Your Flavor Profile</h2>
 	</div>
 </div>
 
@@ -14,14 +14,21 @@
 
 
 					<div class="search-form">
-						<form action="#" method="get">
-							<div class="input-group">
-								<input type="text" placeholder="Search" name="search" class="form-control input-lg">
-								<div class="input-group-btn">
-									<button class="btn btn-lg btn-primary" type="submit">Search</button>
+						<div class="row">
+							<div class="col-xs-6">
+								<div class="range">
+									<input type="range" name="range" min="1" max="100" value="50" onchange="range.value=value">
+									<output id="range">50</output>
 								</div>
 							</div>
-						</form>
+							<div class="col-xs-6">
+								<div class="range range-primary">
+									<input type="range" name="range" min="1" max="100" value="50" onchange="rangePrimary.value=value">
+									<output id="rangePrimary">50</output>
+								</div>
+							</div>
+						</div>
+
 					</div>
 					<h2>Results found for: <span class="search results">"(     )"</span></h2>
 					<div class="hr-line-dashed"></div>

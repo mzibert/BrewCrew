@@ -23,7 +23,7 @@ app.config(function($routeProvider, $locationProvider) {
 		// route for the the compasss page
 		.when('/thecompass/', {
 			controller  : 'thecompassController',
-			templateUrl : 'angular/templates/thecompass.php'
+			templateUrl : 'angular/templates/compass.php'
 		})
 
 		// route for the breweries page
