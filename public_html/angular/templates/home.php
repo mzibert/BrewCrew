@@ -2,7 +2,7 @@
 	<div class="row">
 		<div class="col-md-12">
 			<p>We're tracking x beers from 50 craft breweries in New Mexico!</p>
-			<p><a class="btn btn-primary btn-lg" href="signup.php" role="button">Join Us! &raquo;</a></p>
+			<p><a class="btn btn-primary btn-lg" href="signup" role="button">Join Us! &raquo;</a></p>
 		</div>
 	</div>
 </div>
@@ -12,10 +12,7 @@
 	<div class="row">
 		<div class="col-md-4">
 			<h3>Most Popular Breweries</h3>
-			<p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor
-				mauris
-				condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis
-				euismod. Donec sed odio dui. </p>
+			<p>Raise your mugs to New Mexico's amazing breweries. </p>
 			<p><a class="btn btn-default" href="breweries.php" role="button">See more &raquo;</a></p>
 		</div>
 		<div class="col-md-4">
