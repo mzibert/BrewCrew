@@ -91,10 +91,6 @@ body {
 	margin-top: 100px;
 }
 
-#navbar {
-	padding-right: 0.5%;
-	padding-left: 0.5%;
-}
 
 /***
 * Nice Navbar Logo
@@ -105,6 +101,7 @@ body {
 .navbar-brand {
 	height: 65px;
 	padding: 0;
+
 }
 
 /* make navbar-brand image play nice */
@@ -129,6 +126,9 @@ nav.navbar {
 
 #navbar {
 	position: fixed;
+}
+.navbar-toggle {
+	z-index:3;
 }
 
 /* make .navbar-header take up all the space when nav is collapsed */
