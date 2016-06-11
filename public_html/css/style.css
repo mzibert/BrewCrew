@@ -19,7 +19,7 @@ img {
 	font-size: large;
 	font-weight: 900;
 	text-align: center;
-	font-family: "Arabic Typesetting";
+	font-family: "sans-serif";
 
 }
 footer{
@@ -33,6 +33,7 @@ footer{
 ***/
 
 /*corrects IE min-height bug*/
+
 html {
 	display: flex;
 }
@@ -59,6 +60,7 @@ body {
 	width: 100%;
 	margin: 70px;
 }
+
 /***
 * Nice Navbar Logo
 * author: rlewis37
