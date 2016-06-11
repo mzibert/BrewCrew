@@ -126,9 +126,7 @@ nav.navbar {
 #navbar {
 	position: fixed;
 }
-.navbar-toggle {
-	z-index:3;
-}
+
 
 /* make .navbar-header take up all the space when nav is collapsed */
 @media only screen and (max-width: 768px) {
