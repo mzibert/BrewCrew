@@ -2,12 +2,13 @@
 	<div class="row">
 		<div class="col-md-12">
 			<p>We're tracking x beers from 50 craft breweries in New Mexico!</p>
-			<p><a class="btn btn-primary btn-lg" href="#" role="button">Join Us! &raquo;</a></p>
+			<p><a class="btn btn-primary btn-lg" href="signup.php" role="button">Join Us! &raquo;</a></p>
 		</div>
 	</div>
 </div>
 <!-- Featured beers, breweries, and reviewers -->
-<div class="container-fluid">
+
+<div class="container-fluid" id="main">
 	<div class="row">
 		<div class="col-md-4">
 			<h3>Most Popular Breweries</h3>
@@ -15,7 +16,7 @@
 				mauris
 				condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis
 				euismod. Donec sed odio dui. </p>
-			<p><a class="btn btn-default" href="#" role="button">See more &raquo;</a></p>
+			<p><a class="btn btn-default" href="breweries.php" role="button">See more &raquo;</a></p>
 		</div>
 		<div class="col-md-4">
 			<h3>Top Rated Beers</h3>
@@ -23,7 +24,7 @@
 				mauris
 				condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis
 				euismod. Donec sed odio dui. </p>
-			<p><a class="btn btn-default" href="#" role="button">See more &raquo;</a></p>
+			<p><a class="btn btn-default" href="beer.php" role="button">See more &raquo;</a></p>
 		</div>
 		<div class="col-md-4">
 			<h3>Most Prolific Reviewers</h3>
@@ -71,11 +72,11 @@
 	</div>
 </div>
 
-<div>
+<div class="container">
+	<div class="row">
+		<div class="col-md-4">
 	<h1>Join Us!</h1>
 	<p>Sign up in a single step, and cancel anytime.</p>
-	<div class="row">
-		<div class="col-xs-12">
 			<!-- sign up button -->
 			<h4>Sign Up to Create Your Flavor Profile</h4>
 			<div class="button-container">
@@ -86,13 +87,14 @@
 	<div>
 		<!-- Account Holder controls-->
 		<h4>Already Have an Account?</h4>
-		<div class="col-md-6">
+
 			<!-- Log in modal trigger button -->
 			<br>
 			<div class="button-container">
 				<a href="signin.php" class="btn btn-lg btn-success">Log In</a>
 			</div>
 		</div> <!-- end of column-->
+	</div>
 
 		<!--Log In Modal -->
 		<div class="modal fade" id="modal-lg" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel"
