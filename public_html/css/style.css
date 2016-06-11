@@ -15,7 +15,7 @@ img {
 	height: auto;
 }
 
-#beercompass{
+#beercompass {
 	font-size: large;
 	font-weight: 900;
 	text-align: center;
@@ -23,11 +23,11 @@ img {
 
 }
 
-footer{
+footer {
 	text-align: center;
-
-
+	padding: 35px;
 }
+
 /***
 * Flexbox Sticky Footer
 * http://philipwalton.github.io/solved-by-flexbox/demos/sticky-footer/
@@ -53,20 +53,21 @@ body {
 	flex: 1 0 auto;
 }
 
-#beerheroimage{
+#beerheroimage {
 	background: url("../image/jumbotron.jpg") repeat center center;
 	width: 100%;
 	left: 0;
 	position: absolute;
-	z-index:1; /*Add this*/
-	top:71px;
+	z-index: 1; /*Add this*/
+	top: 71px;
 }
-.beerhero{
+
+.beerhero {
 	padding: 25px;
 
-
 }
-#main{
+
+#main {
 	margin-top: 270px;
 }
 
@@ -100,23 +101,22 @@ nav.navbar {
 #navbar-collapse-1 {
 	flex: 1;
 }
-#navbar{
+
+#navbar {
 	position: fixed;
 }
-
 
 /* make .navbar-header take up all the space when nav is collapsed */
 @media only screen and (max-width: 768px) {
 	.navbar-header {
 		flex: 1;
 	}
-	.beerhero{
+
+	.beerhero {
 		padding-bottom: 48px;
 		padding-top: 48px;
 	}
 }
-
-
 
 /* the compass styles */
 
@@ -131,7 +131,7 @@ nav.navbar {
 }
 
 @-webkit-keyframes needle {
-	0%,100% {
+	0%, 100% {
 		-webkit-transform: translate(-50%, -50%) rotate(-15deg);
 		transform: translate(-50%, -50%) rotate(-15deg);
 	}
@@ -142,7 +142,7 @@ nav.navbar {
 }
 
 @keyframes needle {
-	0%,100% {
+	0%, 100% {
 		-webkit-transform: translate(-50%, -50%) rotate(-360deg);
 		transform: translate(-50%, -50%) rotate(-360deg);
 	}
@@ -151,8 +151,9 @@ nav.navbar {
 		transform: translate(-50%, -50%) rotate(360deg);
 	}
 }
+
 @-webkit-keyframes needle2 {
-	0%,100% {
+	0%, 100% {
 		-webkit-transform: translate(-50%, -50%) rotate(360deg);
 		transform: translate(-50%, -50%) rotate(360deg);
 	}
@@ -161,8 +162,9 @@ nav.navbar {
 		transform: translate(-50%, -50%) rotate(-360deg);
 	}
 }
+
 @keyframes needle2 {
-	0%,100% {
+	0%, 100% {
 		-webkit-transform: translate(-50%, -50%) rotate(360deg);
 		transform: translate(-50%, -50%) rotate(360deg);
 	}
