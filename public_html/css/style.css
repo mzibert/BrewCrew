@@ -137,10 +137,9 @@ nav.navbar {
 		flex: 1;
 	}
 
-	.beerhero {
-		padding-bottom: 48px;
-		padding-top: 48px;
-	}
+.beerhero {
+	padding-bottom: 48px;
+	padding-top: 48px;
 }
 
 /* the compass styles */
