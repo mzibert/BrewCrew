@@ -18,7 +18,7 @@ app.service("breweryService", function($http, BREWERY_ENDPOINT) {
 	};
 
 	this.fetchBreweryById = function(breweryId) {
-		return($http.get(getUrlForId() + scheduleId));
+		return($http.get(getUrlForId() + breweryId));
 	};
 
 	this.fetchBreweryByLocation = function(breweryLocation) {
@@ -39,7 +39,7 @@ app.service("breweryService", function($http, BREWERY_ENDPOINT) {
 	};
 
 	this.destroy = function(breweryId) {
-		return($http.delete(getUrlForId(breweryhId)));
+		return($http.delete(getUrlForId(breweryId)));
 	};
 });
 
