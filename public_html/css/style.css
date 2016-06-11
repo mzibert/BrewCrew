@@ -48,3 +48,39 @@ body {
 .sfooter-content {
 	flex: 1 0 auto;
 }
+
+/***
+* Nice Navbar Logo
+* author: rlewis37
+***/
+
+/* make navbar-brand a nice height - works ok on mobile + desktop */
+.navbar-brand {
+	height: 50px;
+	padding: 0;
+}
+
+/* make navbar-brand image play nice */
+.navbar-brand > img {
+	height: 100%;
+	width: auto;
+}
+
+/* make navbar a flexbox, and vertically align the items inside */
+nav.navbar {
+	display: flex;
+	align-items: center;
+}
+
+/* make the navbar links section take up the rest of the horiz space */
+/* this pushes the links over to the right */
+#navbar-collapse-1 {
+	flex: 1;
+}
+
+/* make .navbar-header take up all the space when nav is collapsed */
+@media only screen and (max-width: 768px) {
+	.navbar-header {
+		flex: 1;
+	}
+}

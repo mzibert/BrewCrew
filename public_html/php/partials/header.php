@@ -12,16 +12,10 @@
 					<span class="icon-bar"></span>
 				</button>
 				<a class="navbar-brand" href="home" >
-					<img src="image/placeholder-logo.png" role="button" alt="Placeholder Logo"></a>
+					<img src="image/placeholder-logo-beige.png" role="button" alt="Placeholder Logo"></a>
 			</div>
 
 			<!-- Collect the nav links, forms, and other content for toggling -->
-			<form class="navbar-form navbar-right" role="search">
-				<div class="form-group">
-					<input type="text" class="form-control" placeholder="Search">
-				</div>
-				<button type="submit" class="btn btn-default">Submit</button>
-			</form>
 			<div class="collapse navbar-collapse" id="navbar-collapse-1">
 				<ul class="nav navbar-nav navbar-right">
 					<li class="active"><a href="thecompass">The Compass <span class="sr-only"></span></a></li>
@@ -31,6 +25,12 @@
 					<li class="active"><a href="signin">Log In <span class="sr-only"></span></a></li>
 				</ul>
 			</div>
+				<form class="navbar-form navbar-right" role="search">
+					<div class="form-group">
+						<input type="text" class="form-control" placeholder="Search">
+					</div>
+					<button type="submit" class="btn btn-default">Search</button>
+				</form>
 		</nav>
 	</div><!-- /.container-fluid -->
 </header>
