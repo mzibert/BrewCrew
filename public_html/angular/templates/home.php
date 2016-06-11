@@ -17,18 +17,12 @@
 		</div>
 		<div class="col-md-4">
 			<h3>Top Rated Beers</h3>
-			<p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor
-				mauris
-				condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis
-				euismod. Donec sed odio dui. </p>
+			<p>Enjoy expertly-crafted beer all around our great state.</p>
 			<p><a class="btn btn-default" href="beer.php" role="button">See more &raquo;</a></p>
 		</div>
 		<div class="col-md-4">
 			<h3>Most Prolific Reviewers</h3>
-			<p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula
-				porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh,
-				ut
-				fermentum massa justo sit amet risus.</p>
+			<p>Reviews from New Mexico's beer lovers.</p>
 			<p><a class="btn btn-default" href="#" role="button">See more &raquo;</a></p>
 		</div>
 	</div>
