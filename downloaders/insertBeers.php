@@ -17,17 +17,17 @@ foreach($breweries as $brewery) {
 	$beers = json_decode(file_get_contents($beerUrl));
 	if($beers->numberOfPages >= 1) {
 		//increment number of pages
-		for($i =2; $i <= $beers->numberOfPages; $i++);
-		
+		for($i = 2; $i <= $beers->numberOfPages; $i++) ;
+
 		foreach($beers->data as $beer) {
 
 			//look for the data, if not there set the default value
 			if(empty($beer->abv) === false) {
 				$abv = $beer->abv;
 			} else {
-				$abv = null;
+				$abv = 100;
 			}
-			if (empty($beer->available->description) === false) {
+			if(empty($beer->available->description) === false) {
 				$availability = $beer->available->description;
 			} else {
 				$availability = "N/A";
@@ -35,7 +35,7 @@ foreach($breweries as $brewery) {
 			//get color value from srm values
 			if(empty($beer->srm->name) === false) {
 				$srm = filter_var($beer->srm, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
-			} elseif (empty($beer->srm) === false || empty($srm) === true) {
+			} elseif(empty($beer->srm) === false || empty($srm) === true) {
 				$srmMin = filter_var($beer->style->srmMin, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
 				$srmMax = filter_var($beer->style->srmMax, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
 				$srm = ($srmMax + $srmMin) / 2.0;
@@ -68,13 +68,12 @@ foreach($breweries as $brewery) {
 
 			//Check for duplicates
 			//Allow new beers to be added
-			$existingBeers = \Edu\Cnm\BrewCrew\Beer::getBeerByBeerDbKey($pdo, $beer->getBeerDbKey());
+			$existingBeer = \Edu\Cnm\BrewCrew\Beer::getBeerByBeerDbKey($pdo, $beer->getBeerDbKey());
 			$canInsert = true;
-			foreach($existingBeers as $existingBeer) {
-				if($beer->getBeerDbKey() === $existingBeer->getBeerDbKey) {
-					$canInsert = false;
-				}
+			if($beer->getBeerDbKey() === $existingBeer->getBeerDbKey()) {
+				$canInsert = false;
 			}
+
 			//insert or update beer
 			if($canInsert === true) {
 				$beer->insert($pdo);
