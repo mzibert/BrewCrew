@@ -54,7 +54,7 @@ body {
 }
 
 #beerheroimage {
-	background: url("../image/jumbotron.jpg") repeat center center;
+	background: url("../image/beerbubbles.jpg") repeat center center;
 	width: 100%;
 	left: 0;
 	position: absolute;
@@ -135,9 +135,16 @@ nav.navbar {
 		flex: 1;
 	}
 }
+
 .beerhero {
 	padding-bottom: 48px;
 	padding-top: 48px;
+	text-shadow: black 0.3em 0.3em 0.3em;
+	-webkit-box-shadow: 10px 10px 10px grey;
+	-moz-box-shadow:    10px 10px 10px grey;
+	box-shadow:         10px 10px 10px grey;
+	/*I know I am supposed to end with known values here but the shadow looks wrong when I do*/
+
 }
 
 /* the compass styles */

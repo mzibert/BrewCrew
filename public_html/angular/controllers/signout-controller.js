@@ -4,3 +4,4 @@ app.controller('signoutController', ["$scope", "$window", "SignoutService", func
 			$window.location = ".";
 		});
 }]);
+
