@@ -37,6 +37,12 @@ app.config(function($routeProvider, $locationProvider) {
 			controller  : 'beerController',
 			templateUrl : 'angular/templates/beer.php'
 		})
+		// route for the user page
+		.when('/user/', {
+			controller  : 'userController',
+			templateUrl : 'angular/templates/user.php'
+		})
+
 
 		// otherwise redirect to home
 		.otherwise({

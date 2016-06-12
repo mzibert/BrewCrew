@@ -2,7 +2,7 @@
 
 	<bootstrap-breakpoint></bootstrap-breakpoint>
 
-	<nav class="navbar navbar-inverse navbar-fixed-top">
+	<nav class="navbar navbar-inverse navbar-right navbar-fixed-top">
 	<div class="container-fluid" id="navbar">
 		<nav class="navbar navbar-inverse">
 			<div class="navbar-header">
