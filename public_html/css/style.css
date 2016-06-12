@@ -128,6 +128,10 @@ nav.navbar {
 	text-align: right;
 }
 
+#profile{
+	text-align: center;
+	padding: 150px;
+}
 
 /* make .navbar-header take up all the space when nav is collapsed */
 @media only screen and (max-width: 768px) {
