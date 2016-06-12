@@ -666,7 +666,7 @@ class Beer implements \JsonSerializable {
 		}
 
 		//create the query template
-		$query = "SELECT beerId, beerBreweryID, beerAbv, beerAvailability, beerAwards, beerColor, beerDbKey, beerDescription, beerIbu, beerName, beerStyle FROM beer WHERE beerDbKey LIKE :beerDbKey";
+		$query = "SELECT beerId, beerBreweryId, beerAbv, beerAvailability, beerAwards, beerColor, beerDbKey, beerDescription, beerIbu, beerName, beerStyle FROM beer WHERE beerDbKey LIKE :beerDbKey";
 		$statement = $pdo->prepare($query);
 
 		//bind the beerDbKey to the placeholder in the template

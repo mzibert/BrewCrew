@@ -391,6 +391,15 @@ class BeerTest extends BrewCrewTest {
 		$this->assertEquals($pdoBeer->getBeerStyle(), $this->VALID_BEERSTYLE);
 	}
 	/**
+	 * testing grabbing a beer by invalid beerDbKey
+	 *
+	 **/
+	public function testGetBeerByInvalidBeerDbKey() {
+		// Grab a brewery by invalid key
+		$beer = Beer::getBeerByBeerDbKey($this->getPDO(), BrewCrewTest::INVALID_KEY);
+		$this->assertNull($beer);
+	}
+	/**
  * test grabbing a beer by beer style
  **/
 	public function testGetBeerByBeerStyle() {
@@ -444,7 +453,7 @@ class BeerTest extends BrewCrewTest {
 		$this->assertEquals($pdoBeer->getBeerAvailability(), $this->VALID_BEERAVAILABILITY);
 		$this->assertEquals($pdoBeer->getBeerAwards(), $this->VALID_BEERAWARDS);
 		$this->assertEquals($pdoBeer->getBeerColor(), $this->VALID_BEERCOLOR);
-		$this->assertEquals($pdoBeer->getBeerDbKey(). $this->VALID_BEERDBKEY);
+		$this->assertEquals($pdoBeer->getBeerDbKey(), $this->VALID_BEERDBKEY);
 		$this->assertEquals($pdoBeer->getBeerDescription(), $this->VALID_BEERDESCRIPTION);
 		$this->assertEquals($pdoBeer->getBeerIbu(), $this->VALID_BEERIBU);
 		$this->assertEquals($pdoBeer->getBeerName(), $this->VALID_BEERNAME);
