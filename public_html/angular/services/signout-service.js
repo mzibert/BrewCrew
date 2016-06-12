@@ -1,4 +1,4 @@
-app.service('signoutService', function($http){
+app.service('SignoutService', function($http){
 	this.SIGNOUT_ENDPOINT = 'php/api/signout/';
 
 	this.logout = function() {

@@ -3,7 +3,7 @@
  */
 
 app.constant("BEER_ENDPOINT", "php/apis/beer/");
-app.service("beerService", function($http, BEER_ENDPOINT) {
+app.service("BeerService", function($http, BEER_ENDPOINT) {
 
 	function getUrl() {
 		return(BEER_ENDPOINT);

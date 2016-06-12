@@ -1,5 +1,5 @@
 app.constant("ACTIVATION_ENDPOINT", "php/api/user/");
-app.service("userService", function($http, ACTIVATION_ENDPOINT) {
+app.service("UserService", function($http, ACTIVATION_ENDPOINT) {
 
 	function getUrl() {
 		return(ACTIVATION_ENDPOINT);
