@@ -125,6 +125,7 @@ nav.navbar {
 
 #navbar {
 	position: fixed;
+	text-align: right;
 }
 
 
