@@ -41,10 +41,11 @@ try {
 				//get color value from srm values
 				if(empty($beer->srm->name) === false) {
 					$srm = filter_var($beer->srm, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+					$srm =  $srm / 40;
 				} elseif(empty($beer->srm) === false || empty($srm) === true) {
 					$srmMin = filter_var($beer->style->srmMin, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
 					$srmMax = filter_var($beer->style->srmMax, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
-					$srm = ($srmMax + $srmMin) / 2.0;
+					$srm = (($srmMax + $srmMin) / 2.0) / 40;
 				} else {
 					$srm = false;
 				}
@@ -68,9 +69,10 @@ try {
 				} else {
 					$style = "N/A";
 				}
+				$awards = "N/A";
 
 				//Prepare to insert beer
-				$beer = new Edu\Cnm\BrewCrew\Beer(null, $brewery->getBreweryId(), $abv, $availability, null, $srm, $beer->id, $description, $ibu, $name, $style);
+				$beer = new Edu\Cnm\BrewCrew\Beer(null, $brewery->getBreweryId(), $abv, $availability, $awards, $srm, $beer->id, $description, $ibu, $name, $style);
 
 				//Check for duplicates
 				//Allow new beers to be added
