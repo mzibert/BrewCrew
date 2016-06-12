@@ -60,7 +60,7 @@ try {
 		$beerName = filter_input(INPUT_GET, "beerName", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		$beerStyle = filter_input(INPUT_GET, "beerStyle", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 
-		//get a specific beer or all beers and update reply
+		//get a specific beer by input
 		if(empty($id) === false) {
 			$beer = BrewCrew\Beer::getBeerByBeerId($pdo, $id);
 			if($beer !== null) {

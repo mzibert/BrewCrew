@@ -14,9 +14,9 @@
 
 
 					<div class="search-form">
-						<form action="#" method="get">
+						<form name="beerSearchForm" ng-submit="getBeerByName(beerName);">
 							<div class="input-group">
-								<input type="text" placeholder="Search" name="search" class="form-control input-lg">
+								<input type="text" placeholder="Search by beer name" name="search" class="form-control input-lg">
 								<div class="input-group-btn">
 									<button class="btn btn-lg btn-primary" type="submit">Search</button>
 								</div>
