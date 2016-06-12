@@ -1,4 +1,4 @@
-app.controller("signupController", ["$scope", "SignupService", "$location", function($scope, SignupService, $location) {
+app.controller("SignupController", ["$scope", "SignupService", "$location", function($scope, SignupService, $location) {
 	$scope.alerts = [];
 	$scope.activationData = {};
 

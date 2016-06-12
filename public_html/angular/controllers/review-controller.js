@@ -1,4 +1,4 @@
-app.controller('userController', ["$scope", "userService", function($scope, userService) {
+app.controller('ReviewController', ["$scope", "userService", function($scope, userService) {
 	$scope.alerts = [];
 	$scope.userData = [];
 

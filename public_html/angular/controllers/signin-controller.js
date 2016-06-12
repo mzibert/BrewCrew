@@ -1,3 +1,3 @@
-app.controller('signinController', function($scope) {
+app.controller('SigninController', function($scope) {
 
 });

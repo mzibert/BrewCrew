@@ -1,3 +1,3 @@
-app.controller('beerController', function($scope) {
+app.controller('BeerController', function($scope) {
 
 });
