@@ -656,7 +656,7 @@ class Beer implements \JsonSerializable {
 	 * @return Beer|null returns either a beer or null if not found
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when variables are not the correct data type
-	 */
+	 **/
 	public static function getBeerByBeerDbKey(\PDO $pdo, string $beerDbKey) {
 		//sanitize the beerDbKey before searching
 		$beerDbKey = trim($beerDbKey);
