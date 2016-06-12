@@ -1,9 +1,9 @@
-app.controller('UserController', ["$scope", "userService", function($scope, userService) {
+app.controller('UserController', ["$scope", "UserService", function($scope, UserService) {
 	$scope.alerts = [];
 	$scope.userData = [];
 
 	$scope.getUserById = function() {
-		userService.fetchUserById(userId)
+		UserService.fetchUserById(userId)
 			.then(function(result) {
 				if(result.status.data === 200) {
 					$scope.data = result.data.data;
