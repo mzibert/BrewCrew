@@ -43,12 +43,20 @@
 		<script type="text/javascript" src="angular/app.js"></script>
 		<script type="text/javascript" src="angular/route-config.js"></script>
 		<script type="text/javascript" src="angular/directives/bootstrap-breakpoint.js"></script>
+		<script type="text/javascript" src="angular/controllers/beer-controller.js"></script>
+		<script type="text/javascript" src="angular/controllers/brewries-controller.js"></script>
 		<script type="text/javascript" src="angular/controllers/home-controller.js"></script>
 		<script type="text/javascript" src="angular/controllers/nav-controller.js"></script>
-		<script type="text/javascript" src="angular/controllers/about-controller.js"></script>
+		<script type="text/javascript" src="angular/controllers/review-controller.js"></script>
+		<script type="text/javascript" src="angular/controllers/signin-controller.js"></script>
+
+		<script type="text/javascript" src="angular/controllers/signout-controller.js"></script>
 		<script type="text/javascript" src="angular/controllers/signup-controller.js"></script>
-		<script type="text/javascript" src="angular/controllers/toys-controller.js"></script>
-		<script type="text/javascript" src="angular/controllers/treats-controller.js"></script>
+
+		<script type="text/javascript" src="angular/controllers/thecompass-controller.js"></script>
+
+		<script type="text/javascript" src="angular/controllers/user-controller.js"></script>
+
 
 		<title>ABQ Brew Crew</title>
 	</head>
