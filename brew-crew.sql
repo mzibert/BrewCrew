@@ -48,6 +48,7 @@ CREATE TABLE beer (
    beerAvailability VARCHAR(100),
    beerAwards VARCHAR(1000),
    beerColor DECIMAL(6, 5),
+	beerDbKey VARCHAR(6) NOT NULL,
    beerDescription VARCHAR(2000),
    beerIbu VARCHAR(50) NOT NULL,
    beerName VARCHAR(64) NOT NULL,
