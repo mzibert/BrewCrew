@@ -9,54 +9,58 @@ require_once("autoload.php");
  * @author Merri Zibert mjzibert2@gmail.com
  *
  **/
-
-
 class Beer implements \JsonSerializable {
 	/** Id for this beer is assigned by the system; this is the primary key.
 	 * @var int $beerId
 	 **/
 	private $beerId;
-	
+
 	/** Id of the brewery that has this beer; this is the foreign key
 	 * @var int $beerBreweryId
 	 **/
 	private $beerBreweryId;
-	
+
 	/** Actual percentage measurement for value of alcohol by volume
 	 * @var float $beerAbv
 	 **/
 	private $beerAbv;
-	
+
 	/** string provided by the API to inform if and when beer is available
 	 * @var string $beerAvailability
 	 **/
 	private $beerAvailability;
-	
+
 	/** text field provided by the API to reflect any awards the beer has earned
 	 * @var string $beerAwards
 	 **/
 	private $beerAwards;
-	
+
 	/** Decimal number created on a scale from 0 to 1 to reflect beer color on a scale from 0 being darkest to 1 being lightest
 	 * @var float $beerColor
 	 **/
 	private $beerColor;
-	
+
+	/**
+	 * this is the primary key that breweryDB uses to identify beers, we need this validate/check data against the api
+	 * @var string $beerDbKey
+	 */
+	private $beerDbKey;
+
 	/** string of open text taken from the API used to describe the beer
 	 * @var string $beerDescription
 	 **/
 	private $beerDescription;
-	
+
 	/** string usually numbers used to evaluate the quantitative value designated to the measurement of bitterness in beer.  Lower values less bitter, higher values more bitter.  However, some brewery use creative text descriptions instead
 	 * @var string $beerIbu
 	 **/
 	private $beerIbu;
-	
+
 	/** string of open text for the name of the beer
 	 * @var string $beerName
 	 **/
 	private $beerName;
-	
+
 	/** string used to capture the industry standard style label of the beer
 	 * @var string
 	 **/
@@ -70,6 +74,7 @@ class Beer implements \JsonSerializable {
 	 * @param string $newBeerAvailability tells us if beer is available year round or seasonally
 	 * @param string $newBeerAwards tells us all of the awards that this beer has been awarded
 	 * @param float $newBeerColor new value of beer color between 0 and 1
+	 * @param string $newBeerDbKey external api primary key value
 	 * @param string $newBeerDescription tells about the details of the beer should not exceed 2000 characters
 	 * @param string $newBeerIbu states how many Ibu's are present in the beer
 	 * @param string $newBeerName displays the name of the beer
@@ -79,7 +84,7 @@ class Beer implements \JsonSerializable {
 	 * @throws \TypeError if data types violate type hints
 	 * @throws \Exception if some other exception occurs
 	 **/
-	public function __construct(int $newBeerId = null, int $newBeerBreweryId, float $newBeerAbv, string $newBeerAvailability, string $newBeerAwards, float $newBeerColor, string $newBeerDescription, string $newBeerIbu, string $newBeerName, string $newBeerStyle) {
+	public function __construct(int $newBeerId = null, int $newBeerBreweryId, float $newBeerAbv, string $newBeerAvailability, string $newBeerAwards, float $newBeerColor, string $newBeerDbKey, string $newBeerDescription, string $newBeerIbu, string $newBeerName, string $newBeerStyle) {
 		try {
 			$this->setBeerId($newBeerId);
 			$this->setBeerBreweryId($newBeerBreweryId);
@@ -87,6 +92,7 @@ class Beer implements \JsonSerializable {
 			$this->setBeerAvailability($newBeerAvailability);
 			$this->setBeerAwards($newBeerAwards);
 			$this->setBeerColor($newBeerColor);
+			$this->setBeerDbKey($newBeerDbKey);
 			$this->setBeerDescription($newBeerDescription);
 			$this->setBeerIbu($newBeerIbu);
 			$this->setBeerName($newBeerName);
@@ -132,7 +138,7 @@ class Beer implements \JsonSerializable {
 			return;
 		}
 		// verify the beer id is a positive number
-		if($newBeerId <= 0){
+		if($newBeerId <= 0) {
 			throw (new \RangeException("beer Id is not a positive number"));
 		}
 		//convert and store the beer id
@@ -271,6 +277,36 @@ class Beer implements \JsonSerializable {
 	}
 
 	/**
+	 * accessor method for beerDbKey
+	 * @return string value for the external api key
+	 **/
+	public function getBeerDbKey() {
+		return ($this->beerDbKey);
+	}
+
+	/**
+	 * mutator method for beerDbKey
+	 * @param string $newBeerDbKey external api key for this beer
+	 * @throws \RangeException if the key is longer than six characters
+	 * @throws \InvalidArgumentException if the $newBeerDbKey is not a string or is insecure
+	 * @throws \TypeError if $newBeerDbKey is not a string
+	 */
+
+	public function setBeerDbKey($newBeerDbKey) {
+		//verify that the breweryDbKey is secure
+		$newBeerDbKey = trim($newBeerDbKey);
+		$newBeerDbKey = filter_var($newBeerDbKey, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($newBeerDbKey) === true) {
+			throw(new \InvalidArgumentException("beerDbKey is empty or insecure"));
+		}
+		if(strlen($newBeerDbKey) > 6) {
+			throw(new \RangeException("beerDbKey cannot be longer than 6 characters"));
+		}
+		//store the breweryDb key
+		$this->beerDbKey = $newBeerDbKey;
+	}
+
+	/**
 	 * accessor method for beer description
 	 * @return string value of beer description
 	 **/
@@ -400,11 +436,11 @@ class Beer implements \JsonSerializable {
 			throw (new \PDOException("not a new beer"));
 		}
 		//create query template
-		$query = "INSERT INTO beer(beerBreweryId, beerAbv, beerAvailability, beerAwards, beerColor, beerDescription, beerIbu, beerName, beerStyle) VALUES (:beerBreweryId, :beerAbv, :beerAvailability, :beerAwards, :beerColor, :beerDescription, :beerIbu, :beerName, :beerStyle)";
+		$query = "INSERT INTO beer(beerBreweryId, beerAbv, beerAvailability, beerAwards, beerColor, beerDbKey, beerDescription, beerIbu, beerName, beerStyle) VALUES (:beerBreweryId, :beerAbv, :beerAvailability, :beerAwards, :beerColor, :beerDbKey, :beerDescription, :beerIbu, :beerName, :beerStyle)";
 		$statement = $pdo->prepare($query);
 
 		//bind the member variables to the place holders in the template
-		$parameters = ["beerBreweryId" => $this->beerBreweryId, "beerAbv" => $this->beerAbv, "beerAvailability" => $this->beerAvailability, "beerAwards" => $this->beerAwards, "beerColor" => $this->beerColor, "beerDescription" => $this->beerDescription, "beerIbu" => $this->beerIbu, "beerName" => $this->beerName, "beerStyle" => $this->beerStyle];
+		$parameters = ["beerBreweryId" => $this->beerBreweryId, "beerAbv" => $this->beerAbv, "beerAvailability" => $this->beerAvailability, "beerAwards" => $this->beerAwards, "beerColor" => $this->beerColor, "beerDbKey" => $this->beerDbKey, "beerDescription" => $this->beerDescription, "beerIbu" => $this->beerIbu, "beerName" => $this->beerName, "beerStyle" => $this->beerStyle];
 		$statement->execute($parameters);
 
 		//update the null beerId with what my SQL just gave us
@@ -446,10 +482,10 @@ class Beer implements \JsonSerializable {
 		}
 
 		//create query template
-		$query = "UPDATE beer SET beerBreweryId = :beerBreweryId, beerAbv = :beerAbv, beerAvailability = :beerAvailability, beerAwards = :beerAwards, beerColor = :beerColor, beerDescription = :beerDescription, beerIbu = :beerIbu, beerName =:beerName, beerStyle = :beerStyle WHERE beerId = :beerId";
+		$query = "UPDATE beer SET beerBreweryId = :beerBreweryId, beerAbv = :beerAbv, beerAvailability = :beerAvailability, beerAwards = :beerAwards, beerColor = :beerColor, beerDbKey = :beerDbKey, beerDescription = :beerDescription, beerIbu = :beerIbu, beerName =:beerName, beerStyle = :beerStyle WHERE beerId = :beerId";
 		$statement = $pdo->prepare($query);
 		//bind the member variables to the place holders in the template
-		$parameters = ["beerBreweryId" => $this->beerBreweryId, "beerAbv" => $this->beerAbv, "beerAvailability" => $this->beerAvailability, "beerAwards" => $this->beerAwards, "beerColor" => $this->beerColor, "beerDescription" => $this->beerDescription, "beerIbu" => $this->beerIbu, "beerName" => $this->beerName, "beerStyle" => $this->beerStyle, "beerId" => $this->beerId];
+		$parameters = ["beerBreweryId" => $this->beerBreweryId, "beerAbv" => $this->beerAbv, "beerAvailability" => $this->beerAvailability, "beerAwards" => $this->beerAwards, "beerColor" => $this->beerColor, "beerDbKey" => $this->beerDbKey, "beerDescription" => $this->beerDescription, "beerIbu" => $this->beerIbu, "beerName" => $this->beerName, "beerStyle" => $this->beerStyle, "beerId" => $this->beerId];
 		$statement->execute($parameters);
 	}
 
@@ -472,7 +508,7 @@ class Beer implements \JsonSerializable {
 			throw (new\PDOException("Beer id is not positive"));
 		}
 		//create query template
-		$query = "SELECT beerId, beerBreweryId, beerAbv, beerAvailability, beerAwards, beerColor, beerDescription, beerIbu, beerName, beerStyle FROM beer WHERE beerId = :beerId";
+		$query = "SELECT beerId, beerBreweryId, beerAbv, beerAvailability, beerAwards, beerColor, beerDbKey, beerDescription, beerIbu, beerName, beerStyle FROM beer WHERE beerId = :beerId";
 		$statement = $pdo->prepare($query);
 
 		//bind the beer id to the place holder in the template
@@ -485,7 +521,7 @@ class Beer implements \JsonSerializable {
 			$statement->setFetchMode(\PDO::FETCH_ASSOC);
 			$row = $statement->fetch();
 			if($row !== false) {
-				$beer = new Beer($row["beerId"], $row["beerBreweryId"], $row["beerAbv"], $row["beerAvailability"], $row["beerAwards"], $row["beerColor"], $row["beerDescription"], $row["beerIbu"], $row["beerName"], $row["beerStyle"]);
+				$beer = new Beer($row["beerId"], $row["beerBreweryId"], $row["beerAbv"], $row["beerAvailability"], $row["beerAwards"], $row["beerColor"], $row["beerDbKey"], $row["beerDescription"], $row["beerIbu"], $row["beerName"], $row["beerStyle"]);
 			}
 		} catch(\Exception $exception) {
 			//if the row couldnt be converted rethrow it
@@ -502,35 +538,36 @@ class Beer implements \JsonSerializable {
 	 * @throws \PDOException when mySQL errors are found
 	 * @throws \TypeError when the variable returned is not an integer
 	 **/
-	public static function getBeerByBeerBreweryId(\PDO $pdo, int $beerBreweryId){
+	public static function getBeerByBeerBreweryId(\PDO $pdo, int $beerBreweryId) {
 		//sanitize the brewery id before searching
-		if($beerBreweryId <=0){
+		if($beerBreweryId <= 0) {
 			throw(new \PDOException("brewery Id is not positive"));
 		}
 		//create a query template
-		$query = "SELECT beerId, beerBreweryId, beerAbv, beerAvailability, beerAwards, beerColor, beerDescription, beerIbu, beerName, beerStyle FROM beer WHERE beerBreweryId = :beerBreweryId";
+		$query = "SELECT beerId, beerBreweryId, beerAbv, beerAvailability, beerAwards, beerColor, beerDbKey, beerDescription, beerIbu, beerName, beerStyle FROM beer WHERE beerBreweryId = :beerBreweryId";
 		$statement = $pdo->prepare($query);
 
 		//bind the brewery id to the placeholder in the template
 		$parameters = array("beerBreweryId" => $beerBreweryId);
-		$statement->execute ($parameters);
+		$statement->execute($parameters);
 
 		//build an array of beers
 		$beers = new \SplFixedArray($statement->rowCount());
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
-		while(($row = $statement->fetch()) !== false){
+		while(($row = $statement->fetch()) !== false) {
 			try {
-				$beer = new Beer($row["beerId"], $row["beerBreweryId"], $row["beerAbv"], $row["beerAvailability"], $row["beerAwards"], $row["beerColor"], $row["beerDescription"], $row["beerIbu"], $row["beerName"], $row["beerStyle"]);
+				$beer = new Beer($row["beerId"], $row["beerBreweryId"], $row["beerAbv"], $row["beerAvailability"], $row["beerAwards"], $row["beerColor"], $row["beerDbKey"], $row["beerDescription"], $row["beerIbu"], $row["beerName"], $row["beerStyle"]);
 				$beers[$beers->key()] = $beer;
 				$beers->next();
-			}catch(\Exception $exception){
-				
+			} catch(\Exception $exception) {
+
 				//If the row couldnt be converted, rethrow it
 				throw (new \PDOException($exception->getMessage(), 0, $exception));
 			}
 		}
 		return ($beers);
 	}
+
 	/**
 	 * gets the beer by beerIbu
 	 *
@@ -549,7 +586,7 @@ class Beer implements \JsonSerializable {
 		}
 
 		//create query template
-		$query = "SELECT beerId, beerBreweryId, beerAbv, beerAvailability, beerAwards, beerColor, beerDescription, beerIbu, beerName, beerStyle FROM beer WHERE beerIbu LIKE :beerIbu";
+		$query = "SELECT beerId, beerBreweryId, beerAbv, beerAvailability, beerAwards, beerColor, beerDbKey, beerDescription, beerIbu, beerName, beerStyle FROM beer WHERE beerIbu LIKE :beerIbu";
 		$statement = $pdo->prepare($query);
 
 		//bind the beer Ibu to the place holder in the template
@@ -562,7 +599,7 @@ class Beer implements \JsonSerializable {
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 		while(($row = $statement->fetch()) !== false) {
 			try {
-				$beer = new Beer($row["beerId"], $row["beerBreweryId"], $row["beerAbv"], $row["beerAvailability"], $row["beerAwards"], $row["beerColor"], $row["beerDescription"], $row["beerIbu"], $row["beerName"], $row["beerStyle"]);
+				$beer = new Beer($row["beerId"], $row["beerBreweryId"], $row["beerAbv"], $row["beerAvailability"], $row["beerAwards"], $row["beerColor"], $row["beerDbKey"], $row["beerDescription"], $row["beerIbu"], $row["beerName"], $row["beerStyle"]);
 				$beers[$beers->key()] = $beer;
 				$beers->next();
 			} catch(\Exception $exception) {
@@ -572,6 +609,7 @@ class Beer implements \JsonSerializable {
 		}
 		return ($beers);
 	}
+
 	/**
 	 * gets the beer by beerColor
 	 *
@@ -588,7 +626,7 @@ class Beer implements \JsonSerializable {
 		}
 
 		//create query template
-		$query = "SELECT beerId, beerBreweryId, beerAbv, beerAvailability, beerAwards, beerColor, beerDescription, beerIbu, beerName, beerStyle FROM beer WHERE beerColor = :beerColor";
+		$query = "SELECT beerId, beerBreweryId, beerAbv, beerAvailability, beerAwards, beerColor, beerDbKey, beerDescription, beerIbu, beerName, beerStyle FROM beer WHERE beerColor = :beerColor";
 		$statement = $pdo->prepare($query);
 
 		//bind the beer color to the place holder in the template
@@ -600,7 +638,7 @@ class Beer implements \JsonSerializable {
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 		while(($row = $statement->fetch()) !== false) {
 			try {
-				$beer = new Beer($row["beerId"], $row["beerBreweryId"], $row["beerAbv"], $row["beerAvailability"], $row["beerAwards"], $row["beerColor"], $row["beerDescription"], $row["beerIbu"], $row["beerName"], $row["beerStyle"]);
+				$beer = new Beer($row["beerId"], $row["beerBreweryId"], $row["beerAbv"], $row["beerAvailability"], $row["beerAwards"], $row["beerColor"], $row["beerDbKey"], $row["beerDescription"], $row["beerIbu"], $row["beerName"], $row["beerStyle"]);
 				$beers[$beers->key()] = $beer;
 				$beers->next();
 			} catch(\Exception $exception) {
@@ -610,6 +648,46 @@ class Beer implements \JsonSerializable {
 		}
 		return ($beers);
 	}
+
+	/**
+	 * gets the beer by beerDbKey
+	 * @param \Pdo $pdo PDO connection object
+	 * @param string $beerDbKey beer beerDB key used to identify the beer
+	 * @return Beer|null returns either a beer or null if not found
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError when variables are not the correct data type
+	 */
+	public static function getBeerByBeerDbKey(\PDO $pdo, string $beerDbKey) {
+		//sanitize the beerDbKey before searching
+		$beerDbKey = trim($beerDbKey);
+		$beerDbKey = filter_var($beerDbKey, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($beerDbKey) === true) {
+			throw(new \PDOException("beerDbKey is invalid"));
+		}
+
+		//create the query template
+		$query = "SELECT beerId, beerBreweryID, beerAbv, beerAvailability, beerAwards, beerColor, beerDbKey, beerDescription, beerIbu, beerName, beerStyle FROM beer WHERE beerDbKey LIKE :beerDbKey";
+		$statement = $pdo->prepare($query);
+
+		//bind the beerDbKey to the placeholder in the template
+		$parameters = array("beerDbKey" => $beerDbKey);
+		$statement->execute($parameters);
+
+		//grab the beer from mySQL
+		try {
+			$beer = null;
+			$statement->setFetchMode(\PDO::FETCH_ASSOC);
+			$row = $statement->fetch();
+			if($row !== false) {
+				$beer = new Beer($row["beerId"], $row["beerBreweryId"], $row["beerAbv"], $row["beerAvailability"], $row["beerAwards"], $row["beerColor"], $row["beerDbKey"], $row["beerDescription"], $row["beerIbu"], $row["beerName"], $row["beerStyle"]);
+			}
+		} catch(\Exception $exception) {
+			//if the row couldn't be converted, rethrow it
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
+		}
+		return ($beer);
+	}
+
 	/**
 	 * gets the beer by beerName
 	 *
@@ -628,7 +706,7 @@ class Beer implements \JsonSerializable {
 		}
 
 		//create query template
-		$query = "SELECT beerId, beerBreweryID, beerAbv, beerAvailability, beerAwards, beerColor, beerDescription, beerIbu, beerName, beerStyle FROM beer WHERE beerName LIKE :beerName";
+		$query = "SELECT beerId, beerBreweryID, beerAbv, beerAvailability, beerAwards, beerColor, beerDbKey, beerDescription, beerIbu, beerName, beerStyle FROM beer WHERE beerName LIKE :beerName";
 		$statement = $pdo->prepare($query);
 
 		//bind the beer Ibu to the place holder in the template
@@ -641,7 +719,7 @@ class Beer implements \JsonSerializable {
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 		while(($row = $statement->fetch()) !== false) {
 			try {
-				$beer = new Beer($row["beerId"], $row["beerBreweryID"], $row["beerAbv"], $row["beerAvailability"], $row["beerAwards"], $row["beerColor"], $row["beerDescription"], $row["beerIbu"], $row["beerName"], $row["beerStyle"]);
+				$beer = new Beer($row["beerId"], $row["beerBreweryID"], $row["beerAbv"], $row["beerAvailability"], $row["beerAwards"], $row["beerColor"], $row["beerDbKey"], $row["beerDescription"], $row["beerIbu"], $row["beerName"], $row["beerStyle"]);
 				$beers[$beers->key()] = $beer;
 				$beers->next();
 			} catch(\Exception $exception) {
@@ -651,6 +729,7 @@ class Beer implements \JsonSerializable {
 		}
 		return ($beers);
 	}
+
 	/**
 	 * gets the beer by beerStyle
 	 *
@@ -669,7 +748,7 @@ class Beer implements \JsonSerializable {
 		}
 
 		//create query template
-		$query = "SELECT beerId, beerBreweryID, beerAbv, beerAvailability, beerAwards, beerColor, beerDescription, beerIbu, beerName, beerStyle FROM beer WHERE beerStyle LIKE :beerStyle";
+		$query = "SELECT beerId, beerBreweryID, beerAbv, beerAvailability, beerAwards, beerColor, beerDbKey, beerDescription, beerIbu, beerName, beerStyle FROM beer WHERE beerStyle LIKE :beerStyle";
 		$statement = $pdo->prepare($query);
 
 		//bind the beer Ibu to the place holder in the template
@@ -682,7 +761,7 @@ class Beer implements \JsonSerializable {
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 		while(($row = $statement->fetch()) !== false) {
 			try {
-				$beer = new Beer($row["beerId"], $row["beerBreweryID"], $row["beerAbv"], $row["beerAvailability"], $row["beerAwards"], $row["beerColor"], $row["beerDescription"], $row["beerIbu"], $row["beerName"], $row["beerStyle"]);
+				$beer = new Beer($row["beerId"], $row["beerBreweryID"], $row["beerAbv"], $row["beerAvailability"], $row["beerAwards"], $row["beerColor"], $row["beerDbKey"], $row["beerDescription"], $row["beerIbu"], $row["beerName"], $row["beerStyle"]);
 				$beers[$beers->key()] = $beer;
 				$beers->next();
 			} catch(\Exception $exception) {
@@ -701,9 +780,9 @@ class Beer implements \JsonSerializable {
 	 * @throws \PDOException when mySQL errors are found
 	 * @throws \TypeError when the variable returned is not an integer
 	 **/
-	public static function getBeerByAliciaAwesome(\PDO $pdo, int $userId){
+	public static function getBeerByAliciaAwesome(\PDO $pdo, int $userId) {
 		//sanitize the brewery id before searching
-		if($userId <=0){
+		if($userId <= 0) {
 			throw(new \PDOException("user Id is not positive"));
 		}
 		//create a query template
@@ -712,19 +791,19 @@ class Beer implements \JsonSerializable {
 
 		//bind the brewery id to the placeholder in the template
 		$parameters = array("userId" => $userId);
-		$statement->execute ($parameters);
+		$statement->execute($parameters);
 
 		//build an array of beers
 //		$beers = new \SplFixedArray($statement->rowCount());
 		$beerMap = new JsonObjectStorage();
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
-		while(($row = $statement->fetch()) !== false){
+		while(($row = $statement->fetch()) !== false) {
 			try {
-				$beer = new Beer($row["beerId"], $row["beerBreweryId"], $row["beerAbv"], $row["beerAvailability"], $row["beerAwards"], $row["beerColor"], $row["beerDescription"], $row["beerIbu"], $row["beerName"], $row["beerStyle"]);
+				$beer = new Beer($row["beerId"], $row["beerBreweryId"], $row["beerAbv"], $row["beerAvailability"], $row["beerAwards"], $row["beerColor"], $row["beerDbKey"], $row["beerDescription"], $row["beerIbu"], $row["beerName"], $row["beerStyle"]);
 				$beerMap->attach($beer, $row["beerDrift"]);
 //				$beers[$beers->key()] = $beer;
 //				$beers->next();
-			}catch(\Exception $exception){
+			} catch(\Exception $exception) {
 
 				//If the row couldnt be converted, rethrow it
 				throw (new \PDOException($exception->getMessage(), 0, $exception));
