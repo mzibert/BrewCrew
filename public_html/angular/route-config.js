@@ -16,32 +16,38 @@ app.config(function($routeProvider, $locationProvider) {
 
 		// route for the sign up page
 		.when('/signup/', {
-			controller  : 'signupController',
+			controller  : 'SignupController',
 			templateUrl : 'angular/templates/signup.php'
 		})
 
 		// route for the the compasss page
 		.when('/thecompass/', {
-			controller  : 'thecompassController',
+			controller  : 'ThecompassController',
 			templateUrl : 'angular/templates/compass.php'
 		})
 
 		// route for the breweries page
 		.when('/breweries/', {
-			controller  : 'breweriesController',
+			controller  : 'BreweriesController',
 			templateUrl : 'angular/templates/breweries.php'
 		})
 
 		// route for the beer page
 		.when('/beer/', {
-			controller  : 'beerController',
+			controller  : 'BeerController',
 			templateUrl : 'angular/templates/beer.php'
 		})
 		// route for the user page
 		.when('/user/', {
-			controller  : 'userController',
+			controller  : 'UserController',
 			templateUrl : 'angular/templates/user.php'
 		})
+		// route for the review page
+		.when('/review/', {
+			controller  : 'ReviewController',
+			templateUrl : 'angular/templates/review.php'
+		})
+
 
 
 		// otherwise redirect to home
