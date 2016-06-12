@@ -64,33 +64,24 @@ foreach($breweries as $brewery) {
 			}
 
 			//Prepare to insert beer
-			$beer = new Edu\Cnm\BrewCrew\Beer(null, $brewery->getBreweryId(), $abv, $availability, null, $srm, $description, $ibu, $name, $style);
+			$beer = new Edu\Cnm\BrewCrew\Beer(null, $brewery->getBreweryId(), $abv, $availability, null, $srm, $beer->id, $description, $ibu, $name, $style);
 
 			//Check for duplicates
 			//Allow new beers to be added
-			$existingBeers = \Edu\Cnm\BrewCrew\Beer::getBeerByBeerBreweryId($pdo, $brewery->getBreweryId());
+			$existingBeers = \Edu\Cnm\BrewCrew\Beer::getBeerByBeerDbKey($pdo, $beer->getBeerDbKey());
 			$canInsert = true;
 			foreach($existingBeers as $existingBeer) {
-				if($beer->getBeerName() === $existingBeer->getBeerName()) {
+				if($beer->getBeerDbKey() === $existingBeer->getBeerDbKey) {
 					$canInsert = false;
 				}
 			}
-			//insert beer
+			//insert or update beer
 			if($canInsert === true) {
 				$beer->insert($pdo);
+			} else {
+				$beer->update($pdo);
 			}
 
-			//We need to run this everyday, so
-			//We need to check values against the database in order to update beers
-			//if a value has changed, update it. if not, make no changes
-			$databaseBeers = \Edu\Cnm\BrewCrew\Beer::getBeerByBeerBreweryId($pdo, $beerBreweryId);
-			foreach($databaseBeers as $databaseBeer) {
-				if ($databaseBeer) {
-					//check for matching values, update them
-				} else {
-					//done nothing, move on to the next one
-				}
-			}
 		}
 	}
 }
