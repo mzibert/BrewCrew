@@ -1,6 +1,6 @@
 <?php
 
-require_once dirname(__DIR__) . "/classes/autoload.php";
+require_once "../public_html/php/classes/autoload.php";
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 $config = readConfig("/etc/apache2/capstone-mysql/brewcrew.ini");
 $breweryDbApiKey = $config["breweryDbKey"];
