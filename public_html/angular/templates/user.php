@@ -1,3 +1,6 @@
+<!-- temporary user profile update form to be updated later -->
+
+
 <div class="container" id="profile">
 	<h1 class="page-header">Edit Profile</h1>
 	<div class="row">
