@@ -14,19 +14,19 @@
 								<fieldset class="form-group">
 									<label for="userFirstName">First Name</label>
 									<input type="text" class="form-control" name="userFirstName" id="userFirstName"
-											 placeholder="Talia" ng-model="signupData.userFirstName"
+											 placeholder="First Name" ng-model="signupData.userFirstName"
 											 ng-minlength="2" ng-maxlength="128" ng-required="true"/>
 									<div class="alert alert-danger" role="alert" ng-messages="userSignUpForm.userFirstName.$error"
 										  ng-if="userSignUpForm.userFirstName.$touched" ng-hide="userSignUpForm.userFirstName.$valid">
-										<p ng-message="minlength">Name is too short.</p>
-										<p ng-message="maxlength">Name is too long.</p>
-										<p ng-message="required">Please enter your first name.</p>
+										<p ng-messages="minlength">Name is too short.</p>
+										<p ng-messages="maxlength">Name is too long.</p>
+										<p ng-messages="required">Please enter your first name.</p>
 									</div>
 								</fieldset>
 								<fieldset class="form-group">
 									<label for="userLastName">Last Name</label>
 									<input type="text" class="form-control" name="userLastName" id="userLastName"
-											 placeholder="Talia" ng-model="signupData.userLastName"
+											 placeholder="Last Name" ng-model="signupData.userLastName"
 											 ng-minlength="2" ng-maxlength="128" ng-required="true"/>
 									<div class="alert alert-danger" role="alert" ng-messages="userSignUpForm.userFirstName.$error"
 										  ng-if="userSignUpForm.userLastName.$touched" ng-hide="userSignUpForm.userLastName.$valid">

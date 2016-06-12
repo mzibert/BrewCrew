@@ -1,69 +1,30 @@
 <!-- temporary user profile update form to be updated later -->
 
 
-<div class="container" id="profile">
-	<h1 class="page-header">Edit Profile</h1>
-	<div class="row">
-		<!-- left column -->
-		<div class="col-md-4 col-sm-6 col-xs-12">
-			<div class="text-center">
-				<img src="http://placekitten.com.s3.amazonaws.com/homepage-samples/408/287.jpg" class="avatar img-circle img-thumbnail" alt="avatar">
-				<h6>Upload a different photo...</h6>
-				<input type="file" class="text-center center-block well well-sm">
+<div>
+	<h2>Edit Your Profile</h2>
+
+	<p class="text-danger">.</p>
+	<form name="userUpdateProfile" ng-submit="updateUser(userData, userUpdateProfile.$valid);">
+		<fieldset class="form-group">
+			<label for="userEmailInput">Email</label>
+			<input type="text" class="form-control" name="userEmail" id="userEmail"
+					 placeholder="email2@email.com" ng-model="userData.userEmail"
+					 ng-minlength="5" ng-maxlength="128" ng-required="true"/>
+			<div class="alert alert-danger" role="alert" ng-messages="userUpdateProfile.userEmail.$error"
+				  ng-if="userUpdateProfile.userEmail.$touched" ng-hide="userUpdateProfile.userPhone.$valid">
+				<p ng-message="minlength">Not a valid email.</p>
+				<p ng-message="required">Please enter your new email</p>
 			</div>
-		</div>
-		<!-- edit form column -->
-		<div class="col-md-8 col-sm-6 col-xs-12 personal-info">
 
-			<h3>Personal info</h3>
-			<form class="form-horizontal" role="form">
-				<div class="form-group">
-					<label class="col-lg-3 control-label">First name:</label>
-					<div class="col-lg-8">
-						<input class="form-control" value="Jane" type="text">
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-lg-3 control-label">Last name:</label>
-					<div class="col-lg-8">
-						<input class="form-control" value="Bishop" type="text">
-					</div>
-				</div>
+		</fieldset>
 
-				<div class="form-group">
-					<label class="col-lg-3 control-label">Email:</label>
-					<div class="col-lg-8">
-						<input class="form-control" value="email@gmail.com" type="text">
-					</div>
-				</div>
+		<!-- Submit Form or Reset Form -->
+		<!--		TODO: add Angular.js here to connect to User API, upon submit - redirect to this page again-->
 
-				<div class="form-group">
-					<label class="col-md-3 control-label">Username:</label>
-					<div class="col-md-8">
-						<input class="form-control" value="janeuser" type="text">
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-md-3 control-label">Password:</label>
-					<div class="col-md-8">
-						<input class="form-control" value="11111122333" type="password">
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-md-3 control-label">Confirm password:</label>
-					<div class="col-md-8">
-						<input class="form-control" value="11111122333" type="password">
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-md-3 control-label"></label>
-					<div class="col-md-8">
-						<input class="btn btn-primary" value="Save Changes" type="button">
-						<span></span>
-						<input class="btn btn-default" value="Cancel" type="reset">
-					</div>
-				</div>
-			</form>
-		</div>
-	</div>
+		<button class="btn btn-success" type="submit"><i class="fa fa-paper-plane"></i> Submit</button>
+
+	</form>
+	<br>
+	<a href="/">Return to Home Page</a>
 </div>
