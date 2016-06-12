@@ -56,9 +56,9 @@ app.controller('beerController', ["$scope", "beerservice", function($scope, beer
 
 });
 
-$scope.getBeerByColor = function() {
-	beerService.fetchBeerByColor(beerColor)
-		.then(function(result) {
+	$scope.getBeerByColor = function() {
+		beerService.fetchBeerByColor(beerColor)
+			.then(function(result) {
 
 
 		})
@@ -70,3 +70,22 @@ $scope.getBeerByColor = function() {
 /**Do we need all beers???
  **/
 
+/**
+ * Creates a beer and sends it to the beer API
+ *
+ * @param beer the beer we send
+ * @param validated true if Angular validated the form, false if not
+ **/
+	$scope.createBeer = function(beer, validated) {
+		if(validated === true){
+			beerservice.create(beer)
+				.then(function(result) {
+					if(result.data.status === 200){
+						$scope.alerts[0] = {type: "success", msg: result.data.message};
+						$scope.newBeer
+					}
+					
+				})
+		}
+		
+	}
