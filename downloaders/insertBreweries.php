@@ -19,7 +19,7 @@ foreach($regions as $region) {
 
 	if($locations->numberOfPages >= 1) {
 		echo "number of page = " . $locations->numberOfPages . "<br>";
-		for($i = 2; $i <= $locations->numberOfPages; $i++) {
+		for($i = 2; $i <= $locations->numberOfPages + 1; $i++) {
 			echo $i . "<br>";
 			foreach($locations->data as $location) {
 			

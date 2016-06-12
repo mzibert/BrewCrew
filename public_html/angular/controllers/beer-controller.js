@@ -1,74 +1,74 @@
-app.controller('beerController', ["$scope", "beerservice", function($scope, beerService) {
+app.controller('beerController', ["$scope", "BeerService", function($scope, BeerService) {
+	$scope.alerts = [];
+	$scope.beerData = [];
 
 
 	$scope.getBeerById = function() {
-		beerService.fetchBeerById(beerId)
+		BeerService.fetchBeerById(beerId)
 			.then(function(result) {
-
-				
+				if(result.status.data === 200) {
+					$scope.beerData = result.data.data;
+				} else {
+					$scope.alerts[0] = {type: "danger", msg: result.data.message};
+				}
 			})
-		
-	}
+	};
 
-});
 
 	$scope.getBeerByBreweryId = function() {
-		beerService.fetchBeerByBreweryId(breweryId)
+		BeerService.fetchBeerByBreweryId(breweryId)
 			.then(function(result) {
-
-
+				if(result.status.data === 200) {
+					$scope.beerData = result.data.data;
+				} else {
+					$scope.alerts[0] = {type: "danger", msg: result.data.message};
+				}
 			})
-
-	}
-
-});
+	};
 
 	$scope.getBeerByIbu = function() {
-		beerService.fetchBeerByIbu(beerIbu)
+		BeerService.fetchBeerByIbu(beerIbu)
 			.then(function(result) {
-
-
-		})
-
-}
-
-});
+				if(result.status.data === 200) {
+					$scope.beerData = result.data.data;
+				} else {
+					$scope.alerts[0] = {type: "danger", msg: result.data.message};
+				}
+			})
+	};
 
 	$scope.getBeerByColor = function() {
-		beerService.fetchBeerByColor(beerColor)
+		BeerService.fetchBeerByColor(beerColor)
 			.then(function(result) {
-
-
-		})
-
-}
-
-});
+				if(result.status.data === 200) {
+					$scope.beerData = result.data.data;
+				} else {
+					$scope.alerts[0] = {type: "danger", msg: result.data.message};
+				}
+			})
+	};
 
 	$scope.getBeerByName = function() {
-		beerService.fetchBeerByName(beerName)
+		BeerService.fetchBeerByName(beerName)
 			.then(function(result) {
-
-
-		})
-
-}
-
-});
+				if(result.status.data === 200) {
+					$scope.beerData = result.data.data;
+				} else {
+					$scope.alerts[0] = {type: "danger", msg: result.data.message};
+				}
+			})
+	};
 
 	$scope.getBeerByColor = function() {
-		beerService.fetchBeerByColor(beerColor)
+		BeerService.fetchBeerByColor(beerColor)
 			.then(function(result) {
-
-
-		})
-
-}
-
-});
-
-/**Do we need all beers???
- **/
+				if(result.status.data === 200) {
+					$scope.beerData = result.data.data;
+				} else {
+					$scope.alerts[0] = {type: "danger", msg: result.data.message};
+				}
+			})
+	};
 
 /**
  * Creates a beer and sends it to the beer API
@@ -76,16 +76,33 @@ app.controller('beerController', ["$scope", "beerservice", function($scope, beer
  * @param beer the beer we send
  * @param validated true if Angular validated the form, false if not
  **/
-	$scope.createBeer = function(beer, validated) {
-		if(validated === true){
-			beerservice.create(beer)
+	$scope.create = function(beer, validated) {
+		if(validated === true) {
+			BeerService.create(beer)
 				.then(function(result) {
-					if(result.data.status === 200){
+					if(result.data.status === 200) {
 						$scope.alerts[0] = {type: "success", msg: result.data.message};
-						$scope.newBeer
+					} else {
+						$scope.alerts[0] = {type: "danger", msg: result.data.message};
 					}
-					
 				})
-		}
-		
-	}
+		}};
+
+/** Updates a beer and sends it to the beer database
+ *
+ *@param beer the beer we are sending
+ *@param validated true if Angular validated the form, false if not
+ **/
+	$scope.update = function(beer, validated) {
+		if (validated === true) {
+			BeerService.create(beer)
+				.then(function(result) {
+					if(result.data.status === 200) {
+						$scope.alerts[0] = {type: "success", msg: result.data.message};
+					} else {
+						$scope.alerts[0] = {type: "danger", msg: result.data.message};
+					}
+				})
+		}};
+
+}]);
