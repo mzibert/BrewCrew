@@ -57,19 +57,30 @@ body {
 
 #beerheroimage {
 	/*repeats on large screens and needs to be fixed*/
-	background: linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3)), url("../image/beerbubbles.jpg") repeat center center;
-	width: 100%;
+	background: linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3)), url("../image/background.jpg") no-repeat center center;
+	/*width: 100%;*/
 	left: 0;
 	position: absolute;
 	z-index: 1; /*Add this*/
 	top: 71px;
 	min-width: 100vw;
+	/*height: 300px;*/
+	display: block;
 }
 
 .beerhero {
 	padding: 25px;
 	color: white;
 	font-size: 2em;
+}
+
+.title {
+	background-color: black;
+	color: #fff;
+	display: inline;
+	padding: 0.5rem;
+	-webkit-box-decoration-break: clone;
+	box-decoration-break: clone;
 }
 
 #main {
@@ -103,6 +114,12 @@ img.avatar {
 .activity-mini {
 	padding-right: 15px;
 	float: left;
+}
+
+.acknowledgement {
+	left: 0;
+	max-width: 198px;
+	max-height: 50px;
 }
 
 /***
