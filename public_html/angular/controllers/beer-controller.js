@@ -1,4 +1,4 @@
-app.controller('beerController', ["$scope", "BeerService", function($scope, BeerService) {
+app.controller('BeerController', ["$scope", "BeerService", function($scope, BeerService) {
 	$scope.alerts = [];
 	$scope.beerData = [];
 
