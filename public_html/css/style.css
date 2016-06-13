@@ -54,7 +54,8 @@ body {
 }
 
 #beerheroimage {
-	background: linear-gradient(rgba(255, 255, 255, 0.60), rgba(255, 255, 255, 0.60)), url("../image/beerbubbles.jpg") repeat center center;
+	/*repeats on large screens and needs to be fixed*/
+	background: linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3)), url("../image/beerbubbles.jpg") repeat center center;
 	width: 100%;
 	left: 0;
 	position: absolute;
@@ -65,7 +66,7 @@ body {
 
 .beerhero {
 	padding: 25px;
-	/*color: white;*/
+	color: white;
 	font-size: 2em;
 }
 
@@ -93,6 +94,14 @@ body {
 	margin-top: 100px;
 }
 
+img.avatar {
+	border: 1px solid #000000;
+}
+
+.activity-mini {
+	padding-right: 15px;
+	float: left;
+}
 
 /***
 * Nice Navbar Logo
@@ -117,6 +126,7 @@ nav.navbar {
 	align-items: center;
 	min-height: 50px;
 	margin-bottom: 20px;
+	float: right;
 }
 
 /* make the navbar links section take up the rest of the horiz space */
