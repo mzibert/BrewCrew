@@ -6,7 +6,7 @@
 		<div class="well text-center">
 			<form name="sampleForm" id="sampleForm" class="form-horizontal well" ng-controller="BreweryController" ng-submit="submit(formData, sampleForm.$valid);" novalidate>
 				<div class="form-group" ng-class="{ 'has-error': sampleForm.breweryName.$touched && sampleForm.fullName.$invalid }">
-					<label for="breweryName">Search</label>
+					<label for="breweryName">Search Breweries</label>
 					<div class="input-group">
 						<div class="input-group-addon">
 							<i class="fa fa-search"></i>
