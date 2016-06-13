@@ -22,8 +22,8 @@
 			<p><a class="btn btn-default" href="beer.php" role="button">See more &raquo;</a></p>
 		</div>
 		<div class="col-md-4">
-			<h3>Be Social</h3>
-			<p>Tell the world what you think. Give each brew a rating on our "5 pint scale," add a thoughtful review, and use tags to plot the flavor of your favorite craft beers on the compass. Rely on honest feedback from other craft beer lovers.</p>
+			<h3>Share Your Passion</h3>
+			<p>Tell the world what you think. Give each beer a rating on our "5 pint scale," add a thoughtful review, and use tags to plot the flavor of your favorite craft beers on the compass. Rely on honest feedback from other craft beer lovers.</p>
 			<p>Coming soon: Network with other craft beer lovers, follow users with similar tastes, and connect via your mobile device.</p>
 			<p><a class="btn btn-default" href="#" role="button">See more &raquo;</a></p>
 		</div>
