@@ -11,7 +11,7 @@
 	<div class="col-md-3"></div>
 	<div class="col-md-6">
 		<div class="well text-center">
-			<form name="sampleForm" id="sampleForm" class="form-horizontal well" ng-controller="AngularFormController" ng-submit="submit(formData, sampleForm.$valid);" novalidate>
+			<form name="sampleForm" id="sampleForm" class="form-horizontal well" ng-controller="BreweryController" ng-submit="submit(formData, sampleForm.$valid);" novalidate>
 				<div class="form-group" ng-class="{ 'has-error': sampleForm.breweryName.$touched && sampleForm.fullName.$invalid }">
 					<label for="breweryName">Search</label>
 					<div class="input-group">
