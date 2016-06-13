@@ -3,13 +3,13 @@ app.controller("SignupController", ["$scope", "SignupService", "$location", func
 	$scope.activationData = {};
 
 	/**
-	 * Method that uses the activation service to activate an account
+	 * Method that uses the sign up service to activate an account
 	 *
 	 * @param signUpData will contain activation token and password
 	 * @param validated true if form is valid, false if not
 	 */
 
-	$scope.sendActivation = function(signUpData, validated) {
+	$scope.sendActivationToken = function(signUpData, validated) {
 		if(validated === true) {
 			SignupService.create(signUpData)
 				.then(function(result) {
