@@ -25,3 +25,9 @@
 	</div>
 </div>
 
+<div class="row">
+	<div class="col-md-3"></div>
+	<div class="col-md-6">
+		<h2>Beer Name: {{ beerData[0].beerName }}</h2>
+	</div>
+</div>
