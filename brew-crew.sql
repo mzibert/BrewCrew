@@ -118,7 +118,7 @@ DELIMITER $$
 			-- variables for cursor and loop control
 			DECLARE done BOOLEAN DEFAULT FALSE; -- exit flag
 			DECLARE mathCursor CURSOR FOR
-				SELECT beerColor, beerIbu FROM beer; -- cursor
+				SELECT beerColor, (beerIbu / 135) FROM beer; -- cursor
 			DECLARE CONTINUE HANDLER FOR NOT FOUND
 			SET done = TRUE; -- exit when no more rows
 
@@ -201,11 +201,12 @@ DELIMITER $$
 			FETCH compassCursor INTO  selectedBeer; -- gets rows
 
 			SELECT CONVERT(cIbu, DECIMAL);
-			IF cIbu = 0 THEN SET cIbu = 120;
+			IF cIbu = 0 THEN SET cIbu = 135;
 				END IF;
 
 			SELECT STDDEV(cColor), AVG (cColor) INTO colorStdDev, colorMean FROM beer;
-			SELECT STDDEV(cIbu), AVG(cIbu) INTO ibuStdDev, ibuMean FROM beer;
+				SELECT STDDEV(CONVERT(beerIbu, DECIMAL) / 135), AVG(CONVERT(beerIbu, DECIMAL) / 135) INTO ibuStdDev, ibuMean FROM beer  WHERE beerIbu != "N/A";
+			-- SELECT STDDEV(cIbu), AVG(cIbu) INTO ibuStdDev, ibuMean FROM beer;
 
 			CALL maths(beerDrift);
 			FETCH beerDrift INTO selectedBeer;
