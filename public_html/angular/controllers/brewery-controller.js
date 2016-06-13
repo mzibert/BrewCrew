@@ -22,13 +22,19 @@ app.controller('BreweryController', ["$scope", "BreweryService", function($scope
 			})
 	};
 	$scope.getBreweryByName = function(breweryName) {
-		console.log("in getbrewerybyname");
+		console.log("in getbrewerybyname-Controller");
+		console.log(breweryName);
 		BreweryService.fetchBreweryByName(breweryName)
 			.then(function(result) {
 				if(result.status.data === 200) {
 					$scope.breweryData = result.data.data;
+					console.log(result.status.data);
+					console.log(result.data.data);
 				} else {
 					$scope.alerts[0] = {type: "danger", msg: result.data.message};
+					console.log(result.status.data);
+					console.log(result.data.data);
+					console.log(result.data.message);
 				}
 			})
 	};

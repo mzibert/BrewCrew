@@ -26,6 +26,7 @@ app.service("BreweryService", function($http, BREWERY_ENDPOINT) {
 	};
 
 	this.fetchBreweryByName = function(breweryName) {
+		console.log("in fetchbrewerybyname: SERVICE");
 		return($http.get(getUrl() + "?breweryName=" + breweryName));
 	};
 

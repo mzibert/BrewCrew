@@ -4,16 +4,16 @@
 	<div class="col-md-3"></div>
 	<div class="col-md-6">
 		<div class="well text-center">
-			<form name="sampleForm" id="sampleForm" class="form-horizontal well" ng-controller="BreweryController" ng-submit="getBreweryByName(breweryName);" novalidate>
-				<div class="form-group" ng-class="{ 'has-error': sampleForm.breweryName.$touched && sampleForm.fullName.$invalid }">
+			<form name="brewerySearch" id="brewerySearch" class="form-horizontal well" ng-controller="BreweryController" ng-submit="getBreweryByName(breweryName);" novalidate>
+				<div class="form-group" ng-class="{ 'has-error': brewerySearch.breweryName.$touched && brewerySearch.breweryName.$invalid }">
 					<label for="breweryName">Search Breweries</label>
 					<div class="input-group">
 						<div class="input-group-addon">
 							<i class="fa fa-search"></i>
 						</div>
-						<input type="text" id="search" name="search" class="form-control" placeholder="search by brewery name"   ng-required="true" />
+						<input type="text" id="breweryNameSearch" name="breweryNameSearch" class="form-control" placeholder="search by brewery name"   ng-required="true" />
 					</div>
-					<div class="alert alert-danger" role="alert" ng-messages="sampleForm.search.$error" ng-if="sampleForm.search.$touched" ng-hide="sampleForm.search.$valid">
+					<div class="alert alert-danger" role="alert" ng-messages="brewerySearch.search.$error" ng-if="brewerySearch.search.$touched" ng-hide="brewerySearch.search.$valid">
 
 						<p ng-message="required">Please enter your search.</p>
 					</div>
