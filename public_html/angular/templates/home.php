@@ -1,64 +1,31 @@
 <div class="container-fluid text-center beerhero" id="beerheroimage">
 	<div class="row">
 		<div class="col-md-12">
-			<p>We're tracking x beers from 50 craft breweries in New Mexico!</p>
+			<p>We're tracking 435 beers from 50 craft breweries in New Mexico!</p>
 			<p><a class="btn btn-primary btn-lg" href="signup" role="button">Join Us! &raquo;</a></p>
 		</div>
 	</div>
 </div>
-<!-- Featured beers, breweries, and reviewers -->
 
 <div class="container-fluid" id="main">
 	<div class="row">
 		<div class="col-md-4">
-			<h3>Most Popular Breweries</h3>
-			<p>Raise your mugs to New Mexico's amazing breweries. </p>
+			<h3>Discover Beers and Breweries</h3>
+			<p>Find craft beer and brewery information, then browse what's currently on tap. We make it easy to search and compare choices.</p>
+			<p>Whether you're looking for a tool to help you learn about the complex world of craft beer, or whether your're a connoisseur looking for something specific, we ensure you can always find the craft beer you're looking for.</p>
 			<p><a class="btn btn-default" href="breweries.php" role="button">See more &raquo;</a></p>
 		</div>
 		<div class="col-md-4">
-			<h3>Top Rated Beers</h3>
-			<p>Enjoy expertly-crafted beer all around our great state.</p>
+			<h3>Generate Your Flavor Profile</h3>
+			<p>The craft beer compass is the ultimate tool for getting great recommendations. It's truly personalized to the flavors you love.</p>
+			<p>As you rate, review, and tag, our algorithm records your likes and dislikes. We get to know the flavors you enjoy, and help you discover new craft beers based on what you've rated highly in the past.</p>
 			<p><a class="btn btn-default" href="beer.php" role="button">See more &raquo;</a></p>
 		</div>
 		<div class="col-md-4">
-			<h3>Most Prolific Reviewers</h3>
-			<p>Reviews from New Mexico's beer lovers.</p>
+			<h3>Be Social</h3>
+			<p>Tell the world what you think. Give each brew a rating on our "5 pint scale," add a thoughtful review, and use tags to plot the flavor of your favorite craft beers on the compass. Rely on honest feedback from other craft beer lovers.</p>
+			<p>Coming soon: Network with other craft beer lovers, follow users with similar tastes, and connect via your mobile device.</p>
 			<p><a class="btn btn-default" href="#" role="button">See more &raquo;</a></p>
-		</div>
-	</div>
-</div>
-
-
-<div class="container-fluid">
-	<div class="row">
-		<div class="span9">
-			<h2 class="heading h-section text-center" data-barley="index_hiw_heading" data-barley-editor="simple">Start by
-				Joining and Rating Beers</h2>
-			<div class="row">
-				<div class="col-xs-12">
-					<img src="image/reviews.png" alt="placeholder for snapshot of reviews">
-				</div>
-			</div>
-		</div>
-
-		<div class="span9">
-			<h2 class="heading h-section text-center" data-barley="index_hiw_heading" data-barley-editor="simple">Generate
-				Your Flavor Profile</h2>
-			<div class="row">
-				<div class="col-xs-12">
-					<img src="image/beer1.jpg" alt="placeholder for snapshot of user's flavor profile">
-				</div>
-			</div>
-		</div>
-
-		<div class="span9">
-			<h2 class="heading h-section text-center" data-barley="index_hiw_heading" data-barley-editor="simple">Get the
-				Best Recommendations</h2>
-			<div class="row">
-				<div class="col-xs-12">
-					<img src="image/beer2.jpg" alt="placeholder for snapshot of compass search results">
-				</div>
-			</div>
 		</div>
 	</div>
 </div>
