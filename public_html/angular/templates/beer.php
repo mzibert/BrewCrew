@@ -27,7 +27,7 @@
 					<div class="hr-line-dashed"></div>
 					<div class="search-result">
 						<h3><a href="#">Beer One</a></h3>
-						<p>Brewery it's at</p>
+						<p>Brewery it's at </p>
 					</div>
 
 					<div class="hr-line-dashed"></div>

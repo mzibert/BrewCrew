@@ -41,15 +41,15 @@ app.service("BeerService", function($http, BEER_ENDPOINT) {
 		return($http.get(getUrl() + "?beerColor=" + beerColor));
 	};
 
-	this.update = function(beerId, beer) {
+	this.beerUpdate = function(beerId, beer) {
 		return($http.put(getUrlForId(beerId, beer)));
 	};
 
-	this.create = function(beer) {
+	this.beerCreate = function(beer) {
 		return($http.post(getUrl(), beer));
 	};
 
-	this.destroy = function(beerId) {
+	this.beerDestroy = function(beerId) {
 		return($http.delete(getUrlForId(beerId)));
 	};
 });

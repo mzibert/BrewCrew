@@ -3,7 +3,7 @@
  */
 
 app.constant("BREWERY_ENDPOINT", "php/apis/brewery/");
-app.service("BreweryService", function($http, BREWERY_ENDPOINT) {
+app.service("BreweriesService", function($http, BREWERY_ENDPOINT) {
 
 	function getUrl() {
 		return(BREWERY_ENDPOINT);
@@ -30,15 +30,15 @@ app.service("BreweryService", function($http, BREWERY_ENDPOINT) {
 	};
 
 
-	this.update = function(breweryId, brewery) {
+	this.updateBrewery = function(breweryId, brewery) {
 		return($http.put(getUrlForId(breweryId, brewery)));
 	};
 
-	this.create = function(brewery) {
+	this.createBrewery = function(brewery) {
 		return($http.post(getUrl(), brewery));
 	};
 
-	this.destroy = function(breweryId) {
+	this.destroyBrewery = function(breweryId) {
 		return($http.delete(getUrlForId(breweryId)));
 	};
 });

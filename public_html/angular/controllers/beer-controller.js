@@ -76,7 +76,7 @@ app.controller('beerController', ["$scope", "BeerService", function($scope, Beer
  * @param beer the beer we send
  * @param validated true if Angular validated the form, false if not
  **/
-	$scope.create = function(beer, validated) {
+	$scope.beerCreate = function(beer, validated) {
 		if(validated === true) {
 			BeerService.create(beer)
 				.then(function(result) {
@@ -93,7 +93,7 @@ app.controller('beerController', ["$scope", "BeerService", function($scope, Beer
  *@param beer the beer we are sending
  *@param validated true if Angular validated the form, false if not
  **/
-	$scope.update = function(beer, validated) {
+	$scope.beerUpdate = function(beer, validated) {
 		if (validated === true) {
 			BeerService.create(beer)
 				.then(function(result) {
