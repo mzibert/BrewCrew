@@ -49,6 +49,7 @@ app.controller('BeerController', ["$scope", "BeerService", function($scope, Beer
 	};
 
 	$scope.getBeerByName = function(beerName) {
+		console.log("in getbeerbyname");
 		BeerService.fetchBeerByName(beerName)
 			.then(function(result) {
 				if(result.status.data === 200) {

@@ -4,7 +4,7 @@
 	<div class="col-md-3"></div>
 	<div class="col-md-6">
 		<div class="well text-center">
-			<form name="sampleForm" id="sampleForm" class="form-horizontal well" ng-controller="BreweryController" ng-submit="fetchBreweryByName(breweryName);" novalidate>
+			<form name="sampleForm" id="sampleForm" class="form-horizontal well" ng-controller="AngularFormController" ng-submit="getBreweryByName(breweryName);" novalidate>
 				<div class="form-group" ng-class="{ 'has-error': sampleForm.breweryName.$touched && sampleForm.fullName.$invalid }">
 					<label for="breweryName">Search Breweries</label>
 					<div class="input-group">
