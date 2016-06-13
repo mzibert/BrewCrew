@@ -59,16 +59,7 @@ app.controller('BeerController', ["$scope", "BeerService", function($scope, Beer
 			})
 	};
 
-	$scope.getBeerByColor = function(beerColor) {
-		BeerService.fetchBeerByColor(beerColor)
-			.then(function(result) {
-				if(result.status.data === 200) {
-					$scope.beerData = result.data.data;
-				} else {
-					$scope.alerts[0] = {type: "danger", msg: result.data.message};
-				}
-			})
-	};
+
 
 /**
  * Creates a beer and sends it to the beer API
