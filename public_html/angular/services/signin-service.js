@@ -1,9 +1,12 @@
-app.constant("SIGNIN_ENDPOINT", "php/api/signin/");
-app.service("SigninService", function(SIGNIN_ENDPOINT) {
-	function getUrl() {
-		return(SIGNIN_ENDPOINT_ENDPOINT);
-	}
-	this.login = function(signin) {
-		return($http.post(getUrl(), signin));
+
+//"signinService refers to what's in the signin-controller.
+app.service("SigninService", function($http){
+	this.SIGNIN_ENDPOINT = "../../angular/controllers/signin-controller.php";
+
+	this.signin = function(signinData) { //signinData from the signin-controller
+		return($http.post(this.SIGNIN_ENDPOINT, signinData)
+			.then(function(reply) {
+				return(reply.data);
+			}));
 	};
 });
