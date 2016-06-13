@@ -200,7 +200,7 @@ DELIMITER $$
 			OPEN compassCursor; -- open cursor
 			compassLoop : LOOP -- start LOOP
 
-			FETCH compassCursor INTO selectedBeer; -- gets rows
+			FETCH compassCursor INTO beerId, beerBreweryId, beerAbv, beerAvailability, beerAwards, beerColor, beerDbKey, beerDescription, beerIbu, beerName, beerStyle; -- gets rows
 
 			SELECT CONVERT(cIbu, DECIMAL);
 			IF cIbu = 0 THEN SET cIbu = 135;
@@ -211,7 +211,7 @@ DELIMITER $$
 			SELECT STDDEV(CONVERT(beerIbu, DECIMAL) / 135), AVG(CONVERT(beerIbu, DECIMAL) / 135) INTO ibuStdDev, ibuMean FROM beer  WHERE beerIbu != "N/A";
 			-- SELECT STDDEV(cIbu), AVG(cIbu) INTO ibuStdDev, ibuMean FROM beer;
 
-			CALL maths(beerDrift);
+			CALL maths(cColor, cIbu, colorStdDev, colorMean, ibuStdDev, ibuMean);
 			FETCH beerDrift INTO selectedBeer;
 				-- QUESTION will this match up okay? in terms of id/primary key
 
