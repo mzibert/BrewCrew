@@ -29,6 +29,6 @@ require_once("php/partials/head-utils.php");
 
 	<!-- /.container -->
 
-</div>
+	</div>
 </body>
 
