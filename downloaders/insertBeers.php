@@ -40,15 +40,22 @@ try {
 				}
 				//get color value from srm values
 				if(empty($beer->srm->name) === false) {
-					$srm = filter_var($beer->srm, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
-					$srm =  $srm / 40;
-				} elseif(empty($beer->srm) === false || empty($srm) === true) {
+					$srm = filter_var($beer->srm->name, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+					$srm =  $srm / 50;
+				} elseif(empty($beer->style->srmMin && $beer->style->srmMax ) === false || empty($srm) === true) {
 					$srmMin = filter_var($beer->style->srmMin, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
 					$srmMax = filter_var($beer->style->srmMax, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
-					$srm = (($srmMax + $srmMin) / 2.0) / 40;
+					$srm = (($srmMax + $srmMin) / 2.0) / 50;
 				} else {
 					$srm = false;
 				}
+				
+				// just when @deepdivedylan thought he loved honey ales...
+				//setting color for unspecific colors
+				if($srm > 1.0) {
+					$srm = 0.6;
+				}
+				
 				if(empty($beer->description) === false) {
 					$description = $beer->description;
 				} else {
@@ -78,7 +85,7 @@ try {
 				//Allow new beers to be added
 				$existingBeer = \Edu\Cnm\BrewCrew\Beer::getBeerByBeerDbKey($pdo, $beer->getBeerDbKey());
 				$canInsert = true;
-				if($beer->getBeerDbKey() === $existingBeer->getBeerDbKey()) {
+				if($existingBeer !== null && $beer->getBeerDbKey() === $existingBeer->getBeerDbKey()) {
 					$canInsert = false;
 				}
 
