@@ -6,7 +6,7 @@
 		<div class="well text-center">
 			<form name="beerSearch" id="beerSearch" class="form-horizontal well" ng-controller="beerController" ng-submit="getbeerByName(beerName);" novalidate>
 
-				<label for="beerNameSearch">Search Breweries</label>
+				<label for="beerNameSearch">Search Beers</label>
 				<div class="input-group">
 					<div class="input-group-addon">
 						<i class="fa fa-search"></i>

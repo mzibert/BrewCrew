@@ -3,11 +3,12 @@
 			<!-- begin main content area -->
 			<div class="row row-flex content-wrap">
 
-				<div class="container" id="signup">
+				<div class="container" id="signup" ng-controller="SignupController">
+
 					<div class="row">
 						<h1>Sign Up to create your Flavor Profile and write reviews.</h1>
 						<br>
-						<form role="form" name = "userSignUpForm" ng-submit="sendUserActivationToken(signupData, userSignUpForm.$valid);" id="signup" >
+						<form role="form" name="userSignUpForm" ng-submit="sendUserActivationToken(signupData, userSignUpForm.$valid);" id="userSignUpForm" >
 
 							<div class="col-md-6 col-md-offset-3">
 								<div class="well well-sm"><strong><span class="glyphicon glyphicon-asterisk"></span>Required Field</strong></div>
@@ -42,17 +43,9 @@
 											 ng-minlength="2" ng-maxlength="128" ng-required="true"/>
 									<div class="alert alert-danger" role="alert" ng-messages="userSignUpForm.userEmail.$error"
 										  ng-if="userSignUpForm.userEmail.$touched" ng-hide="userSignUpForm.userEmail.$valid">
-										<label for="userEmail">Confirm Email</label>
-										<div class="input-group">
-											<input type="email" class="form-control" id="InputEmailSecond" name="InputEmailSecond" required>
-											<span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
-										</div>
-										<p ng-message="minlength">Email number is too short.</p>
-										<p ng-message="maxlength">Email number is too long.</p>
-										<p ng-message="required">Please enter your email address.</p>
-									</div>
-									<p class="text-danger">This is the email address the activation code will be sent to.</p>
-								</fieldset>
+										</fieldset>
+									<fieldset>
+
 
 								<fieldset class="form-group">
 									<label for="password">Password</label>
@@ -60,15 +53,9 @@
 										<div class="input-group-addon">
 											<i class="fa fa-key"></i>
 										</div>
-										<input type="text" id="password" name="password" class="form-control" placeholder="123456789" ng-model="formData.password" ng-minlength="4" ng-maxlength="32" ng-required="true" />
+										<input type="password" id="password" name="password" class="form-control" placeholder="123456789" ng-model="formData.password" ng-minlength="4" ng-maxlength="32" ng-required="true" />
 									</div>
-									<div class="form-group">
-										<label for="InputPassword">Confirm Password</label>
-										<div class="input-group">
-											<input type="password" class="form-control" id="InputPasswordSecond" name="InputPasswordSecond" required>
-											<span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
-										</div>
-									</div>
+
 									<div class="alert alert-danger" role="alert" ng-messages="userSignUpForm.password.$error" ng-if="userSignupForm.password.$touched" ng-hide="userSignUpForm.password.$valid">
 										<p ng-message="minlength">Password is too short.</p>
 										<p ng-message="maxlength">Password is too long.</p>
