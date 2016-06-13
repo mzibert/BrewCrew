@@ -63,22 +63,33 @@ body {
 
 #beerheroimage {
 	/*repeats on large screens and needs to be fixed*/
-	background: linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3)), url("../image/background.jpg") no-repeat center center;
-	/*width: 100%;*/
+	background: linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3)), url("../image/background.jpg")  no-repeat center center fixed;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	width: 100%;
 	left: 0;
 	position: absolute;
 	z-index: 1; /*Add this*/
 	top: 71px;
 	min-width: 100vw;
-	/*height: 300px;*/
-	display: block;
+	height: 280px;
 }
 
 .beerhero {
 	padding: 25px;
 	color: white;
 	font-size: 2em;
+	padding-bottom: 48px;
+	padding-top: 48px;
+	text-shadow: black 0.12em 0.12em 0.12em;
+	-webkit-box-shadow: 10px 10px 10px grey;
+	-moz-box-shadow:    10px 10px 10px grey;
+	box-shadow:         10px 10px 10px grey;
+	/*I know I am supposed to end with known values here but the shadow looks wrong when I do*/
 }
+
 
 .title {
 	background-color: black;
@@ -90,7 +101,8 @@ body {
 }
 
 #main {
-	margin-top: 270px;
+	margin-top: 360px;
+	margin-bottom: 15px;
 }
 
 #signin {
@@ -183,16 +195,6 @@ nav.navbar {
 	.navbar-header {
 		flex: 1;
 	}
-}
-
-.beerhero {
-	padding-bottom: 48px;
-	padding-top: 48px;
-	text-shadow: black 0.12em 0.12em 0.12em;
-	-webkit-box-shadow: 10px 10px 10px grey;
-	-moz-box-shadow:    10px 10px 10px grey;
-	box-shadow:         10px 10px 10px grey;
-	/*I know I am supposed to end with known values here but the shadow looks wrong when I do*/
 }
 
 /* the compass styles */
