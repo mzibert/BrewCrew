@@ -1,6 +1,7 @@
 app.controller('BreweryController', ["$scope", "BreweryService", function($scope, BreweryService) {
 	$scope.alerts = [];
 	$scope.breweryData = [];
+
 	$scope.getBreweryById = function(breweryId) {
 		BreweryService.fetchBreweryById(breweryId)
 			.then(function(result) {
@@ -26,13 +27,16 @@ app.controller('BreweryController', ["$scope", "BreweryService", function($scope
 		console.log(breweryName);
 		BreweryService.fetchBreweryByName(breweryName)
 			.then(function(result) {
-				if(result.status.data === 200) {
+				if(result.data.status === 200) {
 					$scope.breweryData = result.data.data;
-					console.log(result.status.data);
+					console.log("good status");
+					console.log(result.data.message);
 					console.log(result.data.data);
+					console.log($scope.breweryData);
 				} else {
 					$scope.alerts[0] = {type: "danger", msg: result.data.message};
-					console.log(result.status.data);
+					console.log("bad status");
+					console.log(result.data.status);
 					console.log(result.data.data);
 					console.log(result.data.message);
 				}

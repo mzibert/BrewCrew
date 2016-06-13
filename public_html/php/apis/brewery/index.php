@@ -63,7 +63,7 @@ try {
 				$reply->data = $brewery;
 			}
 		} else if(empty($breweryName) === false) {
-			$brewery = BrewCrew\Brewery::getBreweryByBreweryName($pdo, $breweryName)->toArray();
+			$brewery = BrewCrew\Brewery::getBreweryByBreweryName($pdo, $breweryName);
 			if($brewery !== null) {
 				$reply->data = $brewery;
 			}

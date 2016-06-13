@@ -5,13 +5,13 @@
 	<div class="col-md-6">
 		<div class="well text-center">
 			<form name="brewerySearch" id="brewerySearch" class="form-horizontal well" ng-controller="BreweryController" ng-submit="getBreweryByName(breweryName);" novalidate>
-				<div class="form-group" ng-class="{ 'has-error': brewerySearch.breweryName.$touched && brewerySearch.breweryName.$invalid }">
-					<label for="breweryName">Search Breweries</label>
+
+					<label for="breweryNameSearch">Search Breweries</label>
 					<div class="input-group">
 						<div class="input-group-addon">
 							<i class="fa fa-search"></i>
 						</div>
-						<input type="text" id="breweryNameSearch" name="breweryNameSearch" class="form-control" placeholder="search by brewery name"   ng-required="true" />
+						<input type="text" id="breweryNameSearch" name="breweryNameSearch" class="form-control" placeholder="search by brewery name" ng-model="breweryName"  ng-required="true" />
 					</div>
 					<div class="alert alert-danger" role="alert" ng-messages="brewerySearch.search.$error" ng-if="brewerySearch.search.$touched" ng-hide="brewerySearch.search.$valid">
 
