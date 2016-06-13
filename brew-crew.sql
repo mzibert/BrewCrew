@@ -207,7 +207,8 @@ DELIMITER $$
 				END IF;
 
 			SELECT STDDEV(cColor), AVG (cColor) INTO colorStdDev, colorMean FROM beer;
-				SELECT STDDEV(CONVERT(beerIbu, DECIMAL) / 135), AVG(CONVERT(beerIbu, DECIMAL) / 135) INTO ibuStdDev, ibuMean FROM beer  WHERE beerIbu != "N/A";
+			-- makes ibu obey central limit theorem
+			SELECT STDDEV(CONVERT(beerIbu, DECIMAL) / 135), AVG(CONVERT(beerIbu, DECIMAL) / 135) INTO ibuStdDev, ibuMean FROM beer  WHERE beerIbu != "N/A";
 			-- SELECT STDDEV(cIbu), AVG(cIbu) INTO ibuStdDev, ibuMean FROM beer;
 
 			CALL maths(beerDrift);
