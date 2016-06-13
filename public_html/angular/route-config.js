@@ -20,9 +20,9 @@ app.config(function($routeProvider, $locationProvider) {
 			templateUrl : 'angular/templates/signup.php'
 		})
 
-		// route for the the compasss page
+		// route for the the compass page
 		.when('/thecompass', {
-			controller  : 'ThecompassController',
+			controller  : 'BeerController',
 			templateUrl : 'angular/templates/thecompass.php'
 		})
 
