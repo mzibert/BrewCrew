@@ -48,10 +48,12 @@
 		<script type="text/javascript"
 				  src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/1.3.3/ui-bootstrap-tpls.min.js"></script>
 
+		<script type="text/javascript" src="angular/app.js"></script>
+		<script type="text/javascript" src="angular/route-config.js"></script>
 		<!-- Angular JS App Files -->
 		<script type="text/javascript" src="angular/services/beer-service.js"></script>
 		<script type="text/javascript" src="angular/services/brewery-service.js"></script>
-		<script type="text/javascript" src="angular/services/home-service.js"></script>
+<!--		<script type="text/javascript" src="angular/services/home-service.js"></script>-->
 		<script type="text/javascript" src="angular/services/review-service.js"></script>
 		<script type="text/javascript" src="angular/services/signin-service.js"></script>
 		<script type="text/javascript" src="angular/services/signout-service.js"></script>
@@ -59,14 +61,12 @@
 		<script type="text/javascript" src="angular/services/thecompass-service.js"></script>
 		<script type="text/javascript" src="angular/services/user-service.js"></script>
 
-
-		<script type="text/javascript" src="angular/app.js"></script>
-		<script type="text/javascript" src="angular/route-config.js"></script>
 		<script type="text/javascript" src="angular/directives/bootstrap-breakpoint.js"></script>
-		<script type="text/javascript" src="angular/controllers/beer-controller.js"></script>
-		<script type="text/javascript" src="angular/controllers/brewery-controller.js"></script>
+		
 		<script type="text/javascript" src="angular/controllers/home-controller.js"></script>
 		<script type="text/javascript" src="angular/controllers/nav-controller.js"></script>
+		<script type="text/javascript" src="angular/controllers/beer-controller.js"></script>
+		<script type="text/javascript" src="angular/controllers/brewery-controller.js"></script>
 		<script type="text/javascript" src="angular/controllers/review-controller.js"></script>
 		<script type="text/javascript" src="angular/controllers/signin-controller.js"></script>
 		<script type="text/javascript" src="angular/controllers/signout-controller.js"></script>

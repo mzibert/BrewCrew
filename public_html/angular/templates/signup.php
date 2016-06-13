@@ -7,7 +7,7 @@
 					<div class="row">
 						<h1>Sign Up to create your Flavor Profile and write reviews.</h1>
 						<br>
-						<form role="form" name = "userSignUpForm" ng-submit = "sendUserActivationToken(signupData, userSignUpForm.$valid);" id="signup" ng-controller = "SignupController">
+						<form role="form" name = "userSignUpForm" ng-submit="sendUserActivationToken(signupData, userSignUpForm.$valid);" id="signup" >
 
 							<div class="col-md-6 col-md-offset-3">
 								<div class="well well-sm"><strong><span class="glyphicon glyphicon-asterisk"></span>Required Field</strong></div>

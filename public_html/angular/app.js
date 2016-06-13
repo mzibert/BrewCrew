@@ -1,1 +1,1 @@
-var app = angular.module("BrewCrew", ["ngRoute", "ui.bootstrap", "ngMessages"]);
+var app = angular.module("BrewCrew", ["ngRoute", "ui.bootstrap", "ngMessages", "ngAnimate"]);
