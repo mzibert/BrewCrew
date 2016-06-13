@@ -29,7 +29,6 @@ app.service("BreweriesService", function($http, BREWERY_ENDPOINT) {
 		return($http.get(getUrl() + "?breweryName=" + breweryName));
 	};
 
-
 	this.updateBrewery = function(breweryId, brewery) {
 		return($http.put(getUrlForId(breweryId, brewery)));
 	};
