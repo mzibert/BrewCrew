@@ -1,5 +1,7 @@
 BODY {
-	background-color: #f0f8ff
+	background-image:url(../image/beerbackground.jpg);
+	background-size:cover;
+	background-attachment:fixed;
 }
 
 H1 {

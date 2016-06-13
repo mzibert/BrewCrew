@@ -52,7 +52,7 @@
 		<script type="text/javascript" src="angular/services/beer-service.js"></script>
 		<script type="text/javascript" src="angular/services/breweries-service.js"></script>
 		<script type="text/javascript" src="angular/services/review-service.js"></script>
-		<script type="text/javascript" src="angular/services/sigin-service.js"></script>
+		<script type="text/javascript" src="angular/services/signin-service.js"></script>
 		<script type="text/javascript" src="angular/services/signout-service.js"></script>
 		<script type="text/javascript" src="angular/services/signup-service.js"></script>
 		<script type="text/javascript" src="angular/services/thecompass-service.js"></script>
@@ -63,7 +63,7 @@
 		<script type="text/javascript" src="angular/route-config.js"></script>
 		<script type="text/javascript" src="angular/directives/bootstrap-breakpoint.js"></script>
 		<script type="text/javascript" src="angular/controllers/beer-controller.js"></script>
-		<script type="text/javascript" src="angular/controllers/brewries-controller.js"></script>
+		<script type="text/javascript" src="angular/controllers/breweries-controller.js"></script>
 		<script type="text/javascript" src="angular/controllers/home-controller.js"></script>
 		<script type="text/javascript" src="angular/controllers/nav-controller.js"></script>
 		<script type="text/javascript" src="angular/controllers/review-controller.js"></script>
