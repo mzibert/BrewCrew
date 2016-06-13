@@ -63,7 +63,7 @@
 		<script type="text/javascript" src="angular/route-config.js"></script>
 		<script type="text/javascript" src="angular/directives/bootstrap-breakpoint.js"></script>
 		<script type="text/javascript" src="angular/controllers/beer-controller.js"></script>
-		<script type="text/javascript" src="angular/controllers/breweries-controller.js"></script>
+		<script type="text/javascript" src="angular/controllers/brewery-controller.js"></script>
 		<script type="text/javascript" src="angular/controllers/home-controller.js"></script>
 		<script type="text/javascript" src="angular/controllers/nav-controller.js"></script>
 		<script type="text/javascript" src="angular/controllers/review-controller.js"></script>
