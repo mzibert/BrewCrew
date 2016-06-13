@@ -163,7 +163,7 @@ DELIMITER $$
 			-- variables for cursor and loop control
 			DECLARE done BOOLEAN DEFAULT FALSE; -- exit flag
 			DECLARE compassCursor CURSOR FOR
-				SELECT (beerId, beerBreweryId, beerAbv, beerAvailability, beerAwards, beerColor, beerDbKey, beerDescription, beerIbu, beerName, beerStyle) FROM beer; -- cursor
+				SELECT beerId, beerBreweryId, beerAbv, beerAvailability, beerAwards, beerColor, beerDbKey, beerDescription, beerIbu, beerName, beerStyle FROM beer; -- cursor
 			DECLARE CONTINUE HANDLER FOR NOT FOUND
 			SET done = TRUE; -- exit when no more rows
 
@@ -210,7 +210,7 @@ DELIMITER $$
 			END LOOP compassLoop; -- stops mad looping behavior
 			CLOSE compassCursor; -- closes cursor
 
-			SELECT (beerId, beerBreweryId, beerAbv, beerAvailability, beerAwards, beerColor, beerDbKey, beerDescription, beerIbu, beerName, beerStyle, beerDrift) FROM selectedBeer WHERE beerDrift <= 1.5 -- the recommendation to return
+			SELECT beerId, beerBreweryId, beerAbv, beerAvailability, beerAwards, beerColor, beerDbKey, beerDescription, beerIbu, beerName, beerStyle, beerDrift FROM selectedBeer WHERE beerDrift <= 1.5 -- the recommendation to return
 			ORDER BY beerDrift;
 
 		END $$
