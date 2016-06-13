@@ -1,52 +1,34 @@
-<!-- begin main content page layout -->
-<div class="container" id="brewery">
 <div class="row">
-	<div class="span9">
-		<h2 class="heading h-section text-center" data-barley="index_hiw_heading" data-barley-editor="simple">Search for Craft Breweries</h2>
+	<div class="col-md-3"> </div>
+	<div class="col-md-6">
+		<div class="well text-center">
+			<h1>Search Breweries</h1>
+		</div>
 	</div>
 </div>
-</div>
-<div class="container">
-	<div class="row">
-		<div class="col-md-9">
-			<div class="ibox float-e-margins">
-				<div class="ibox-content">
-
-
-					<div class="search-form">
-						<form action="#" method="get">
-							<div class="input-group">
-								<input type="text" placeholder="Search" name="search" class="form-control input-lg">
-								<div class="input-group-btn">
-									<button class="btn btn-lg btn-primary" type="submit">Search</button>
-								</div>
-							</div>
-						</form>
+<!-- main content-->
+<div class="row">
+	<div class="col-md-3"></div>
+	<div class="col-md-6">
+		<div class="well text-center">
+			<form name="sampleForm" id="sampleForm" class="form-horizontal well" ng-controller="AngularFormController" ng-submit="submit(formData, sampleForm.$valid);" novalidate>
+				<div class="form-group" ng-class="{ 'has-error': sampleForm.breweryName.$touched && sampleForm.fullName.$invalid }">
+					<label for="breweryName">Search</label>
+					<div class="input-group">
+						<div class="input-group-addon">
+							<i class="fa fa-search"></i>
+						</div>
+						<input type="text" id="search" name="search" class="form-control" placeholder="search" ng-model="formData.search" ng-minlength="4" ng-maxlength="32" ng-required="true" />
 					</div>
-					<h2>Results found for: <span class="search results">"(     )"</span></h2>
-					<div class="hr-line-dashed"></div>
-					<div class="search-result">
-						<h3><a href="#">Brewery One</a></h3>
-						<p>Brewery phone | Brewery location</p>
-						<p>Brewery description</p>
+					<div class="alert alert-danger" role="alert" ng-messages="sampleForm.search.$error" ng-if="sampleForm.search.$touched" ng-hide="sampleForm.search.$valid">
+						<p ng-message="minlength">Search is too short.</p>
+						<p ng-message="maxlength">Search is too long.</p>
+						<p ng-message="required">Please enter your search.</p>
 					</div>
-
-					<div class="hr-line-dashed"></div>
-					<div class="search-result">
-						<h3><a href="#">Brewery Two</a></h3>
-						<p>Brewery phone | Brewery location</p>
-						<p>Brewery description</p>
-					</div>
-					<div class="hr-line-dashed"></div>
-
-					<div class="search-result">
-						<h3><a href="#">Brewery Three</a></h3>
-						<p>Brewery phone | Brewery location</p>
-						<p>Brewery description</p>
-					</div>
-					<div class="hr-line-dashed"></div>
-				</div>
-			</div>
+					<h1></h1>
+					<button class="btn btn-lg btn-info" type="submit"><i class="fa fa-search"></i>&nbsp;Find</button>
+					<hr />
+			</form>
 		</div>
 	</div>
 </div>

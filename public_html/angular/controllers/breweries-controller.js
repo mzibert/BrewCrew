@@ -1,11 +1,11 @@
-app.controller('BreweriesController', ["$scope", "BreweriesService", function($scope, BreweriesService) {
+app.controller('BreweryController', ["$scope", "BreweryService", function($scope, BreweriesService) {
 	$scope.alerts = [];
-	$scope.breweriesData = [];
+	$scope.breweryData = [];
 	$scope.getBreweryById = function() {
 		BreweriesService.fetchBreweryById(breweryId)
 			.then(function(result) {
 				if(result.status.data === 200) {
-					$scope.breweriesData = result.data.data;
+					$scope.breweryData = result.data.data;
 				} else {
 					$scope.alerts[0] = {type: "danger", msg: result.data.message};
 				}
@@ -15,7 +15,7 @@ app.controller('BreweriesController', ["$scope", "BreweriesService", function($s
 		BreweriesService.fetchBreweryByBreweryId(breweryId)
 			.then(function(result) {
 				if(result.status.data === 200) {
-					$scope.breweriesData = result.data.data;
+					$scope.breweryData = result.data.data;
 				} else {
 					$scope.alerts[0] = {type: "danger", msg: result.data.message};
 				}
@@ -25,7 +25,7 @@ app.controller('BreweriesController', ["$scope", "BreweriesService", function($s
 		BreweriesService.fetchBreweryByLocation(breweryLocation)
 			.then(function(result) {
 				if(result.status.data === 200) {
-					$scope.breweriesData = result.data.data;
+					$scope.breweryData = result.data.data;
 				} else {
 					$scope.alerts[0] = {type: "danger", msg: result.data.message};
 				}
@@ -35,7 +35,7 @@ app.controller('BreweriesController', ["$scope", "BreweriesService", function($s
 		BreweriesService.fetchBreweryByName(breweryName)
 			.then(function(result) {
 				if(result.status.data === 200) {
-					$scope.breweriesData = result.data.data;
+					$scope.breweryData = result.data.data;
 				} else {
 					$scope.alerts[0] = {type: "danger", msg: result.data.message};
 				}
