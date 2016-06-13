@@ -133,6 +133,7 @@ nav.navbar {
 /* this pushes the links over to the right */
 #navbar-collapse-1 {
 	flex: 1;
+	float: right !important;
 }
 
 #navbar {

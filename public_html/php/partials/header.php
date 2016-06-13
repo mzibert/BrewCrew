@@ -4,14 +4,14 @@
 
 	<nav class="navbar navbar-inverse navbar-right navbar-fixed-top">
 		<div class="container" id="navbar">
-			<div class="navbar-header">
+			<div class="navbar-header navbar-right">
 				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false" ng-click="navCollapsed = !navCollapsed">
 					<span class="sr-only">Toggle navigation</span>
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="home" >
+				<a class="nav navbar-brand navbar-left" href="home" >
 					<img src="image/logo.png" role="button" alt="Placeholder Logo"></a>
 			</div>
 
@@ -25,14 +25,14 @@
 					<li class="active"><a href="signin">Log In <span class="sr-only"></span></a></li>
 				<form class="navbar-form navbar-right" role="search">
 					<div class="form-group">
-						<input type="text" class="form-control" placeholder="Search">
+						<input type="text" class="form-control">
 					</div>
 					<button type="submit" class="btn btn-default">Search</button>
 				</form>
 				</ul>
 			</div>
 		</div>
-	</div><!-- /.container-fluid -->
+	</nav><!-- /.container-fluid -->
 </header>
 
 
