@@ -41,11 +41,11 @@ try {
 				//get color value from srm values
 				if(empty($beer->srm->name) === false) {
 					$srm = filter_var($beer->srm->name, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
-					$srm =  $srm / 50;
+					$srm =  $srm / 40;
 				} elseif(empty($beer->style->srmMin && $beer->style->srmMax ) === false || empty($srm) === true) {
 					$srmMin = filter_var($beer->style->srmMin, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
 					$srmMax = filter_var($beer->style->srmMax, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
-					$srm = (($srmMax + $srmMin) / 2.0) / 50;
+					$srm = (($srmMax + $srmMin) / 2.0) / 40;
 				} else {
 					$srm = false;
 				}
@@ -93,7 +93,7 @@ try {
 				if($canInsert === true) {
 					$beer->insert($pdo);
 				} else {
-					$beer->update($pdo);
+					$existingBeer->update($pdo);
 				}
 
 			}
