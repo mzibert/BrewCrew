@@ -30,5 +30,5 @@
 	</div>
 </div>
 
-<a href="#top">
-	<div id="toTop" class="btn btn-info"><i class="fa fa-arrow-up"></i></div></a>
+<!--<a href="#top">-->
+<!--	<div id="toTop" class="btn btn-info"><i class="fa fa-arrow-up"></i></div></a>-->
