@@ -124,6 +124,15 @@ try {
 					$reply->data = $storage;
 				}
 			}
+
+		} else if(empty($userId) === false) {
+			$beerMap = BrewCrew\Beer::getBeerByAliciaAwesome($pdo, $_SESSION["user"]->getUserId());
+			if($beerMap !== null) {
+				$beerTags = BrewCrew\BeerTag::getBeerTagByBeerId($pdo, $beer->getBeerId());
+				$storage = new BrewCrew\JsonObjectStorage();
+				$storage->attach($beer, $beerTags->toArray());
+				$reply->data = $storage;
+			}
 		}
 
 	} else if($method === "PUT" || $method === "POST") {
