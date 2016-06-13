@@ -41,7 +41,7 @@ app.config(function($routeProvider, $locationProvider) {
 		// route for the user page
 		.when('/user', {
 			controller  : 'UserController',
-			templateUrl : 'angular/templates/userProfile.php'
+			templateUrl : 'angular/templates/userprofile.php'
 		})
 			
 		// route for the review page
