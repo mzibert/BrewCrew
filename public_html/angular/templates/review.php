@@ -1,5 +1,5 @@
 <!-- temporary review form to be updated later -->
-
+<!-- remove e-mail address and password part, then reuse this code in the beer profile?-->
 
 <form>
 	<fieldset class="form-group">
