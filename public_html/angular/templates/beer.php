@@ -1,13 +1,6 @@
-<div class="row">
-	<div class="col-md-3"> </div>
-	<div class="col-md-6">
-		<div class="well text-center">
-			<h1>Search Beers</h1>
-		</div>
-	</div>
-</div>
+
 <!-- main content-->
-<div class="row">
+<div class="row" id="beer">
 	<div class="col-md-3"></div>
 	<div class="col-md-6">
 		<div class="well text-center">
