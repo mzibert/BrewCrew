@@ -27,7 +27,7 @@ app.config(function($routeProvider, $locationProvider) {
 		})
 
 		// route for the breweries page
-		.when('/breweries/', {
+		.when('/brewery/', {
 			controller  : 'BreweryController',
 			templateUrl : 'angular/templates/brewery.php'
 		})
