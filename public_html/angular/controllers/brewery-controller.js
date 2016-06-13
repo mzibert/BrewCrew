@@ -1,18 +1,8 @@
-app.controller('BreweryController', ["$scope", "BreweryService", function($scope, BreweriesService) {
+app.controller('BreweryController', ["$scope", "BreweryService", function($scope, BreweryService) {
 	$scope.alerts = [];
 	$scope.breweryData = [];
-	$scope.getBreweryById = function() {
-		BreweriesService.fetchBreweryById(breweryId)
-			.then(function(result) {
-				if(result.status.data === 200) {
-					$scope.breweryData = result.data.data;
-				} else {
-					$scope.alerts[0] = {type: "danger", msg: result.data.message};
-				}
-			})
-	};
-	$scope.getBreweryByBreweryId = function() {
-		BreweriesService.fetchBreweryByBreweryId(breweryId)
+	$scope.getBreweryById = function(breweryId) {
+		BreweryService.fetchBreweryById(breweryId)
 			.then(function(result) {
 				if(result.status.data === 200) {
 					$scope.breweryData = result.data.data;
@@ -22,7 +12,7 @@ app.controller('BreweryController', ["$scope", "BreweryService", function($scope
 			})
 	};
 	$scope.getBreweryByLocation = function() {
-		BreweriesService.fetchBreweryByLocation(breweryLocation)
+		BreweryService.fetchBreweryByLocation(breweryLocation)
 			.then(function(result) {
 				if(result.status.data === 200) {
 					$scope.breweryData = result.data.data;
@@ -31,8 +21,8 @@ app.controller('BreweryController', ["$scope", "BreweryService", function($scope
 				}
 			})
 	};
-	$scope.getBreweryByName = function() {
-		BreweriesService.fetchBreweryByName(breweryName)
+	$scope.getBreweryByName = function(breweryName) {
+		BreweryService.fetchBreweryByName(breweryName)
 			.then(function(result) {
 				if(result.status.data === 200) {
 					$scope.breweryData = result.data.data;
@@ -49,7 +39,7 @@ app.controller('BreweryController', ["$scope", "BreweryService", function($scope
 	 **/
 	$scope.update = function(brewery, validated) {
 		if (validated === true) {
-			BreweriesService.create(brewery)
+			BreweryService.create(brewery)
 				.then(function(result) {
 					if(result.data.status === 200) {
 						$scope.alerts[0] = {type: "success", msg: result.data.message};
@@ -67,7 +57,7 @@ app.controller('BreweryController', ["$scope", "BreweryService", function($scope
 	 **/
 	$scope.create = function(brewery, validated) {
 		if(validated === true) {
-			BreweriesService.create(brewery)
+			BreweryService.create(brewery)
 				.then(function(result) {
 					if(result.data.status === 200) {
 						$scope.alerts[0] = {type: "success", msg: result.data.message};
@@ -84,7 +74,7 @@ app.controller('BreweryController', ["$scope", "BreweryService", function($scope
  **/
 $scope.create = function(brewery, validated) {
 	if(validated === true) {
-		BreweriesService.destroy(brewery)
+		BreweryService.destroy(brewery)
 			.then(function(result) {
 				if(result.data.status === 200) {
 					$scope.alerts[0] = {type: "success", msg: result.data.message};

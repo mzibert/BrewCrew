@@ -4,14 +4,14 @@
 	<div class="col-md-3"></div>
 	<div class="col-md-6">
 		<div class="well text-center">
-			<form name="sampleForm" id="sampleForm" class="form-horizontal well" ng-controller="BreweryController" ng-submit="submit(formData, sampleForm.$valid);" novalidate>
+			<form name="sampleForm" id="sampleForm" class="form-horizontal well" ng-controller="BreweryController" ng-submit="fetchBreweryByName(breweryName);" novalidate>
 				<div class="form-group" ng-class="{ 'has-error': sampleForm.breweryName.$touched && sampleForm.fullName.$invalid }">
 					<label for="breweryName">Search Breweries</label>
 					<div class="input-group">
 						<div class="input-group-addon">
 							<i class="fa fa-search"></i>
 						</div>
-						<input type="text" id="search" name="search" class="form-control" placeholder="search" ng-model="formData.search" ng-minlength="4" ng-maxlength="32" ng-required="true" />
+						<input type="text" id="search" name="search" class="form-control" placeholder="search by brewery name"  ng-minlength="4" ng-maxlength="32" ng-required="true" />
 					</div>
 					<div class="alert alert-danger" role="alert" ng-messages="sampleForm.search.$error" ng-if="sampleForm.search.$touched" ng-hide="sampleForm.search.$valid">
 						<p ng-message="minlength">Search is too short.</p>
