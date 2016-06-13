@@ -50,7 +50,11 @@ app.config(function($routeProvider, $locationProvider) {
 			templateUrl : 'angular/templates/review.php'
 		})
 
-
+		// route for the beer profile page
+		.when('/beerprofile/:id', {
+			controller  : 'BeerProfileController',
+			templateUrl : 'angular/templates/beerprofile.php'
+		})
 
 		// otherwise redirect to home
 		.otherwise({
