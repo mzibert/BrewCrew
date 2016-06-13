@@ -158,6 +158,7 @@ DELIMITER $$
 			DECLARE beerAvailability VARCHAR(100);
 			DECLARE beerAwards VARCHAR(1000);
 			DECLARE beerColor DECIMAL(6, 5);
+			DECLARE beerDbKey VARCHAR (6)
 			DECLARE beerDescription VARCHAR(2000);
 			DECLARE beerIbu VARCHAR(50);
 			DECLARE beerName VARCHAR(64);
@@ -175,7 +176,7 @@ DELIMITER $$
 			-- variables for cursor and loop control
 			DECLARE done BOOLEAN DEFAULT FALSE; -- exit flag
 			DECLARE compassCursor CURSOR FOR
-				SELECT (beerId, beerBreweryId, beerAbv, beerAvailability, beerAwards, beerColor, beerDescription, beerIbu, beerName, beerStyle) FROM beer; -- cursor
+				SELECT (beerId, beerBreweryId, beerAbv, beerAvailability, beerAwards, beerColor, beerDbKey, beerDescription, beerIbu, beerName, beerStyle) FROM beer; -- cursor
 			DECLARE CONTINUE HANDLER FOR NOT FOUND
 			SET done = TRUE; -- exit when no more rows
 
@@ -188,6 +189,7 @@ DELIMITER $$
 				beerAvailability VARCHAR(100),
 				beerAwards VARCHAR(1000),
 				beerColor DECIMAL(6, 5),
+				beerDbKey VARCHAR(6),
 				beerDescription VARCHAR(2000),
 				beerIbu VARCHAR(50) NOT NULL,
 				beerName VARCHAR(64) NOT NULL,
@@ -198,7 +200,7 @@ DELIMITER $$
 			OPEN compassCursor; -- open cursor
 			compassLoop : LOOP -- start LOOP
 
-			FETCH compassCursor INTO  selectedBeer; -- gets rows
+			FETCH compassCursor INTO selectedBeer; -- gets rows
 
 			SELECT CONVERT(cIbu, DECIMAL);
 			IF cIbu = 0 THEN SET cIbu = 135;
@@ -218,7 +220,7 @@ DELIMITER $$
 			END LOOP compassLoop; -- stops mad looping behavior
 			CLOSE compassCursor; -- closes cursor
 
-			SELECT (beerId, beerBreweryId, beerAbv, beerAvailability, beerAwards, beerColor, beerDescription, beerIbu, beerName, beerStyle, beerDrift) FROM selectedBeer WHERE beerDrift <= 1.5 -- the recommendation to return
+			SELECT (beerId, beerBreweryId, beerAbv, beerAvailability, beerAwards, beerColor, beerDbKey, beerDescription, beerIbu, beerName, beerStyle, beerDrift) FROM selectedBeer WHERE beerDrift <= 1.5 -- the recommendation to return
 			ORDER BY beerDrift;
 
 		END $$
