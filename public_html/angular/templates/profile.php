@@ -4,12 +4,11 @@
 			<div class="panel panel-default">
 				<div class="panel-body">
 					<div class="row">
-						<div class="col-md-12 lead">User profile<hr></div>
+						<div class="col-md-12">User profile<hr></div>
 					</div>
 					<div class="row">
 						<div class="col-md-4 text-center">
-							<img class="img-thumbnail profile-image" style="-webkit-user-select:none;
-              display:block; margin:auto;" src="image/profile-placeholder.jpg">
+							<img class="img-thumbnail profile-image" src="image/profile-placeholder.jpg">
 						</div>
 						<div class="col-md-8">
 							<div class="row">
