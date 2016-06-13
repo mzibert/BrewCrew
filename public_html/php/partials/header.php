@@ -3,8 +3,7 @@
 	<bootstrap-breakpoint></bootstrap-breakpoint>
 
 	<nav class="navbar navbar-inverse navbar-right navbar-fixed-top">
-	<div class="container" id="navbar">
-		<nav class="navbar navbar-inverse">
+		<div class="container" id="navbar">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false" ng-click="navCollapsed = !navCollapsed">
 					<span class="sr-only">Toggle navigation</span>
@@ -24,15 +23,15 @@
 					<li class="active"><a href="breweries">Breweries <span class="sr-only"></span></a></li>
 					<li class="active"><a href="signup">Sign Up <span class="sr-only"></span></a></li>
 					<li class="active"><a href="signin">Log In <span class="sr-only"></span></a></li>
-				</ul>
-			</div>
 				<form class="navbar-form navbar-right" role="search">
 					<div class="form-group">
 						<input type="text" class="form-control" placeholder="Search">
 					</div>
 					<button type="submit" class="btn btn-default">Search</button>
 				</form>
-		</nav>
+				</ul>
+			</div>
+		</div>
 	</div><!-- /.container-fluid -->
 </header>
 
