@@ -158,7 +158,7 @@ DELIMITER $$
 			DECLARE beerAvailability VARCHAR(100);
 			DECLARE beerAwards VARCHAR(1000);
 			DECLARE beerColor DECIMAL(6, 5);
-			DECLARE beerDbKey VARCHAR (6)
+			DECLARE beerDbKey VARCHAR (6);
 			DECLARE beerDescription VARCHAR(2000);
 			DECLARE beerIbu VARCHAR(50);
 			DECLARE beerName VARCHAR(64);
