@@ -1,7 +1,7 @@
-app.service('SignoutService', function($http){
-	this.SIGNOUT_ENDPOINT = 'php/api/signout/';
+app.service("SignoutService", function($http) {
+	this.SIGNOUT_ENDPOINT = "../../angular/controllers/signout-controller.php";
 
-	this.logout = function() {
-		return($http.get(this.SIGNOUT_ENDPOINT));
-	};
+	this.signout = function() {
+		return ($http.get(this.SIGNOUT_ENDPOINT));
+	}
 });
