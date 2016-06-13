@@ -3,7 +3,7 @@ app.controller("SigninController", ["$scope","SigninService",  function($scope,
 	$scope.signinData = [];
 	$scope.alerts = [];
 
-	$scope.getUserById = function() {
+	$scope.getUserById = function(userId) {
 		UserService.fetchUserById(userId)
 			.then(function(result) {
 				if(result.status.data === 200) {

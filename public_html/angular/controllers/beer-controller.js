@@ -86,7 +86,24 @@ app.controller('BeerController', ["$scope", "BeerService", function($scope, Beer
  **/
 	$scope.beerUpdate = function(beer, validated) {
 		if (validated === true) {
-			BeerService.create(beer)
+			BeerService.update(beer)
+				.then(function(result) {
+					if(result.data.status === 200) {
+						$scope.alerts[0] = {type: "success", msg: result.data.message};
+					} else {
+						$scope.alerts[0] = {type: "danger", msg: result.data.message};
+					}
+				})
+		}};
+	/**
+	 * Destroys a beer and removes it from the beer API
+	 *
+	 * @param beer the beer we send
+	 * @param validated true if Angular validated the form, false if not
+	 **/
+	$scope.destroy = function(beer, validated) {
+		if(validated === true) {
+			BeerService.destroy(beer)
 				.then(function(result) {
 					if(result.data.status === 200) {
 						$scope.alerts[0] = {type: "success", msg: result.data.message};
