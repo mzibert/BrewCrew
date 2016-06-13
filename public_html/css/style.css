@@ -54,18 +54,18 @@ body {
 }
 
 #beerheroimage {
-	background: url("../image/beerbubbles.jpg") repeat center center;
+	background: linear-gradient(rgba(255, 255, 255, 0.60), rgba(255, 255, 255, 0.60)), url("../image/beerbubbles.jpg") repeat center center;
 	width: 100%;
 	left: 0;
 	position: absolute;
 	z-index: 1; /*Add this*/
 	top: 71px;
-
+	min-width: 100vw;
 }
 
 .beerhero {
 	padding: 25px;
-	color: white;
+	/*color: white;*/
 	font-size: 2em;
 }
 
@@ -153,7 +153,6 @@ nav.navbar {
 	-moz-box-shadow:    10px 10px 10px grey;
 	box-shadow:         10px 10px 10px grey;
 	/*I know I am supposed to end with known values here but the shadow looks wrong when I do*/
-
 }
 
 /* the compass styles */
