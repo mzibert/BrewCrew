@@ -3,7 +3,7 @@ app.controller('BeerController', ["$scope", "BeerService", function($scope, Beer
 	$scope.beerData = [];
 
 
-	$scope.getBeerById = function() {
+	$scope.getBeerById = function(beerId) {
 		BeerService.fetchBeerById(beerId)
 			.then(function(result) {
 				if(result.status.data === 200) {
@@ -15,7 +15,7 @@ app.controller('BeerController', ["$scope", "BeerService", function($scope, Beer
 	};
 
 
-	$scope.getBeerByBreweryId = function() {
+	$scope.getBeerByBreweryId = function(breweryId) {
 		BeerService.fetchBeerByBreweryId(breweryId)
 			.then(function(result) {
 				if(result.status.data === 200) {
@@ -26,7 +26,7 @@ app.controller('BeerController', ["$scope", "BeerService", function($scope, Beer
 			})
 	};
 
-	$scope.getBeerByIbu = function() {
+	$scope.getBeerByIbu = function(beerIbu) {
 		BeerService.fetchBeerByIbu(beerIbu)
 			.then(function(result) {
 				if(result.status.data === 200) {
@@ -37,7 +37,7 @@ app.controller('BeerController', ["$scope", "BeerService", function($scope, Beer
 			})
 	};
 
-	$scope.getBeerByColor = function() {
+	$scope.getBeerByColor = function(beerColor) {
 		BeerService.fetchBeerByColor(beerColor)
 			.then(function(result) {
 				if(result.status.data === 200) {
@@ -48,7 +48,7 @@ app.controller('BeerController', ["$scope", "BeerService", function($scope, Beer
 			})
 	};
 
-	$scope.getBeerByName = function() {
+	$scope.getBeerByName = function(beerName) {
 		BeerService.fetchBeerByName(beerName)
 			.then(function(result) {
 				if(result.status.data === 200) {
@@ -59,7 +59,7 @@ app.controller('BeerController', ["$scope", "BeerService", function($scope, Beer
 			})
 	};
 
-	$scope.getBeerByColor = function() {
+	$scope.getBeerByColor = function(beerColor) {
 		BeerService.fetchBeerByColor(beerColor)
 			.then(function(result) {
 				if(result.status.data === 200) {
