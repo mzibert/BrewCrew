@@ -23,7 +23,7 @@ app.config(function($routeProvider, $locationProvider) {
 		// route for the the compasss page
 		.when('/thecompass/', {
 			controller  : 'ThecompassController',
-			templateUrl : 'angular/templates/compass.php'
+			templateUrl : 'angular/templates/thecompass.php'
 		})
 
 		// route for the breweries page
@@ -37,11 +37,13 @@ app.config(function($routeProvider, $locationProvider) {
 			controller  : 'BeerController',
 			templateUrl : 'angular/templates/beer.php'
 		})
+
 		// route for the user page
 		.when('/user/', {
 			controller  : 'UserController',
 			templateUrl : 'angular/templates/userProfile.php'
 		})
+			
 		// route for the review page
 		.when('/review/', {
 			controller  : 'ReviewController',
