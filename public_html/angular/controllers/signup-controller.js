@@ -11,12 +11,16 @@ app.controller("SignupController", ["$scope", "SignupService", "$location", func
 
 	$scope.sendActivationToken = function(signUpData, validated) {
 		if(validated === true) {
+			console.log("inside signup controller");
+			console.log(signUpData);
 			SignupService.create(signUpData)
 				.then(function(result) {
 					if(result.data.status === 200) {
 						$scope.alerts[0] = {type: "success", msg: result.data.message};
+						console.log("good status");
 						$location.url("signup/");
 					} else {
+						console.log(result.data.message);
 						$scope.alerts[0] = {type: "danger", msg: result.data.message};
 					}
 				});

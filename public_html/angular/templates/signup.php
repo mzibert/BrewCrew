@@ -8,7 +8,7 @@
 					<div class="row">
 						<h1>Sign Up to create your Flavor Profile and write reviews.</h1>
 						<br>
-						<form role="form" name="userSignUpForm" ng-submit="sendUserActivationToken(signupData, userSignUpForm.$valid);" id="userSignUpForm" >
+						<form role="form" name="userSignUpForm" ng-submit="sendActivationToken(signupData, userSignUpForm.$valid);" id="userSignUpForm" >
 
 							<div class="col-md-6 col-md-offset-3">
 								<div class="well well-sm"><strong><span class="glyphicon glyphicon-asterisk"></span>Required Field</strong></div>
@@ -44,7 +44,17 @@
 									<div class="alert alert-danger" role="alert" ng-messages="userSignUpForm.userEmail.$error"
 										  ng-if="userSignUpForm.userEmail.$touched" ng-hide="userSignUpForm.userEmail.$valid">
 										</fieldset>
-									<fieldset>
+
+
+										<fieldset class="form-group">
+											<label for="userUserName">Enter Your Username</label>
+											<input type="text" class="form-control" name="userUserName" id="userUserName"
+													  ng-model="signupData.userUserName"
+													 ng-minlength="2" ng-maxlength="12" ng-required="true"/>
+											<div class="alert alert-danger" role="alert" ng-messages="userSignUpForm.userUserName.$error"
+												  ng-if="userSignUpForm.userUserName.$touched" ng-hide="userSignUpForm.userUserName.$valid">
+										</fieldset>
+
 
 
 								<fieldset class="form-group">
@@ -53,7 +63,7 @@
 										<div class="input-group-addon">
 											<i class="fa fa-key"></i>
 										</div>
-										<input type="password" id="password" name="password" class="form-control" placeholder="123456789" ng-model="formData.password" ng-minlength="4" ng-maxlength="32" ng-required="true" />
+										<input type="password" id="password" name="password" class="form-control" placeholder="123456789" ng-model="signupData.password" ng-minlength="4" ng-maxlength="32" ng-required="true" />
 									</div>
 
 									<div class="alert alert-danger" role="alert" ng-messages="userSignUpForm.password.$error" ng-if="userSignupForm.password.$touched" ng-hide="userSignUpForm.password.$valid">
@@ -66,7 +76,7 @@
 								<fieldset class="form-group">
 									<label for="userDateOfBirth">Date of Birth</label>
 									<input type="text" class="form-control" name="userDateOfBirth" id="userDateOfBirth"
-											 placeholder="6/09/1970" ng-model="signupData.userDateOfBirth"
+											 placeholder="YYYY-MM-DD" ng-model="signupData.userDateOfBirth"
 											 ng-minlength="2" ng-maxlength="128" ng-required="true"/>
 									<div class="alert alert-danger" role="alert" ng-messages="userSignUpForm.userDateOfBirth.$error"
 										  ng-if="userSignUpForm.userDateOfBirth.$touched" ng-hide="userSignUpForm.userDateOfBirth.$valid">
