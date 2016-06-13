@@ -104,30 +104,22 @@ CREATE TABLE reviewTag (
 );
 
 
-
+DROP PROCEDURE IF EXISTS maths;
+DROP PROCEDURE IF EXISTS recommendation;
 
 DELIMITER $$
-	CREATE PROCEDURE maths(cColor DECIMAL, cIbu DECIMAL, colorStdDev DECIMAL, colorMean DECIMAL, ibuStdDev DECIMAL, ibuMean DECIMAL)
+	CREATE PROCEDURE maths(cColor DECIMAL, cIbu DECIMAL, colorStdDev DECIMAL, colorMean DECIMAL, ibuStdDev DECIMAL, ibuMean DECIMAL, beerId INT UNSIGNED, OUT beerDrift DECIMAL)
 		BEGIN
 
 			-- declare variables
 			DECLARE scoreDistanceColor DECIMAL;
 			DECLARE scoreDistanceIbu DECIMAL;
 			DECLARE beerDrift DECIMAL;
+			DECLARE beerColor DECIMAL;
+			DECLARE beerIbu DECIMAL;
 
-			-- variables for cursor and loop control
-			DECLARE done BOOLEAN DEFAULT FALSE; -- exit flag
-			DECLARE mathCursor CURSOR FOR
-				SELECT beerColor, (beerIbu / 135) FROM beer; -- cursor
-			DECLARE CONTINUE HANDLER FOR NOT FOUND
-			SET done = TRUE; -- exit when no more rows
-
-			OPEN mathCursor; -- open cursor
-			mathLoop : LOOP -- start LOOP
-
-			FETCH mathCursor INTO cColor, cIbu; -- gets rows
-			IF done THEN LEAVE mathLoop; -- leaves rows
-				END IF;
+			-- variables and where math is happening
+			SELECT beerColor, (beerIbu / 135) AS beerIbu INTO beerColor, beerIbu FROM beer WHERE beerId = beerId;
 
 			SET scoreDistanceColor = ABS ((colorMean-cColor)/colorStdDev); -- colorDrift
 			SET scoreDistanceIbu = ABS ((ibuMean-cIbu)/ibuStdDev); -- ibuDrift
@@ -135,15 +127,10 @@ DELIMITER $$
 
 			SET beerDrift = SQRT ((POW (scoreDistanceIbu, 2)) + (POW (scoreDistanceColor, 2)));
 
-		END LOOP mathLoop; -- stops mad looping behavior
-		CLOSE mathCursor; -- closes cursor
-
 		SELECT beerDrift;
 
 		END $$
 DELIMITER ;
-
-
 
 
 
@@ -211,9 +198,11 @@ DELIMITER $$
 			SELECT STDDEV(CONVERT(beerIbu, DECIMAL) / 135), AVG(CONVERT(beerIbu, DECIMAL) / 135) INTO ibuStdDev, ibuMean FROM beer  WHERE beerIbu != "N/A";
 			-- SELECT STDDEV(cIbu), AVG(cIbu) INTO ibuStdDev, ibuMean FROM beer;
 
-			CALL maths(cColor, cIbu, colorStdDev, colorMean, ibuStdDev, ibuMean);
-			FETCH beerDrift INTO selectedBeer;
-				-- QUESTION will this match up okay? in terms of id/primary key
+			CALL maths(cColor, cIbu, colorStdDev, colorMean, ibuStdDev, ibuMean, beerId, beerDrift);
+			-- insert everything into selectedBeer, the temporary table
+			INSERT INTO selectedBeer VALUES (beerId, beerBreweryId, beerAbv, beerAvailability, beerAwards, beerColor, beerDbKey, beerDescription, beerIbu, beerName, beerStyle, beerDrift);
+
+			-- FETCH beerDrift INTO selectedBeer;
 
 			IF done THEN LEAVE compassLoop; -- leaves rows
 			END IF;
