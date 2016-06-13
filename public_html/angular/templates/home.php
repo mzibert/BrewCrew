@@ -17,8 +17,8 @@
 		</div>
 		<div class="col-md-4">
 			<h3>Generate Your Flavor Profile</h3>
-			<p>The craft beer compass is the ultimate tool for getting great recommendations. It's truly personalized to the flavors you love.</p>
-			<p>As you rate, review, and tag, our algorithm records your likes and dislikes. We get to know the flavors you enjoy, and help you discover new craft beers based on what you've rated highly in the past.</p>
+			<p>The craft beer compass is the ultimate tool for getting great recommendations. We are dedicated to helping users navigate the complex and sometimes confusing world of craft beer.</p>
+			<p>As you rate, review, and tag, our algorithm learns your likes and dislikes. We get to know the flavors you enjoy, and help you discover new craft beers based on what you've rated highly in the past.</p>
 			<p><a class="btn btn-default" href="beer.php" role="button">See more &raquo;</a></p>
 		</div>
 		<div class="col-md-4">

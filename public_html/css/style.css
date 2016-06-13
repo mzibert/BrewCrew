@@ -4,17 +4,16 @@ BODY {
 	background-attachment:fixed;
 }
 
-H1 {
+h1 {
 	text-shadow: black 0.12em 0.12em 0.12em;
 }
 
-H2 {
-	background-color: #afeeee
+h2 {
+	background-color: transparent;
 }
 
-img {
-	width: 99%;
-	height: auto;
+h3 {
+	background-color: transparent;
 }
 
 #beercompass {
@@ -22,7 +21,6 @@ img {
 	font-weight: 900;
 	text-align: center;
 	font-family: "sans-serif";
-
 }
 
 footer {
@@ -33,7 +31,6 @@ footer {
 	/*min-height: 50px;*/
 	padding-left: 15px;
 	padding-right: 15px;
-
 }
 
 /***
@@ -61,23 +58,17 @@ body {
 	flex: 1 0 auto;
 }
 
-#beerheroimage {
-	/*repeats on large screens and needs to be fixed*/
+.beerhero {
 	background: linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3)), url("../image/background.jpg")  no-repeat center center fixed;
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
 	background-size: cover;
-	width: 100%;
-	left: 0;
-	position: absolute;
 	z-index: 1; /*Add this*/
+	position: absolute;
 	top: 71px;
 	min-width: 100vw;
 	height: 280px;
-}
-
-.beerhero {
 	padding: 25px;
 	color: white;
 	font-size: 2em;
@@ -89,7 +80,6 @@ body {
 	box-shadow:         10px 10px 10px grey;
 	/*I know I am supposed to end with known values here but the shadow looks wrong when I do*/
 }
-
 
 .title {
 	background-color: black;
@@ -144,45 +134,19 @@ img.avatar {
 	max-height: 50px;
 }
 
-/***
-* Nice Navbar Logo
-* author: rlewis37
-***/
-
-/* make navbar-brand a nice height - works ok on mobile + desktop */
 .navbar-brand {
-	height: 75px;
+	float: none;
 	padding: 0;
+	margin: 0;
 }
 
-/* make navbar-brand image play nice */
 .navbar-brand > img {
-	height: 98%;
+	height: 65px;
 	width: auto;
 }
 
-/* make navbar a flexbox, and vertically align the items inside */
-nav.navbar {
-	display: flex;
-	align-items: center;
-	min-height: 50px;
-	margin-bottom: 20px;
-	float: right;
-}
-
-/* make the navbar links section take up the rest of the horiz space */
-/* this pushes the links over to the right */
 #navbar-collapse-1 {
-	flex: 1;
-	float: right !important;
-}
-
-#navbar {
-	text-align: right;
-	display: flex;
-	align-items: center;
-	min-height: 50px;
-	margin: 0;
+	padding-top: 2rem;
 }
 
 #profile{
