@@ -32,7 +32,7 @@
 		<div class="col-md-3"></div>
 		<div class="col-md-6 pull-left-md">
 			<div class="well text-center">
-			<a href="breweryprofile.php" >
+			<a href="breweryprofile.php" ng-click="getBreweryProfile()">
 				<h2>Name: {{ breweryData[0].breweryName }}</h2>
 			</a>
 			<h2>Location: {{ breweryData[0].breweryLocation }}</h2>
