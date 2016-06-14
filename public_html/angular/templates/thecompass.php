@@ -13,32 +13,13 @@
 				<div class="ibox-content">
 
 					<div class="row">
-						<div id="compass-wrap" class="col-sm-4 col-sm-offset-4 col-xs-10 col-xs-offset-1">
+						<div id="compass-wrap" class="col-sm-4 col-sm-offset-6 col-xs-10 col-xs-offset-1">
 							<div class="compass">
 								<?php require_once(dirname(__DIR__, 2)) . "/image/compass.svg";?>
 							</div>
 						</div>
 					</div>
 
-					<h2>Results found for: <span class="search results">"(     )"</span></h2>
-					<div class="hr-line-dashed"></div>
-					<div class="search-result">
-						<h3><a href="#">Beer One</a></h3>
-						<p>Brewery it's at</p>
-					</div>
-
-					<div class="hr-line-dashed"></div>
-					<div class="search-result">
-						<h3><a href="#">Beer Two</a></h3>
-						<p>Brewery it's at</p>
-					</div>
-					<div class="hr-line-dashed"></div>
-
-					<div class="search-result">
-						<h3><a href="#">Beer Three</a></h3>
-						<p>Brewery it's at</p>
-					</div>
-					<div class="hr-line-dashed"></div>
 				</div>
 			</div>
 		</div>
