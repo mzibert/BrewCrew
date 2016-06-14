@@ -11,7 +11,7 @@
 						<form role="form" name="userSignUpForm" ng-submit="sendActivationToken(signupData, userSignUpForm.$valid);" id="userSignUpForm" >
 
 							<div class="col-md-6 col-md-offset-3">
-								<div class="well well-sm"><strong><span class="glyphicon glyphicon-asterisk"></span>Required Field</strong></div>
+
 								<fieldset class="form-group">
 									<label for="userFirstName">First Name</label>
 									<input type="text" class="form-control" name="userFirstName" id="userFirstName"

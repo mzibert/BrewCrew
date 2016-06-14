@@ -94,7 +94,7 @@ try {
 		$message = <<< EOF
 <h2>Welcome to the ABQ Brew Crew application.</h2>
 <p>In order to start rating your favorite local breweries please visit the following URL to set a new password and complete the registration process: </p>
-<p><a href="$confirmLink">$userActivationToken</a></p>
+<p><a href="$confirmLink">$confirmLink</a></p>
 EOF;
 
 		$response = sendEmail($userEmail, $userFirstName, $userLastName, $messageSubject, $message);
