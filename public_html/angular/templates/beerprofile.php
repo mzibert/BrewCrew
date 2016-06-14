@@ -10,10 +10,10 @@
 <!--				<span class="label" ng-class="{'label-warning': percent<30, 'label-info': percent>=30 && percent<70, 'label-success': percent>=70}" ng-show="overStar && !isReadonly">{{percent}}%</span>-->
 <!--				<pre style="margin:15px 0;">Rate: <b>{{rate}}</b> - Readonly is: <i>{{isReadonly}}</i> - Hovering over: <b>{{overStar || "none"}}</b></pre>-->
 <!--			</div>-->
-			<p> {{Beer Awards }}</p>
+			<h3>Beer Awards</h3>
 			<h3>Beer Abv</h3>
 			<h3>Beer Ibu</h3>
-			<p>Beer Description</p>
+			<h3>Beer Description</h3>
 		</div>
 		<div>
 			<div>
