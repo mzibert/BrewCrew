@@ -1,36 +1,22 @@
-app.controller('SigninController', ["$scope", "SigninService", "$location", function($scope, SigninService, $location) {
+app.controller('SigninController', ["$scope", "$window","SigninService", function($scope, $window, SigninService) {
 	$scope.alerts = [];
-	$scope.login = [];
 
-	$scope.login = function(signInData) {
-		console.log(signInData);
-		SigninService.signin(signInData)
-			
-			.then(function(result) {
-				if(result.status.data === 200) {
-					$scope.signInData = result.data.data;
-
-				} else {
-					$scope.alerts[0] = {type: "danger", msg: result.data.message};
-
-				}
-			})
-	}
+	$scope.signin = function(formData, validated) {
+		console.log("inside signincontroller signin");
+		console.log(formData);
+		if(validated === true) {
+			SigninService.signin(formData)
+				.then(function(result) {
+					if(result.data.status === 200) {
+						$scope.alerts[0] = {type: "success", msg: result.data.message};
+						console.log("good status");
+						$window.location.href = "search/"
+					} else {
+						console.log("bad status");
+						console.log(result.data);
+						$scope.alerts[0] = {type: "danger", msg: result.data.message};
+					}
+				});
+		}
+	};
 }]);
-
-/**
- *Possible code
- **/
-//
-//
-//
-// 		Auth.signIn($scope.credentials).then(function () {
-// 			// user successfully authenticated, refresh UserProfile
-// 			return userProfile.$refresh();
-// 		}).then(function () {
-// 			// UserProfile is refreshed, redirect user somewhere
-// 			$state.go("home");
-// 		});
-// 	};
-//
-// }])
