@@ -1,4 +1,5 @@
-<div class="container-fluid text-center beerhero" id="homeText">
+<div class="container-fluid text-center beerhero"  >
+
 	<div class="row">
 		<div class="col-md-12">
 			<p>We're tracking 435 beers from 50 craft breweries in New Mexico!</p>
@@ -7,6 +8,7 @@
 	</div>
 </div>
 
+<div class="container" id="homeText">
 
 	<div class="row" >
 		<div class="col-md-4">
