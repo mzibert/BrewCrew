@@ -28,12 +28,24 @@
 		</div>
 	</div>
 
-	<div class="row">
-		<div class="col-md-3"></div>
-		<div class="col-md-6 pull-left-md">
-			<div class="well text-center">
-				<h2>Beer Name: {{beerData[0].beerName}}</h2>
-			</div>
-		</div>
-	</div>
+<!--	<div class="row">-->
+<!--		<div class="col-md-3"></div>-->
+<!--		<div class="col-md-6 pull-left-md">-->
+<!--			<div class="well text-center">-->
+<!--				<h2>Beer Name: {{beerData[0].beerName}}</h2>-->
+<!--			</div>-->
+<!--		</div>-->
+<!--	</div>-->
+<!--</div>-->
+
+<div class="row">
+	<table class="table table-bordered table-hover table-responsive table-striped table-word-wrap">
+		<tr><th>Beer Name</th><th>Style</th><th>ABV</th><th>Availability</th></tr>
+		<tr ng-click="loadBeer(beers[$index].beerId);" ng-repeat="beer in beers">
+			<td>{{ beer[0].beerName }}</td>
+			<td>{{ beer[0].beerStyle }}</td>
+			<td>{{ beer[0].beerAbv }}</td>
+			<td>{{ beer[0].beeravailability }}</td>
+		</tr>
+	</table>
 </div>
