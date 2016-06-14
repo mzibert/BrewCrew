@@ -1,6 +1,6 @@
 
 
-			<!-- begin main content area -->
+			<!-- begin main content area .-->
 			<div class="row row-flex content-wrap">
 
 				<div class="container" id="signup">
