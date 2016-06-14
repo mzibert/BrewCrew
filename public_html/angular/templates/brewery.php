@@ -50,6 +50,6 @@
 			<td>{{ brewery.breweryName }}</td>
 			<td>{{ brewery.breweryLocation }}</td>
 			<td>{{ brewery.breweryPhone }}</td>
-			<td>{{ brewery.breweryURL  }}</td>
+			<td>{{ brewery.breweryUrl }}</td>
 		</tr>
 	</table>
