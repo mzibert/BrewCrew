@@ -50,7 +50,7 @@
 											<label for="userUserName">Enter Your Username</label>
 											<input type="text" class="form-control" name="userUserName" id="userUserName"
 													  ng-model="signupData.userUserName"
-													 ng-minlength="2" ng-maxlength="12" ng-required="true"/>
+													 ng-minlength="2" ng-maxlength="32" ng-required="true"/>
 											<div class="alert alert-danger" role="alert" ng-messages="userSignUpForm.userUserName.$error"
 												  ng-if="userSignUpForm.userUserName.$touched" ng-hide="userSignUpForm.userUserName.$valid">
 										</fieldset>
