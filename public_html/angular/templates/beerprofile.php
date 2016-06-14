@@ -14,6 +14,7 @@
 									<h3 class="panel-title">Beer Details</h3>
 								</div>
 								<ul class="list-group beer">
+									<a href="#" class="list-group-item">Name: {{ beerProfile.beerName }}</a>
 									<a href="#" class="list-group-item">Description: {{ beerProfile.beerDescription }}</a>
 									<a href="#" class="list-group-item">Availability: {{ beerProfile.beerAvailability }}</a>
 									<a href="#" class="list-group-item">Style: {{ beerProfile.beerStyle }}</a>
