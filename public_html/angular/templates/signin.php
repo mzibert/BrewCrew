@@ -10,7 +10,7 @@
 					<label for="text" class="sr-only">Username</label>
 					<input type="text" id="userId" class="form-control" placeholder="userId" required="required" autofocus="autofocus"/>
 					<label for="pwd" class="sr-only">Password</label>
-					<input type="password" id="pwd1" class="form-control" placeholder="Password" required="required" />
+					<input type="password" id="password" class="form-control" placeholder="Password" required="required" />
 					<div class="checkbox">
 						<label>
 							<input type="checkbox" value="remember-me"/>Stay Logged</label></div>
