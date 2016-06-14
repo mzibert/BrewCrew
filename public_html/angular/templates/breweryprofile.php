@@ -3,10 +3,13 @@
 		<img align="left" class="brewery-image" src="image/cerveza-buena.jpg" alt="Profile placeholder"/>
 		<img align="left" class="image-logo thumbnail" src="image/profile-placeholder.jpg" alt="brewery logo placeholder"/>
 		<div class="profile-text">
-			<h1>Albuquerque Brewery</h1>
-			<p>Est. Date</p>
-			<p>Contact Information</p>
-			<p>Brewery Description</p>
+			<h1>brewery.breweryName</h1>
+			<p>brewery.breweryEstDate</p>
+			<p>{{ brewery.breweryPhone }}</p>
+			<p>brewery.breweryHours</p>
+			<p>brewery.breweryLocation</p>
+			<p>brewery.breweryUrl</p>
+			<p>brewery.breweryDescription</p>
 		</div>
 		<div>
 			<div>
@@ -32,3 +35,5 @@
 		</div>
 	</div>
 </div> 
+
+{}
