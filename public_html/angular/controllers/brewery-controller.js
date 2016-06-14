@@ -50,8 +50,7 @@ app.controller('BreweryController', ["$scope", "BreweryService", "$location", fu
 	 * @param breweryId the brewery we are sending
 	 **/
 	$scope.getBreweryProfile = function(breweryId) {
-		$location.path = ("/breweryprofile.php/" + "breweryId")
-		;
+		$location.path = ("breweryprofile/" + breweryId);
 	};
 /**
 	 * Creates a brewery and sends it to the brewery API

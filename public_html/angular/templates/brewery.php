@@ -46,11 +46,10 @@
 <div class="row" id="brewerySearchTable">
 	<table class="table table-bordered table-hover table-responsive table-striped table-word-wrap">
 		<tr><th>Brewery Name</th><th>Location</th><th>Phone</th><th>URL</th></tr>
-		<tr><td>
-		<a href="breweryprofile.php" ng-click="getBreweryProfile()">
-			{{ breweryData[0].breweryName }}</a></td>
-			<td>{{ breweryData[0].breweryLocation }}</td>
-			<td>{{ breweryData[0].breweryPhone }}</td>
-			<td>{{ breweryData[0].breweryURL  }}</td>
+		<tr ng-click="getBreweryProfile(brewery.breweryId)" ng-repeat="brewery in breweryData">
+			<td>{{ brewery.breweryName }}</td>
+			<td>{{ brewery.breweryLocation }}</td>
+			<td>{{ brewery.breweryPhone }}</td>
+			<td>{{ brewery.breweryURL  }}</td>
 		</tr>
 	</table>
