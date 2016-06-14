@@ -1,4 +1,4 @@
-app.controller('BeerController', ["$scope", "BeerService", function($scope, BeerService) {
+app.controller('BeerController', ["$scope", "BeerService", "$location", function($scope, BeerService, $location) {
 	$scope.alerts = [];
 	$scope.beerData = [];
 
@@ -59,9 +59,15 @@ app.controller('BeerController', ["$scope", "BeerService", function($scope, Beer
 				}
 			})
 	};
-
-
-
+	/**
+	 * onclick, reroutes page to the specified beer
+	 *
+	 * @param beerId the beer we are sending
+	 **/
+	$scope.getBeerProfile = function(beerId) {
+		$location.path("beerprofile/" + "beerId")
+		;
+	};
 /**
  * Creates a beer and sends it to the beer API
  *

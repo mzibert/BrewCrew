@@ -1,6 +1,8 @@
-app.controller('BreweryController', ["$scope", "BreweryService", function($scope, BreweryService) {
+app.controller('BreweryController', ["$scope", "BreweryService", "$location", function($scope, BreweryService, $location) {
+	$scope.breweryProfile = null;
 	$scope.alerts = [];
 	$scope.breweryData = [];
+	// $scope.breweryId = $location.path;
 
 	$scope.getBreweryById = function(breweryId) {
 		BreweryService.fetchBreweryById(breweryId)
@@ -41,6 +43,15 @@ app.controller('BreweryController', ["$scope", "BreweryService", function($scope
 					console.log(result.data.message);
 				}
 			})
+	};
+	/**
+	 * onclick, reroutes page to the specified brewery
+	 *
+	 * @param breweryId the brewery we are sending
+	 **/
+	$scope.getBreweryProfile = function(breweryId) {
+		$location.path("breweryprofile/" + "breweryId")
+		;
 	};
 /**
 	 * Creates a brewery and sends it to the brewery API
