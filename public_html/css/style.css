@@ -37,10 +37,13 @@ footer {
 	padding-right: 15px;
 }
 
-/***
-* Flexbox Sticky Footer
-* http://philipwalton.github.io/solved-by-flexbox/demos/sticky-footer/
-***/
+.brewery-profile {
+	padding-top: 100px;
+}
+
+.beer-profile {
+	padding-top: 100px;
+}
 
 /*corrects IE min-height bug*/
 
@@ -62,6 +65,9 @@ body {
 	flex: 1 0 auto;
 }
 
+.thumbnail {
+	margin: 3em;
+}
 .beerhero {
 	background: linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3)), url("../image/background.jpg")  no-repeat center center fixed;
 	-webkit-background-size: cover;
@@ -179,7 +185,7 @@ img.avatar {
 }
 
 #navbar-collapse-1 {
-	padding-top: 1rem;
+	padding-top: .8rem;
 }
 
 #profile{

@@ -1,10 +1,19 @@
 <!-- begin main content page layout -->
 <div class="container" id="thecompass">
-<div class="row" >
-	<div class="span9">
-		<h2 class="heading h-section text-center" data-barley="index_hiw_heading" data-barley-editor="simple">Search the Craft Beer Compass and Discover Your Flavor Profile</h2>
+	<div class="row" >
+		<div class="span9">
+			<h2 class="heading h-section text-center" data-barley="index_hiw_heading" data-barley-editor="simple">Search the Craft Beer Compass and Discover Your Flavor Profile</h2>
+		</div>
 	</div>
 </div>
+<div class="container">
+	<div class="row">
+		<div class="col-md-9">
+			<button type="button" class="btn btn-generate" ng-model="singleModel" uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
+				Generate Flavor Profile
+			</button>
+		</div>
+	</div>
 </div>
 <div class="container">
 	<div class="row">
@@ -19,10 +28,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="row">
-						<button type="button" class="btn btn-generate" ng-model="singleModel" uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
-							Generate Flavor Profile
-					</div>
+
 				</div>
 			</div>
 		</div>
