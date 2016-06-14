@@ -6,9 +6,9 @@
 			<form role="form" name="userSignInForm" ng-submit="login(signInData);" id="userSignInForm" >
 				<h2>Log In</h2>
 				<label for="text" class="sr-only">Username</label>
-				<input type="text" id="userId" ng-model="signInData.userUserName" class="form-control" placeholder="username" required="required" autofocus="autofocus"/>
+				<input type="text" id="userId" ng-model="signInData.userName" class="form-control" placeholder="username" required="required" autofocus="autofocus"/>
 				<label for="pwd" class="sr-only">Password</label>
-				<input type="password" id="password" ng-model="signInData.password" class="form-control" placeholder="Password" required="required" />
+				<input type="password" id="password" ng-model="signInData.userPassword" class="form-control" placeholder="Password" required="required" />
 				<div class="checkbox">
 					<label>
 						<input type="checkbox" value="remember-me"/>Stay Logged</label></div>
