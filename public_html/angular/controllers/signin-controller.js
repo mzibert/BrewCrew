@@ -1,8 +1,8 @@
 app.controller('SigninController', ["$scope", "SigninService", "$location", function($scope, SigninService, $location) {
 	$scope.alerts = [];
-	$scope.signInData = [];
+	$scope.login = [];
 
-	$scope.signInData = function(signInData) {
+	$scope.login = function(signInData) {
 		SigninService.signin(signInData)
 			.then(function(result) {
 				if(result.status.data === 200) {
