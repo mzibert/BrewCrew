@@ -9,8 +9,10 @@ app.controller('SigninController', ["$scope", "SigninService", "$location", func
 			.then(function(result) {
 				if(result.status.data === 200) {
 					$scope.signInData = result.data.data;
+
 				} else {
 					$scope.alerts[0] = {type: "danger", msg: result.data.message};
+
 				}
 			})
 	}
