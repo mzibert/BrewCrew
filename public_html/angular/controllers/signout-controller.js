@@ -1,7 +1,7 @@
-app.controller('SignoutController', ["$scope", "$window", "SignoutService", function($scope, $window, SignoutService) {
+app.controller('SignoutController', ["$scope", "SignoutService", function($scope,  SignoutService) {
 	SignoutService.signout()
 		.then(function() {
-			$window.location = ".";
+
 		});
 }]);
 
