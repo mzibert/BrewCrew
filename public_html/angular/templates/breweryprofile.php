@@ -3,7 +3,7 @@
 		<img align="left" class="image-logo thumbnail" src="image/profileplaceholder.jpg" alt="brewery logo placeholder"/>
 		<div class="profile-text">
 			<h1>breweryProfile.breweryName</h1>
-			<h4>Established Date</h4>
+			<p>{{ Established Date }}</p>
 			<p>{{ breweryProfile.breweryEstDate }}</p>
 			<p>{{ breweryProfile.breweryPhone }}</p>
 			<p>{{ breweryProfile.breweryHours }}</p>

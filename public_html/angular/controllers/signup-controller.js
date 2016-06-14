@@ -11,8 +11,6 @@ app.controller("SignupController", ["$scope", "SignupService", "$location", func
 
 	$scope.sendActivationToken = function(signUpData, validated) {
 		if(validated === true) {
-			console.log("inside signup controller");
-			console.log(signUpData);
 			SignupService.create(signUpData)
 				.then(function(result) {
 					if(result.data.status === 200) {

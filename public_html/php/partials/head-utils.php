@@ -1,3 +1,16 @@
+<?php
+
+require_once(dirname(__DIR__) . "/lib/xsrf.php");
+//verify the session, start if not active
+if(session_status() !== PHP_SESSION_ACTIVE) {
+session_start();
+}
+setXsrfCookie();
+
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en" ng-app="BrewCrew">
 	<head>
@@ -79,6 +92,7 @@
 		<script type="text/javascript" src="angular/controllers/signup-controller.js"></script>
 		<script type="text/javascript" src="angular/controllers/user-controller.js"></script>
 
-
+		
+		
 		<title>ABQ Brew Crew</title>
 	</head>

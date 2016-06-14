@@ -5,7 +5,10 @@ app.controller('SigninController', ["$scope", "SigninService", "$location", func
 	$scope.login = function(signInData) {
 		console.log(signInData);
 		SigninService.signin(signInData)
+			
 			.then(function(result) {
+				console.log(result);
+				console.log("doesnt make sense")
 				if(result.status.data === 200) {
 					$scope.signInData = result.data.data;
 				} else {

@@ -13,11 +13,6 @@ use Edu\Cnm\BrewCrew\{Brewery, User};
  * @author Alicia Broadhurst <abroadhurst@cnm.edu>
  **/
 
-//verify the session, start if not active
-if(session_status() !== PHP_SESSION_ACTIVE) {
-	session_start();
-}
-
 //prepare default error message
 $reply = new stdClass();
 $reply->status = 200;
