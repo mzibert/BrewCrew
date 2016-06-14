@@ -68,7 +68,7 @@ app.config(function($routeProvider, $locationProvider) {
 		})
 		// otherwise redirect to home
 		.otherwise({
-			redirectTo: "index.php"
+			redirectTo: "/"
 		});
 
 	//use the HTML5 History API
