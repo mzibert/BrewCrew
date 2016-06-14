@@ -61,10 +61,14 @@ app.config(function($routeProvider, $locationProvider) {
 			controller  : 'BreweryProfileController',
 			templateUrl : 'angular/templates/breweryprofile.php'
 		})
-
+		// route for the home page
+		.when('/', {
+			controller  : 'LogoutController',
+			templateUrl : 'angular/templates/home.php'
+		})
 		// otherwise redirect to home
 		.otherwise({
-			redirectTo: "/"
+			redirectTo: "index.php"
 		});
 
 	//use the HTML5 History API
