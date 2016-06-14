@@ -20,3 +20,4 @@ app.controller("BreweryProfileController", ["$routeParams", "$scope", "$uibModal
 				}
 			});
 	};
+}]);

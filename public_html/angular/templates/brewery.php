@@ -32,7 +32,9 @@
 		<div class="col-md-3"></div>
 		<div class="col-md-6 pull-left-md">
 			<div class="well text-center">
-			<h2>Name: {{ breweryData[0].breweryName }}</h2>
+			<a href="breweryprofile.php" >
+				<h2>Name: {{ breweryData[0].breweryName }}</h2>
+			</a>
 			<h2>Location: {{ breweryData[0].breweryLocation }}</h2>
 			<h2>Phone: {{ breweryData[0].breweryPhone }}</h2>
 			<h2>URL: {{ breweryData[0].breweryURL }}</h2>
