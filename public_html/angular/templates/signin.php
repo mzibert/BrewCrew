@@ -5,7 +5,7 @@
 	<div class="col-md-4">
 		<div class="container">
 			<div class="col-md-4">
-				<form ng-submit="">
+				<form role="form" name="userSignInForm" ng-submit="userName(signupData, userSignInForm.$valid);" id="userSignInForm" >
 					<h3>Log In</h3>
 					<label for="text" class="sr-only">Username</label>
 					<input type="text" id="userId" class="form-control" placeholder="userId" required="required" autofocus="autofocus"/>
