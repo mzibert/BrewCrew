@@ -15,7 +15,7 @@
 								<fieldset class="form-group">
 									<label for="userFirstName">First Name</label>
 									<input type="text" class="form-control" name="userFirstName" id="userFirstName"
-											 placeholder="First Name" ng-model="signupData.userFirstName"
+											 ng-model="signupData.userFirstName"
 											 ng-minlength="2" ng-maxlength="128" ng-required="true"/>
 									<div class="alert alert-danger" role="alert" ng-messages="userSignUpForm.userFirstName.$error"
 										  ng-if="userSignUpForm.userFirstName.$touched" ng-hide="userSignUpForm.userFirstName.$valid">
@@ -27,7 +27,7 @@
 								<fieldset class="form-group">
 									<label for="userLastName">Last Name</label>
 									<input type="text" class="form-control" name="userLastName" id="userLastName"
-											 placeholder="Last Name" ng-model="signupData.userLastName"
+											 ng-model="signupData.userLastName"
 											 ng-minlength="2" ng-maxlength="128" ng-required="true"/>
 									<div class="alert alert-danger" role="alert" ng-messages="userSignUpForm.userFirstName.$error"
 										  ng-if="userSignUpForm.userLastName.$touched" ng-hide="userSignUpForm.userLastName.$valid">
@@ -37,9 +37,9 @@
 									</div>
 								</fieldset>
 								<fieldset class="form-group">
-									<label for="userEmail">Enter Your Email Address</label>
+									<label for="userEmail">Email Address</label>
 									<input type="email" class="form-control" name="userEmail" id="userEmail"
-											 placeholder="email@email.com" ng-model="signupData.userEmail"
+											 ng-model="signupData.userEmail"
 											 ng-minlength="2" ng-maxlength="128" ng-required="true"/>
 									<div class="alert alert-danger" role="alert" ng-messages="userSignUpForm.userEmail.$error"
 										  ng-if="userSignUpForm.userEmail.$touched" ng-hide="userSignUpForm.userEmail.$valid">
@@ -47,7 +47,7 @@
 
 
 										<fieldset class="form-group">
-											<label for="userUserName">Enter Your Username</label>
+											<label for="userUserName">Choose a Username (32 characters max)</label>
 											<input type="text" class="form-control" name="userUserName" id="userUserName"
 													  ng-model="signupData.userUserName"
 													 ng-minlength="2" ng-maxlength="32" ng-required="true"/>
@@ -63,7 +63,7 @@
 										<div class="input-group-addon">
 											<i class="fa fa-key"></i>
 										</div>
-										<input type="password" id="password" name="password" class="form-control" placeholder="123456789" ng-model="signupData.password" ng-minlength="4" ng-maxlength="32" ng-required="true" />
+										<input type="password" id="password" name="password" class="form-control" ng-model="signupData.password" ng-minlength="4" ng-maxlength="32" ng-required="true" />
 									</div>
 
 									<div class="alert alert-danger" role="alert" ng-messages="userSignUpForm.password.$error" ng-if="userSignupForm.password.$touched" ng-hide="userSignUpForm.password.$valid">
