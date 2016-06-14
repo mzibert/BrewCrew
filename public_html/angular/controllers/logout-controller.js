@@ -1,4 +1,4 @@
-app.controller('LogoutController', ["$scope", "$window", "LogoutService", function($scope, $window, LogoutService) {
+app.controller('LogoutController', ["$scope", "LogoutService", function($scope,  LogoutService) {
 	LogoutService.logout()
 		.then(function() {
 			$window.location = ".";
