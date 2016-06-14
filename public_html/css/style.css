@@ -64,16 +64,16 @@ body {
 
 .beerhero {
 	background: linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3)), url("../image/background.jpg")  no-repeat center center fixed;
+
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
 	background-size: cover;
 	z-index: 1; /*Add this*/
 	font-family: 'Viga', sans-serif;
-	position: absolute;
 	top: 65px;
 	min-width: 100vw;
-	height: 360px;
+	height: 100vh;
 	padding: 25px;
 	color: white;
 	font-size: 2em;
@@ -85,7 +85,26 @@ body {
 	box-shadow:         10px 10px 10px grey;
 	/*I know I am supposed to end with known values here but the shadow looks wrong when I do*/
 }
+#homeText{
+	color: #ffffff;
+	font: bold 24px/45px Helvetica, Sans-Serif;
+	letter-spacing: -1px;
 
+	top:10px; /* in conjunction with left property, decides the text position */
+	left:10px;
+	width:300px; /* optional, though better have one */
+}
+/*
+#homeText{
+	color: white;
+
+	font: bold 24px/45px Helvetica, Sans-Serif;
+	letter-spacing: -1px;
+	background: rgb(0, 0, 0); /* fallback color
+	background: rgba(0, 0, 0, 0.7);/*
+	padding: 10px;
+}
+*/
 .title {
 	background-color: black;
 	color: #fff;

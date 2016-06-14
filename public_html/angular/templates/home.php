@@ -1,4 +1,4 @@
-<div class="container-fluid text-center beerhero" id="beerheroimage">
+<div class="container-fluid text-center beerhero" id="homeText">
 	<div class="row">
 		<div class="col-md-12">
 			<p>We're tracking 435 beers from 50 craft breweries in New Mexico!</p>
@@ -7,8 +7,8 @@
 	</div>
 </div>
 
-<div class="container-fluid" id="main">
-	<div class="row">
+
+	<div class="row" >
 		<div class="col-md-4">
 			<h3>Discover Beers and Breweries</h3>
 			<p>Find craft beer and brewery information, then browse what's currently on tap. We make it easy to search and compare choices.</p>
