@@ -24,24 +24,24 @@ app.service("BeerService", function($http, BEER_ENDPOINT) {
 		return($http.get(getUrlForId(beerId)));
 	};
 
-	this.fetchBeerByBreweryId = function(beerByBreweryId) {
-		return($http.get(getUrl() + "?beerByBreweryId=" + beerByBreweryId));
+	this.fetchBeerByBreweryId = function(beerBreweryId) {
+		return($http.get(getUrl() + "?beerByBreweryId=" + beerBreweryId));
 	};
 
-	this.fetchBeerByIbu = function(beerByIbu) {
+	this.fetchBeerByIbu = function(beerIbu) {
 		return($http.get(getUrl() + "?beerIbu=" + beerIbu));
 	};
 
-	this.fetchBeerByColor = function(beerByColor) {
+	this.fetchBeerByColor = function(beerColor) {
 		return($http.get(getUrl() + "?beerColor=" + beerColor));
 	};
 
-	this.fetchBeerByName = function(beerByName) {
+	this.fetchBeerByName = function(beerName) {
 		console.log("in fetchbeerbyname: SERVICE");
 		return($http.get(getUrl() + "?beerName=" + beerName));
 	};
 
-	this.fetchBeerByColor = function(beerByColor) {
+	this.fetchBeerByColor = function(beerColor) {
 		return($http.get(getUrl() + "?beerColor=" + beerColor));
 	};
 
