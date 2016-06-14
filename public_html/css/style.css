@@ -4,7 +4,6 @@ BODY {
 	background-attachment:fixed;
 	font-family: "sans-serif";
 	color: #ffffff;
-
 }
 
 h1 {
@@ -26,7 +25,6 @@ h3 {
 	font-size: large;
 	font-weight: 900;
 	text-align: center;
-
 }
 
 footer {
@@ -71,10 +69,11 @@ body {
 	-o-background-size: cover;
 	background-size: cover;
 	z-index: 1; /*Add this*/
+	font-family: 'Viga', sans-serif;
 	position: absolute;
-	top: 71px;
+	top: 65px;
 	min-width: 100vw;
-	height: 280px;
+	height: 360px;
 	padding: 25px;
 	color: white;
 	font-size: 2em;
@@ -151,19 +150,25 @@ img.avatar {
 	max-height: 50px;
 }
 
+.navbar {
+	font-family: 'Viga', sans-serif;
+	font-size: 1.25em;
+	z-index: 1; /*Add this*/
+}
+
 .navbar-brand {
 	float: none;
-	/*padding: 0;*/
-	/*margin: 0;*/
+	padding: 0;
 }
 
 .navbar-brand > img {
 	height: 65px;
 	width: auto;
+	display: inline;
 }
 
 #navbar-collapse-1 {
-	padding-top: 3rem;
+	padding-top: 1rem;
 }
 
 #profile{
