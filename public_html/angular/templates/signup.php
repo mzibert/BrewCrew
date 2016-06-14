@@ -3,7 +3,7 @@
 			<!-- begin main content area -->
 			<div class="row row-flex content-wrap">
 
-				<div class="container" id="signup" ng-controller="SignupController">
+				<div class="container" id="signup">
 
 					<div class="row">
 						<h1>Sign Up to create your Flavor Profile and write reviews.</h1>
