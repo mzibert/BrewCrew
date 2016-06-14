@@ -150,8 +150,8 @@ img.avatar {
 
 .navbar-brand {
 	float: none;
-	padding: 0;
-	margin: 0;
+	/*padding: 0;*/
+	/*margin: 0;*/
 }
 
 .navbar-brand > img {
@@ -160,7 +160,7 @@ img.avatar {
 }
 
 #navbar-collapse-1 {
-	padding-top: 2rem;
+	padding-top: 3rem;
 }
 
 #profile{
