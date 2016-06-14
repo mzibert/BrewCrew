@@ -43,17 +43,23 @@ app.config(function($routeProvider, $locationProvider) {
 			controller  : 'UserController',
 			templateUrl : 'angular/templates/userprofile.php'
 		})
-			
+
 		// route for the review page
 		.when('/review', {
 			controller  : 'ReviewController',
 			templateUrl : 'angular/templates/review.php'
 		})
 
-		// route for the beer profile page
+		// route for the beer profile pages
 		.when('/beerprofile/:id', {
 			controller  : 'BeerProfileController',
 			templateUrl : 'angular/templates/beerprofile.php'
+		})
+
+		// route for the brewery profile pages
+		.when('/breweryprofile/:id', {
+			controller  : 'BreweryProfileController',
+			templateUrl : 'angular/templates/breweryprofile.php'
 		})
 
 		// otherwise redirect to home
