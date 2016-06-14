@@ -63,7 +63,7 @@ app.config(function($routeProvider, $locationProvider) {
 		})
 		// route for the home page
 		.when('/', {
-			controller  : 'LogoutController',
+			controller  : 'SignoutController',
 			templateUrl : 'angular/templates/home.php'
 		})
 		// otherwise redirect to home
