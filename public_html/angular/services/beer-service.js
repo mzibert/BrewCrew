@@ -17,8 +17,11 @@ app.service("BeerService", function($http, BEER_ENDPOINT) {
 		return($http.get(getUrl()));
 	};
 
+	// this.fetchBeerById = function(beerId) {
+	// 	return($http.get(getUrlForId() + beerId));
+	// };
 	this.fetchBeerById = function(beerId) {
-		return($http.get(getUrlForId() + beerId));
+		return($http.get(getUrlForId(beerId)));
 	};
 
 	this.fetchBeerByBreweryId = function(beerByBreweryId) {
