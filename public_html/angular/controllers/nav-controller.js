@@ -1,4 +1,4 @@
-app.controller("NavController", ["$http", "$scope", function($http, $scope) {
+app.controller("NavController", ["$scope", function($scope) {
 	$scope.breakpoint = null;
 	$scope.navCollapsed = null;
 
