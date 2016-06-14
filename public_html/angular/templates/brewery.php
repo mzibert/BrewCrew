@@ -30,7 +30,7 @@
 
 	<div class="row">
 		<div class="col-md-3"></div>
-		<div class="col-md-6">
+		<div class="col-md-6 pull-left-md">
 			<div class="well text-center">
 			<h2>Name: {{ breweryData[0].breweryName }}</h2>
 			<h2>Location: {{ breweryData[0].breweryLocation }}</h2>
