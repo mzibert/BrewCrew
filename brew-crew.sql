@@ -108,7 +108,7 @@ DROP PROCEDURE IF EXISTS maths;
 DROP PROCEDURE IF EXISTS recommendation;
 
 DELIMITER $$
-	CREATE PROCEDURE maths(cColor DECIMAL, cIbu DECIMAL, colorStdDev DECIMAL, colorMean DECIMAL, ibuStdDev DECIMAL, ibuMean DECIMAL, beerId INT UNSIGNED, OUT beerDrift DECIMAL)
+	CREATE PROCEDURE maths(colorStdDev DECIMAL, colorMean DECIMAL, ibuStdDev DECIMAL, ibuMean DECIMAL, beerId INT UNSIGNED, OUT beerDrift DECIMAL)
 		BEGIN
 
 			-- declare variables
@@ -121,8 +121,8 @@ DELIMITER $$
 			-- variables and where math is happening
 			SELECT beerColor, (beerIbu / 135) AS beerIbu INTO beerColor, beerIbu FROM beer WHERE beerId = beerId;
 
-			SET scoreDistanceColor = ABS ((colorMean-cColor)/colorStdDev); -- colorDrift
-			SET scoreDistanceIbu = ABS ((ibuMean-cIbu)/ibuStdDev); -- ibuDrift
+			SET scoreDistanceColor = ABS ((colorMean-beerColor)/colorStdDev); -- colorDrift
+			SET scoreDistanceIbu = ABS ((ibuMean-beerIbu)/ibuStdDev); -- ibuDrift
 
 
 			SET beerDrift = SQRT ((POW (scoreDistanceIbu, 2)) + (POW (scoreDistanceColor, 2)));
@@ -152,8 +152,6 @@ DELIMITER $$
 			DECLARE beerStyle VARCHAR (32);
 			DECLARE beerDrift DECIMAL;
 
-			DECLARE cColor DECIMAL;
-			DECLARE cIbu DECIMAL;
 			DECLARE colorStdDev DECIMAL;
 			DECLARE colorMean DECIMAL;
 			DECLARE ibuStdDev DECIMAL;
@@ -189,16 +187,16 @@ DELIMITER $$
 
 			FETCH compassCursor INTO beerId, beerBreweryId, beerAbv, beerAvailability, beerAwards, beerColor, beerDbKey, beerDescription, beerIbu, beerName, beerStyle; -- gets rows
 
-			SELECT CONVERT(cIbu, DECIMAL);
-			IF cIbu = 0 THEN SET cIbu = 135;
+			SELECT CONVERT(beerIbu, DECIMAL);
+			IF beerIbu = 0 THEN SET beerIbu = 135;
 				END IF;
 
-			SELECT STDDEV(cColor), AVG (cColor) INTO colorStdDev, colorMean FROM beer;
+			SELECT STDDEV(beerColor), AVG (beerColor) INTO colorStdDev, colorMean FROM beer;
 			-- makes ibu obey central limit theorem
 			SELECT STDDEV(CONVERT(beerIbu, DECIMAL) / 135), AVG(CONVERT(beerIbu, DECIMAL) / 135) INTO ibuStdDev, ibuMean FROM beer  WHERE beerIbu != "N/A";
 			-- SELECT STDDEV(cIbu), AVG(cIbu) INTO ibuStdDev, ibuMean FROM beer;
 
-			CALL maths(cColor, cIbu, colorStdDev, colorMean, ibuStdDev, ibuMean, beerId, beerDrift);
+			CALL maths(colorStdDev, colorMean, ibuStdDev, ibuMean, beerId, beerDrift);
 			-- insert everything into selectedBeer, the temporary table
 			INSERT INTO selectedBeer VALUES (beerId, beerBreweryId, beerAbv, beerAvailability, beerAwards, beerColor, beerDbKey, beerDescription, beerIbu, beerName, beerStyle, beerDrift);
 
