@@ -3,6 +3,7 @@ app.controller('SigninController', ["$scope", "SigninService", "$location", func
 	$scope.login = [];
 
 	$scope.login = function(signInData) {
+		console.log(signInData);
 		SigninService.signin(signInData)
 			.then(function(result) {
 				if(result.status.data === 200) {

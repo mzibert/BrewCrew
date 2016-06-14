@@ -3,7 +3,7 @@
 		<img align="left" class="beer-image" src="image/cerveza-buena.jpg" alt="Profile placeholder"/>
 		<img align="left" class="image-profile thumbnail" src="image/profile-placeholder.jpg" alt="beer profile placeholder"/>
 		<div class="profile-text">
-			<h1>Some Beer</h1>
+			<h1>beerProfile.beerName</h1>
 <!--			rating script-->
 <!--			<div ng-controller="RatingDemoCtrl">-->
 <!--				<h4>Default</h4>-->
@@ -11,7 +11,7 @@
 <!--				<span class="label" ng-class="{'label-warning': percent<30, 'label-info': percent>=30 && percent<70, 'label-success': percent>=70}" ng-show="overStar && !isReadonly">{{percent}}%</span>-->
 <!--				<pre style="margin:15px 0;">Rate: <b>{{rate}}</b> - Readonly is: <i>{{isReadonly}}</i> - Hovering over: <b>{{overStar || "none"}}</b></pre>-->
 <!--			</div>-->
-			<h3>Beer Awards</h3>
+			<p> {{Beer Awards }}</p>
 			<h3>Beer Abv</h3>
 			<h3>Beer Ibu</h3>
 			<p>Beer Description</p>
