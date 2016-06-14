@@ -1,6 +1,5 @@
 <div class="container">
 	<div class="beer-profile">
-		<img align="left" class="beer-image" src="image/cerveza-buena.jpg" alt="Profile placeholder"/>
 		<img align="left" class="image-profile thumbnail" src="image/profile-placeholder.jpg" alt="beer profile placeholder"/>
 		<div class="profile-text">
 			<h1>beerProfile.beerName</h1>

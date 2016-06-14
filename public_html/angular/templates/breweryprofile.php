@@ -1,7 +1,6 @@
 <div class="container">
 	<div class="brewery-profile">
-		<img align="left" class="brewery-image" src="image/cerveza-buena.jpg" alt="Profile placeholder"/>
-		<img align="left" class="image-logo thumbnail" src="image/profile-placeholder.jpg" alt="brewery logo placeholder"/>
+		<img align="left" class="image-logo thumbnail" src="image/profileplaceholder.jpg" alt="brewery logo placeholder"/>
 		<div class="profile-text">
 			<h1>breweryProfile.breweryName</h1>
 			<p>{{ breweryProfile.breweryEstDate }}</p>
