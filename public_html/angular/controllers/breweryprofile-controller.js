@@ -1,4 +1,4 @@
-app.controller("BreweryProfileController", ["$routeParams", "$scope", "BreweryProfileService", function($routeParams, $scope, BreweryProfileService) {
+app.controller("BreweryProfileController", ["$routeParams", "$scope", "$window", "BreweryProfileService", "location", function($routeParams, $scope, $window, BreweryProfileService, $location) {
 	$scope.breweryProfile = null;
 	$scope.alerts = [];
 	$scope.breweryData = [];

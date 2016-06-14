@@ -48,7 +48,7 @@
 		<tr><th>Brewery Name</th><th>Location</th><th>Phone</th><th>URL</th></tr>
 		<tr><td>
 		<a href="breweryprofile.php" ng-click="getBreweryProfile()">
-			{{ breweryData[0].breweryName}}</a></td>
+			{{ breweryData[0].breweryName }}</a></td>
 			<td>{{ breweryData[0].breweryLocation }}</td>
 			<td>{{ breweryData[0].breweryPhone }}</td>
 			<td>{{ breweryData[0].breweryURL  }}</td>
