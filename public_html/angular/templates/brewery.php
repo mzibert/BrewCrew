@@ -46,7 +46,7 @@
 <div class="row" id="brewerySearchTable">
 	<table class="table table-bordered table-hover table-responsive table-striped table-word-wrap">
 		<tr><th>Brewery Name</th><th>Location</th><th>Phone</th><th>URL</th></tr>
-		<tr ng-click="getBreweryProfile(brewery.breweryId)" ng-repeat="brewery in breweryData">
+		<tr ng-click="getBreweryProfile(breweryData[$index].breweryId)" ng-repeat="brewery in breweryData">
 			<td>{{ brewery.breweryName }}</td>
 			<td>{{ brewery.breweryLocation }}</td>
 			<td>{{ brewery.breweryPhone }}</td>
