@@ -3,13 +3,13 @@
 		<img align="left" class="brewery-image" src="image/cerveza-buena.jpg" alt="Profile placeholder"/>
 		<img align="left" class="image-logo thumbnail" src="image/profile-placeholder.jpg" alt="brewery logo placeholder"/>
 		<div class="profile-text">
-			<h1>brewery.breweryName</h1>
-			<p>brewery.breweryEstDate</p>
-			<p>{{ brewery.breweryPhone }}</p>
-			<p>brewery.breweryHours</p>
-			<p>brewery.breweryLocation</p>
-			<p>brewery.breweryUrl</p>
-			<p>brewery.breweryDescription</p>
+			<h1>breweryProfile.breweryName</h1>
+			<p>breweryProfile.breweryEstDate</p>
+			<p>{{ breweryProfile.breweryPhone }}</p>
+			<p>breweryProfile.breweryHours</p>
+			<p>breweryProfile.breweryLocation</p>
+			<p>breweryProfile.breweryUrl</p>
+			<p>breweryProfile.breweryDescription</p>
 		</div>
 		<div>
 			<div>

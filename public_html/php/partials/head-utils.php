@@ -47,9 +47,7 @@
 				  src="//ajax.googleapis.com/ajax/libs/angularjs/<?php echo $ANGULAR_VERSION; ?>/angular-animate.js"></script>
 		<script type="text/javascript"
 				  src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/1.3.3/ui-bootstrap-tpls.min.js"></script>
-<!--debugging beerprofile-controller and breweryprofile-controller discovered might need the following-->
-		<script type="text/javascript" src="path/to/angular.js"></script>
-		<script type="text/javascript" src="path/to/angular-route.js"></script>
+
 
 		<script type="text/javascript" src="angular/app.js"></script>
 		<script type="text/javascript" src="angular/route-config.js"></script>
@@ -64,7 +62,6 @@
 		<script type="text/javascript" src="angular/services/signin-service.js"></script>
 		<script type="text/javascript" src="angular/services/signout-service.js"></script>
 		<script type="text/javascript" src="angular/services/signup-service.js"></script>
-		<script type="text/javascript" src="angular/services/thecompass-service.js"></script>
 		<script type="text/javascript" src="angular/services/user-service.js"></script>
 
 		<script type="text/javascript" src="angular/directives/bootstrap-breakpoint.js"></script>
@@ -79,7 +76,6 @@
 		<script type="text/javascript" src="angular/controllers/signin-controller.js"></script>
 		<script type="text/javascript" src="angular/controllers/signout-controller.js"></script>
 		<script type="text/javascript" src="angular/controllers/signup-controller.js"></script>
-		<script type="text/javascript" src="angular/controllers/thecompass-controller.js"></script>
 		<script type="text/javascript" src="angular/controllers/user-controller.js"></script>
 
 
