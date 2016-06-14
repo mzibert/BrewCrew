@@ -40,9 +40,9 @@ app.controller('BeerController', ["$scope", "BeerService", "$location", function
 	 * @param beerId the beer we are sending
 	 **/
 	$scope.getBeerProfile = function(beerId) {
+		console.log("hi, I'm merri" + beerId);
 		$location.path("beerprofile/" + beerId);
 	};
-
 	$scope.getBeerByBreweryId = function(breweryId) {
 		BeerService.fetchBeerByBreweryId(breweryId)
 			.then(function(result) {
@@ -113,8 +113,8 @@ app.controller('BeerController', ["$scope", "BeerService", "$location", function
 	 * @param beerId the beer we are sending
 	 **/
 	$scope.getBeerProfile = function(beerId) {
-		$location.path("beerprofile/" + "beerId")
-		;
+		console.log("hi, I'm merri" + beerId);
+		$location.path("beerprofile/" + beerId);
 	};
 /**
  * Creates a beer and sends it to the beer API
