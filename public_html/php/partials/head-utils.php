@@ -47,13 +47,19 @@
 				  src="//ajax.googleapis.com/ajax/libs/angularjs/<?php echo $ANGULAR_VERSION; ?>/angular-animate.js"></script>
 		<script type="text/javascript"
 				  src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/1.3.3/ui-bootstrap-tpls.min.js"></script>
+<!--debugging beerprofile-controller and breweryprofile-controller discovered might need the following-->
+		<script type="text/javascript" src="path/to/angular.js"></script>
+		<script type="text/javascript" src="path/to/angular-route.js"></script>
 
 		<script type="text/javascript" src="angular/app.js"></script>
 		<script type="text/javascript" src="angular/route-config.js"></script>
 		<!-- Angular JS App Files -->
 		<script type="text/javascript" src="angular/services/beer-service.js"></script>
+		<script type="text/javascript" src="angular/services/beerprofile-service.js"></script>
 		<script type="text/javascript" src="angular/services/brewery-service.js"></script>
-<!--		<script type="text/javascript" src="angular/services/home-service.js"></script>-->
+		<script type="text/javascript" src="angular/services/breweryprofile-service.js"></script>
+
+		<!--		<script type="text/javascript" src="angular/services/home-service.js"></script>-->
 		<script type="text/javascript" src="angular/services/review-service.js"></script>
 		<script type="text/javascript" src="angular/services/signin-service.js"></script>
 		<script type="text/javascript" src="angular/services/signout-service.js"></script>
@@ -66,7 +72,9 @@
 		<script type="text/javascript" src="angular/controllers/home-controller.js"></script>
 		<script type="text/javascript" src="angular/controllers/nav-controller.js"></script>
 		<script type="text/javascript" src="angular/controllers/beer-controller.js"></script>
+		<script type="text/javascript" src="angular/controllers/beerprofile-controller.js"></script>
 		<script type="text/javascript" src="angular/controllers/brewery-controller.js"></script>
+		<script type="text/javascript" src="angular/controllers/breweryprofile-controller.js"></script>
 		<script type="text/javascript" src="angular/controllers/review-controller.js"></script>
 		<script type="text/javascript" src="angular/controllers/signin-controller.js"></script>
 		<script type="text/javascript" src="angular/controllers/signout-controller.js"></script>
