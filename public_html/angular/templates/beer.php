@@ -1,5 +1,5 @@
 <!-- main content-->
-<div class="container" ng-controller="BeerController">
+<div class="container">
 	<div class="row" id="beer">
 		<div class="col-md-3"></div>
 		<div class="col-md-6">
@@ -41,11 +41,11 @@
 <div class="row" id="beerSearchTable">
 	<table class="table table-bordered table-hover table-responsive table-striped table-word-wrap">
 		<tr><th>Beer Name</th><th>Style</th><th>ABV</th><th>Availability</th></tr>
-		<tr ng-click="loadBeer(beers[$index].beerId);" ng-repeat="beer in beers">
-			<td>{{ beer[0].beerName }}</td>
-			<td>{{ beer[0].beerStyle }}</td>
-			<td>{{ beer[0].beerAbv }}</td>
-			<td>{{ beer[0].beeravailability }}</td>
+		<tr ng-click="getBeerProfile(beerData[$index].beerId);" ng-repeat="beer in beerData">
+			<td>{{ beer.beerName }}</td>
+			<td>{{ beer.beerStyle }}</td>
+			<td>{{ beer.beerAbv }}</td>
+			<td>{{ beer.beeravailability }}</td>
 		</tr>
 	</table>
 </div>
