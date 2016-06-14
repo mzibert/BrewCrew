@@ -37,6 +37,7 @@ app.service("BeerService", function($http, BEER_ENDPOINT) {
 	};
 
 	this.fetchBeerByName = function(beerByName) {
+		console.log("in fetchbeerbyname: SERVICE");
 		return($http.get(getUrl() + "?beerName=" + beerName));
 	};
 

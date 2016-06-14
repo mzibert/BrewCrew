@@ -38,7 +38,7 @@
 <!--	</div>-->
 <!--</div>-->
 
-<div class="row">
+<div class="row" id="beerSearchTable">
 	<table class="table table-bordered table-hover table-responsive table-striped table-word-wrap">
 		<tr><th>Beer Name</th><th>Style</th><th>ABV</th><th>Availability</th></tr>
 		<tr ng-click="loadBeer(beers[$index].beerId);" ng-repeat="beer in beers">

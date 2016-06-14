@@ -84,7 +84,16 @@
 										<p ng-message="required">Please enter your date of birth.</p>
 									</div>
 								</fieldset>
-								<input type="submit" name="submit" id="submit" value="Submit" class="btn btn-info pull-right">
-							</div>
+								<br>
+								<hr>
+								<!-- Submit Form or Reset Form -->
+								<p>When you submit this form this user will receive an email from Craft Beer Compass with an activation link.</p>
+								<button class="btn btn-success" type="submit"><i class="fa fa-paper-plane"></i> Submit</button>
+								<button class="btn btn-info" type="reset"><i class="fa fa-ban"></i>Reset Form</button>
 						</form>
-
+						<br>
+						<div class="col-md-6">
+							<div class="button-container">
+								<a href="profile.php/" class="btn btn-warning">Profile</a>
+							</div>
+						</div>

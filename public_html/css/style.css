@@ -2,6 +2,9 @@ BODY {
 	background-image:url(../image/beerbackground.jpg);
 	background-size:cover;
 	background-attachment:fixed;
+	font-family: "sans-serif";
+	color: #ffffff;
+
 }
 
 h1 {
@@ -20,7 +23,7 @@ h3 {
 	font-size: large;
 	font-weight: 900;
 	text-align: center;
-	font-family: "sans-serif";
+
 }
 
 footer {
@@ -97,17 +100,21 @@ body {
 
 #signin {
 	margin-top: 75px;
+	color: #000000;
+
 
 }
 
 #brewery {
 	margin-top: 100px;
 	margin-right: 300px;
+
 }
 
 #signup {
 	margin-top: 100px;
 	margin-right: 350px;
+
 }
 
 #thecompass {
@@ -117,6 +124,13 @@ body {
 #beer {
 	margin-top: 100px;
 	margin-right: 300px;
+	color: #ffffff;
+}
+#beerSearchTable{
+	color: #2980b9;
+}
+#brewerySearchTable{
+	color: #2980b9;
 }
 
 img.avatar {

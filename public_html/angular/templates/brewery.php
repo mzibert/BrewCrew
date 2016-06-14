@@ -27,19 +27,30 @@
 		</div>
 	</div>
 
-
-	<div class="row">
-		<div class="col-md-3"></div>
-		<div class="col-md-6 pull-left-md">
-			<div class="well text-center">
-			<a href="breweryprofile.php" ng-click="getBreweryProfile()">
-				<h2>Name: {{ breweryData[0].breweryName }}</h2>
-			</a>
-			<h2>Location: {{ breweryData[0].breweryLocation }}</h2>
-			<h2>Phone: {{ breweryData[0].breweryPhone }}</h2>
-			<h2>URL: {{ breweryData[0].breweryURL }}</h2>
+	<!--
+		<div class="row">
+			<div class="col-md-3"></div>
+			<div class="col-md-6 pull-left-md">
+				<div class="well text-center">
+				<a href="breweryprofile.php" ng-click="getBreweryProfile()">
+					<h2>Name: {{ breweryData[0].breweryName }}</h2>
+				</a>
+				<h2>Location: {{ breweryData[0].breweryLocation }}</h2>
+				<h2>Phone: {{ breweryData[0].breweryPhone }}</h2>
+				<h2>URL: {{ breweryData[0].breweryURL }}</h2>
+			</div>
 		</div>
 	</div>
-</div>
-
-</div><!--container-->
+	**/
+	</div><!--container-->
+<div class="row" id="brewerySearchTable">
+	<table class="table table-bordered table-hover table-responsive table-striped table-word-wrap">
+		<tr><th>Brewery Name</th><th>Location</th><th>Phone</th><th>URL</th></tr>
+		<tr><td>
+		<a href="breweryprofile.php" ng-click="getBreweryProfile()">
+			{{ breweryData[0].breweryName}}</a></td>
+			<td>{{ breweryData[0].breweryLocation }}</td>
+			<td>{{ breweryData[0].breweryPhone }}</td>
+			<td>{{ breweryData[0].breweryURL  }}</td>
+		</tr>
+	</table>
