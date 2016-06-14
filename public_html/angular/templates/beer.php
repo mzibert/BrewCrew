@@ -1,5 +1,5 @@
 <!-- main content-->
-<div class="container" ng-controller="BeerController">
+<div class="container">
 	<div class="row" id="beer">
 		<div class="col-md-3"></div>
 		<div class="col-md-6">
