@@ -2,7 +2,7 @@ app.controller('ReviewController', ["$scope", "ReviewService", function($scope, 
 	$scope.alerts = [];
 	$scope.userData = [];
 
-	$scope.getReviewById = function() {
+	$scope.getReviewById = function(reviewId) {
 		ReviewService.fetchReviewByReviewId(reviewId)
 			.then(function(result) {
 				if(result.status.data === 200) {
@@ -12,7 +12,7 @@ app.controller('ReviewController', ["$scope", "ReviewService", function($scope, 
 				}
 			})
 	};
-	$scope.getReviewBeerId = function() {
+	$scope.getReviewBeerId = function(reviewBeerId) {
 		ReviewService.fetchReviewBeerId(reviewBeerId)
 			.then(function(result) {
 				if(result.status.data === 200) {
@@ -23,8 +23,8 @@ app.controller('ReviewController', ["$scope", "ReviewService", function($scope, 
 			})
 	};
 
-	$scope.getReviewUserId = function() {
-		ReviewService.fetchReviewUserId(reviewBeerId)
+	$scope.getReviewUserId = function(reviewUserId) {
+		ReviewService.fetchReviewUserId(reviewUserId)
 			.then(function(result) {
 				if(result.status.data === 200) {
 					$scope.data = result.data.data;
@@ -34,7 +34,7 @@ app.controller('ReviewController', ["$scope", "ReviewService", function($scope, 
 			})
 	};
 
-	$scope.getReviewDate = function() {
+	$scope.getReviewDate = function(reviewDate) {
 		ReviewService.fetchReviewDate(reviewDate)
 			.then(function(result) {
 				if(result.status.data === 200) {
@@ -44,7 +44,7 @@ app.controller('ReviewController', ["$scope", "ReviewService", function($scope, 
 				}
 			})
 	};
-	$scope.getReviewPintRating = function() {
+	$scope.getReviewPintRating = function(reviewPintRating) {
 		ReviewService.fetchReviewPintRating(reviewPintRating)
 			.then(function(result) {
 				if(result.status.data === 200) {
@@ -54,8 +54,8 @@ app.controller('ReviewController', ["$scope", "ReviewService", function($scope, 
 				}
 			})
 	};
-	$scope.getAllReviews = function() {
-		ReviewService.fetchAllReviews()
+	$scope.getAllReviews = function(allReviews) {
+		ReviewService.fetchAllReviews(allReviews)
 			.then(function(result) {
 				if(result.status.data === 200) {
 					$scope.data = result.data.data;
