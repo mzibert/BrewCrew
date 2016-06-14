@@ -1,10 +1,10 @@
 
 <!-- main content-->
-<div class="row" id="beer">
+<div class="row" id="beer" ng-controller="BeerController">
 	<div class="col-md-3"></div>
 	<div class="col-md-6">
 		<div class="well text-center">
-			<form name="beerSearch" id="beerSearch" class="form-horizontal well" ng-controller="beerController" ng-submit="getbeerByName(beerName);" novalidate>
+			<form name="beerSearch" id="beerSearch" class="form-horizontal well"  ng-submit="getbeerByName(beerName);" novalidate>
 
 				<label for="beerNameSearch">Search Beers</label>
 				<div class="input-group">
@@ -28,6 +28,8 @@
 <div class="row">
 	<div class="col-md-3"></div>
 	<div class="col-md-6">
-		<h2>Beer Name: {{ beerData[0].beerName }}</h2>
+		<div class="well text-center">
+		<h2>Beer Name: {{beerData[0].beerName}}</h2>
 	</div>
 </div>
+	</div>
