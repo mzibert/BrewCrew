@@ -19,7 +19,10 @@
 							</div>
 						</div>
 					</div>
-
+					<div class="row">
+						<button type="button" class="btn btn-generate" ng-model="singleModel" uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
+							Generate Flavor Profile
+					</div>
 				</div>
 			</div>
 		</div>
