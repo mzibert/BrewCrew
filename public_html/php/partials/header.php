@@ -1,11 +1,11 @@
 <header ng-controller="NavController">
 
 	<bootstrap-breakpoint></bootstrap-breakpoint>
-
+	<div class="container-fluid" id="navbar">
 	<nav class="navbar navbar-inverse navbar-fixed-top">
-		<div class="container-fluid" id="navbar">
+
 			<div class="navbar-header">
-				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false" ng-click="navCollapsed = !navCollapsed">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
 					<span class="sr-only">Toggle navigation</span>
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
@@ -32,6 +32,7 @@
 					<li class=><a href="signin">Log In</a></li>
 				</ul>
 			</div>
+	</nav>
 		</div>
-	</nav><!-- /.container -->
+	<!-- /.container -->
 </header>
