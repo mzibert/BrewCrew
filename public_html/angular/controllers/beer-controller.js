@@ -13,7 +13,34 @@ app.controller('BeerController', ["$scope", "BeerService", "$location", function
 				}
 			})
 	};
-
+	$scope.getBeerByName = function(beerName) {
+		console.log("in getbeerbyname-Controller");
+		console.log(beerName);
+		BeerService.fetchBeerByName(beerName)
+			.then(function(result) {
+				if(result.data.status === 200) {
+					$scope.beerData = result.data.data;
+					console.log("good status");
+					console.log(result.data.message);
+					console.log(result.data.data);
+					console.log($scope.beerData);
+				} else {
+					$scope.alerts[0] = {type: "danger", msg: result.data.message};
+					console.log("bad status");
+					console.log(result.data.status);
+					console.log(result.data.data);
+					console.log(result.data.message);
+				}
+			})
+	};
+	/**
+	 * onclick, reroutes page to the specified beer
+	 *
+	 * @param beerId the beer we are sending
+	 **/
+	$scope.getBeerProfile = function(beerId) {
+		$location.path("beerprofile/" + beerId);
+	};
 
 	$scope.getBeerByBreweryId = function(breweryId) {
 		BeerService.fetchBeerByBreweryId(breweryId)

@@ -13,22 +13,9 @@ app.controller("BreweryProfileController", ["$routeParams", "$scope", "BreweryPr
 				} else {
 					$scope.alerts[0] = {type: "danger", msg: result.data.message};
 				}
-				// return BreweryProfileService;
 			});
 	};
-	// $scope.loadBreweryById = function() {
-	// 		BreweryProfileService.fetch($routeParams.id)
-	// 			console.log(BreweryProfileService)
-	// 			BreweryProfileService.loadBreweryProfile()
-	// 		.then(function(result) {
-	// 			if(result.status.data === 200) {
-	// 				$scope.breweryData = result.data.data;
-	// 			} else {
-	// 				$scope.alerts[0] = {type: "danger", msg: result.data.message};
-	// 			}
-	// 			return BreweryById;
-	// 		})
-	// };
+
 	if ($scope.breweryProfile === null) {
 		$scope.loadBreweryProfile();
 	}
