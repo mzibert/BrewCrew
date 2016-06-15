@@ -6,7 +6,7 @@
 			<p>Phone Number: {{ breweryProfile.breweryPhone }}</p>
 			<p>Hour of Operation: {{ breweryProfile.breweryHours }}</p>
 			<p>Address: {{ breweryProfile.breweryLocation }}</p>
-			<p>Website: {{ breweryProfile.breweryUrl }}</p>
+			<p>Website: <a href="{{ breweryProfile.breweryUrl }}"> {{ breweryProfile.breweryUrl }}</a></p>
 			<p>Description: {{ breweryProfile.breweryDescription }}</p>
 		</div>
 		<div>

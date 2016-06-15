@@ -4,7 +4,7 @@
 		<div class="col-md-3"></div>
 		<div class="col-md-6">
 			<div class="well text-center">
-				<form name="beerSearch" id="beerSearch" class="form-horizontal well" ng-submit="search(beerName);"novalidate>
+				<form name="beerSearch" id="beerSearch" class="form-horizontal well" ng-submit="search(beerName);" novalidate>
 
 					<label for="beerNameSearch">Search Beers</label>
 					<div class="input-group">

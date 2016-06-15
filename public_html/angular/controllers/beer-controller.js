@@ -15,7 +15,7 @@ app.controller('BeerController', ["$scope", "BeerService", "$location", function
 		$scope.beerData = $scope.beerData.filter(function(item, pos) {
 			return $scope.beerData.indexOf(item) == pos;
 		});
-	}
+	};
 
 	$scope.getBeerById = function(beerId) {
 		BeerService.fetchBeerById(beerId)
