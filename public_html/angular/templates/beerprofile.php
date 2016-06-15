@@ -19,7 +19,7 @@
 								<div class="panel-heading">
 									<h3 class="panel-title">Recent Reviews</h3>
 								</div>
-								<ul class="list-group beers">
+								<ul class="list-group reviews">
 									<a href="#" class="list-group-item">Cras justo odio</a>
 									<a href="#" class="list-group-item">Dapibus ac facilisis in</a>
 									<a href="#" class="list-group-item">Morbi leo risus</a>

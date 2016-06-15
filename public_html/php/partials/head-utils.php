@@ -78,7 +78,7 @@ setXsrfCookie();
 		<!--		<script type="text/javascript" src="angular/services/home-service.js"></script>-->
 		<script type="text/javascript" src="angular/services/review-service.js"></script>
 		<script type="text/javascript" src="angular/services/signin-service.js"></script>
-		<script type="text/javascript" src="angular/services/signout-service.js"></script>
+<!--		<script type="text/javascript" src="angular/services/signout-service.js"></script>-->
 		<script type="text/javascript" src="angular/services/signup-service.js"></script>
 		<script type="text/javascript" src="angular/services/user-service.js"></script>
 
@@ -92,7 +92,7 @@ setXsrfCookie();
 		<script type="text/javascript" src="angular/controllers/breweryprofile-controller.js"></script>
 		<script type="text/javascript" src="angular/controllers/review-controller.js"></script>
 		<script type="text/javascript" src="angular/controllers/signin-controller.js"></script>
-		<script type="text/javascript" src="angular/controllers/signout-controller.js"></script>
+<!--		<script type="text/javascript" src="angular/controllers/signout-controller.js"></script>-->
 		<script type="text/javascript" src="angular/controllers/signup-controller.js"></script>
 		<script type="text/javascript" src="angular/controllers/user-controller.js"></script>
 

@@ -10,7 +10,7 @@ app.controller('SigninController', ["$scope", "$window","SigninService", functio
 					if(result.data.status === 200) {
 						$scope.alerts[0] = {type: "success", msg: result.data.message};
 						console.log("good status");
-						$window.location.href = "userProfile/"
+						$window.location.href = "user/"
 					} else {
 						console.log("bad status");
 						console.log(result.data);

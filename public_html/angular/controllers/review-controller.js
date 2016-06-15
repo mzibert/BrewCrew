@@ -1,6 +1,7 @@
 app.controller('ReviewController', ["$scope", "ReviewService", function($scope, ReviewService) {
 	$scope.alerts = [];
 	$scope.userData = [];
+	$scope.reviewData = {};
 
 	$scope.getReviewById = function(reviewId) {
 		ReviewService.fetchReviewByReviewId(reviewId)
