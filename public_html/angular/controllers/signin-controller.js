@@ -1,11 +1,11 @@
 app.controller('SigninController', ["$scope", "$window","SigninService", function($scope, $window, SigninService) {
 	$scope.alerts = [];
 
-	$scope.signin = function(formData, validated) {
+	$scope.signin = function(signInData, validated) {
 		console.log("inside signincontroller signin");
-		console.log(formData);
+		console.log(signInData);
 		if(validated === true) {
-			SigninService.signin(formData)
+			SigninService.signin(signInData)
 				.then(function(result) {
 					if(result.data.status === 200) {
 						$scope.alerts[0] = {type: "success", msg: result.data.message};

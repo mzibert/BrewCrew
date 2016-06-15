@@ -19,6 +19,11 @@ $reply->status = 200;
 $reply->data = null;
 
 try {
+
+	//start session
+	if(session_status() !== PHP_SESSION_ACTIVE) {
+		session_start();
+	}
 	//grab the mySQL connection
 	$pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/brewcrew.ini");
 
@@ -27,7 +32,7 @@ try {
 
 	if($method === "GET") {
 		//set xsrf cookie
-		setXsrfCookie();
+		verifyXsrf();
 	}
 	
 	//perform the actual POST
