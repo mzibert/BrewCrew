@@ -1,6 +1,6 @@
 app.controller('ReviewController', ["$scope", "ReviewService","$location", function($scope, ReviewService, $location) {
 	$scope.alerts = [];
-	$scope.userData = [];
+	//$scope.userData = [];
 	$scope.reviewData = {};
 	$scope.reviewProfile = null;
 

@@ -1,8 +1,8 @@
-app.constant("ACTIVATION_ENDPOINT", "php/api/review/");
-app.service("ReviewService", function($http, ACTIVATION_ENDPOINT) {
+app.constant("REVIEW_ENDPOINT", "php/apis/review/");
+app.service("ReviewService", function($http, REVIEW_ENDPOINT) {
 
 	function getUrl() {
-		return(ACTIVATION_ENDPOINT);
+		return(REVIEW_ENDPOINT);
 	}
 
 	function getUrlForReviewId(reviewId) {
