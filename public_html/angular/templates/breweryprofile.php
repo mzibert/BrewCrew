@@ -3,11 +3,11 @@
 		<img align="left" class="image-logo thumbnail" src="image/profileplaceholder.jpg" alt="brewery logo placeholder"/>
 		<div class="profile-text">
 			<h1>{{ breweryProfile.breweryName }}</h1>
-			<p>{{ breweryProfile.breweryPhone }}</p>
-			<p>{{ breweryProfile.breweryHours }}</p>
-			<p>{{ breweryProfile.breweryLocation }}</p>
-			<p>{{ breweryProfile.breweryUrl }}</p>
-			<p>{{ breweryProfile.breweryDescription }}</p>
+			<p>Phone Number: {{ breweryProfile.breweryPhone }}</p>
+			<p>Hour of Operation: {{ breweryProfile.breweryHours }}</p>
+			<p>Address: {{ breweryProfile.breweryLocation }}</p>
+			<p>Website: {{ breweryProfile.breweryUrl }}</p>
+			<p>Description: {{ breweryProfile.breweryDescription }}</p>
 		</div>
 		<div>
 			<div>

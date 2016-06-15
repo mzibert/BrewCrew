@@ -17,9 +17,9 @@ app.controller("BreweryProfileController", ["$routeParams", "$scope", "BreweryPr
 				
 				BeerService.fetchBeerByBreweryId($routeParams.id)
 					.then(function(result) {
-						console.log(result);
+						// console.log(result);
 						$scope.beerData = result.data.data;
-						console.log($scope.beerData);
+						// console.log($scope.beerData);
 
 					})
 			});
