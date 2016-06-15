@@ -21,7 +21,6 @@
 					</div>
 					<h1></h1>
 					<button class="btn btn-lg btn-info" type="submit"><i class="fa fa-search"></i>&nbsp;Find</button>
-					<hr/>
 				</form>
 			</div>
 		</div>

@@ -79,7 +79,6 @@
 					</div>
 				</fieldset>
 				<br>
-				<hr>
 				<!-- Submit Form or Reset Form -->
 				<p>We will e-mail you an activation link.</p>
 				<button class="btn btn-success" type="submit"><i class="fa fa-paper-plane"></i> Submit</button>
