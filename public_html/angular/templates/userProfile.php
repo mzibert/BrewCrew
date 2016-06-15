@@ -26,5 +26,5 @@
 
 	</form>
 	<br>
-	<a href="/">Return to Home Page</a>
+<!--	<a href="/">Return to Home Page</a>-->
 </div>
