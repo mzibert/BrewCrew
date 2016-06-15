@@ -18,12 +18,12 @@
 
 			<!-- Collect the nav links, forms, and other content for toggling -->
 			<div class="collapse navbar-collapse" id="navbar-collapse-1">
-				<form class="navbar-form navbar-right" role="search">
-					<div class="form-group">
-						<input type="text" class="form-control">
-					</div>
-					<button type="submit" class="btn btn-default">Search</button>
-				</form>
+<!--				<form class="navbar-form navbar-right" role="search">-->
+<!--					<div class="form-group">-->
+<!--						<input type="text" class="form-control">-->
+<!--					</div>-->
+<!--					<button type="submit" class="btn btn-default">Search</button>-->
+<!--				</form>-->
 				<ul class="nav navbar-nav navbar-right">
 					<li class=><a href="thecompass">The Compass</a></li>
 					<li class=><a href="beer">Beers</a></li>
