@@ -2,6 +2,8 @@ app.controller('BeerController', ["$scope", "BeerService", "$location", function
 	$scope.beerProfile = null;
 	$scope.alerts = [];
 	$scope.beerData = [];
+	
+
 
 
 	$scope.getBeerById = function(beerId) {
