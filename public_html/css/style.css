@@ -69,11 +69,11 @@ body {
 
 .beerhero {
 	background: linear-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4)), url("../image/beerbubbles.jpg")  no-repeat center;
-	/*-webkit-background-size: cover;*/
-	/*-moz-background-size: cover;*/
-	/*-o-background-size: cover;*/
-	/*background-size: cover;*/
-	/*z-index: 1; !*Add this*!*/
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	z-index: 1; /*Add this*/
 	font-family: 'Viga', sans-serif;
 	height: 185px;
 	color: white;
