@@ -1,4 +1,4 @@
-app.controller('SigninController', ["$scope", "$window","SigninService", function($scope, $window, SigninService) {
+app.controller('SigninController', ["$scope", '$location',"$window","SigninService", function($scope,$location, $window, SigninService) {
 	$scope.alerts = [];
 
 	$scope.signin = function(signInData, validated) {
@@ -10,6 +10,8 @@ app.controller('SigninController', ["$scope", "$window","SigninService", functio
 					if(result.data.status === 200) {
 						$scope.alerts[0] = {type: "success", msg: result.data.message};
 						console.log("good status");
+						$location.path( "/home" );
+
 
 					} else {
 						console.log("bad status");
