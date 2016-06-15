@@ -19,19 +19,7 @@
 									<h3 class="panel-title">What's On Tap</h3>
 								</div>
 								<ul class="list-group beers">
-									<a href="#" ng-repeat="beer in beerData">
-<!--										{{ beer.beerName }}-->
-									</a>
-									<a href="#" class="list-group-item"> {{ beerData[1].beerName }}</a>
-									<a href="#" class="list-group-item"> {{ beerData[2].beerName }}</a>
-									<a href="#" class="list-group-item"> {{ beerData[3].beerName }}</a>
-									<a href="#" class="list-group-item"> {{ beerData[4].beerName }}</a>
-									<a href="#" class="list-group-item"> {{ beerData[5].beerName }}</a>
-									<a href="#" class="list-group-item"> {{ beerData[6].beerName }}</a>
-									<a href="#" class="list-group-item"> {{ beerData[7].beerName }}</a>
-									<a href="#" class="list-group-item"> {{ beerData[8].beerName }}</a>
-									<a href="#" class="list-group-item"> {{ beerData[9].beerName }}</a>
-									<a href="#" class="list-group-item"> {{ beerData[10].beerName }}</a>
+									<li ng-repeat="beer in beerData"><a href="#">{{ beer.beerName }}</a></li>
 								</ul>
 							</div>
 						</div>

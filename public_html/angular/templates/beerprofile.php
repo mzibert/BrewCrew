@@ -20,12 +20,11 @@
 									<h3 class="panel-title">Recent Reviews</h3>
 								</div>
 								<ul class="list-group reviews">
-									<h1>{{ reviewData[0].reviewBeerId }}</h1>
-									<a href="#" class="list-group-item">{{ reviewProfile[0].reviewPintRating }} </a>
-									<a href="#" class="list-group-item">{{ reviewBeerId[0].reviewDate }}</a>
-									<a href="#" class="list-group-item">{{ reviewBeerId[0].reviewText }}</a>
-									<a href="#" class="list-group-item">Porta ac consectetur ac</a>
-									<a href="#" class="list-group-item">Vestibulum at eros</a>
+									<li ng-repeat="review in reviewData">
+										Date:  {{ review.reviewDate }}
+										Rating: {{ review.reviewPintRating }}
+										Review: {{ review.reviewText }}
+									</li>
 								</ul>
 							</div>
 						</div>
