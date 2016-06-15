@@ -5,6 +5,17 @@ app.controller('BeerController', ["$scope", "BeerService", "$location", function
 	
 
 
+	$scope.search = function(searchTerm) {
+		$scope.getBeerByName(searchTerm);
+		$scope.getBeerByStyle(searchTerm);
+		$scope.removeBeerDuplicates();
+	};
+
+	$scope.removeBeerDuplicates = function() {
+		$scope.beerData = $scope.beerData.filter(function(item, pos) {
+			return $scope.beerData.indexOf(item) == pos;
+		});
+	}
 
 	$scope.getBeerById = function(beerId) {
 		BeerService.fetchBeerById(beerId)
@@ -37,6 +48,26 @@ app.controller('BeerController', ["$scope", "BeerService", "$location", function
 			})
 	};
 
+	$scope.getBeerByStyle = function(beerStyle) {
+		console.log("in getbeerbyname-Controller");
+		console.log(beerStyle);
+		BeerService.fetchBeerByStyle(beerStyle)
+			.then(function(result) {
+				if(result.data.status === 200) {
+					$scope.beerData = result.data.data;
+					// console.log("good status");
+					// console.log(result.data.message);
+					// console.log(result.data.data);
+					// console.log($scope.beerData);
+				} else {
+					$scope.alerts[0] = {type: "danger", msg: result.data.message};
+					// console.log("bad status");
+					// console.log(result.data.status);
+					// console.log(result.data.data);
+					// console.log(result.data.message);
+				}
+			})
+	};
 	$scope.getBeerRecommendation = function() {
 		console.log("beer recommendation getting through controller");
 		BeerService.fetchBeerRecommendation()
@@ -73,6 +104,7 @@ app.controller('BeerController', ["$scope", "BeerService", "$location", function
 			.then(function(result) {
 				if(result.status.data === 200) {
 					$scope.beerData = result.data.data;
+					// TODO: $scope.removeBeerDuplicates();
 				} else {
 					$scope.alerts[0] = {type: "danger", msg: result.data.message};
 				}

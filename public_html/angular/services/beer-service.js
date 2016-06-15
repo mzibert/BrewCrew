@@ -40,12 +40,16 @@ app.service("BeerService", function($http, BEER_ENDPOINT) {
 		return($http.get(getUrl() + "?beerName=" + beerName));
 	};
 
-	this.fetchBeerRecommendation = function() {
-		return($http.get(getUrl() + "?beerRecommendation=allThingsMustFLOAT"));
+	this.fetchBeerByStyle = function(beerStyle) {
+		return($http.get(getUrl() + "?beerStyle=" + beerStyle));
 	};
 
 	this.fetchBeerByBreweryId = function(beerBreweryId) {
 		return($http.get(getUrl() + "?beerBreweryId=" + beerBreweryId));
+	};
+
+	this.fetchBeerRecommendation = function() {
+		return($http.get(getUrl() + "?beerRecommendation=allThingsMustFLOAT"));
 	};
 
 	this.beerUpdate = function(beerId, beer) {
