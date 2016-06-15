@@ -63,11 +63,11 @@ app.config(function($routeProvider, $locationProvider) {
 			templateUrl : 'angular/templates/breweryprofile.php'
 		})
 
-/*		// otherwise redirect to home
+//otherwise redirect to home
 		.otherwise({
 			redirectTo: "/"
 		});
-*/
+
 	//use the HTML5 History API
 	$locationProvider.html5Mode(true);
 });

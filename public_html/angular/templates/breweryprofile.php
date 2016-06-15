@@ -6,7 +6,7 @@
 			<p>Phone Number: {{ breweryProfile.breweryPhone }}</p>
 			<p>Hour of Operation: {{ breweryProfile.breweryHours }}</p>
 			<p>Address: {{ breweryProfile.breweryLocation }}</p>
-			<p>Website: <a href="{{ breweryProfile.breweryUrl }}"> {{ breweryProfile.breweryUrl }}</a></p>
+			<p>Website: <a href="{{ breweryProfile.breweryUrl }} " target="_self"> {{ breweryProfile.breweryUrl }}</a></p>
 			<p>Description: {{ breweryProfile.breweryDescription }}</p>
 		</div>
 		<div>
@@ -19,7 +19,7 @@
 									<h3 class="panel-title">What's On Tap</h3>
 								</div>
 								<ul class="list-group beers">
-									<li ng-repeat="beer in beerData"><a href="">{{ beer.beerName }}</a></li>
+									<li ng-repeat="beer in beerData"><a href="{{ beer.beerName }}"></a></li>
 								</ul>
 							</div>
 						</div>
