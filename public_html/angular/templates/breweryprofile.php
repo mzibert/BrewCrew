@@ -20,13 +20,18 @@
 								</div>
 								<ul class="list-group beers">
 									<a href="#" ng-repeat="beer in beerData">
-										{{ beer.beerName }}
+<!--										{{ beer.beerName }}-->
 									</a>
-									<a href="#" class="list-group-item"> {{ beerData[0].beerName }}</a>
-									<a href="#" class="list-group-item">Dapibus ac facilisis in</a>
-									<a href="#" class="list-group-item">Morbi leo risus</a>
-									<a href="#" class="list-group-item">Porta ac consectetur ac</a>
-									<a href="#" class="list-group-item">Vestibulum at eros</a>
+									<a href="#" class="list-group-item"> {{ beerData[1].beerName }}</a>
+									<a href="#" class="list-group-item"> {{ beerData[2].beerName }}</a>
+									<a href="#" class="list-group-item"> {{ beerData[3].beerName }}</a>
+									<a href="#" class="list-group-item"> {{ beerData[4].beerName }}</a>
+									<a href="#" class="list-group-item"> {{ beerData[5].beerName }}</a>
+									<a href="#" class="list-group-item"> {{ beerData[6].beerName }}</a>
+									<a href="#" class="list-group-item"> {{ beerData[7].beerName }}</a>
+									<a href="#" class="list-group-item"> {{ beerData[8].beerName }}</a>
+									<a href="#" class="list-group-item"> {{ beerData[9].beerName }}</a>
+									<a href="#" class="list-group-item"> {{ beerData[10].beerName }}</a>
 								</ul>
 							</div>
 						</div>
