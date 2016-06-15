@@ -1,8 +1,8 @@
 
 app.constant("SIGNIN_ENDPOINT", "php/apis/signin/");
-app.service("SigninService", function($http, signin_ENDPOINT) {
+app.service("SigninService", function($http, SIGNIN_ENDPOINT) {
 	function getUrl() {
-		return(signin_ENDPOINT);
+		return(SIGNIN_ENDPOINT);
 	}
 	this.signin = function(signin) {
 		return($http.post(getUrl(), signin));
