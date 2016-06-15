@@ -28,9 +28,9 @@
 	</div>
 </div>
 <br>
-<div class="container-fluid">
+<div class="container">
 	<div class="row">
-		<div class="col-xs-12">
+		<div class="col-xs-11">
 			<div class="row" id="compassTable">
 				<table class="table table-bordered table-hover table-responsive table-striped table-word-wrap">
 					<tr><th>Beer Name</th><th>Style</th><th>ABV</th><th>IBU</th><th>Availability</th></tr>
