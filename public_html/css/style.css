@@ -4,6 +4,7 @@ BODY {
 	background-attachment:fixed;
 	font-family: "sans-serif";
 	color: #ffffff;
+	font-size: 2em;
 }
 
 h1 {
@@ -45,10 +46,8 @@ footer {
 	padding-top: 100px;
 }
 
-/*corrects IE min-height bug*/
-
-html {
-	display: flex;
+.well {
+	color: black;
 }
 
 body {
@@ -68,6 +67,7 @@ body {
 .thumbnail {
 	margin: 3em;
 }
+
 .beerhero {
 	background: linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3)), url("../image/background.jpg")  no-repeat center center fixed;
 	-webkit-background-size: cover;
@@ -78,29 +78,27 @@ body {
 	font-family: 'Viga', sans-serif;
 	top: 65px;
 	min-width: 100vw;
-	height: 150px;
+	height: 180px;
 	color: white;
 	font-size: 2em;
-	padding-bottom: 48px;
+	/*padding-bottom: 48px;*/
 	padding-top: 85px;
 	text-shadow: black 0.12em 0.12em 0.12em;
 	-webkit-box-shadow: 10px 10px 10px grey;
 	-moz-box-shadow:    10px 10px 10px grey;
 	box-shadow:         10px 10px 10px grey;
-
 }
-#homeText{
 
+#homeText {
 	margin-top: 150px;
-	color: #ffffff;
+	color: black;
 	font: bold 1em Helvetica, Sans-Serif;
 	letter-spacing: -1px;
 	bottom:0;
 	background:rgba(251,251,251,0.5);
-padding:10px 20px;
+	padding:10px 20px;
 	top:10px; /* in conjunction with left property, decides the text position */
 	left:10px;
-
 }
 
 .title {
@@ -120,20 +118,16 @@ padding:10px 20px;
 #signin {
 	margin-top: 75px;
 	color: #000000;
-
-
 }
 
 #brewery {
 	margin-top: 100px;
 	margin-right: 300px;
-
 }
 
 #signup {
 	margin-top: 100px;
 	margin-right: 350px;
-
 }
 
 #thecompass {
@@ -145,11 +139,17 @@ padding:10px 20px;
 	margin-right: 300px;
 	color: #ffffff;
 }
-#beerSearchTable{
-	color: #2980b9;
+
+#beerSearchTable {
+	color: white;
 }
-#brewerySearchTable{
-	color: #2980b9;
+
+#brewerySearchTable {
+	color: white;
+}
+
+#btn {
+	background-color: #337ab7;
 }
 
 img.avatar {
@@ -167,6 +167,12 @@ img.avatar {
 	max-height: 50px;
 }
 
+#profile{
+	text-align: center;
+	padding: 150px;
+}
+
+/* navbar styles */
 .navbar {
 	font-family: 'Viga', sans-serif;
 	font-size: 1.25em;
@@ -186,11 +192,6 @@ img.avatar {
 
 #navbar-collapse-1 {
 	padding-top: .8rem;
-}
-
-#profile{
-	text-align: center;
-	padding: 150px;
 }
 
 /* make .navbar-header take up all the space when nav is collapsed */
@@ -254,4 +255,9 @@ img.avatar {
 		-webkit-transform: translate(-50%, -50%) rotate(-360deg);
 		transform: translate(-50%, -50%) rotate(-360deg);
 	}
+}
+
+/*corrects IE min-height bug*/
+html {
+	display: flex;
 }
