@@ -104,6 +104,9 @@ CREATE TABLE reviewTag (
 );
 
 
+-- this stored procedure was written by Alicia Broadhurst. @aj-broadhurst
+-- with guidance and mathematics/statistics help from Dylan McDonald. @dylan-mcdonald
+
 DROP PROCEDURE IF EXISTS recommendation;
 
 DELIMITER $$
@@ -195,7 +198,7 @@ CREATE PROCEDURE recommendation(IN userId INT UNSIGNED)
 		END LOOP compassLoop; -- stops mad looping behavior
 		CLOSE compassCursor; -- closes cursor
 
-		SELECT beerId, beerBreweryId, beerAbv, beerAvailability, beerAwards, beerColor, beerDbKey, beerDescription, beerIbu, beerName, beerStyle, beerDrift FROM selectedBeer WHERE beerDrift <= 1024.0 -- the recommendation to return
+		SELECT beerId, beerBreweryId, beerAbv, beerAvailability, beerAwards, beerColor, beerDbKey, beerDescription, beerIbu, beerName, beerStyle, beerDrift FROM selectedBeer WHERE beerDrift <= 1.5 -- the recommendation to return
 		ORDER BY beerDrift;
 
 	END $$
