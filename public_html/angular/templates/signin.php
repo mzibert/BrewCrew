@@ -3,7 +3,7 @@
 <div class="container colored" id="signin" >
 	<div class="row">
 		<div class="col-md-4 col-md-offset-4">
-			<form role="form" name="userSignInForm"  id="userSignInForm"   class="form-horizontal well" ng-submit="signin("signInData, userSignInForm.$valid);" novalidate>
+			<form role="form" name="userSignInForm"  id="userSignInForm"   class="form-horizontal well" ng-submit="signin(signInData, userSignInForm.$valid);" novalidate>
 				<h2>Log In</h2>
 
 				<label for="text" class="sr-only">Username</label>
