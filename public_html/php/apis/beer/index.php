@@ -128,10 +128,11 @@ try {
 		} else if(isset($_GET["beerRecommendation"]) === true && empty($_SESSION["user"]) === false) {
 			$beerMap = BrewCrew\Beer::getBeerByAliciaAwesome($pdo, $_SESSION["user"]->getUserId());
 			if($beerMap !== null) {
-				$beerTags = BrewCrew\BeerTag::getBeerTagByBeerId($pdo, $beer->getBeerId());
-				$storage = new BrewCrew\JsonObjectStorage();
-				$storage->attach($beer, $beerTags->toArray());
-				$reply->data = $storage;
+//				$beerTags = BrewCrew\BeerTag::getBeerTagByBeerId($pdo, $beer->getBeerId());
+//				$storage = new BrewCrew\JsonObjectStorage();
+//				$storage->attach($beer, $beerTags->toArray());
+//				$reply->data = $storage;
+				$reply->data = $beerMap;
 			}
 		}
 
