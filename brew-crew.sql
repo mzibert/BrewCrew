@@ -104,116 +104,95 @@ CREATE TABLE reviewTag (
 );
 
 
-DROP PROCEDURE IF EXISTS maths;
+
 DROP PROCEDURE IF EXISTS recommendation;
 
 DELIMITER $$
-	CREATE PROCEDURE maths(colorStdDev DECIMAL, colorMean DECIMAL, ibuStdDev DECIMAL, ibuMean DECIMAL, varBeerId INT UNSIGNED, OUT beerDrift DECIMAL)
-		BEGIN
+CREATE PROCEDURE recommendation(IN userId INT UNSIGNED)
 
-			-- declare variables
-			DECLARE scoreDistanceColor DECIMAL;
-			DECLARE scoreDistanceIbu DECIMAL;
-			DECLARE beerDrift DECIMAL;
-			DECLARE mathBeerColor DECIMAL;
-			DECLARE mathBeerIbu DECIMAL;
-			DECLARE varBeerId INT;
+	BEGIN
+		-- declare variables
+		DECLARE varBeerId INT UNSIGNED;
+		DECLARE varBeerBreweryId INT UNSIGNED;
+		DECLARE varBeerAbv FLOAT(5, 2);
+		DECLARE varBeerAvailability VARCHAR(100);
+		DECLARE varBeerAwards VARCHAR(1000);
+		DECLARE varBeerColor FLOAT(6, 5);
+		DECLARE varBeerDbKey VARCHAR (6);
+		DECLARE varBeerDescription VARCHAR(2000);
+		DECLARE varBeerIbu VARCHAR(50);
+		DECLARE varBeerName VARCHAR(64);
+		DECLARE varBeerStyle VARCHAR (32);
+		DECLARE varBeerDrift FLOAT;
 
-			-- variables and where math is happening
-			SELECT beerColor, (beerIbu / 135) AS beerIbu INTO mathBeerColor, mathBeerIbu FROM beer WHERE varBeerId = beerId;
-
-			SET scoreDistanceColor = ABS ((colorMean-mathBeerColor)/colorStdDev); -- colorDrift
-			SET scoreDistanceIbu = ABS ((ibuMean-mathBeerIbu)/ibuStdDev); -- ibuDrift
-
-
-			SET beerDrift = SQRT ((POW (scoreDistanceIbu, 2)) + (POW (scoreDistanceColor, 2)));
-
-		SELECT beerDrift;
-
-		END $$
-DELIMITER ;
-
+		DECLARE colorStdDev FLOAT;
+		DECLARE colorMean FLOAT;
+		DECLARE ibuStdDev FLOAT;
+		DECLARE ibuMean FLOAT;
+		DECLARE scoreDistanceColor FLOAT;
+		DECLARE scoreDistanceIbu FLOAT;
 
 
-DELIMITER $$
-	CREATE PROCEDURE recommendation(IN userId INT UNSIGNED)
+		-- variables for cursor and loop control
+		DECLARE done BOOLEAN DEFAULT FALSE; -- exit flag
+		DECLARE compassCursor CURSOR FOR
+			SELECT beerId, beerBreweryId, beerAbv, beerAvailability, beerAwards, beerColor, beerDbKey, beerDescription, beerIbu, beerName, beerStyle FROM beer; -- cursor
+		DECLARE CONTINUE HANDLER FOR NOT FOUND
+		SET done = TRUE; -- exit when no more rows
 
-		BEGIN
-			-- declare variables
-			DECLARE varBeerId INT UNSIGNED;
-			DECLARE varBeerBreweryId INT UNSIGNED;
-			DECLARE varBeerAbv DECIMAL(5, 2);
-			DECLARE varBeerAvailability VARCHAR(100);
-			DECLARE varBeerAwards VARCHAR(1000);
-			DECLARE varBeerColor DECIMAL(6, 5);
-			DECLARE varBeerDbKey VARCHAR (6);
-			DECLARE varBeerDescription VARCHAR(2000);
-			DECLARE varBeerIbu VARCHAR(50);
-			DECLARE varBeerName VARCHAR(64);
-			DECLARE varBeerStyle VARCHAR (32);
-			DECLARE beerDrift DECIMAL;
-
-			DECLARE colorStdDev DECIMAL;
-			DECLARE colorMean DECIMAL;
-			DECLARE ibuStdDev DECIMAL;
-			DECLARE ibuMean DECIMAL;
-
-
-			-- variables for cursor and loop control
-			DECLARE done BOOLEAN DEFAULT FALSE; -- exit flag
-			DECLARE compassCursor CURSOR FOR
-				SELECT beerId, beerBreweryId, beerAbv, beerAvailability, beerAwards, beerColor, beerDbKey, beerDescription, beerIbu, beerName, beerStyle FROM beer; -- cursor
-			DECLARE CONTINUE HANDLER FOR NOT FOUND
-			SET done = TRUE; -- exit when no more rows
+		SELECT STDDEV(beerColor), AVG(beerColor) INTO colorStdDev, colorMean FROM beer;
+		-- makes ibu obey central limit theorem
+		SELECT STDDEV(beerIbu / 135), AVG(beerIbu / 135) INTO ibuStdDev, ibuMean FROM beer  WHERE beerIbu != "N/A";
 
 		-- create a temporary table to contain the recommended beers, empty at first; also has the drift variable
-			DROP TEMPORARY TABLE IF EXISTS selectedBeer;
-			CREATE TEMPORARY TABLE selectedBeer(
-				selBeerId INT UNSIGNED NOT NULL,
-				selBeerBreweryId INT UNSIGNED NOT NULL,
-				selBeerAbv DECIMAL(5, 2),
-				selBeerAvailability VARCHAR(100),
-				selBeerAwards VARCHAR(1000),
-				selBeerColor DECIMAL(6, 5),
-				selBeerDbKey VARCHAR(6),
-				selBeerDescription VARCHAR(2000),
-				selBeerIbu VARCHAR(50) NOT NULL,
-				selBeerName VARCHAR(64) NOT NULL,
-				selBeerStyle VARCHAR (32),
-				selBeerDrift DECIMAL
-			);
+		DROP TEMPORARY TABLE IF EXISTS selectedBeer;
+		CREATE TEMPORARY TABLE selectedBeer(
+			beerId INT UNSIGNED NOT NULL,
+			beerBreweryId INT UNSIGNED NOT NULL,
+			beerAbv FLOAT,
+			beerAvailability VARCHAR(100),
+			beerAwards VARCHAR(1000),
+			beerColor FLOAT,
+			beerDbKey VARCHAR(6),
+			beerDescription VARCHAR(2000),
+			beerIbu VARCHAR(50) NOT NULL,
+			beerName VARCHAR(64) NOT NULL,
+			beerStyle VARCHAR (32),
+			beerDrift FLOAT
+		);
 
-			OPEN compassCursor; -- open cursor
-			compassLoop : LOOP -- start LOOP
+		OPEN compassCursor; -- open cursor
+		compassLoop : LOOP -- start LOOP
 
 			FETCH compassCursor INTO varBeerId, varBeerBreweryId, varBeerAbv, varBeerAvailability, varBeerAwards, varBeerColor, varBeerDbKey, varBeerDescription, varBeerIbu, varBeerName, varBeerStyle; -- gets rows
 
-			SELECT CONVERT(varBeerIbu, DECIMAL);
-			IF varBeerIbu = 0 THEN SET varBeerIbu = 135;
-				END IF;
-
-			SELECT STDDEV(beerColor), AVG (beerColor) INTO colorStdDev, colorMean FROM beer;
-			-- makes ibu obey central limit theorem
-			SELECT STDDEV(CONVERT(beerIbu, DECIMAL) / 135), AVG(CONVERT(beerIbu, DECIMAL) / 135) INTO ibuStdDev, ibuMean FROM beer  WHERE beerIbu != "N/A";
+			IF varBeerIbu = "N/A" THEN SET varBeerIbu = 135;
+			END IF;
 			-- SELECT STDDEV(cIbu), AVG(cIbu) INTO ibuStdDev, ibuMean FROM beer;
 
-			CALL maths(colorStdDev, colorMean, ibuStdDev, ibuMean, varBeerId, beerDrift);
+			-- CALL maths(colorStdDev, colorMean, ibuStdDev, ibuMean, varBeerId, varBeerDrift);
+			SET scoreDistanceColor = ABS ((colorMean - varBeerColor) / colorStdDev); -- colorDrift
+			SET scoreDistanceIbu = ABS ((ibuMean - varBeerIbu) / ibuStdDev); -- ibuDrift
+			SET varBeerDrift = SQRT ((POW (scoreDistanceIbu, 2)) + (POW (scoreDistanceColor, 2)));
+
 			-- insert everything into selectedBeer, the temporary table
-			INSERT INTO selectedBeer VALUES (varBeerId, varBeerBreweryId, varBeerAbv, varBeerAvailability, varBeerAwards, varBeerColor, varBeerDbKey, varBeerDescription, varBeerIbu, varBeerName, varBeerStyle, beerDrift);
+			INSERT INTO selectedBeer(beerId, beerBreweryId, beerAbv, beerAvailability, beerAwards, beerColor, beerDbKey, beerDescription, beerIbu, beerName, beerStyle, beerDrift) VALUES (varBeerId, varBeerBreweryId, varBeerAbv, varBeerAvailability, varBeerAwards, varBeerColor, varBeerDbKey, varBeerDescription, varBeerIbu, varBeerName, varBeerStyle, varBeerDrift);
 
 			-- FETCH beerDrift INTO selectedBeer;
 
 			IF done THEN LEAVE compassLoop; -- leaves rows
 			END IF;
 
-			END LOOP compassLoop; -- stops mad looping behavior
-			CLOSE compassCursor; -- closes cursor
+		END LOOP compassLoop; -- stops mad looping behavior
+		CLOSE compassCursor; -- closes cursor
 
-			SELECT selBeerId, selBeerBreweryId, selBeerAbv, selBeerAvailability, selBeerAwards, selBeerColor, selBeerDbKey, selBeerDescription, selBeerIbu, selBeerName, selBeerStyle, selBeerDrift FROM selectedBeer WHERE selBeerDrift <= 1.5 -- the recommendation to return
-			ORDER BY selBeerDrift;
+		SELECT beerId, beerBreweryId, beerAbv, beerAvailability, beerAwards, beerColor, beerDbKey, beerDescription, beerIbu, beerName, beerStyle, beerDrift FROM selectedBeer WHERE beerDrift <= 1024.0 -- the recommendation to return
+		ORDER BY beerDrift;
 
-		END $$
+	END $$
 DELIMITER ;
+
+
 
 INSERT INTO tag (tagLabel)
 VALUES
