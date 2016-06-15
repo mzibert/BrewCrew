@@ -197,10 +197,15 @@ th {
 	text-decoration: underline;
 }
 
+.text-muted {
+	font-size: .75em;
+	padding-top: 1em;
+}
+
 /* navbar styles */
 .navbar {
 	font-family: 'Viga', sans-serif;
-	font-size: 1.25em;
+	font-size: 1.2em;
 	z-index: 1; /*Add this*/
 }
 
@@ -217,8 +222,13 @@ th {
 }
 
 #navbar-collapse-1 {
-	padding-top: .8rem;
+	padding-top: .6rem;
 	margin-right: 15px;
+}
+
+.navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form {
+	padding-top: 0;
+	margin-top: .4rem;
 }
 
 /* make .navbar-header take up all the space when nav is collapsed */
