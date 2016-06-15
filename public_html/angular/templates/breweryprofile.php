@@ -19,7 +19,7 @@
 									<h3 class="panel-title">What's On Tap</h3>
 								</div>
 								<ul class="list-group beers">
-									<li ng-repeat="beer in beerData"><a href="{{ beer.beerName }}"></a></li>
+									<li ng-repeat="beer in beerData"><a href="#"></a>{{ beer.beerName }}</li>
 								</ul>
 							</div>
 						</div>
