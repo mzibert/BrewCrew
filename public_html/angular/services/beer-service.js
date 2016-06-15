@@ -40,10 +40,10 @@ app.service("BeerService", function($http, BEER_ENDPOINT) {
 		return($http.get(getUrl() + "?beerName=" + beerName));
 	};
 
-	this.fetchBeerRecommendation = function(beerRecommendation) {
-		return($http.get(getUrl() + "?beerRecommendation=" + beerRecommendation));
+	this.fetchBeerRecommendation = function() {
+		return($http.get(getUrl() + "?beerRecommendation=allThingsMustFLOAT"));
 	};
-	
+
 	this.fetchBeerByBreweryId = function(beerBreweryId) {
 		return($http.get(getUrl() + "?beerBreweryId=" + beerBreweryId));
 	};
