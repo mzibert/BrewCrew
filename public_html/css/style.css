@@ -68,20 +68,17 @@ body {
 }
 
 .beerhero {
-	background: linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3)), url("../image/background.jpg")  no-repeat center center fixed;
+	background: linear-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4)), url("../image/beerbubbles.jpg")  no-repeat center center fixed;
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
 	background-size: cover;
 	z-index: 1; /*Add this*/
 	font-family: 'Viga', sans-serif;
-	top: 65px;
-	min-width: 100vw;
 	height: 180px;
 	color: white;
 	font-size: 2em;
-	/*padding-bottom: 48px;*/
-	padding-top: 85px;
+	padding-top: 90px;
 	text-shadow: black 0.12em 0.12em 0.12em;
 	-webkit-box-shadow: 10px 10px 10px grey;
 	-moz-box-shadow:    10px 10px 10px grey;
@@ -142,23 +139,26 @@ body {
 	background-color: rgba(255,255,255,0.75);
 	color: #333;
 }
+
 .brewery-profile ul{
 	background-color: rgba(255,255,255,0.75);
 	color: #333;
 }
+
 #btn {
 	background-color: #337ab7;
 }
+
 .table {
 	background-color: rgba(255,255,255,0.75);
 	color: #333;
 	margin-left: 50px;
 }
+
 .table-hover>tbody>tr:hover {
 	background-color: lightblue;
 	cursor: pointer;
 }
-
 
 .table-hover>tbody>tr>th{
 	background-color: white;
@@ -185,6 +185,18 @@ img.avatar {
 	padding: 150px;
 }
 
+.well {
+	font-family: 'Viga';
+}
+
+.table-responsive {
+	font-family: 'Viga';
+}
+
+th {
+	text-decoration: underline;
+}
+
 /* navbar styles */
 .navbar {
 	font-family: 'Viga', sans-serif;
@@ -195,6 +207,7 @@ img.avatar {
 .navbar-brand {
 	float: none;
 	padding: 0;
+	margin-left: 3px;
 }
 
 .navbar-brand > img {
@@ -205,6 +218,7 @@ img.avatar {
 
 #navbar-collapse-1 {
 	padding-top: .8rem;
+	margin-right: 15px;
 }
 
 /* make .navbar-header take up all the space when nav is collapsed */
