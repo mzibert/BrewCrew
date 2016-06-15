@@ -198,7 +198,7 @@ CREATE PROCEDURE recommendation(IN userId INT UNSIGNED)
 		END LOOP compassLoop; -- stops mad looping behavior
 		CLOSE compassCursor; -- closes cursor
 
-		SELECT beerId, beerBreweryId, beerAbv, beerAvailability, beerAwards, beerColor, beerDbKey, beerDescription, beerIbu, beerName, beerStyle, beerDrift FROM selectedBeer WHERE beerDrift <= .75 AND beerId NOT IN(SELECT DISTINCT reviewBeerId FROM review WHERE reviewUserId = userId)-- the recommendation to return
+		SELECT beerId, beerBreweryId, beerAbv, beerAvailability, beerAwards, beerColor, beerDbKey, beerDescription, (135 * beerIbu) AS beerIbu, beerName, beerStyle, beerDrift FROM selectedBeer WHERE beerDrift <= .75 AND beerId NOT IN(SELECT DISTINCT reviewBeerId FROM review WHERE reviewUserId = userId)-- the recommendation to return
 		ORDER BY beerDrift;
 
 	END $$
