@@ -61,10 +61,7 @@ app.config(function($routeProvider, $locationProvider) {
 			controller  : 'BreweryProfileController',
 			templateUrl : 'angular/templates/breweryprofile.php'
 		})
-		.when('/', {
-			controller  : 'SigninController',
-			templateUrl : 'angular/templates/signin.php'
-		})
+
 		// otherwise redirect to home
 		.otherwise({
 			redirectTo: "/"
