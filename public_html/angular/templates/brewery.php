@@ -13,7 +13,7 @@
 							<div class="input-group-addon">
 								<i class="fa fa-search"></i>
 							</div>
-							<input type="text" id="breweryNameSearch" name="breweryNameSearch" class="form-control" placeholder="search by brewery name" ng-model="breweryName"  ng-required="true" />
+							<input type="text" id="breweryNameSearch" name="breweryNameSearch" class="form-control" placeholder="Search by brewery name" ng-model="breweryName"  ng-required="true" />
 						</div>
 						<div class="alert alert-danger" role="alert" ng-messages="brewerySearch.search.$error" ng-if="brewerySearch.search.$touched" ng-hide="brewerySearch.search.$valid">
 
@@ -43,13 +43,20 @@
 	</div>
 	**/
 	</div><!--container-->
-<div class="row" id="brewerySearchTable">
-	<table class="table table-bordered table-hover table-responsive table-striped table-word-wrap">
-		<tr><th>Brewery Name</th><th>Location</th><th>Phone</th><th>URL</th></tr>
-		<tr ng-click="getBreweryProfile(breweryData[$index].breweryId)" ng-repeat="brewery in breweryData">
-			<td>{{ brewery.breweryName }}</td>
-			<td>{{ brewery.breweryLocation }}</td>
-			<td>{{ brewery.breweryPhone }}</td>
-			<td>{{ brewery.breweryUrl }}</td>
-		</tr>
-	</table>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-11">
+			<div class="row" id="brewerySearchTable">
+				<table class="table table-bordered table-hover table-responsive table-striped table-word-wrap">
+					<tr><th>Brewery Name</th><th>Location</th><th>Phone</th><th>URL</th></tr>
+					<tr ng-click="getBreweryProfile(breweryData[$index].breweryId)" ng-repeat="brewery in breweryData">
+						<td>{{ brewery.breweryName }}</td>
+						<td>{{ brewery.breweryLocation }}</td>
+						<td>{{ brewery.breweryPhone }}</td>
+						<td>{{ brewery.breweryUrl }}</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
