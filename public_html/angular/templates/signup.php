@@ -68,26 +68,26 @@
 				</fieldset>
 
 				<fieldset class="form-group">
-					<label for="userDateOfBirth">Date of Birth</label>
+					<label for="userDateOfBirth">Date of Birth (Must be 21)</label>
 					<input type="text" class="form-control" name="userDateOfBirth" id="userDateOfBirth"
 							 placeholder="YYYY-MM-DD" ng-model="signupData.userDateOfBirth"
 							 ng-minlength="2" ng-maxlength="128" ng-required="true"/>
 					<div class="alert alert-danger" role="alert" ng-messages="userSignUpForm.userDateOfBirth.$error"
 						  ng-if="userSignUpForm.userDateOfBirth.$touched" ng-hide="userSignUpForm.userDateOfBirth.$valid">
-						<p ng-message="minlength">You must be, at least, 21 years old to join.</p>
+						<p ng-message="minlength">You must be at least 21 years old to join.</p>
 						<p ng-message="required">Please enter your date of birth.</p>
 					</div>
 				</fieldset>
 				<br>
 				<hr>
 				<!-- Submit Form or Reset Form -->
-				<p>When you submit this form this user will receive an email from Craft Beer Compass with an activation link.</p>
+				<p>We will e-mail you an activation link.</p>
 				<button class="btn btn-success" type="submit"><i class="fa fa-paper-plane"></i> Submit</button>
-				<button class="btn btn-info" type="reset"><i class="fa fa-ban"></i>Reset Form</button>
+<!--				<button class="btn btn-info" type="reset"><i class="fa fa-ban"></i>Reset Form</button>-->
 			</form>
 			<br>
-			<div class="col-md-6">
-				<div class="button-container">
-					<a href="profile.php/" class="btn btn-warning">Profile</a>
-				</div>
-			</div>
+<!--			<div class="col-md-6">-->
+<!--				<div class="button-container">-->
+<!--					<a href="profile.php/" class="btn btn-warning">Profile</a>-->
+<!--				</div>-->
+<!--			</div>-->
