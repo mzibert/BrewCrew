@@ -4,8 +4,7 @@
 		<div class="col-md-3"></div>
 		<div class="col-md-6">
 			<div class="well text-center">
-				<form name="beerSearch" id="beerSearch" class="form-horizontal well" ng-submit="getBeerByName(beerName);"
-						novalidate>
+				<form name="beerSearch" id="beerSearch" class="form-horizontal well" ng-submit="search(beerName);"novalidate>
 
 					<label for="beerNameSearch">Search Beers</label>
 					<div class="input-group">
@@ -37,7 +36,7 @@
 			<td>{{ beer.beerName }}</td>
 			<td>{{ beer.beerStyle }}</td>
 			<td>{{ beer.beerAbv }}</td>
-			<td>{{ beer.beeravailability }}</td>
+			<td>{{ beer.beerAvailability }}</td>
 		</tr>
 	</table>
 </div>
