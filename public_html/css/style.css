@@ -2,7 +2,6 @@ BODY {
 	background-image:url(../image/beerbackground.jpg);
 	background-size:cover;
 	background-attachment:fixed;
-	font-family: "sans-serif";
 	color: #ffffff;
 	font-size: 2em;
 }
@@ -140,9 +139,6 @@ body {
 	color: #ffffff;
 }
 
-#beerSearchTable {
-	color: white;
-}
 
 #brewerySearchTable {
 	color: white;
@@ -150,6 +146,20 @@ body {
 
 #btn {
 	background-color: #337ab7;
+}
+.table {
+	background-color: rgba(255,255,255,0.75);
+	color: #333;
+}
+.table-hover>tbody>tr:hover {
+	background-color: lightblue;
+	cursor: pointer;
+}
+
+
+.table-hover>tbody>tr>th{
+	background-color: white;
+	cursor:auto;
 }
 
 img.avatar {

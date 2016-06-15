@@ -1,6 +1,6 @@
 app.controller('ReviewController', ["$scope", "ReviewService","$location", function($scope, ReviewService, $location) {
 	$scope.alerts = [];
-	//$scope.userData = [];
+	$scope.userData = [];
 	$scope.reviewData = {};
 	$scope.reviewProfile = null;
 
@@ -14,15 +14,7 @@ app.controller('ReviewController', ["$scope", "ReviewService","$location", funct
 				}
 			})
 	};
-	/**
-	 * onclick, reroutes page to the specified beer profile
-	 *
-	 * @param reviewId the review we are sending
-	 **/
-	$scope.getReviewProfile = function(reviewId) {
-		console.log("hi, I'm Merri" + reviewId);
-		$location.path("beerprofile/" + reviewId);
-	};
+
 	$scope.getReviewBeerId = function(reviewBeerId) {
 		ReviewService.fetchReviewBeerId(reviewBeerId)
 			.then(function(result) {

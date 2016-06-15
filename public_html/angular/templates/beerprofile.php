@@ -20,7 +20,7 @@
 									<h3 class="panel-title">Recent Reviews</h3>
 								</div>
 								<ul class="list-group reviews">
-									<h1>{{ reviewProfile[0].reviewBeerId }}</h1>
+									<h1>{{ reviewData[0].reviewBeerId }}</h1>
 									<a href="#" class="list-group-item">{{ reviewProfile[0].reviewPintRating }} </a>
 									<a href="#" class="list-group-item">{{ reviewBeerId[0].reviewDate }}</a>
 									<a href="#" class="list-group-item">{{ reviewBeerId[0].reviewText }}</a>
