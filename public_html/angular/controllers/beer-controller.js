@@ -2,12 +2,13 @@ app.controller('BeerController', ["$scope", "BeerService", "$location", function
 	$scope.beerProfile = null;
 	$scope.alerts = [];
 	$scope.beerData = [];
-	
 
 
 	$scope.search = function(searchTerm) {
+		$scope.beerData = [];
 		$scope.getBeerByName(searchTerm);
 		$scope.getBeerByStyle(searchTerm);
+		console.log($scope.beerData);
 		$scope.removeBeerDuplicates();
 	};
 
@@ -28,12 +29,15 @@ app.controller('BeerController', ["$scope", "BeerService", "$location", function
 			})
 	};
 	$scope.getBeerByName = function(beerName) {
-		console.log("in getbeerbyname-Controller");
-		console.log(beerName);
+		// console.log("in getbeerbyname-Controller");
+		// console.log(beerName);
 		BeerService.fetchBeerByName(beerName)
 			.then(function(result) {
 				if(result.data.status === 200) {
-					$scope.beerData = result.data.data;
+					if(result.data.data !== null) {
+						// console.log(result.data.data);
+						$scope.beerData = $scope.beerData.concat(result.data.data);
+					}
 					// console.log("good status");
 					// console.log(result.data.message);
 					// console.log(result.data.data);
@@ -49,12 +53,15 @@ app.controller('BeerController', ["$scope", "BeerService", "$location", function
 	};
 
 	$scope.getBeerByStyle = function(beerStyle) {
-		console.log("in getbeerbyname-Controller");
-		console.log(beerStyle);
+		// console.log("in getbeerbyname-Controller");
+		// console.log(beerStyle);
 		BeerService.fetchBeerByStyle(beerStyle)
 			.then(function(result) {
 				if(result.data.status === 200) {
-					$scope.beerData = result.data.data;
+					if(result.data.data !== null) {
+						// console.log(result.data.data);
+						$scope.beerData = $scope.beerData.concat(result.data.data);
+					}
 					// console.log("good status");
 					// console.log(result.data.message);
 					// console.log(result.data.data);
@@ -69,7 +76,7 @@ app.controller('BeerController', ["$scope", "BeerService", "$location", function
 			})
 	};
 	$scope.getBeerRecommendation = function() {
-		console.log("beer recommendation getting through controller");
+		// console.log("beer recommendation getting through controller");
 		BeerService.fetchBeerRecommendation()
 			.then(function(result) {
 				if(result.data.status === 200) {
@@ -133,41 +140,41 @@ app.controller('BeerController', ["$scope", "BeerService", "$location", function
 	// 			}
 	// 		})
 	// };
-	$scope.getBeerByName = function(beerName) {
-		console.log("in getbeerbyname-Controller");
-		console.log(beerName);
-		BeerService.fetchBeerByName(beerName)
-			.then(function(result) {
-				if(result.data.status === 200) {
-					$scope.beerData = result.data.data;
-					console.log("good status");
-					console.log(result.data.message);
-					console.log(result.data.data);
-					console.log($scope.beerData);
-				} else {
-					$scope.alerts[0] = {type: "danger", msg: result.data.message};
-					console.log("bad status");
-					console.log(result.data.status);
-					console.log(result.data.data);
-					console.log(result.data.message);
-				}
-			})
-	};
+	// $scope.getBeerByName = function(beerName) {
+	// 	// console.log("in getbeerbyname-Controller");
+	// 	// console.log(beerName);
+	// 	BeerService.fetchBeerByName(beerName)
+	// 		.then(function(result) {
+	// 			if(result.data.status === 200) {
+	// 				$scope.beerData = result.data.data;
+	// 				// console.log("good status");
+	// 				// console.log(result.data.message);
+	// 				// console.log(result.data.data);
+	// 				// console.log($scope.beerData);
+	// 			} else {
+	// 				$scope.alerts[0] = {type: "danger", msg: result.data.message};
+	// 				// console.log("bad status");
+	// 				// console.log(result.data.status);
+	// 				// console.log(result.data.data);
+	// 				// console.log(result.data.message);
+	// 			}
+	// 		})
+	// };
 	/**
 	 * onclick, reroutes page to the specified beer
 	 *
 	 * @param beerId the beer we are sending
 	 **/
 	$scope.getBeerProfile = function(beerId) {
-		console.log("hi, I'm merri" + beerId);
+		// console.log("hi, I'm merri" + beerId);
 		$location.path("beerprofile/" + beerId);
 	};
-/**
- * Creates a beer and sends it to the beer API
- *
- * @param beer the beer we send
- * @param validated true if Angular validated the form, false if not
- **/
+	/**
+	 * Creates a beer and sends it to the beer API
+	 *
+	 * @param beer the beer we send
+	 * @param validated true if Angular validated the form, false if not
+	 **/
 	$scope.beerCreate = function(beer, validated) {
 		if(validated === true) {
 			BeerService.create(beer)
@@ -178,15 +185,16 @@ app.controller('BeerController', ["$scope", "BeerService", "$location", function
 						$scope.alerts[0] = {type: "danger", msg: result.data.message};
 					}
 				})
-		}};
+		}
+	};
 
-/** Updates a beer and sends it to the beer database
- *
- *@param beer the beer we are sending
- *@param validated true if Angular validated the form, false if not
- **/
+	/** Updates a beer and sends it to the beer database
+	 *
+	 *@param beer the beer we are sending
+	 *@param validated true if Angular validated the form, false if not
+	 **/
 	$scope.beerUpdate = function(beer, validated) {
-		if (validated === true) {
+		if(validated === true) {
 			BeerService.update(beer)
 				.then(function(result) {
 					if(result.data.status === 200) {
@@ -195,7 +203,8 @@ app.controller('BeerController', ["$scope", "BeerService", "$location", function
 						$scope.alerts[0] = {type: "danger", msg: result.data.message};
 					}
 				})
-		}};
+		}
+	};
 	/**
 	 * Destroys a beer and removes it from the beer API
 	 *
@@ -212,6 +221,7 @@ app.controller('BeerController', ["$scope", "BeerService", "$location", function
 						$scope.alerts[0] = {type: "danger", msg: result.data.message};
 					}
 				})
-		}};
+		}
+	};
 
 }]);
