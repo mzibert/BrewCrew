@@ -11,6 +11,7 @@
 				<input type="text" id="userName" ng-model="signInData.userName" class="form-control" placeholder="username"
 						 required="required" autofocus="autofocus"/>
 
+				<br>
 				<label for="password">Password</label>
 				<div class="input-group">
 					<div class="input-group-addon">
@@ -28,7 +29,6 @@
 				</div>
 				<h1></h1>
 				<button class="btn btn-lg btn-info" type="submit"><i class="fa fa-paper-plane"></i>&nbsp;Submit</button>
-				<hr/>
 			</form>
 		</div>
 	</div>
