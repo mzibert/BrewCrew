@@ -8,17 +8,14 @@
 </div>
 <div class="container">
 	<div class="row">
-		<div class="col-md-9">
+		<div class="col-md-2">
 			<button type="button" class="btn btn-generate" ng-required="true" ng-click="getBeerRecommendation()">
 				Generate Flavor Profile
 			</button>
-
-
-
 		</div>
 	</div>
 </div>
-<div class="container">
+<div class="container-fluid">
 	<div class="row">
 		<div class="col-md-9">
 			<div class="ibox float-e-margins">
@@ -37,14 +34,20 @@
 		</div>
 	</div>
 </div>
-<div class="row" id="compassTable">
-	<table class="table table-bordered table-hover table-responsive table-striped table-word-wrap">
-		<tr><th>Beer Name</th><th>Style</th><th>ABV</th><th>Availability</th></tr>
-		<tr ng-click="getBeerProfile(beerData[$index].beerId);" ng-repeat="beer in beerData">
-			<td>{{ beer.beerName }}</td>
-			<td>{{ beer.beerStyle }}</td>
-			<td>{{ beer.beerAbv }}</td>
-			<td>{{ beer.beeravailability }}</td>
-		</tr>
-	</table>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-11">
+			<div class="row" id="compassTable">
+				<table class="table table-bordered table-hover table-responsive table-striped table-word-wrap">
+					<tr><th>Beer Name</th><th>Style</th><th>ABV</th><th>Availability</th></tr>
+					<tr ng-click="getBeerProfile(beerData[$index].beerId);" ng-repeat="beer in beerData">
+						<td>{{ beer.beerName }}</td>
+						<td>{{ beer.beerStyle }}</td>
+						<td>{{ beer.beerAbv }}</td>
+						<td>{{ beer.beeravailability }}</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
 </div>
