@@ -30,7 +30,7 @@
 <br>
 <div class="container-fluid">
 	<div class="row">
-		<div class="col-md-11">
+		<div class="col-xs-12">
 			<div class="row" id="compassTable">
 				<table class="table table-bordered table-hover table-responsive table-striped table-word-wrap">
 					<tr><th>Beer Name</th><th>Style</th><th>ABV</th><th>Availability</th></tr>
@@ -38,7 +38,7 @@
 						<td>{{ beer.beerName }}</td>
 						<td>{{ beer.beerStyle }}</td>
 						<td>{{ beer.beerAbv }}</td>
-						<td>{{ beer.beeravailability }}</td>
+						<td>{{ beer.beerAvailability }}</td>
 					</tr>
 				</table>
 			</div>
