@@ -5,6 +5,7 @@ app.service("SigninService", function($http, SIGNIN_ENDPOINT) {
 		return(SIGNIN_ENDPOINT);
 	}
 	this.signin = function(signin) {
+		console.log("inside signin service");
 		return($http.post(getUrl(), signin));
 	};
 });
