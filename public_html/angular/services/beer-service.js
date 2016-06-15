@@ -37,12 +37,15 @@ app.service("BeerService", function($http, BEER_ENDPOINT) {
 	};
 
 	this.fetchBeerByName = function(beerName) {
-		console.log("in fetchbeerbyname: SERVICE");
 		return($http.get(getUrl() + "?beerName=" + beerName));
 	};
 
-	this.fetchBeerByColor = function(beerColor) {
-		return($http.get(getUrl() + "?beerColor=" + beerColor));
+	this.fetchBeerRecommendation = function(beerRecommendation) {
+		return($http.get(getUrl() + "?beerRecommendation=" + beerRecommendation));
+	};
+	
+	this.fetchBeerByBreweryId = function(beerBreweryId) {
+		return($http.get(getUrl() + "?beerBreweryId=" + beerBreweryId));
 	};
 
 	this.beerUpdate = function(beerId, beer) {
