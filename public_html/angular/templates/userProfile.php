@@ -6,7 +6,7 @@
 
 	<p class="text-danger">.</p>
 	<form name="userUpdateProfile" ng-submit="updateUser(userData, userUpdateProfile.$valid);">
-		<fieldset class="form-group">
+		<fieldset class="form-group" id="userEmail">
 			<label for="userEmailInput">Email</label>
 			<input type="text" class="form-control" name="userEmail" id="userEmail"
 					 placeholder="email2@email.com" ng-model="userData.userEmail"

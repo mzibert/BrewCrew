@@ -152,6 +152,7 @@ body {
 .table {
 	background-color: rgba(255,255,255,0.75);
 	color: #333;
+	margin-left: 50px;
 }
 .table-hover>tbody>tr:hover {
 	background-color: lightblue;
@@ -183,7 +184,9 @@ img.avatar {
 	text-align: center;
 	padding: 150px;
 }
-
+#userEmail{
+	margin: 75px;
+}
 /* navbar styles */
 .navbar {
 	font-family: 'Viga', sans-serif;
