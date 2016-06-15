@@ -8,7 +8,7 @@ app.controller('ReviewController', ["$scope", "ReviewService","$location", funct
 		ReviewService.fetchReviewByReviewId(reviewId)
 			.then(function(result) {
 				if(result.status.data === 200) {
-					$scope.data = result.data.data;
+					$scope.reviewData = result.data.data;
 				} else {
 					$scope.alerts[0] = {type: "danger", msg: result.data.message};
 				}
@@ -27,7 +27,7 @@ app.controller('ReviewController', ["$scope", "ReviewService","$location", funct
 		ReviewService.fetchReviewBeerId(reviewBeerId)
 			.then(function(result) {
 				if(result.status.data === 200) {
-					$scope.data = result.data.data;
+					$scope.reviewData = result.data.data;
 				} else {
 					$scope.alerts[0] = {type: "danger", msg: result.data.message};
 				}
@@ -38,7 +38,7 @@ app.controller('ReviewController', ["$scope", "ReviewService","$location", funct
 		ReviewService.fetchReviewUserId(reviewUserId)
 			.then(function(result) {
 				if(result.status.data === 200) {
-					$scope.data = result.data.data;
+					$scope.reviewData = result.data.data;
 				} else {
 					$scope.alerts[0] = {type: "danger", msg: result.data.message};
 				}
@@ -49,7 +49,7 @@ app.controller('ReviewController', ["$scope", "ReviewService","$location", funct
 		ReviewService.fetchReviewDate(reviewDate)
 			.then(function(result) {
 				if(result.status.data === 200) {
-					$scope.data = result.data.data;
+					$scope.reviewData = result.data.data;
 				} else {
 					$scope.alerts[0] = {type: "danger", msg: result.data.message};
 				}
@@ -59,7 +59,7 @@ app.controller('ReviewController', ["$scope", "ReviewService","$location", funct
 		ReviewService.fetchReviewPintRating(reviewPintRating)
 			.then(function(result) {
 				if(result.status.data === 200) {
-					$scope.data = result.data.data;
+					$scope.reviewData = result.data.data;
 				} else {
 					$scope.alerts[0] = {type: "danger", msg: result.data.message};
 				}
@@ -69,7 +69,7 @@ app.controller('ReviewController', ["$scope", "ReviewService","$location", funct
 		ReviewService.fetchAllReviews(allReviews)
 			.then(function(result) {
 				if(result.status.data === 200) {
-					$scope.data = result.data.data;
+					$scope.reviewData = result.data.data;
 				} else {
 					$scope.alerts[0] = {type: "danger", msg: result.data.message};
 				}

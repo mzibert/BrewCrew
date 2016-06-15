@@ -54,6 +54,7 @@ app.config(function($routeProvider, $locationProvider) {
 		.when('/beerprofile/:id', {
 			controller  : 'BeerProfileController',
 			templateUrl : 'angular/templates/beerprofile.php'
+
 		})
 
 		// route for the brewery profile pages
