@@ -108,21 +108,22 @@ DROP PROCEDURE IF EXISTS maths;
 DROP PROCEDURE IF EXISTS recommendation;
 
 DELIMITER $$
-	CREATE PROCEDURE maths(colorStdDev DECIMAL, colorMean DECIMAL, ibuStdDev DECIMAL, ibuMean DECIMAL, beerId INT UNSIGNED, OUT beerDrift DECIMAL)
+	CREATE PROCEDURE maths(colorStdDev DECIMAL, colorMean DECIMAL, ibuStdDev DECIMAL, ibuMean DECIMAL, varBeerId INT UNSIGNED, OUT beerDrift DECIMAL)
 		BEGIN
 
 			-- declare variables
 			DECLARE scoreDistanceColor DECIMAL;
 			DECLARE scoreDistanceIbu DECIMAL;
 			DECLARE beerDrift DECIMAL;
-			DECLARE beerColor DECIMAL;
-			DECLARE beerIbu DECIMAL;
+			DECLARE mathBeerColor DECIMAL;
+			DECLARE mathBeerIbu DECIMAL;
+			DECLARE varBeerId INT;
 
 			-- variables and where math is happening
-			SELECT beerColor, (beerIbu / 135) AS beerIbu INTO beerColor, beerIbu FROM beer WHERE beerId = beerId;
+			SELECT beerColor, (beerIbu / 135) AS beerIbu INTO mathBeerColor, mathBeerIbu FROM beer WHERE varBeerId = beerId;
 
-			SET scoreDistanceColor = ABS ((colorMean-beerColor)/colorStdDev); -- colorDrift
-			SET scoreDistanceIbu = ABS ((ibuMean-beerIbu)/ibuStdDev); -- ibuDrift
+			SET scoreDistanceColor = ABS ((colorMean-mathBeerColor)/colorStdDev); -- colorDrift
+			SET scoreDistanceIbu = ABS ((ibuMean-mathBeerIbu)/ibuStdDev); -- ibuDrift
 
 
 			SET beerDrift = SQRT ((POW (scoreDistanceIbu, 2)) + (POW (scoreDistanceColor, 2)));
@@ -139,17 +140,17 @@ DELIMITER $$
 
 		BEGIN
 			-- declare variables
-			DECLARE beerId INT UNSIGNED;
-			DECLARE beerBreweryId INT UNSIGNED;
-			DECLARE beerAbv DECIMAL(5, 2);
-			DECLARE beerAvailability VARCHAR(100);
-			DECLARE beerAwards VARCHAR(1000);
-			DECLARE beerColor DECIMAL(6, 5);
-			DECLARE beerDbKey VARCHAR (6);
-			DECLARE beerDescription VARCHAR(2000);
-			DECLARE beerIbu VARCHAR(50);
-			DECLARE beerName VARCHAR(64);
-			DECLARE beerStyle VARCHAR (32);
+			DECLARE varBeerId INT UNSIGNED;
+			DECLARE varBeerBreweryId INT UNSIGNED;
+			DECLARE varBeerAbv DECIMAL(5, 2);
+			DECLARE varBeerAvailability VARCHAR(100);
+			DECLARE varBeerAwards VARCHAR(1000);
+			DECLARE varBeerColor DECIMAL(6, 5);
+			DECLARE varBeerDbKey VARCHAR (6);
+			DECLARE varBeerDescription VARCHAR(2000);
+			DECLARE varBeerIbu VARCHAR(50);
+			DECLARE varBeerName VARCHAR(64);
+			DECLARE varBeerStyle VARCHAR (32);
 			DECLARE beerDrift DECIMAL;
 
 			DECLARE colorStdDev DECIMAL;
@@ -168,27 +169,27 @@ DELIMITER $$
 		-- create a temporary table to contain the recommended beers, empty at first; also has the drift variable
 			DROP TEMPORARY TABLE IF EXISTS selectedBeer;
 			CREATE TEMPORARY TABLE selectedBeer(
-				beerId INT UNSIGNED NOT NULL,
-				beerBreweryId INT UNSIGNED NOT NULL,
-				beerAbv DECIMAL(5, 2),
-				beerAvailability VARCHAR(100),
-				beerAwards VARCHAR(1000),
-				beerColor DECIMAL(6, 5),
-				beerDbKey VARCHAR(6),
-				beerDescription VARCHAR(2000),
-				beerIbu VARCHAR(50) NOT NULL,
-				beerName VARCHAR(64) NOT NULL,
-				beerStyle VARCHAR (32),
-				beerDrift DECIMAL
+				selBeerId INT UNSIGNED NOT NULL,
+				selBeerBreweryId INT UNSIGNED NOT NULL,
+				selBeerAbv DECIMAL(5, 2),
+				selBeerAvailability VARCHAR(100),
+				selBeerAwards VARCHAR(1000),
+				selBeerColor DECIMAL(6, 5),
+				selBeerDbKey VARCHAR(6),
+				selBeerDescription VARCHAR(2000),
+				selBeerIbu VARCHAR(50) NOT NULL,
+				selBeerName VARCHAR(64) NOT NULL,
+				selBeerStyle VARCHAR (32),
+				selBeerDrift DECIMAL
 			);
 
 			OPEN compassCursor; -- open cursor
 			compassLoop : LOOP -- start LOOP
 
-			FETCH compassCursor INTO beerId, beerBreweryId, beerAbv, beerAvailability, beerAwards, beerColor, beerDbKey, beerDescription, beerIbu, beerName, beerStyle; -- gets rows
+			FETCH compassCursor INTO varBeerId, varBeerBreweryId, varBeerAbv, varBeerAvailability, varBeerAwards, varBeerColor, varBeerDbKey, varBeerDescription, varBeerIbu, varBeerName, varBeerStyle; -- gets rows
 
-			SELECT CONVERT(beerIbu, DECIMAL);
-			IF beerIbu = 0 THEN SET beerIbu = 135;
+			SELECT CONVERT(varBeerIbu, DECIMAL);
+			IF varBeerIbu = 0 THEN SET varBeerIbu = 135;
 				END IF;
 
 			SELECT STDDEV(beerColor), AVG (beerColor) INTO colorStdDev, colorMean FROM beer;
@@ -196,9 +197,9 @@ DELIMITER $$
 			SELECT STDDEV(CONVERT(beerIbu, DECIMAL) / 135), AVG(CONVERT(beerIbu, DECIMAL) / 135) INTO ibuStdDev, ibuMean FROM beer  WHERE beerIbu != "N/A";
 			-- SELECT STDDEV(cIbu), AVG(cIbu) INTO ibuStdDev, ibuMean FROM beer;
 
-			CALL maths(colorStdDev, colorMean, ibuStdDev, ibuMean, beerId, beerDrift);
+			CALL maths(colorStdDev, colorMean, ibuStdDev, ibuMean, varBeerId, beerDrift);
 			-- insert everything into selectedBeer, the temporary table
-			INSERT INTO selectedBeer VALUES (beerId, beerBreweryId, beerAbv, beerAvailability, beerAwards, beerColor, beerDbKey, beerDescription, beerIbu, beerName, beerStyle, beerDrift);
+			INSERT INTO selectedBeer VALUES (varBeerId, varBeerBreweryId, varBeerAbv, varBeerAvailability, varBeerAwards, varBeerColor, varBeerDbKey, varBeerDescription, varBeerIbu, varBeerName, varBeerStyle, beerDrift);
 
 			-- FETCH beerDrift INTO selectedBeer;
 
@@ -208,8 +209,8 @@ DELIMITER $$
 			END LOOP compassLoop; -- stops mad looping behavior
 			CLOSE compassCursor; -- closes cursor
 
-			SELECT beerId, beerBreweryId, beerAbv, beerAvailability, beerAwards, beerColor, beerDbKey, beerDescription, beerIbu, beerName, beerStyle, beerDrift FROM selectedBeer WHERE beerDrift <= 1.5 -- the recommendation to return
-			ORDER BY beerDrift;
+			SELECT selBeerId, selBeerBreweryId, selBeerAbv, selBeerAvailability, selBeerAwards, selBeerColor, selBeerDbKey, selBeerDescription, selBeerIbu, selBeerName, selBeerStyle, selBeerDrift FROM selectedBeer WHERE selBeerDrift <= 1.5 -- the recommendation to return
+			ORDER BY selBeerDrift;
 
 		END $$
 DELIMITER ;
