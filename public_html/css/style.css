@@ -145,7 +145,12 @@ body {
 	color: #333;
 }
 
-#btn {
+.btn-generate {
+	background-color: #337ab7;
+	font-weight: bold;
+}
+
+.btn-lg {
 	background-color: #337ab7;
 }
 
@@ -200,6 +205,10 @@ th {
 .text-muted {
 	font-size: .75em;
 	padding-top: 1em;
+}
+
+.beer-profile ul {
+	padding: 1em;
 }
 
 /* navbar styles */
