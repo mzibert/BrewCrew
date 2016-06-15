@@ -28,15 +28,7 @@
 		</div>
 	</div>
 
-<!--	<div class="row">-->
-<!--		<div class="col-md-3"></div>-->
-<!--		<div class="col-md-6 pull-left-md">-->
-<!--			<div class="well text-center">-->
-<!--				<h2>Beer Name: {{beerData[0].beerName}}</h2>-->
-<!--			</div>-->
-<!--		</div>-->
-<!--	</div>-->
-<!--</div>-->
+
 
 <div class="row" id="beerSearchTable">
 	<table class="table table-bordered table-hover table-responsive table-striped table-word-wrap">

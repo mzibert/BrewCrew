@@ -20,9 +20,10 @@
 									<h3 class="panel-title">Recent Reviews</h3>
 								</div>
 								<ul class="list-group reviews">
-									<a href="#" class="list-group-item">Cras justo odio</a>
-									<a href="#" class="list-group-item">Dapibus ac facilisis in</a>
-									<a href="#" class="list-group-item">Morbi leo risus</a>
+									<h1>{{ reviewProfile[0].reviewBeerId }}</h1>
+									<a href="#" class="list-group-item">{{ reviewProfile[0].reviewPintRating }} </a>
+									<a href="#" class="list-group-item">{{ reviewBeerId[0].reviewDate }}</a>
+									<a href="#" class="list-group-item">{{ reviewBeerId[0].reviewText }}</a>
 									<a href="#" class="list-group-item">Porta ac consectetur ac</a>
 									<a href="#" class="list-group-item">Vestibulum at eros</a>
 								</ul>
