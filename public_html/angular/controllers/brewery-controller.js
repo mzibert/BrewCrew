@@ -25,22 +25,12 @@ app.controller('BreweryController', ["$scope", "BreweryService", "$location", fu
 			})
 	};
 	$scope.getBreweryByName = function(breweryName) {
-		console.log("in getbrewerybyname-Controller");
-		console.log(breweryName);
 		BreweryService.fetchBreweryByName(breweryName)
 			.then(function(result) {
 				if(result.data.status === 200) {
 					$scope.breweryData = result.data.data;
-					console.log("good status");
-					console.log(result.data.message);
-					console.log(result.data.data);
-					console.log($scope.breweryData);
 				} else {
 					$scope.alerts[0] = {type: "danger", msg: result.data.message};
-					console.log("bad status");
-					console.log(result.data.status);
-					console.log(result.data.data);
-					console.log(result.data.message);
 				}
 			})
 	};
@@ -50,7 +40,6 @@ app.controller('BreweryController', ["$scope", "BreweryService", "$location", fu
 	 * @param breweryId the brewery we are sending
 	 **/
 	$scope.getBreweryProfile = function(breweryId) {
-		console.log("hi, I'm merri" + breweryId);
 		$location.path("breweryprofile/" + breweryId);
 	};
 /**
