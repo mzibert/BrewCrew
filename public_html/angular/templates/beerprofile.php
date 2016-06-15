@@ -22,7 +22,7 @@
 								<ul class="list-group reviews">
 									<li ng-repeat="review in reviewData">
 <!--										Date:  {{ review.reviewDate }}-->
-										Rating: {{ review.reviewPintRating }}<br><br>
+										Pint Rating: {{ review.reviewPintRating }}<br><br>
 										Review: {{ review.reviewText }}<br><br>
 									</li>
 								</ul>
