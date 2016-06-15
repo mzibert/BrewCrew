@@ -33,11 +33,12 @@
 		<div class="col-xs-12">
 			<div class="row" id="compassTable">
 				<table class="table table-bordered table-hover table-responsive table-striped table-word-wrap">
-					<tr><th>Beer Name</th><th>Style</th><th>ABV</th><th>Availability</th></tr>
+					<tr><th>Beer Name</th><th>Style</th><th>ABV</th><th>IBU</th><th>Availability</th></tr>
 					<tr ng-click="getBeerProfile(beerData[$index].beerId);" ng-repeat="beer in beerData">
 						<td>{{ beer.beerName }}</td>
 						<td>{{ beer.beerStyle }}</td>
 						<td>{{ beer.beerAbv }}</td>
+						<td>{{ beer.beerIbu }}</td>
 						<td>{{ beer.beerAvailability }}</td>
 					</tr>
 				</table>
