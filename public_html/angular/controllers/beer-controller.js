@@ -34,6 +34,18 @@ app.controller('BeerController', ["$scope", "BeerService", "$location", function
 				}
 			})
 	};
+
+	$scope.getBeerRecommendation = function(beerRecommendation) {
+		BeerService.fetchBeerRecommendation(beerRecommendation)
+			.then(function(result) {
+				if(result.status.data === 200) {
+					$scope.beerData = result.data.data;
+				} else {
+					$scope.alerts[0] = {type: "danger", msg: result.data.message};
+				}
+			})
+	};
+	
 	/**
 	 * onclick, reroutes page to the specified beer
 	 *
