@@ -104,7 +104,6 @@ CREATE TABLE reviewTag (
 );
 
 
-
 DROP PROCEDURE IF EXISTS recommendation;
 
 DELIMITER $$
@@ -114,10 +113,10 @@ CREATE PROCEDURE recommendation(IN userId INT UNSIGNED)
 		-- declare variables
 		DECLARE varBeerId INT UNSIGNED;
 		DECLARE varBeerBreweryId INT UNSIGNED;
-		DECLARE varBeerAbv FLOAT(5, 2);
+		DECLARE varBeerAbv FLOAT;
 		DECLARE varBeerAvailability VARCHAR(100);
 		DECLARE varBeerAwards VARCHAR(1000);
-		DECLARE varBeerColor FLOAT(6, 5);
+		DECLARE varBeerColor FLOAT;
 		DECLARE varBeerDbKey VARCHAR (6);
 		DECLARE varBeerDescription VARCHAR(2000);
 		DECLARE varBeerIbu VARCHAR(50);
@@ -129,6 +128,9 @@ CREATE PROCEDURE recommendation(IN userId INT UNSIGNED)
 		DECLARE colorMean FLOAT;
 		DECLARE ibuStdDev FLOAT;
 		DECLARE ibuMean FLOAT;
+		DECLARE idealColor FLOAT;
+		DECLARE idealIbu FLOAT;
+		DECLARE idealWeight FLOAT;
 		DECLARE scoreDistanceColor FLOAT;
 		DECLARE scoreDistanceIbu FLOAT;
 
@@ -143,6 +145,14 @@ CREATE PROCEDURE recommendation(IN userId INT UNSIGNED)
 		SELECT STDDEV(beerColor), AVG(beerColor) INTO colorStdDev, colorMean FROM beer;
 		-- makes ibu obey central limit theorem
 		SELECT STDDEV(beerIbu / 135), AVG(beerIbu / 135) INTO ibuStdDev, ibuMean FROM beer  WHERE beerIbu != "N/A";
+
+		SELECT SUM(reviewPintRating) INTO idealWeight FROM review WHERE reviewUserId = userId;
+		SELECT SUM(reviewPintRating * beerColor) / idealWeight INTO idealColor FROM review
+			INNER JOIN beer ON review.reviewBeerId = beer.beerId
+		WHERE reviewUserId = userId;
+		SELECT SUM(reviewPintRating * beerIbu) / (135 * idealWeight) INTO idealIbu FROM review
+			INNER JOIN beer ON review.reviewBeerId = beer.beerId
+		WHERE reviewUserId = userId;
 
 		-- create a temporary table to contain the recommended beers, empty at first; also has the drift variable
 		DROP TEMPORARY TABLE IF EXISTS selectedBeer;
@@ -168,11 +178,10 @@ CREATE PROCEDURE recommendation(IN userId INT UNSIGNED)
 
 			IF varBeerIbu = "N/A" THEN SET varBeerIbu = 135;
 			END IF;
-			-- SELECT STDDEV(cIbu), AVG(cIbu) INTO ibuStdDev, ibuMean FROM beer;
+			SET varBeerIbu = varBeerIbu / 135;
 
-			-- CALL maths(colorStdDev, colorMean, ibuStdDev, ibuMean, varBeerId, varBeerDrift);
-			SET scoreDistanceColor = ABS ((colorMean - varBeerColor) / colorStdDev); -- colorDrift
-			SET scoreDistanceIbu = ABS ((ibuMean - varBeerIbu) / ibuStdDev); -- ibuDrift
+			SET scoreDistanceColor = ABS ((idealColor - varBeerColor) / colorStdDev); -- colorDrift
+			SET scoreDistanceIbu = ABS ((idealIbu - varBeerIbu) / ibuStdDev); -- ibuDrift
 			SET varBeerDrift = SQRT ((POW (scoreDistanceIbu, 2)) + (POW (scoreDistanceColor, 2)));
 
 			-- insert everything into selectedBeer, the temporary table
